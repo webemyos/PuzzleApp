@@ -1,0 +1,26 @@
+#appRunForm .folder, #appRunFile .file, #appRunFile .headFolder {border-top : 1px solid grey; text-align: left; }
+#appRunForm .folder span , #appRunFile .file span, #appRunFile .headFolder  span {display:inline-block ;margin : 5px; width : 180px;}
+
+#appRunForm .App, #appRunForm, #appRunForm .headApp {border-top : 1px solid grey;border-bottom: 1px solid grey;   text-align: left; }
+#appRunForm .App span , #appRunForm span, #appRunForm .headApp  span {display:inline-block ;margin : 5px;}
+#appRunForm .App .name #appRunForm name{cursor:pointer}
+
+#appRunForm .message .date{color: #24D6FF}
+#appRunForm .message div {display:inline-block; margin:5px;}
+#appRunForm .message span{ margin:5px;} 
+
+#appRunForm .action span {display: inline}
+
+.FormForm{height : 400px;overflow: auto;}
+.FormForm h2{	background-color: #bebebe;}
+.FormForm h3{	background-color: #dedede;font-size: 9px;}
+
+#appRunForm .tools{text-align:left;color:white;padding:5px; margin-top:-10px; background-image: linear-gradient(to bottom, #eeeeee 0px, #bebebe 100%); border-bottom:1px solid green; width:100%; margin-top:0px}
+#appRunForm .tools span{display: inline-block;text-align:left;}
+
+#appRunForm #dvDesktop table{border:1px solid grey;}
+#appRunForm .question{border-bottom:1px solid #bebebe; padding: 5px}
+
+#appRunForm  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
+

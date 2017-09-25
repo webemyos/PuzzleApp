@@ -1,0 +1,308 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2 juin 2016, 18:57:08
+    Author     : jerome
+*/
+/*------------------ WEBEMYOS ------------- */
+
+#toolBar {
+    height: 50px;
+    margin: 2px;
+    margin-bottom: 10px;
+    padding: 2px;
+    border: 1px solid #1EACFF;
+    text-align: left;
+    vertical-align: middle;
+    background: white;
+}
+
+#toolBar ul li {
+    display: inline;
+}
+
+#toolBar ul li img {
+    width: 50px;
+}
+
+#toolBar b {
+    margin: 5px;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+/*  Menu des applications */
+
+.App .menuApp {
+    margin: 0;
+    background-color: #24D6FF;
+}
+
+.App .sub {
+    visibility: hidden;
+    z-index: 999999;
+    position: absolute;
+    top: 15px;
+    width: 150px;
+    border: 1px solid grey;
+    overflow: hidden;
+     background: none repeat scroll 0 0 #0288d1;
+    box-shadow: 0 0 3px grey;
+    color:grey;
+}
+
+.App .subitem {
+    text-align: left;
+}
+
+.App .subitem a{
+    color: #b3e5fc;;
+}
+
+.App .subitem img {
+    width: 20px;
+    padding: 5px;
+    border-radius: 0 0 8px 0;
+    border-right: 1px solid grey;
+    background: url("Images/toolbar.png");
+    marging: 0;
+}
+
+.App .subitem span {
+    margin: 5px;
+}
+
+
+
+#appToolTip {
+    margin: 0;
+}
+
+#appToolBar i {
+    cursor: pointer;
+}
+
+.menuApp {
+    width: 98%;
+}
+
+/*---------    pop in--------------
+----------------------------------------*/
+
+#back {
+    z-index: 9980;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    background: white;
+    filter: alpha(opacity='70');
+}
+
+/** Pop in */
+
+.popup {
+    z-index: 10037;
+    position: absolute;
+    padding: 5px;
+    border: 1px solid grey;
+    text-align: center;
+    background: white;
+}
+
+.popup div {
+    float: left;
+    clear: both;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.popup div .title {
+    font-size: 1.4em;
+    font-weight: bold;
+    border-bottom: 1px solid #dedede;
+}
+
+.popup div .close {
+    z-index: 9995;
+    float: right;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    background: url('images/controls.png') no-repeat -50px top;
+}
+
+.popup div .close:hover {
+    background-position: -50px -25px;
+    cursor: pointer;
+}
+
+.popup {
+    top: 10%;
+    left: 10%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.popup {
+    top: 10%;
+    left: 10%;
+    padding: 10px;
+    text-align: center;
+}
+
+.popup input[type=text],
+.popup select {
+    margin: 5px;
+}
+
+.popup textarea {
+    width: 400px;
+    height: 100px;
+    margin: 5px;
+}
+
+/*-------------- Div des auto complete Box ------------
+-------------------------------------------------------*/
+
+#divResult {
+    z-index: 10040;
+    position: absolute;
+    height: 200px;
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 6px 6px 6px 6px;
+    overflow: auto;
+    background: none repeat scroll 0 0 white;
+}
+
+#divResult ul {
+    text-align: left;
+}
+
+#btnProfil{
+    cursor:pointer;
+}
+
+.separation{
+    border :1px solid grey;
+}
+
+
+.VTabStripEnabled,
+.VTabStripDisabled,
+.TabStripEnabled,
+.TabStripDisabled {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    zoom: 1;
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    border-bottom: 0;
+    text-decoration: none;
+    font-size: 0.9em;
+    line-height: 100%;
+    color: blue;
+    background: #1EACFF;
+    -webkit-box-shadow: inset 0 -3px 3px rgba(0,0,0,0.03);
+    -moz-box-shadow: inset 0 -3px 3px rgba(0,0,0,0.03);
+    box-shadow: inset 0 -3px 3px rgba(0,0,0,0.03);
+}
+
+.TabContent
+{
+    margin-top: 15px;
+}
+
+.TabStripEnabled,
+.TabStripDisabled {
+    display: inline;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.VTabStripEnabled,
+.TabStripEnabled {
+    background: #24D6FF;
+    cursor: pointer;
+    color: activeborder;
+}
+
+.VTabStripDisabled,
+.TabStripDisabled {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    text-align: left;
+    color: grey;
+    background: url("images/header.gif") repeat-x scroll center top #fff;
+    cursor: pointer;
+}
+
+.VTabStripEnabled,
+.VTabStripDisabled:hover,
+.TabStripEnabled,
+.TabStripDisabled:hover {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    text-align: left;
+    color: grey;
+    background: url("images/headerSelected.gif") repeat-x scroll center top #fff;
+}
+
+.tabDisabled {
+    padding: 5px;
+}
+
+//--      Bloc Ressources  ----------//
+.ressources ul{
+    text-align: left;
+}
+
+.ressources ul li{
+    cursor: pointer;
+    text-decoration:  underline;
+    color:white;
+} 
+.content-panel
+{
+    padding: 5px;
+}
+.elementDashboard .weather-2, .green-panel
+{
+    height: 200px;
+    overflow :auto;
+}
+
+.elementDashboard .selectable li
+{
+   cursor:pointer; 
+}
+
+.tooltip
+{
+    background-color: white;
+    padding: 5px;
+    position:absolute;
+    top:100px;
+    left:100px;
+}
+
+.tools{color:black }
+
+.elementDashboard{cursor:pointer}
+
+
+#lstApp div{cursor:pointer}

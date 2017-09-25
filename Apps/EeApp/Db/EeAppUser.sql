@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS `EeAppUser` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`UserId` INT  NULL ,
+`AppId` INT  NULL ,
+PRIMARY KEY (`Id`),
+CONSTRAINT `ee_user_EeAppUser` FOREIGN KEY (`UserId`) REFERENCES `ee_user`(`Id`),
+CONSTRAINT `EeApp_EeAppUser` FOREIGN KEY (`AppId`) REFERENCES `EeAppApp`(`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<app name='EeAnnoncer'>
+	<menu>
+		<item name='File' text='File'>
+		        <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
+		</item>
+	</menu>
+	<center>
+		<module type='Apps\Annonce\Module\Home\HomeController'></module>
+	</center>
+</app>

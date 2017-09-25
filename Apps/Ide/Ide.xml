@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app name='UnServiceUnObjet'>
+	<menu>
+             <item name='File' text='File'>
+                    <subitem name='Home' text='Home'  action='LoadHome' />
+                    <subitem name='Quit' text='Quit'  action='Quit' icone="Core\Control\Icone\CloseIcone" />
+              </item>
+               <item name='Insert' text='Insert'>
+                    <subitem name='Js' text='Js'  action='ShowInsertJs'  />
+                    <subitem name='Php' text='Php'  action='ShowInsertPhp' />
+               </item>
+               <item name='Depots' text='Depots'>
+                    <subitem name='AddDepot' text='AddDepot'  action='AddDepot'  />
+                    <subitem name='DeleteDepot' text='DeleteDepot'  action='DeleteDepot'  />
+                    <subitem name='CommitDepot' text='CommitDepot'  action='CommitDepot'  />
+               </item>
+        </menu>
+	<center>
+		<module type='Apps\Ide\Module\Home\HomeController'></module>
+	</center>
+</app>

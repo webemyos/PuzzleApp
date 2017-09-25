@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<app name='EeContact'>
+	<menu>
+            <item name='File' text='File'>
+                    <subitem name='Home' text='Home'  action='LoadHome' icone="HomeIcone" />
+                    <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
+            </item>
+	</menu>
+       <center>
+            <module type='Apps\Contact\Module\Home\HomeController'></module>
+	</center>
+</app>

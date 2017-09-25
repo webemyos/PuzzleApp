@@ -1,0 +1,5 @@
+#appRunNotify #dvNotify { text-align:left;}
+#appRunNotify #dvNotify .notify {border-bottom: 1px solid grey;}
+#appRunNotify #dvNotify .notify div {display:inline-block; width :180px}
+#appRunNotify #dvNotify .date {color : blue; font-size:0.9em}
+#appRunNotify #dvNotify .user, #appRunNotify #dvNotify .app {font-weight: bold; font-style: italic ;cursor:pointer} 

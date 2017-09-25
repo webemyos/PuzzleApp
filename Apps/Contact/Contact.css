@@ -1,0 +1,19 @@
+#appRunContact .contact {display: inline-block; border : 1px solid grey; width : 150px}
+#appRunContact .userContact{border-bottom : 1px solid grey;}
+#appRunContact #lstInvitation .invitation{border-top : 1px solid grey; text-align: left}
+#appRunContact #lstInvitation .invitation div {display : inline-block}
+#appRunContact #lstInvitation .invitation .notify {color:white; display: block; border-top :1px solid grey ; margin-left : 100px; }
+#appRunContact .date {margin:4px; color:#1673FF}
+
+
+#appRunContact .App, #appRunContact, #appRunContact .headApp {border-top : 1px solid grey;border-bottom: 1px solid grey;   text-align: left; }
+#appRunContact .App span , #appRunContact span, #appRunContact .headApp  span {display:inline-block ;margin : 5px; width : 180px;}
+#appRunContact .App .name #appRunContact name{cursor:pointer}
+
+
+#appRunContact .message .date{color: #24D6FF}
+#appRunContact .message div {display:inline-block; margin:5px;width : 180px;}
+#appRunContact .message span{ margin:5px;} 
+
+#appRunContact  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}

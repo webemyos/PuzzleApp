@@ -1,0 +1,10 @@
+#appRunDownloader .download{border-top : 1px solid grey; text-align: left}
+#appRunDownloader .downloadRead{font-weight: normal}
+#appRunDownloader .downloadNotRead{font-weight :bold }
+
+#appRunDownloader .download .date{color: #24D6FF}
+#appRunDownloader .download div {display:inline-block; margin:5px;width : 500px;}
+#appRunDownloader .download span{ margin:5px;}
+
+#appRunDownloader  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}

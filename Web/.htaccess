@@ -1,0 +1,24 @@
+Options +FollowSymlinks
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ http://localhost/puzzleApp/ [QSA,L]
+
+
+ErrorDocument 404 /index.php
+
+<Files Config.xml >
+AuthUserFile /kunden/homepages/45/d297230395/htpasswd
+AuthName AccesRestreint
+AuthType Basic
+
+order deny,allow
+deny from all
+allow from .enst.fr
+require group intranet
+satisfy all
+</Files>
+

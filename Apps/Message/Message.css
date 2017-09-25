@@ -1,0 +1,13 @@
+#appRunMessage .message{border-top : 1px solid grey; text-align: left}
+#appRunMessage .messageRead{font-weight: normal}
+#appRunMessage .messageNotRead{font-weight :bold }
+
+#appRunMessage .message .date{color: #24D6FF}
+#appRunMessage .message div {display:inline-block; margin:5px;width : 150px;}
+#appRunMessage .message .app{width:50px}
+#appRunMessage .message .text{width:300px}
+#appRunMessage .message span{ margin:5px;} 
+.userSelected{border:1px solid grey; border-radius:5px; margin:2px; padding :2px; color: white; background-color: #24D6FF}
+
+#appRunMessage  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
