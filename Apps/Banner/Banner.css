@@ -1,0 +1,10 @@
+#appRunBanner .banner{border-top : 1px solid grey; text-align: left}
+#appRunBanner .bannerRead{font-weight: normal}
+#appRunBanner .bannerNotRead{font-weight :bold }
+
+#appRunBanner .banner .date{color: #24D6FF}
+#appRunBanner .banner div {display:inline-block; margin:5px;width : 180px;}
+#appRunBanner .banner span{ margin:5px;} 
+
+#appRunBanner  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
