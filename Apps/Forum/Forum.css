@@ -1,0 +1,17 @@
+#appRunForum h1{
+color:green;
+}
+
+.forum th, .forum td {padding:5px;border:2px solid grey}
+#appRunForum .forum span, .forum span{ margin:5px;} 
+
+.forum  {border:1px solid grey}
+.forum .detail {border-left:1px solid grey}
+.forum div{display: inline-block}
+.forum .profil{padding:5px}
+.forum .title {display: block;border-bottom:1px solid grey; }
+.forum div span { padding-left :10px;padding-right :10px; border-left:1px solid grey}
+.forum .text {display: block; padding:10px;}
+
+#appRunForum  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}

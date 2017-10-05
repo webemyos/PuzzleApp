@@ -7,7 +7,7 @@
  * GNU Licence
  */
 
-namespace Apps\Blog\Helper;
+namespace Apps\Agenda\Helper;
 
 use Core\Utility\Date\Date;
 
