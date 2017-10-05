@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<app name='EeProfil'>
+	<menu>
+		<item name='File' text='File'>
+		        <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
+		</item>
+		<item name='?' text='?'>
+			<subitem name='About' action='About' icone='InformationIcone' />
+			<subitem name='Help' action='Help' icone='HelpIcone' />
+			<subitem name='Comment' action='Comment' icone='CommentIcone' />
+			<subitem name='ReportBug' action='ReportBug' icone='BugIcone' />
+		</item>
+	</menu>
+	<center>
+		<module type='HomeBlock'></module>
+	</center>
+</app>
