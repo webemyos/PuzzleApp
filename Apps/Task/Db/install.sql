@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS `TaskGroup` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`UserId` INT  NULL ,
+`Title` VARCHAR(200)  NULL ,
+`Description` TEXT  NULL ,
+`Actif` INT  NULL ,
+`DateCreated` DATE  NULL ,
+`AppName` VARCHAR(200)  NULL ,
+`AppId` INT  NULL ,
+`EntityName` VARCHAR(200)  NULL ,
+`EntityId` INT  NULL ,
+PRIMARY KEY (`Id`),
+CONSTRAINT `ee_user_TaskGroup` FOREIGN KEY (`UserId`) REFERENCES `ee_user`(`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 
+
+CREATE TABLE IF NOT EXISTS `TaskTask` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`GroupId` INT  NULL ,
+`ParentId` INT  NULL ,
+`UserId` INT  NULL ,
+`StateId` INT  NULL ,
+`Title` VARCHAR(200)  NULL ,
+`Description` TEXT  NULL ,
+`DateStart` DATE  NULL ,
+`DateEnd` DATE  NULL ,
+PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; CREATE TABLE IF NOT EXISTS `TaskState` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`Libelle` VARCHAR(200)  NULL ,
+PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 
+
+CREATE TABLE IF NOT EXISTS `TaskAction` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`TaskId` INT  NULL ,
+`Libelle` TEXT  NULL ,
+`Realised` INT  NULL ,
+PRIMARY KEY (`Id`),
+CONSTRAINT `TaskTask_TaskAction` FOREIGN KEY (`TaskId`) REFERENCES `TaskTask`(`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 

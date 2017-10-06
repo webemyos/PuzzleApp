@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * PuzzleApp
+ * Webemyos
+ * Jérôme Oliva
+ * GNU Licence
+ */
+
+namespace Apps\Profil;
+
+
 use Apps\Profil\Helper\CompetenceHelper;
 use Apps\Profil\Helper\UserHelper;
 use Apps\Profil\Module\Competence\CompetenceController;
@@ -7,9 +17,7 @@ use Apps\Profil\Module\Information\InformationController;
 use Core\App\Application;
 use Core\Control\Button\Button;
 use Core\Entity\User\UserGroupUser;
-/**
- * Application de gestion du profil utilisateur
- * */
+
 
 class Profil extends Application
 {

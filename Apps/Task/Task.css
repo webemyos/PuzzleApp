@@ -1,0 +1,76 @@
+ .task{ text-align: left; }
+ .taskRead{font-weight: normal}
+ .taskNotRead{font-weight :bold }
+
+ .task {background-color: white}
+ .task div {display:inline-block; margin:5px;width : 180px;}
+ .task span{ margin:5px;} 
+
+ .task .subTask{ margin-left : 100px; text-align: left; }
+ .task .subTask {display:inline-block; margin:0px;margin-left : 100px;width : 500px;color:grey}
+
+  .nouvelle ,  .task .nouvelle{border-bottom: 2px dashed yellow}
+  .enCours , .task .enCours {border-bottom: 2px dashed red }
+  .verif ,  .task .verif {border-bottom: 2px dashed orange}
+ .termine , .task .termine {border-bottom: 2px dashed green}
+
+#appRunTask  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
+
+
+#appRunTask #lstChild table, #appRunTask #lstChild table td{
+    border : 1px solid grey;
+    margin : 0px;
+    background-color: #f2f2f2;
+}
+
+#appRunTask #lstChild table th{
+   background-color : #68dff0;
+   color :white;
+}
+
+#appRunTask #lstChild table td{
+    padding :5px;
+}
+
+.subTask
+{
+    border : 1px solid grey;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px;
+    margin : 2px;
+    background-color: white;
+}
+  .nouvelle , .task .nouvelle{ 
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px;}
+ .enCours ,  .task .enCours { 
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px;}
+ .verif ,  .task .verif {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px;
+}
+  .termine , .task .termine {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 5px;}
+
+.userSelected{border:1px solid grey; border-radius:5px; margin:2px; padding :2px; color: white; background-color: #24D6FF}
+
+.editable, .textEditable{cursor:pointer}
+
+#lstGroup {width : 800;}
+#lstGroup .group{display: inline-block; margin:5px; padding:5px; float:none; vertical-align: top;} 
+#lstGroup .group .task {display:block; border:1px solid grey; border-radius: 5px;margin-top:5px;}
+
+.tabSub {border:1px solid black}
+
+  .news{border-left:  3px solid red; }
+  .encours{border-left:  3px solid orange; }
+  .verif{border-left:  3px solid blue; }
+  .termine{border-left:  3px solid green; }

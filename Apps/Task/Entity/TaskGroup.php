@@ -6,13 +6,12 @@
  * GNU Licence
  */
 
-namespace Apps\Pad\Entity ;
+namespace Apps\Task\Entity ;
 
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\Property;
 
-
-class PadDocument extends Entity  
+class TaskGroup extends Entity  
 {
     //Constructeur
     function __construct($core)
@@ -22,28 +21,20 @@ class PadDocument extends Entity
 
         //Nom de la table 
         $this->Core=$core; 
-        $this->TableName="PadDocument"; 
-        $this->Alias = "PadDocument"; 
+        $this->TableName="TaskGroup"; 
+        $this->Alias = "TaskGroup"; 
 
-        $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias); 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
+        $this->Title = new Property("Title", "Title", TEXTBOX,  true, $this->Alias); 
+        $this->Description = new Property("Description", "Description", TEXTAREA,  false, $this->Alias); 
+        $this->Actif = new Property("Actif", "Actif", NUMERICBOX,  true, $this->Alias); 
         $this->DateCreated = new Property("DateCreated", "DateCreated", DATEBOX,  true, $this->Alias); 
-        $this->DateModified = new Property("DateModified", "DateModified", DATEBOX,  false, $this->Alias); 
-        $this->Content = new Property("Content", "Content", TEXTAREA,  false, $this->Alias); 
 
         //Partage entre application 
         $this->AddSharedProperty();
 
         //Creation de l entité 
         $this->Create(); 
-    }
-
-    /**
-     * Obtient le document formaté
-     */
-    function GetContent()
-    {
-        return str_replace("!et!", "&", $this->Content->Value);
     }
 }
 ?>
