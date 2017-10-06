@@ -1,84 +1,50 @@
 <?php
+
+use Apps\Profil\Helper\CompetenceHelper;
+use Apps\Profil\Helper\UserHelper;
+use Apps\Profil\Module\Competence\CompetenceController;
+use Apps\Profil\Module\Information\InformationController;
+use Core\App\Application;
+use Core\Control\Button\Button;
+use Core\Entity\User\UserGroupUser;
 /**
  * Application de gestion du profil utilisateur
  * */
 
-class EeProfil extends Application
+class Profil extends Application
 {
 	/**
 	 * Auteur et version
 	 * */
-	public $Author = 'Eemmys';
+	public $Author = 'DashBoardManager';
 	public $Version = '1.0.0';
-        public static $Directory = "../Apps/EeProfil";
+        public static $Directory = "../Apps/Profil";
 
 	/**
 	 * Constructeur
 	 * */
-	 function EeProfil($core)
+	 function Profil($core)
 	 {
-	 	parent::__construct($core, "EeProfil");
+	 	parent::__construct($core, "Profil");
 	 	$this->Core = $core;
-                
-                //Inclue les modules
-                EeProfil::IncludeBlock();
-                
-                //Inclue les entité
-		EeProfil::IncludeEntity();
-	 }
+        }
 
 	 /**
 	  * Execution de l'application
 	  */
 	 function Run()
 	 {
-	 	$textControl = parent::Run($this->Core, "EeProfil", "EeProfil");
+	 	$textControl = parent::Run($this->Core, "Profil", "Profil");
 	 	echo $textControl;
 	 }
          
-          /**
-          * Inclut les module nescessaires
-          */
-         public static function IncludeBlock()
-         {
-               $blocks = array("HomeBlock", "InformationBlock", "CompetenceBlock");
-             
-               foreach($blocks as $block)
-               { 
-                    if(!class_exists($block))
-                    {
-                        include("Blocks/".$block."/".$block.".php");
-                    }
-              }
-                   
-                //Inclu les helper
-                if(!class_exists("UserHelper"))
-                {
-                    include("Helper/UserHelper.php");
-                    include("Helper/CompetenceHelper.php");
-                }
-         }
-         
-         /*
-	* Inclue les entite du projet
-	*/
-	public static function IncludeEntity()
-	{	
-		$entites = array("EeProfilCompetenceCategory", "EeProfilCompetence", "EeProfilCompetenceEntity");
-		
-		foreach($entites as $entite)
-		{
-                    include_once("Entity/".$entite.".php");
-		}
-	}
-        
         /**
          * Charge les information de base du profil
          */
         public function LoadInformation($showAll = true)
         {
-            $informationBlock = new InformationBlock($this->Core);
-            echo $informationBlock->Load($showAll);
+            $informationController = new InformationController($this->Core);
+            echo $informationController->Load($showAll);
         }
         
         /**
@@ -103,7 +69,7 @@ class EeProfil extends Application
         function DoUploadFile($idElement, $tmpFileName, $fileName, $action)
         {
            //Ajout de l'image dans le repertoire correspondant
-           $directory = "../Data/Apps/EeProfil/";
+           $directory = "../Data/Apps/Profil/";
            
            switch($action)
            {
@@ -127,8 +93,8 @@ class EeProfil extends Application
          */
         public function LoadCompetence()
         {
-            $competenceBlock = new CompetenceBlock($this->Core);
-            echo $competenceBlock->Load();
+            $competenceController = new CompetenceController($this->Core);
+            echo $competenceController->Load();
         }
         
         /*
@@ -136,8 +102,8 @@ class EeProfil extends Application
          */
         public function GetCompetence()
         {
-            $competenceBlock = new CompetenceBlock($this->Core);
-            return $competenceBlock->GetCompetence();
+            $competenceController = new CompetenceController($this->Core);
+            return $competenceController->GetCompetence();
         }
         
         //Enregistre les competences
@@ -155,15 +121,15 @@ class EeProfil extends Application
         {
             $html = "<div class='$cssClass'>";
             
-            $informationBlock = new InformationBlock($this->Core);
+            $informationController = new InformationController($this->Core);
             
             if($user != false)
             {
-                $html .= $informationBlock->GetImage($user->IdEntite, true)->Show();
+                $html .= $informationController->GetImage($user->IdEntite, true)->Show();
             }
             else
             {
-                $html .= $informationBlock->GetImage($this->Core->User->IdEntite, true)->Show();
+                $html .= $informationController->GetImage($this->Core->User->IdEntite, true)->Show();
                 $user = $this->Core->User;
             }
             
@@ -175,18 +141,18 @@ class EeProfil extends Application
         
         function Display()
         {
-            $html = "<h1>".$this->Core->GetCode("EeProfil.DetailProfil")."</h1>";
+            $html = "<h1>".$this->Core->GetCode("Profil.DetailProfil")."</h1>";
             
             $user = new User($this->Core);
             $user->GetById($this->IdEntity);
             
-            $html .= "<div class='row'><div class='col-md-4'><h2 class='fa fa-user'>&nbsp;".$this->Core->GetCode("EeProfil.Information")."</h2>".$this->GetProfil($user)."</div>";
+            $html .= "<div class='row'><div class='col-md-4'><h2 class='fa fa-user'>&nbsp;".$this->Core->GetCode("Profil.Information")."</h2>".$this->GetProfil($user)."</div>";
             
             $competences = CompetenceHelper::GetByUser($this->Core, $this->IdEntity );
 
            if(count($competences) > 0)
             {
-                $html .= "<div class='col-md-8' ><h2 class='fa fa-align-left' >&nbsp;".$this->Core->GetCode("EeProfil.Competence")."</h2>";
+                $html .= "<div class='col-md-8' ><h2 class='fa fa-align-left' >&nbsp;".$this->Core->GetCode("Profil.Competence")."</h2>";
            
                 $categorie = "";
                         
@@ -228,8 +194,8 @@ class EeProfil extends Application
             $user->GetById(JVar::GetPost("idEntity"));
             
             $html .= "<div class='col-md-6'>";
-            $informationBlock  = new InformationBlock($this->Core);
-            $img = $informationBlock->GetImage($user->IdEntite, false, "300px");
+            $informationController  = new InformationController($this->Core);
+            $img = $informationController->GetImage($user->IdEntite, false, "300px");
             $html.= $img->Show();
             $html.= "</div>";        
             
@@ -242,7 +208,7 @@ class EeProfil extends Application
             $btnMessage = new Button(BUTTON);
             $btnMessage->CssClass = "btn btn-success";
             $btnMessage->Value = $this->Core->GetCode("SendMessage");
-            $btnMessage->OnClick = "Eemmys.ShowContactUser('', ".$user->IdEntite.")";
+            $btnMessage->OnClick = "DashBoardManager.ShowContactUser('', ".$user->IdEntite.")";
             $html.= $btnMessage->Show()."<br/><br/>";
             
             //Compétences
@@ -250,7 +216,7 @@ class EeProfil extends Application
 
            if(count($competences) > 0)
             {
-                $html .= "<h2 class='fa fa-align-left' >&nbsp;".$this->Core->GetCode("EeProfil.Competence")."</h2>";
+                $html .= "<h2 class='fa fa-align-left' >&nbsp;".$this->Core->GetCode("Profil.Competence")."</h2>";
            
                 $categorie = "";
             
