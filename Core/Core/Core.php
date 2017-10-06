@@ -51,7 +51,7 @@ class Core
      *
      * @return SingletonClass
      */
-    public static function getInstance($config, $debug)
+    public static function getInstance($config = "", $debug = false)
     {
         if( true === is_null( self::$_instance ) )
         {
@@ -209,7 +209,7 @@ class Core
           */
          function GetPath($url)
          {
-            if($_SERVER[HTTP_HOST] == "localhost")
+            if($_SERVER["HTTP_HOST"] == "localhost")
             {
                return "http://".$_SERVER['SERVER_NAME'] .$_SERVER['CONTEXT_PREFIX'] .$url;
             }

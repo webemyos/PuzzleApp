@@ -47,7 +47,11 @@ class FrontController extends Controller
         //Acces to the administartion
         if($this->Core->IsConnected())
         {
-            $html = "<li><a href='Admin'> dashboard</a></li>";
+            $html = "<li><a href='Admin'>dashboard</a></li>";
+        }
+        else
+        {
+            $html = "";
         }
 
         $view->AddElement(new Text("lkAdmin", false, $html));

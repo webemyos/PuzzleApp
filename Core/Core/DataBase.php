@@ -98,10 +98,7 @@ class DataBase implements IDataBase
 	 * */
 	function GetArray($requete="")
 	{
-             Trace::Sql($requete);
-            
-             
-		//Execution de la requete
+          	//Execution de la requete
 		if($requete !="")
 			$res=mysql_query($requete);
 		else
@@ -185,7 +182,7 @@ class DataBase implements IDataBase
 	 */
 	function ExecuteMulti($requete, $separator =";")
 	{
-		$request = split($separator,$requete);
+		$request = explode($separator,$requete);
 
 		for($i=0;$i<sizeof($request)-1;$i++)
 		{
