@@ -5,6 +5,7 @@
  * Jérôme Oliva
  * GNU Licence
  */
+namespace Apps\Mooc;
 
 use Apps\Downloader\Helper\CategoryHelper;
 use Apps\Downloader\Helper\MoocHelper;
