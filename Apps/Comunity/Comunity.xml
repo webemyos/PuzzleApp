@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<app name='EeComunity'>
+	<menu>
+            <item name='File' text='File'>
+                    <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
+            </item>
+       </menu>
+	<center>
+		 <module type='Apps\Comunity\Module\Home\HomeController'></module>
+	</center>
+</app>

@@ -1,0 +1,14 @@
+#appRunComunity .Comunity, #appRunComunity .Comunity, #appRunComunity .headComunity , #appRunComunity .post{border-top : 1px solid grey; text-align: left; }
+#appRunComunity .Comunity span , #appRunComunity .Comunity span, #appRunComunity .headComunity  span {display:inline-block ;margin : 5px; width : 180px;}
+#appRunComunity .Comunity .name, #appRunComunity .Comunity name{cursor:pointer}
+
+#appRunComunity .comment, #appRunComunity .post{border-top : 1px solid grey; text-align: left}
+#appRunComunity .comment div , #appRunComunity .post div{display : inline-block}
+#appRunComunity .comment .notify  {color:white; display: block; border-top :1px solid grey ; background-color: #24D6FF;margin-left : 100px; }
+#appRunComunity .post .comment{display: block}
+#appRunComunity .post .comment{margin-left:100px; background-color: #dedede; color:white}
+#appRunComunity textarea{width:100%}
+#appRunComunity .profil{margin-right :5px; border-right: 1px solid grey; padding:5px;width:100px;}
+
+#appRunComunity  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
