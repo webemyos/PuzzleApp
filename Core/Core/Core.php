@@ -92,29 +92,11 @@ class Core
 
       try
       {
-             //Configuration
-            if($configFile != "")
-            {
-                $this->Config = new Config($configFile);
-            }
-            else
-            {
-                $this->Config = new Config("../". self::$_instance->ConfigFile.".xml");
-            }
-
+            $this->Config = new Config("../". self::$_instance->ConfigFile.".xml");
+            
             //Repertoire du framework
             $this->JDirectory=$this->Config->GetKey("JDIRECTORY");
 
-            switch($typeDb)
-             {
-                    case XML:
-
-                            $this->Db=new JHomDBXml($file,$directory);
-                            $this->Lang = new JHomConfig($this->JDirectory."Data/Lang.xml");
-                    break;
-                    default:
-
-           
              //Connexion à la base de donnée           
              if($this->Config->GetKey("DATABASESERVER") != "")
              {
@@ -139,8 +121,6 @@ class Core
              {
                     $this->DataBaseEnabled=false;
              }
-             break;
-             }
              
                 //On charge l'utilisateur quand on inclue les fichiers car les script non pas besoin des Utilisateur connect�
             if(Request::IsConnected($this) && $this->DataBaseEnabled )
@@ -152,11 +132,10 @@ class Core
             }
             catch (Exception  $e)
             {
-
                 echo "ERREUR" . $e->GetMessage();
-                    Log::Title(CORE,"Erreur",ERR);
-                    Log::Write(CORE,$e->GetMessage(),ERR);
-                    throw new Exception($e->GetMessage());
+                Log::Title(CORE,"Erreur",ERR);
+                Log::Write(CORE,$e->GetMessage(),ERR);
+                throw new Exception($e->GetMessage());
             }
     }
 

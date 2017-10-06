@@ -41,9 +41,9 @@ class DataBase implements IDataBase
 			$erreurBase = @mysql_select_db($baseName,$this->connection);
 
 			if(!$this->connection)
-			 throw new Exception("Problème serveur :".mysql_error());
+			 throw new Exception("Probleme serveur :".mysql_error());
 			if(!$erreurBase)
-			 throw new Exception("Problème Base de donnèe :" .mysql_error() );
+			 throw new Exception("Probleme Base de donnee :" .mysql_error() );
 
 			Log::Title(DB,"Connection",INFO);
 		}

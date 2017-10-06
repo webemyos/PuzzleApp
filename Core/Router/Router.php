@@ -22,11 +22,11 @@ class Router
     public static function ExtractRoute()
     {
         //Get The Complete Uri
-        $url = explode("/", $_SERVER[REQUEST_URI]);
+        $url = explode("/", $_SERVER["REQUEST_URI"]);
         
-        if($_SERVER[HTTP_HOST] == "localhost")
+        if($_SERVER["HTTP_HOST"] == "localhost")
         {
-            $route = new Route($url[2], $url[3], $url[4]);
+            $route = new Route($url[2], isset($url[3])?$url[3]:"", isset($url[4])?$url[4]:"");
         }
         else
         {
