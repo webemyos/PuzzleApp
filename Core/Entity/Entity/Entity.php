@@ -21,9 +21,8 @@ class Entity
     private $Table;
     private $TableName;
     
-    protected $Property=array();
+    
     private $EntityProperty=array();
-    private $Argument=array();
     private $Order=array();
     private $Join=array();
     private $PrimaryKey = array();
@@ -36,6 +35,9 @@ class Entity
     private $LimitStart;
     private $LimitNumber;
     private $Asc;
+    
+    protected $Property=array();
+    protected $Argument=array();
         
     function __construct($core)
     {
@@ -229,8 +231,10 @@ class Entity
             $entite->GetById($this->$Field->Value);
             $entityPropertie->Value=$entite;
         }
-        
-        return $this->$name;
+        if(isset($this->$name))
+        {
+            return $this->$name;
+        }
     }
     
     /*

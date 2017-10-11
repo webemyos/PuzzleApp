@@ -150,7 +150,7 @@ class Runner
     {  
         $core = Core::getInstance();
     
-        $html = "<script type='text/javascript' src='".$core::GetPath("/script.php?s=Dashboard")."' ></script> ";
+        $html = "<script type='text/javascript' src='".$core->GetPath("/script.php?s=Dashboard")."' ></script> ";
         $html .= "<div style='width:600px; height:50px; overflow:auto;position:fixed;bottom:0px;right:0px;border:1px solid red;background:grey' >";
         $html .= "<h4>Debugger</h4>";
         
@@ -171,11 +171,13 @@ class Runner
     {
         $html = "";
         
-        foreach($_POST as $key=>$value)
+        if(isset($_POST) )
         {
-            $html .= "<br/>".$key .":".$value;
+            foreach($_POST as $key=>$value)
+            {
+                $html .= "<br/>".$key .":".$value;
+            }
         }
-        
         return $html;
     }
     
@@ -186,11 +188,13 @@ class Runner
     {
         $html = "";
         
-        foreach(Trace::$Requests as $key=>$value)
+        if(isset(Trace::$Requests) )
         {
-            $html .= "<br/>".$key .":".$value;
+            foreach(Trace::$Requests as $key=>$value)
+            {
+                $html .= "<br/>".$key .":".$value;
+            }
         }
-        
         return $html;
     }
 }

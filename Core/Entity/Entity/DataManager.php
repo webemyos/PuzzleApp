@@ -74,16 +74,18 @@ class DataManager
     public static function LoadEntities($entity, $datas)
     {
         $entitys = array();
-        foreach($datas as $data)
+        if($datas != false)
         {
-            $className = get_class($entity);
-            $entitie = new $className($entity->Core);
-            
-            DataManager::Load($entitie, $data);
-            
-            $entitys[] = $entitie;
+            foreach($datas as $data)
+            {
+                $className = get_class($entity);
+                $entitie = new $className($entity->Core);
+
+                DataManager::Load($entitie, $data);
+
+                $entitys[] = $entitie;
+            }
         }
-        
         return $entitys;
         
     }

@@ -67,13 +67,13 @@ use Core\Utility\Format\Format;
             }
                 
             //Code exist but no libelle
-            if($this->ElementsCode[$code] === false )
+            if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] === false )
             {
                   return $code;
             }
             
             //Code not exist
-            if($this->ElementsCode[$code] === null )
+            if(!isset($this->ElementsCode[$code]) || $this->ElementsCode[$code] === null )
             {
               $requete ="INSERT INTO ee_lang_code (Code) VALUES ('$code')";
               $this->Core->Db->execute($requete);
@@ -83,13 +83,7 @@ use Core\Utility\Format\Format;
               
               return $code;
             }
-            // Find and return Libelle
-            else
-            {
-                return $this->ElementsCode[$code];
-              
-            }
-  	}
+        }
 
 	/**
 	 * Retourne tous les élements multiluange traduit

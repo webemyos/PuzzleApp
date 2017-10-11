@@ -137,8 +137,9 @@ class SqlRequestBuilder
                 $where .= $fields ;
 
                 $entity->Ids = $entity->IdEntite;
-                $entity->Arguments["Id"] = $entity->IdEntite;
-               
+                
+                //var_dump($entity->Argument);
+                //$entity->Argument["Id"] = $entity->IdEntite;
             }
         }
         return $where;
@@ -150,11 +151,12 @@ class SqlRequestBuilder
     */
     public static function CreateOrder($entity)
     {
+        $orders="";
+ 
         //Si on a passï¿½s des orders on construit la clause en fonction d'eux'
         if(sizeof($entity->GetOrder() )>0)
         {
-            $orders="";
-
+           
             foreach($entity->GetOrder() as $order)
             {
                 if(is_object($order))

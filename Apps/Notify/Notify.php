@@ -26,16 +26,16 @@ class Notify extends Application
 	/**
 	 * Constructeur
 	 * */
-	 function __construct($core)
+	 function __construct()
 	 {
-            parent::__construct($core, "Notify");
             $this->Core = Core::getInstance();
+            parent::__construct($this->Core, "Notify");
         }
 
 	 /**
 	  * Execution de l'application
 	  */
-	 function Run()
+	 function Run($core="", $app="", $app="")
 	 {
             $textControl = parent::Run($this->Core, "Notify", "Notify");
             echo $textControl;

@@ -25,7 +25,7 @@ class ScriptManager
      */
     public static function Get($s)
     {
-        $script = CacheManager::Find($script ."js");
+        $script = CacheManager::Find($s ."js");
 
         if($script == null)
         {

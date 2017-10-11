@@ -25,7 +25,7 @@ class TabStrip  extends Control implements IControl
 	private $Widget;
 
 	//Constructeur
-	function __construct($name="", $app, $widget="")
+	function __construct($name="", $app="", $widget="")
 	{
 		//Version
 		$this->Version ="2.0.2.0";

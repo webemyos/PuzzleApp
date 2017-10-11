@@ -32,16 +32,16 @@ class EeApp extends Application
 	/**
 	 * Constructeur
 	 * */
-	 function __construct($core)
+	 function __construct()
 	 {
-            parent::__construct($core, "EeApp");
             $this->Core = Core::getInstance();
-	 }
+            parent::__construct($this->Core, "EeApp");
+         }
 
 	 /**
 	  * Execution de l'application
 	  */
-	 function Run()
+	 function Run($core="", $title="", $name="")
 	 {
            //Install EeApp
            if(!AppHelper::IsInstalled($this->Core))

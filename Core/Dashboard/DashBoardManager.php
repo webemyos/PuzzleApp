@@ -37,7 +37,7 @@ class DashBoardManager
      * TODO A DEPLACER DANS EEAPP
     * Load app user
     */
-   public function LoadUserApp()
+   public static function LoadUserApp()
    {
       $core = Core::getInstance();
 
@@ -114,7 +114,7 @@ class DashBoardManager
       include("../Apps/$appName/$appName.php");
     }*/
 
-    $app = new $appName($this->Core);
+    $app = new $appName(Core::getInstance());
     $app->Url = $url;
 
     echo $app->Run();

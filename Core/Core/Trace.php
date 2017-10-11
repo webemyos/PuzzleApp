@@ -16,7 +16,7 @@ class Trace
     /*
      * Trace the sql Request
      */
-    function Sql($request)
+    PUBLIC static function Sql($request)
     {
         Trace::$Requests[] = $request;
     }

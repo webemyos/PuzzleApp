@@ -134,7 +134,7 @@ class FunctionManager
             {
                 $props = explode("=", $prop);
                  $key =  $props[0];
-                 $value = $props[1];
+                 $value = isset($props[1])?$props[1]:"";
 
                 $control->$key = $value;
             }

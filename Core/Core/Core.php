@@ -125,7 +125,7 @@ class Core
                 //On charge l'utilisateur quand on inclue les fichiers car les script non pas besoin des Utilisateur connect�
             if(Request::IsConnected($this) && $this->DataBaseEnabled )
             {
-                $this->User=new User($this);
+                $this->User= new User($this);
                 $this->User->GetById(Request::GetUser($this));
             }
         
