@@ -46,7 +46,12 @@ class UploadHelper
       $core->Db->ExecuteMulti($request);
 
       echo  "<br/> Ajout de l'application dans la base de donnée:";
-
+      $app = new EeAppApp($core);
+      $app->Name->Value = $appName;
+      $app->CategoryId->Value = 1;
+      $app->Actif->Value = 1;
+      
+      $app->Save();
   }
 
 }

@@ -21,6 +21,7 @@
                         <td>
                             {{GetControl(EditIcone,Serveur,{OnClick=EeAppAction.ShowAddApp({{element->IdEntite}})})}}
                             {{GetControl(GroupIcone,Serveur,{OnClick=EeAppAction.ShowAdmin({{element->IdEntite}})})}}
+                            {{GetControl(DeleteIcone,Serveur,{Id={{element->IdEntite}},OnClick=EeAppAction.RemoveApp(this)})}}
                         </td>
                     </tr>
                 {{/foreach}}

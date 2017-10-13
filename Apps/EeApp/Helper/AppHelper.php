@@ -236,4 +236,29 @@ class AppHelper
          $app->Actif->Value = "0";
          $app->Save();
     }
+    
+    /*
+     * Delete the app File And in the DataBase
+     */
+    public static function RemoveApp($core, $appId)
+    {
+        //Recuperation de l'app
+        $app = new EeAppApp($core);
+        $app->GetById($appId);
+        $appName = $app->Name->Value;
+                
+        //Drop table
+        echo __DIR__."/../../".$appName."/Db/unInstall.sql";
+        
+        echo "<br/> Suppression des tables de la base de donnée :";
+        echo $request = File::GetFileContent(__DIR__."/../../".$appName."/Db/unInstall.sql");
+        $core->Db->ExecuteMulti($request);
+      
+        File::DeleteDirectory(__DIR__."/../../".$appName);
+        
+        //Supprimer les utilisateur et les administrateur
+        
+        //Suppression
+        $appName->Delete();
+    }
 }

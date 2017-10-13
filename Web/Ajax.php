@@ -20,7 +20,7 @@ use Core\Core\Core;
 use Core\Core\Request;
 use Core\Dashboard\DashBoardManager;
 
-$Core= Core::getInstance("dev", false);
+$Core= Core::getInstance("dev", true);
 $Core->Init();
 
 if(Request::GetPost("App") != "")

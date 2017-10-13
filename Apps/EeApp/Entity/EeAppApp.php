@@ -35,7 +35,7 @@ class EeAppApp extends Entity
         $this->Category = new EntityProperty("Apps\EeApp\Entity\EeAppCategory", "CategoryId");
 
         $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias); 
-        $this->Description = new Property("Description", "Description", TEXTAREA,  true, $this->Alias); 
+        $this->Description = new Property("Description", "Description", TEXTAREA,  false, $this->Alias); 
 
         $this->Actif = new Property("Actif", "Actif", TEXTBOX,  true, $this->Alias); 
 

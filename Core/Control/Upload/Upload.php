@@ -44,7 +44,7 @@ class Upload extends Control implements IControl
         $html = "<div>";
 
         $html .="<input type='file' id='fileUpload' name='fileUpload' />";
-        $html .= "<input type='button' value='".$core->GetCode("Submit")."' onclick='upload.doUpload(this)' /> ";
+        $html .= "<input type='button' class='btn btn-success' value='".$core->GetCode("Submit")."' onclick='upload.doUpload(this)' /> ";
 
         $html .= "<input type='hidden' id='hdApp' name = 'hdApp'  value='".$this->app."'  /> ";
         $html .= "<input type='hidden' id='hdIdElement' name='hdIdElement' value='".$this->idElement."'  /> ";
@@ -53,7 +53,7 @@ class Upload extends Control implements IControl
         $html .= "<input type='hidden' id='hdIdUpload'  name='hdIdUpload' value='".$this->idUpload."' /> ";
 
         //Frame From Upload
-        if($show)
+        if($core->Debug)
         {
            $html .= "<iframe id='frUpload' src='upload' style='display:block' >";
         }

@@ -9,14 +9,14 @@
 
 namespace Apps\EeApp;
 
+use Apps\EeApp\Helper\AdminHelper;
+use Apps\EeApp\Helper\AppHelper;
+use Apps\EeApp\Helper\UploadHelper;
+use Apps\EeApp\Module\Admin\AdminController;
+use Apps\EeApp\Module\App\AppController;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
-
-use Apps\EeApp\Helper\AdminHelper;
-use Apps\EeApp\Helper\AppHelper;
-use Apps\EeApp\Module\App\AppController;
-use Apps\EeApp\Module\Admin\AdminController;
 
 
 class EeApp extends Application
@@ -222,19 +222,24 @@ class EeApp extends Application
     */
     public function ShowUploadApp()
     {
-                    $adminBlock = new AdminController($this->Core);
-                    echo $adminBlock->ShowUploadApp();
+        $adminBlock = new AdminController($this->Core);
+        echo $adminBlock->ShowUploadApp();
     }
 
-                             /**
-     * Sauvegare les images de presentation
+    /**
+     * Ajout une app depuis un zip
      */
     function DoUploadFile($idElement, $tmpFileName, $fileName, $action)
     {
-        echo $idElement;
-        echo $tmpFileName;
-        echo $fileName;
-        echo $action;
+        UploadHelper::DoUpload($fileName, $tmpFileName);
+    }
+    
+    /*
+     * Supprime une app
+     */
+    function RemoveApp()
+    {
+        AppHelper::RemoveApp($this->Core, Request::GetPost("appId"));
     }
 }
 ?>

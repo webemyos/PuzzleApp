@@ -232,14 +232,30 @@ var EeApp = function() {};
             }
         };
 
-				/*
-				* Pop in pour Ajouter des applications
-				*/
-				EeAppAction.ShowUploadApp = function()
-				{
-					var param = Array();
-							param['App'] = 'EeApp';
-							param['Title'] = 'EeApp.ShowUploadApp';
+        /*
+        * Pop in pour Ajouter des applications
+        */
+        EeAppAction.ShowUploadApp = function()
+        {
+            var param = Array();
+                param['App'] = 'EeApp';
+                param['Title'] = 'EeApp.ShowUploadApp';
 
-							Dashboard.OpenPopUp('EeApp','ShowUploadApp', '','','', 'EeAppAction.LoadAdmin()', serialization.Encode(param));
-				};
+                Dashboard.OpenPopUp('EeApp','ShowUploadApp', '','','', 'EeAppAction.LoadAdmin()', serialization.Encode(param));
+        };
+        
+        /*
+         * Supprime une app
+         */
+        EeAppAction.RemoveApp = function(control)
+        {
+            if(confirm(Dashboard.GetCode("EeApp.RemoveApp")))
+            {
+             var JAjax = new ajax();
+                 JAjax.data = "Class=EeApp&Methode=RemoveApp&App=EeApp&appId="+ control.id ;
+
+                JAjax.GetRequest("Ajax.php");
+                
+                control.parentNode.parentNode.parentNode.removeChild(control.parentNode.parentNode);
+            }
+        };
