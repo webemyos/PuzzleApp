@@ -69,7 +69,7 @@ class AppController extends Controller
                                       array("Type"=>"EntityListBox", "Name"=> "lstCategory", "Entity"=> "Apps\EeApp\Entity\EeAppCategory", "Libelle" => $this->Core->GetCode("Category") , "Value" => ($appId != "")?$app->CategoryId->Value :""),
                                       array("Type"=>"TextBox", "Name"=> "tbName", "Libelle" => $this->Core->GetCode("Name") , "Value" => ($appId != "")?$app->Name->Value :""),
                                       array("Type"=>"TextArea", "Name"=> "tbDescription", "Libelle" => $this->Core->GetCode("Description"), "Value" => ($appId != "")?$app->Description->Value :""),
-                                      array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save"), "CssClass" =>"btn btn-primary" ),
+                                      array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save"), "CssClass" =>"btn btn-success" ),
                           )
                 );
 

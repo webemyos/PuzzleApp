@@ -17,7 +17,7 @@
                         <td>{{element->Name->Value}}</td>
                         <td>{{element->Description->Value}}</td>
                         <td>
-                            <input type='button' class='btn btn-primary' onclick='EeAppAction.Add({{element->IdEntite}}, this)' value='{{GetCode(EeApp.Add)}}' />
+                            <input type='button' class='btn btn-success' onclick='EeAppAction.Add({{element->IdEntite}}, this)' value='{{GetCode(EeApp.Add)}}' />
                         </td>
                         </td>
                     </tr>

@@ -7,6 +7,13 @@
  * GNU Licence
  */
 
+namespace Apps\EeApp\Helper;
+
+use Apps\EeApp\Entity\EeAppAdmin;
+use Core\Entity\Entity\Argument;
+
+
+
 class AdminHelper
 {
     /**
@@ -18,8 +25,8 @@ class AdminHelper
     public static function AddAmin($core, $appId, $userId)
     {
         $appUser = new  EeAppAdmin($core);
-        $appUser->AddArgument(new Argument("EeAppAdmin", "AppId", EQUAL, $appId));
-        $appUser->AddArgument(new Argument("EeAppAdmin", "UserId", EQUAL, $userId));
+        $appUser->AddArgument(new Argument("Apps\EeApp\Entity\EeAppAdmin", "AppId", EQUAL, $appId));
+        $appUser->AddArgument(new Argument("Apps\EeApp\Entity\EeAppAdmin", "UserId", EQUAL, $userId));
   
         if(count($appUser) ==  0)
         {
@@ -36,7 +43,7 @@ class AdminHelper
     public static function GetUserByApp($core, $appId)
     {
         $appUser = new  EeAppAdmin($core);
-        $appUser->AddArgument(new Argument("EeAppAdmin", "AppId", EQUAL, $appId));
+        $appUser->AddArgument(new Argument("Apps\EeApp\Entity\EeAppAdmin", "AppId", EQUAL, $appId));
        
         return $appUser->GetByArg();
     }

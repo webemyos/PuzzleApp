@@ -29,7 +29,7 @@ class Config
             if($File == "../.xml")
             {
                 $this->File=new JHomDOMDocument();
-                $this->File->load("Config.xml");
+                $this->File->load("../Config.xml");
             }
             else if(file_exists($File))
             {

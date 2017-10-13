@@ -83,13 +83,13 @@ class AjaxFormBlock extends Block
             switch($control["Type"])
             {
                 case "EntityListBox" :
-                    $ctr = new EntityListBox($control["Name"], $this->Core);
+                    $ctr = new EntityListBox($this->Exist($control, "Name"), $this->Core);
                     $ctr->Entity = $control["Entity"] ;
-                    $ctr->ListBox->Libelle = $control["Libelle"];
-                    $ctr->Libelle = $control["Libelle"];
-                    $ctr->ListBox->Selected = $control["Value"];
+                    $ctr->ListBox->Libelle = $this->Exist($control, "Libelle");
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
+                    $ctr->ListBox->Selected = $this->Exist($control, "Value");
 
-                    if($control["Field"])
+                    if(isset($control["Field"]))
                     {
                         $ctr->AddField($control["Field"]);
                     }
@@ -101,10 +101,10 @@ class AjaxFormBlock extends Block
 
                     break;
                 case "ListBox" :
-                    $ctr = new ListBox($control["Name"]);
-                    $ctr->Libelle = $control["Libelle"];
+                    $ctr = new ListBox($this->Exist($control, "Name"));
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
 
-                    foreach($control["Value"] as $key => $value)
+                    foreach($this->Exist($control, "Value") as $key => $value)
                     {
                         $ctr->Add($key, $value);
                     }
@@ -112,48 +112,48 @@ class AjaxFormBlock extends Block
 
                     break;
                 case "AutoCompleteBox" :
-                    $ctr = new AutoCompleteBox($control["Name"], $this->Core);
+                    $ctr = new AutoCompleteBox($this->Exist($control, "Name"), $this->Core);
                     $ctr->Entity = $control["Entity"] ;
                     $ctr->Methode = $control["Methode"];
-                    $ctr->Libelle = $control["Libelle"];
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
 
 
                     break;
                  case "TextBox"  :
-                         $ctr = new TextBox($control["Name"], $this->Core);
-                         $ctr->Title = $control["Title"];
-                         $ctr->Value = $control["Value"];
-                         $ctr->Libelle = $control["Libelle"];
+                         $ctr = new TextBox($this->Exist($control, "Name"), $this->Core);
+                         $ctr->Title = $this->Exist($control, "Title");
+                         $ctr->Value = $this->Exist($control, "Value");
+                         $ctr->Libelle = $this->Exist($control, "Libelle");
                     break;
                   case "TextArea"  :
-                         $ctr = new TextArea($control["Name"], $this->Core);
-                         $ctr->Title = $control["Title"];
-                         $ctr->Value = $control["Value"];
-                         $ctr->Libelle = $control["Libelle"];
+                         $ctr = new TextArea($this->Exist($control, "Name"), $this->Core);
+                         $ctr->Title = $this->Exist($control, "Title");
+                         $ctr->Value = $this->Exist($control, "Value");
+                         $ctr->Libelle = $this->Exist($control, "Libelle");
                     break;
                  case "BsEmailBox"  :
-                         $ctr = new BsEmailBox($control["Name"], $this->Core);
-                         $ctr->Title = $control["Title"];
+                         $ctr = new BsEmailBox($this->Exist($control, "Name"), $this->Core);
+                         $ctr->Title = $this->Exist($control, "Title");
                     break;
                     case "BsPassword"  :
-                         $ctr = new BsPassword($control["Name"], $this->Core);
-                         $ctr->Title = $control["Title"];
+                         $ctr = new BsPassword($this->Exist($control, "Name"), $this->Core);
+                         $ctr->Title = $this->Exist($control, "Title");
                      break;
 
                 case "CheckBox" :
-                    $ctr = new CheckBox($control["Name"]);
-                    $ctr->Value = $control["Value"];
-                    $ctr->Libelle = $control["Libelle"];
+                    $ctr = new CheckBox($this->Exist($control, "Name"));
+                    $ctr->Value = $this->Exist($control, "Value");
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
                     $ctr->CssClass = $control["CssClass"];
-                    $ctr->Checked = $control["Value"];
+                    $ctr->Checked = $this->Exist($control, "Value");
                     break;
                 case "Button" :
                     $ctr = new Button(BUTTON);
-                    $ctr->Value = $control["Value"];
-                    $ctr->Libelle = $control["Libelle"];
-                    $ctr->CssClass = $control["CssClass"];
+                    $ctr->Value = $this->Exist($control, "Value");
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
+                    $ctr->CssClass = isset($control["CssClass"])?$control["CssClass"]:"btn btn-info";
 
-                    if($control["OnClick"] != "")
+                    if(isset($control["OnClick"]))
                     {
                          $ctr->OnClick = $control["OnClick"];
                     }
@@ -174,22 +174,22 @@ class AjaxFormBlock extends Block
                     break;
                 case "Libelle":
 
-                    $ctr = new Libelle($control["Value"]);
+                    $ctr = new Libelle($this->Exist($control, "Value"));
 
                     break;
                 case "Link" :
-                    $ctr = new Link($control["Libelle"], $control["Value"]);
+                    $ctr = new Link($this->Exist($control, "Libelle"), $this->Exist($control, "Value"));
                     $ctr->Target= "_blank";
                     break;
                 case "Hidden" :
-                    $ctr = new Hidden($control["Name"]);
-                    $ctr->Value = $control["Value"];
+                    $ctr = new Hidden($this->Exist($control, "Name"));
+                    $ctr->Value = $this->Exist($control, "Value");
                     break;
                 default :
                     $type = $control["Type"];
 
-                    $ctr = new $type($control["Name"]);
-                    $ctr->Libelle = $control["Libelle"];
+                    $ctr = new $type($this->Exist($control, "Name"));
+                    $ctr->Libelle = $this->Exist($control, "Libelle");
                     $ctr->PlaceHolder = $control["PlaceHolder"];
 
                     if($control["OnClick"] != "")
@@ -198,7 +198,7 @@ class AjaxFormBlock extends Block
                     }
 
                     //Remplacement des caractères spéciaxu pour les ckEditor
-                    $ctr->Value = $control["Value"];
+                    $ctr->Value = $this->Exist($control, "Value");
 
                     break;
             }
@@ -216,5 +216,13 @@ class AjaxFormBlock extends Block
         }
 
         return $block->Show();
+    }
+    
+    /*
+     * Verifie si le champ existe
+     */
+    private function Exist($control, $value)
+    {
+        return isset($control[$value])?$control[$value]:"";
     }
 }

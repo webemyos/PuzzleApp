@@ -37,7 +37,7 @@ class EntityManager
             foreach($entity->GetProperty() as $propertie)
             {
                 $field = $propertie->Name;
-                $propertie->Value = $store->$field->Value;
+                $propertie->Value = isset($store->$field)?$store->$field->Value:"";
             }
         }
         else
@@ -150,7 +150,7 @@ class EntityManager
         {
             if($entity->IdEntite == "")
             {
-          echo      $request = SqlRequestBuilder::Insert($entity);
+                $request = SqlRequestBuilder::Insert($entity);
                 
                 //Store the Entity in the Storage Manager
                 StorageManager::StoreById($entity);

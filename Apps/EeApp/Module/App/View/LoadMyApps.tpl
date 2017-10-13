@@ -13,7 +13,7 @@
                         <td>{{element->App->Value->GetImage()}}</td>
                         <td>{{element->App->Value->Name->Value}}</td>
                         <td>{{element->App->Value->Description->Value}}</td>
-                        <td><input type='button' class='btn btn-primary' onclick='EeAppAction.Remove({{element->IdEntite}}, this)' value='{{GetCode(EeApp.Remove)}}' /></td>
+                        <td><input type='button' class='btn btn-danger' onclick='EeAppAction.Remove({{element->IdEntite}}, this)' value='{{GetCode(EeApp.Remove)}}' /></td>
                     </tr>
                 {{/foreach}}           
                 </tbody>

@@ -190,7 +190,11 @@ class View
         foreach($macthes[0] as $match)
         {
            $prop = $macthes[1][$i];
-           $newLine = str_replace($match, $elm->$prop->Value, $newLine);
+           
+           if(isset($elm->$prop))
+           {
+            $newLine = str_replace($match, $elm->$prop->Value, $newLine);
+           }
            $i++;
         }
 

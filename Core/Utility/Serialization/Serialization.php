@@ -27,7 +27,10 @@ namespace Core\Utility\Serialization;
 
 		foreach($arg as $key=>$value)
 		{
-			$Enconding .= "::".$key."!!".$value;
+                    if(!is_array($value)   && $value != "")
+                    {
+                        $Enconding .= "::".$key."!!".$value;
+                    }
 		}
 	return $Enconding ;
  	}

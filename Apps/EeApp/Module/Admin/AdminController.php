@@ -9,7 +9,7 @@
 
 namespace Apps\EeApp\Module\Admin;
 
-use AdminHelper;
+use Apps\EeApp\Helper\AdminHelper;
 use Apps\EeApp\Helper\AppHelper;
 use Core\Control\AutoCompleteBox\AutoCompleteBox;
 use Core\Control\Icone\DeleteIcone;

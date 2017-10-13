@@ -30,7 +30,7 @@ class EeAppAdmin extends Entity
 
             $this->AppId = new Property("AppId", "AppId", NUMERICBOX,  true, $this->Alias); 
             $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-            $this->User = new EntityProperty("Core\Entity\Entity\User\User", "UserId");  
+            $this->User = new EntityProperty("Core\Entity\User\User", "UserId");  
             //Creation de l entité 
             $this->Create(); 
     }
