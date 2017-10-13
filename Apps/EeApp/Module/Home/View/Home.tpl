@@ -6,6 +6,6 @@
     </div>
     <div class='col-mid-12 alignCenter' id='dvDesktop'>
           <h4 class='blueOne'>{{GetCode(EeApp.TitleHome)}}</h4>
-            <p>{{GetCode(EeApp.MessageHome)}}!</p>
+            <p>{{GetCode(EeApp.MessageHome)}}</p>
     </div>
 </div>

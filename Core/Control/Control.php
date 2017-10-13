@@ -118,7 +118,7 @@ class Control
                     //Reload the value if In post
                     if(Request::GetPost($this->Id) !== false && get_class($this) != "Core\Control\Submit\Submit"  && get_class($this) != "Core\Control\Button\Button" )
                     {
-                        $this->Value = Request::GetPost($this->Id);
+                        $this->Value = !is_array(Request::GetPost($this->Id))?Request::GetPost($this->Id):"" ;
                     }
                     $TextControl .=($this->Value !="")? "  value='".htmlspecialchars($this->Value, ENT_QUOTES ). "'" : "";
 		}

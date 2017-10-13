@@ -27,38 +27,38 @@ class Icone extends Control implements IControl
 	//Constructeur
 	function __construct()
 	{
-		//Version
-		$this->Version ="2.0.0.1";
-	}
+            //Version
+            $this->Version ="2.0.0.1";
+        }
 
 	//Affichage
 	function Show()
 	{
-		$TextControl ="\n<span ";
+            $TextControl ="\n<span ";
 
-		$this->CssClass .= " ".$this->Color;
+            $this->CssClass .= " ".$this->Color;
 
-		$TextControl .= $this->getProperties();
-		$TextControl .=" title='".$this->Title."'";
-		$TextControl .=" alt ='".$this->Alt."'";
+            $TextControl .= $this->getProperties();
+            $TextControl .=" title='".$this->Title."'";
+            $TextControl .=" alt ='".$this->Alt."'";
 
-                if($this->ToolTip != "")
-                {
-                   $TextControl .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
-                  // $TextControl .= " onmouseleave='CloseTool(this);'";
-                }
+            if($this->ToolTip != "")
+            {
+               $TextControl .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
+              // $TextControl .= " onmouseleave='CloseTool(this);'";
+            }
 
-                $TextControl .="  >";
+            $TextControl .="  >";
 
-		$TextControl .="</span>";
+            $TextControl .="</span>";
 
-		return $TextControl ;
+            return $TextControl ;
 	}
 
 	//Asseceurs
 	public function __get($name)
 	{
-		return $this->$name;
+            return $this->$name;
 	}
 
 	public function __set($name,$value)
@@ -74,10 +74,10 @@ class Icone extends Control implements IControl
 */
 class RemoveIcone extends Icone
 {
-	function RemoveIcone()
-	{
-            $this->CssClass = "icon-remove";
-	}
+    function RemoveIcone()
+    {
+        $this->CssClass = "icon-remove";
+    }
 }
 
 

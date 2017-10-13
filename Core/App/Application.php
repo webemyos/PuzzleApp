@@ -109,12 +109,12 @@ class Application
 
             if(file_exists($fileName))
             {
-                    $this->Interface= new JHomDOMDocument();
-                    $this->Interface->load($fileName);
+                $this->Interface= new JHomDOMDocument();
+                $this->Interface->load($fileName);
             }
             else
             {
-                    throw new \Exception('Fichier interface non trouvé');
+                throw new \Exception('Fichier interface non trouvé');
             }
 	}
 
@@ -129,49 +129,49 @@ class Application
 
             if($xmlMenu->item(0) != null)
             {
-                    $Menu = $xmlMenu->item(0);
-                    $MenuV = new MenuV("appMenu".$name);
+                $Menu = $xmlMenu->item(0);
+                $MenuV = new MenuV("appMenu".$name);
 
-                    //Recuperation des item
-                    $items = $Menu->GetElementsByTagName("item");
+                //Recuperation des item
+                $items = $Menu->GetElementsByTagName("item");
 
-                    foreach($items as $item)
+                foreach($items as $item)
+                {
+                    $MenuV->AddItem($this->Core->GetCode($item->getAttribute("name")),"", "", "", $item->getAttribute("action"));
+
+                    //Recuperation des sous menu
+                    $subItems = $item->GetElementsByTagName("subitem");
+
+                    if(sizeof($subItems) > 0)
                     {
-                            $MenuV->AddItem($this->Core->GetCode($item->getAttribute("name")),"", "", "", $item->getAttribute("action"));
-
-                            //Recuperation des sous menu
-                            $subItems = $item->GetElementsByTagName("subitem");
-
-                            if(sizeof($subItems) > 0)
+                        foreach($subItems as $subItem)
+                        {
+                            //Recuperation de l'image
+                            if($subItem->getAttribute("img") != "" && file_exists("../Apps/$name/images/".$subItem->getAttribute("img")))
                             {
-                                    foreach($subItems as $subItem)
-                                    {
-                                            //Recuperation de l'image
-                                            if($subItem->getAttribute("img") != "" && file_exists("../Apps/$name/images/".$subItem->getAttribute("img")))
-                                            {
-                                                    $img = "../Apps/$name/images/".$subItem->getAttribute("img");
-                                            }
-                                            else
-                                            {
-                                                    $img = $subItem->getAttribute("img");
-                                            }
-
-                                            //Ajout d'un icone
-                                            if($subItem->getAttribute("icone") != "")
-                                            {
-                                                    $iconeName = $subItem->getAttribute("icone");
-                                                    $icone = new $iconeName();
-                                            }
-                                            else
-                                            {
-                                                    $icone ="";
-                                            }
-
-                                            $MenuV->AddSubItem($this->Core->GetCode($item->getAttribute("name")), $this->Core->GetCode($subItem->getAttribute("name")),"",$subItem->getAttribute("action"), $img, $icone);
-                                    }
+                                    $img = "../Apps/$name/images/".$subItem->getAttribute("img");
                             }
+                            else
+                            {
+                                    $img = $subItem->getAttribute("img");
+                            }
+
+                            //Ajout d'un icone
+                            if($subItem->getAttribute("icone") != "")
+                            {
+                                    $iconeName = $subItem->getAttribute("icone");
+                                    $icone = new $iconeName();
+                            }
+                            else
+                            {
+                                    $icone ="";
+                            }
+
+                            $MenuV->AddSubItem($this->Core->GetCode($item->getAttribute("name")), $this->Core->GetCode($subItem->getAttribute("name")),"",$subItem->getAttribute("action"), $img, $icone);
+                        }
                     }
-                    return $MenuV->Show();
+                }
+                return $MenuV->Show();
             }
 
             return "";
@@ -289,51 +289,51 @@ class Application
 	*/
 	function SetControl($child)
 	{
-		$textTab = "";
-		switch($child->nodeName)
-				{
-					case "label":
-						$textTab .= $this->Core->GetCode($child->nodeValue);
-					break;
-					case "module":
-						$nameBlock  = $child->getAttribute("type");
-						$block = new $nameBlock($this->Core);
+            $textTab = "";
+            switch($child->nodeName)
+            {
+                case "label":
+                        $textTab .= $this->Core->GetCode($child->nodeValue);
+                break;
+                case "module":
+                        $nameBlock  = $child->getAttribute("type");
+                        $block = new $nameBlock($this->Core);
 
-						//Verification des parametres
-						$properties = $child->getElementsByTagName("property");
+                        //Verification des parametres
+                        $properties = $child->getElementsByTagName("property");
 
-						if(sizeof($properties) > 0)
-						{
-							foreach($properties as $propertie)
-							{
-								$name = $propertie->getAttribute("Name");
+                        if(sizeof($properties) > 0)
+                        {
+                                foreach($properties as $propertie)
+                                {
+                                        $name = $propertie->getAttribute("Name");
 
-								$block->$name->Value = $propertie->getAttribute("Value");
-							}
-						}
+                                        $block->$name->Value = $propertie->getAttribute("Value");
+                                }
+                        }
 
-						$textTab .= $block->Show();
-					break;
-					default :
-						$nameControl = $child->nodeName;
-						$control = new $nameControl($child->getAttribute("name"));
-						$control->Style = $child->getAttribute("style");
+                        $textTab .= $block->Show();
+                break;
+                default :
+                        $nameControl = $child->nodeName;
+                        $control = new $nameControl($child->getAttribute("name"));
+                        $control->Style = $child->getAttribute("style");
 
-						$control->Id = $child->getAttribute("name");
+                        $control->Id = $child->getAttribute("name");
 
-						if($nameControl == 'button')
-						{
-							$control->Value = $this->Core->GetCode($child->getAttribute("value"));
-						}
-						else
-						{
-							$control->Value = $child->getAttribute("value");
-						}
-						$textTab .= $control->Show();
-					break;
-				}
+                        if($nameControl == 'button')
+                        {
+                            $control->Value = $this->Core->GetCode($child->getAttribute("value"));
+                        }
+                        else if($nameControl != "menu")
+                        {
+                            $control->Value = $child->getAttribute("value");
+                        }
+                        $textTab .= $control->Show();
+                break;
+            }
 
-		return $textTab;
+            return $textTab;
 	}
 	/**
 	 * Crée le controle

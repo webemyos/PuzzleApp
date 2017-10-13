@@ -47,7 +47,7 @@ use Core\View\View;
      */
     function Show($all=true)
     {
-        $view = new View(__DIR__ . "/View/HomeBlock.tpl", $this->Core);
+        $view = new View(__DIR__ . "/View/Home.tpl", $this->Core);
 
         //Bouton mes applications
         $btnMyApp = new Button(BUTTON, "btnMyApp");
