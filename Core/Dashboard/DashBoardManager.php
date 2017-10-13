@@ -40,6 +40,7 @@ class DashBoardManager
    public static function LoadUserApp()
    {
       $core = Core::getInstance();
+      $html = "";
 
        if(Request::GetPost("show") == "")
        {

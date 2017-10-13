@@ -37,7 +37,7 @@ function AutoCompleteBox()
 			divResult.id = "divResult";
 		    divResult.style.left = posX  + "px";
 
-		    divResult.style.top = posY + 30 + "px";
+		    divResult.style.top = posY + 100 + "px";
 		    divResult.style.width = "200px";
 
 		    divResult.innerHTML = "<center><br /><br /><img src='../Images/loading/load.gif' alt='Wait' title='wait' /></center>";

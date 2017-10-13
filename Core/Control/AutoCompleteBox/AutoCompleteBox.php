@@ -36,7 +36,7 @@ class AutoCompleteBox extends Control implements IControl
 		$TextControl = "<span id='sp".$this->Id."' >";
 
 		//Ajout de la textBox
-		$TextControl .="<input type='text' id='".$this->Id."' onkeyup='AutoCompleteBox.Search(this, \"".$this->Entity."\", \"".$this->Methode."\", \"".$this->StartAt."\" , \"".$this->SourceControl."\", \"".$this->Parameter."\");' ".$this->getProperties()." />";
+		$TextControl .="<input type='text' class='form-control' id='".$this->Id."' onkeyup='AutoCompleteBox.Search(this, \"".$this->Entity."\", \"".$this->Methode."\", \"".$this->StartAt."\" , \"".$this->SourceControl."\", \"".$this->Parameter."\");' ".$this->getProperties()." />";
 
 		$TextControl .="</span>";
 
