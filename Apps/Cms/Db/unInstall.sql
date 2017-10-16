@@ -1,0 +1,2 @@
+DROP TABLE CmsPage;
+DROP TABLE CmsCms;
