@@ -1,13 +1,17 @@
 <?php
 
+namespace Apps\Forum;
+
 use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Helper\CategoryHelper;
 use Apps\Forum\Helper\ForumHelper;
 use Apps\Forum\Helper\MessageHelper;
 use Apps\Forum\Module\Category\CategoryController;
 use Apps\Forum\Module\Forum\ForumController;
-use Apps\Message\Module\Message\MessageController;
+use Apps\Forum\Module\Message\MessageController;
+use Apps\Forum\Module\Admin\AdminController;
 use Core\App\Application;
+use Core\Core\Core;
 use Core\Core\Request;
 use Core\Dashboard\DashBoardManager;
 /**
@@ -26,19 +30,20 @@ class Forum extends Application
 	/**
 	 * Constructeur
 	 * */
-	 function Forum($core)
+	 function __construct()
 	 {
-	 	parent::__construct($core, "Forum");
-	 	$this->Core = $core;
+            $this->Core = Core::getInstance();
+            parent::__construct($this->Core, "Forum");
+           
          }
 
 	 /**
 	  * Execution de l'application
 	  */
-	 function Run()
+	 function Run($core="", $title="", $name="")
 	 {
-	 	$textControl = parent::Run($this->Core, "Forum", "Forum");
-	 	echo $textControl;
+            $textControl = parent::Run($this->Core, "Forum", "Forum");
+            echo $textControl;
 	 }
         
         /**
@@ -179,11 +184,13 @@ class Forum extends Application
          */
         function ShowDefaultForum()
         {
-           //TODO PARAMETRER CA DANS LA PARTIE ADMIN
+           //TODO POuvoir parametrer un forum par défaut
+           /* 
            $forum = "Webemyos";
         
            $forumController = new ForumController($this->Core);
            echo $forumController->ShowForum($forum, "", Request::GetPost("categoryId"), Request::GetPost("messageId"), false);
+           */
         }
         
         /*
@@ -279,6 +286,15 @@ class Forum extends Application
             $eProfil = DashBoardManager::GetApp("Profil", $this->Core);
             
             echo $forumController->ShowReponses(Request::GetPost("sujetId"), $eProfil);
+        }
+        
+        /*
+         * Charge la partie administration du forum
+         */
+        function LoadAdmin()
+        {
+            $adminController = new AdminController($this->Core);
+            echo $adminController->Show();
         }
         
 }

@@ -82,4 +82,14 @@ class ForumHelper
             return false;
         }
     }
+    
+    /*
+     * Get All Forum
+     * 
+     */
+    public static function GetAll($core)
+    {
+        $forums = new ForumForum($core);
+        return $forums->GetAll();
+    }
 }
