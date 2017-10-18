@@ -78,13 +78,18 @@ var Forum = function() {};
          * Pop in d'ajout de forum
          * @returns {undefined}
          */
-        ForumAction.ShowAddForum = function()
+        ForumAction.ShowAddForum = function(forumId)
         {
             var param = Array();
                 param['App'] = 'Forum';
                 param['Title'] = 'Forum.ShowAddForum';
               
-                Dashboard.OpenPopUp('Forum','ShowAddForum', '','','', 'ForumAction.LoadMyForum()', serialization.Encode(param));
+             if(forumId != undefined)
+             {
+                param['ForumId'] = forumId;
+             }
+              
+                Dashboard.OpenPopUp('Forum','ShowAddForum', '','','', 'ForumAction.LoadAdmin()', serialization.Encode(param));
         };
         
          /**
@@ -144,8 +149,12 @@ var Forum = function() {};
                 param['App'] = 'Forum';
                 param['Title'] = 'Forum.ShowAddCategory';
                 param['forumId'] = forumId;
-                param['CategoryId'] = categoryId;
-              
+                
+                if(categoryId != undefined)
+                {
+                    param['CategoryId'] = categoryId;
+                }
+                
                 Dashboard.OpenPopUp('Forum','ShowAddCategory', '','','', 'ForumAction.RefreshCategory('+forumId+')', serialization.Encode(param));
         };
         
@@ -254,9 +263,4 @@ var Forum = function() {};
                Dashboard.LoadControl("dvDesktop", data, "" , "div", "Forum"); 
         };
         
-        /*
-         * Pop In d'ajout de forum
-         */
-        ForumAction.ShowAddForum = function()
-        {
-        };
+       

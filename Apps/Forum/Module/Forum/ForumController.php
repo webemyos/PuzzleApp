@@ -61,12 +61,18 @@ use Core\Utility\Format\Format;
          /**
          * Popin de création de forum
          */
-        function ShowAddForum($appName, $entityName, $entityId)
+        function ShowAddForum($forumId, $appName, $entityName, $entityId)
         {
             $jbForum = new AjaxFormBlock($this->Core, "jbForum");
             $jbForum->App = "Forum";
             $jbForum->Action = "SaveForum";
 
+            if($forumId != "")
+            {
+                $jbForum->AddArgument("ForumId", $forumId);
+                
+            }
+            
             //App liée
             $jbForum->AddArgument("AppName", $appName);
             $jbForum->AddArgument("EntityName", $entityName);
@@ -90,7 +96,7 @@ use Core\Utility\Format\Format;
             $html ="";
 
             $forum = new ForumForum($this->Core); 
-            $forum->AddArgument(new Argument("ForumForum", "UserId", EQUAL, $this->Core->User->IdEntite));
+            $forum->AddArgument(new Argument("Apps\Forum\Entity\ForumForum", "UserId", EQUAL, $this->Core->User->IdEntite));
             $forums = $forum->GetByArg();
 
             if(count($forums)> 0)
@@ -178,13 +184,14 @@ use Core\Utility\Format\Format;
             //Ajout d'article
             $btnNew = new Button(BUTTON);
             $btnNew->Value = $this->Core->GetCode("Forum.NewCategory");
+            $btnNew->CssClass = "btn btn-info";
             $btnNew->OnClick = "ForumAction.ShowAddCategory(". $forumId.");";
 
             $html .= $btnNew->Show();
 
             //Recuperation des articles
             $category = new ForumCategory($this->Core);
-            $category->AddArgument(new Argument("ForumCategory", "ForumId", EQUAL,  $forumId ));
+            $category->AddArgument(new Argument("Apps\Forum\Entity\ForumCategory", "ForumId", EQUAL,  $forumId ));
             $categorys = $category->GetByArg();
 
             if(count($categorys) > 0)
@@ -255,7 +262,7 @@ use Core\Utility\Format\Format;
         {
            //Recuperation du forum
             $forum = new ForumForum($this->Core);
-            $forum->GetByName($name);
+            $forum = $forum->GetByName($name);
 
             //Titre et description
             if($front)
@@ -270,7 +277,7 @@ use Core\Utility\Format\Format;
 
             //Affichage des categories avec le nombre de message
             $categorie = new ForumCategory($this->Core);
-            $categorie->AddArgument(new Argument("ForumCategory", "ForumId", EQUAL, $forum->IdEntite));
+            $categorie->AddArgument(new Argument("Apps\Forum\Entity\ForumCategory", "ForumId", EQUAL, $forum->IdEntite));
 
             $categories = $categorie->GetByArg();
 
@@ -345,7 +352,7 @@ use Core\Utility\Format\Format;
         /*
          * Affiche les messages d'une categorie
         */
-        function ShowMessages($categorieName, $categorieId = null, $showTitle = true, $front)
+        function ShowMessages($categorieName, $categorieId = null, $showTitle = true, $front =false)
         {
             //Recupertion de la catégorie
             $categorie = new ForumCategory($this->Core);
@@ -365,7 +372,7 @@ use Core\Utility\Format\Format;
               $this->Core->Page->Masterpage->AddBlockTemplate("!description", $categorie->Description->Value);
             }
 
-            $html .="<div id='dvMessage'>";
+            $html ="<div id='dvMessage'>";
 
             //Titre et description
             $html .= "<h1>".$categorie->Name->Value."</h1>";
@@ -378,7 +385,7 @@ use Core\Utility\Format\Format;
 
             //Bouton pour créer un sujet
             $btnAddSubjet = new Button(BUTTON);
-            $btnAddSubjet->CssClass = "btn btn-primary";
+            $btnAddSubjet->CssClass = "btn btn-info";
             $btnAddSubjet->Value = $this->Core->GetCode("Forum.CreateSujet");
             $btnAddSubjet->OnClick = "ForumAction.ShowAddSujet(".$categorie->IdEntite.")";
 
@@ -449,17 +456,9 @@ use Core\Utility\Format\Format;
       {
           $this->SetTemplate(__DIR__ . "/View/ShowMessage.tpl");
 
-          if($front)
-          {
-              //Recuperation de l'appli Profil
-              $eProfil = DashBoardManager::GetAppFront("Profil", $this->Core);
-          }
-          else
-          {
-              //Recuperation de l'appli Profil
-              $eProfil = DashBoardManager::GetApp("Profil", $this->Core);
-          }
-
+          //Recuperation de l'appli Profil
+          $eProfil = new \Apps\Profil\Profil($this->Core);
+          
           //Recuperation du message
           $message = new ForumMessage($this->Core);
           $message->GetById($sujet);
@@ -551,7 +550,7 @@ use Core\Utility\Format\Format;
           $html ="";
 
           $btnAddReponse = new Button(BUTTON);
-          $btnAddReponse->CssClass = "btn btn-primary";
+          $btnAddReponse->CssClass = "btn btn-info";
           $btnAddReponse->OnClick ="ForumAction.ShowAddReponse(".$sujet.")";
           $btnAddReponse->Value = $this->Core->GetCode("Forum.AddReponse");
 

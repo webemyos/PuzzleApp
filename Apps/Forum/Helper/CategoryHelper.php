@@ -42,7 +42,7 @@ class CategoryHelper
     public static function GetByForum($core, $forumId)
     { 
         $category = new ForumCategory($core);
-        $category->AddArgument(new Argument("ForumCategory", "ForumId" ,EQUAL, $forumId));
+        $category->AddArgument(new Argument("Apps\Forum\Entity\ForumCategory", "ForumId" ,EQUAL, $forumId));
         
         return $category->GetByArg();
     }
@@ -76,7 +76,7 @@ class CategoryHelper
     public static function GetMessages($core, $category)
     {
         $message = new ForumMessage($core);
-        $message->AddArgument(new Argument("ForumMessage", "CategoryId", EQUAL, $category));
+        $message->AddArgument(new Argument("Apps\Forum\Entity\ForumMessage", "CategoryId", EQUAL, $category));
         
         return $message->GetByArg();
     }

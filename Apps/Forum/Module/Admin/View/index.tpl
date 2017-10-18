@@ -2,10 +2,13 @@
     <h1>{{GetCode(Forum.Admin)}}</h1>
     
     <div>
-        {{GetControl(Button,btnAddForum,{Value=Send,CssClass=btn btn-success,OnClick=ForumAction.ShowAddForum()})}}
+        {{GetControl(Button,btnAddForum,{Value=AddForum,CssClass=btn btn-success,OnClick=ForumAction.ShowAddForum()})}}
     </div>
     
     {{foreach}}
-        {{element->Name->Value}}
+        <div>
+            {{element->Name->Value}}
+            {{GetControl(EditIcone,Serveur,{OnClick=ForumAction.ShowAddForum({{element->IdEntite}})})}}
+        </div>
     {{/foreach}}
 </div>

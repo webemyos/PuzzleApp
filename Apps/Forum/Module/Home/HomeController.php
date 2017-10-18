@@ -48,10 +48,16 @@ use Core\View\View;
     {
       $modele = new View(__DIR__ . "/View/Home.tpl", $this->Core);
 
+      $btnHome = new Button(BUTTON, "btnHome");
+      $btnHome->Value = $this->Core->GetCode("Forum.Home");
+      $btnHome->CssClass = "btn btn-info";
+      $btnHome->OnClick = "ForumAction.ShowDefaultForum();";
+      $modele->AddElement($btnHome);
+      
       $btnMyForum = new Button(BUTTON, "btnForum");
       $btnMyForum->Value = $this->Core->GetCode("Forum.MyForum");
       $btnMyForum->CssClass = "btn btn-info";
-      $btnMyForum->OnClick = "ForumAction.ShowDefaultForum();";
+      $btnMyForum->OnClick = "ForumAction.LoadMyForum();";
       $modele->AddElement($btnMyForum);
 
       if(EeApp::isAdmin($this->Core, "App", $this->Core->User->IdEntite))
@@ -67,26 +73,7 @@ use Core\View\View;
           $modele->AddElement(new Text("btnAdmin"));
       }
 
-
-          return $modele->Render();
-
-      //Bouton pour créer un blog
-      $btnNewForum = new Button(BUTTON);
-      $btnNewForum->Value = $this->Core->GetCode("Forum.NewForum");
-      $btnNewForum->OnClick = "ForumAction.ShowAddForum();";
-
-
-
-      //Passage des parametres à la vue
-      $this->AddParameters(array('!titleHome' => $this->Core->GetCode("Forum.TitleHome"),
-                                  '!messageHome' => $this->Core->GetCode("Forum.MessageHome"),
-                                  '!btnNewForum' =>  $btnNewForum->Show(),                     
-                                  '!btnMyForum' => $btnMyForum->Show(),
-                                  ));
-
-      $this->SetTemplate(Forum::$Directory . "/Blocks/HomeBlock/View/HomeBlock.tpl");
-
-      return $this->Render();
+      return $modele->Render();
     }
 
 

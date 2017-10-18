@@ -10,13 +10,17 @@
 
 namespace Apps\Profil\Module\Information;
 
+use Apps\Profil\Profil;
 use Core\Action\AjaxAction\AjaxAction;
 use Core\Block\Block;
 use Core\Control\AutoCompleteBox\AutoCompleteBox;
 use Core\Control\Button\Button;
 use Core\Control\Image\Image;
 use Core\Control\Libelle\Libelle;
+use Core\Control\ToolTip\ToolTip;
+use Core\Control\Upload\Upload;
 use Core\Controller\Controller;
+
 
 
  class InformationController extends Controller
@@ -120,7 +124,7 @@ use Core\Controller\Controller;
        $jbInfo->AddNew($this->GetImage($this->Core->User->IdEntite, true, "", true));
 
        //Ajout de la photo de profil
-       $uploadAjax = new UploadAjaxFile("Profil", $this->Core->User->IdEntite, "ProfilAction.LoadInformation()", "SaveImageProfil");
+       $uploadAjax = new Upload("Profil", $this->Core->User->IdEntite, "ProfilAction.LoadInformation()", "SaveImageProfil");
        $jbInfo->AddNew($uploadAjax, 2);
 
        return $jbInfo->Show();
