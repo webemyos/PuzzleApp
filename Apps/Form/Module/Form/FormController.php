@@ -32,7 +32,6 @@ use Core\Control\Grid\EntityGrid;
 use Core\Control\Icone\GroupIcone;
 use Core\Control\Icone\HelpIcone;
 use Core\Control\Image\Image;
-use Core\Utility\Format\Format;
 use Core\Control\Libelle\Libelle;
 use Core\Control\Link\Link;
 use Core\Control\ListBox\ListBox;
@@ -505,7 +504,7 @@ use Core\Control\TextBox\TextBox;
 
     //Les questions
     $Question = new FormQuestion($this->Core);
-    $Question->AddArgument(new Argument("FormQuestion", "FormId", EQUAL, $idForm));
+    $Question->AddArgument(new Argument("Apps\Form\Entity\FormQuestion", "FormId", EQUAL, $idForm));
     $questions = $Question->GetByArg();
     $i = 0;
 
@@ -584,7 +583,7 @@ use Core\Control\TextBox\TextBox;
     if(Request::GetPost('CanComplete') == true || 1==1)
     {
       $btnSend = new Button(BUTTON);
-      $btnSend->CssClass = "btn btn-primary";
+      $btnSend->CssClass = "btn btn-success";
       $btnSend->Value = $this->Core->GetCode('Send');
       $btnSend->OnClick = "DashBoard.SendForm(".$idForm.")";
       $TextControl .= "<br/>".$btnSend->Show();

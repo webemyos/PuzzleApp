@@ -36,6 +36,14 @@ class Tutoriel extends Mooc
       $this->Core->MasterView->Set("Title", "Apprenez à utiliser PuzzleApp");
       $this->Core->MasterView->Set("Description", "PuzzleApp un framework simple d'utilisation. Des application simples et intuitives qui vous permettent de faire quelques pas. Apprenez à l'utiliser dans nos tutoriels dédiés que vous soyez utilisateur, développeur, graphiste, un peu geek.");
 
-       return Parent::Index();
+      return Parent::Index();
+   }
+   
+   /*
+    * 
+    */
+   function Mooc($params)
+   {
+      return "TEST : " . Parent::Mooc($params); 
    }
 }

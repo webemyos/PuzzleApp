@@ -12,12 +12,25 @@
 use Apps\Mooc\Entity\MoocLesson;
 use Apps\Mooc\Entity\MoocMooc;
 use Apps\Mooc\Entity\MoocMoocUser;
+use Core\App\AppManager;
+use Core\Core\Core;
+use Core\Dashboard\DashBoard;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Date\Date;
-use Core\Dashboard\DashBoard;
+use Core\Utility\Format\Format;
 
 class MoocHelper
 {
+    /*
+     *  Get All Mooc 
+     */
+    public static function GetAll($core)
+    {
+        $mooc = new MoocMooc($core);
+
+        return $mooc->GetAll();
+    }
+    
     /*
      * Sauvegarde un Mooc
      */
@@ -31,6 +44,7 @@ class MoocHelper
         }
         
         $mooc->Name->Value = $name;
+        $mooc->Code->Value = Format::ReplaceForUrl($name);
         $mooc->Description->Value = $description;
         $mooc->CategoryId->Value = $categoryId;
         $mooc->DateCreated->Value = Date::Now();
@@ -100,6 +114,7 @@ class MoocHelper
         }
         
         $lesson->Name->Value = $name;
+        $lesson->Code->Value = Format::ReplaceForUrl($name);
         $lesson->Video->Value = $video;
         $lesson->Description->Value = $description;
         $lesson->Content->Value = $content;
@@ -191,8 +206,8 @@ class MoocHelper
              {
                if($file != "." && $file != ".." && substr_count($file,"_96") == 0 )
                {
-                   $nameFile[$i] = $directory."/".$file;
-                   $nameFileMini[$i] = $directory."/".$file."_96.jpg";
+                   $nameFile[$i] = Core::GetPath("/".$directory."/".$file);
+                   $nameFileMini[$i] = Core::GetPath("/".$directory."/".$file."_96.jpg");
                    
                    $i++;
                }
@@ -210,7 +225,7 @@ class MoocHelper
         switch($type)
         {
             case 0 :
-                $eform = DashBoard::GetApp("Form", $core);
+                $eform = AppManager::GetApp("Form");
                 $eform->SaveByApp("Mooc", "MoocLesson", $lessonId, $name, "" );
             break;
         }

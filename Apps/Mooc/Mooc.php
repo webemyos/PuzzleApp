@@ -37,8 +37,8 @@ class Mooc extends Application
      * */
      function __construct($core)
      {
-            parent::__construct($core, "Mooc");
-            $this->Core = $core;
+        parent::__construct($core, "Mooc");
+        $this->Core = $core;
      }
 
      /**
@@ -46,8 +46,9 @@ class Mooc extends Application
       */
     function Run()
     {
-            $textControl = parent::Run($this->Core, "Mooc", "Mooc");
-            echo $textControl;
+        
+        $textControl = parent::Run($this->Core, "Mooc", "Mooc");
+        echo $textControl;
     }
 
      /*
@@ -55,10 +56,34 @@ class Mooc extends Application
       */
     public function Index()
     {  
-         $frontConroller = new FrontController($this->Core);
-         
-         return $frontConroller->Index();
+       $this->Core->MasterView->Set("Title", "Mooc");
+      
+        $frontConroller = new FrontController($this->Core);
+        return $frontConroller->Index();
     } 
+    
+    /*
+     * Show one Mooc
+     */
+    public function Mooc($params)
+    {
+        $this->Core->MasterView->Set("Title", "Mooc");
+         
+        $frontConroller = new FrontController($this->Core);
+        return $frontConroller->Mooc($params);
+    }
+    
+    /**
+     * Load one leson
+     * @param type $params
+     */
+    public function Lesson($params)
+    {
+        $this->Core->MasterView->Set("Title", "Lessons");
+         
+        $frontConroller = new FrontController($this->Core);
+        return $frontConroller->Lesson($params);
+    }
     
     /*
      * Charge la partie administration

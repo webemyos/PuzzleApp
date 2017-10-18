@@ -54,7 +54,7 @@ class App
         $core->MasterView = $this->appBase->GetMasterView();
 
         //Execute action on app
-        if(!$this->IsApp($app))
+        if(!AppManager::IsApp($app))
         {
           if($app == "" || $app == "index" || $app == "Index")
           {
@@ -76,7 +76,7 @@ class App
         }
         else
         {
-            $path = "Apps\\".$app. "\\".$app;
+           $path = "Apps\\".$app. "\\".$app;
             $apps = new $path($core);
 
             if($action == "" )
@@ -90,15 +90,4 @@ class App
         }
         echo $core->MasterView->Render();
     }
-
-    /*
-     * Défine if te system use à app or one page on site base
-     *
-     */
-   public function IsApp($app)
-   {
-       $apps = array("Blog", "Tutoriel");
-
-       return (in_array($app, $apps));
-   }
 }
