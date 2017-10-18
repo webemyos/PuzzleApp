@@ -1251,3 +1251,37 @@ Dashboard.GetPath = function(page)
     }
 };
 
+/**
+ * Return html upload button
+ * @returns {undefined}
+ */
+Dashboard.GetUploadButton = function(app, idEntity, reloadAction, action, $debug)
+{
+    $html = "<div>";
+
+    $html +="<input type='file' id='fileUpload' name='fileUpload' />";
+    $html += "<input type='button' value='Envoyer' onclick='upload.doUpload(this)' /> ";
+
+    $html += "<input type='hidden' id='hdApp' name = 'hdApp'  value='"+app+"'  /> ";
+    $html += "<input type='hidden' id='hdIdElement' name='hdIdElement' value='"+idEntity+"' /> ";
+    $html += "<input type='hidden' id='hdCallBack' name='hdCallBack' value='"+reloadAction+"' /> ";
+    $html += "<input type='hidden' id='hdAction' name='hdAction' value='" + action + "' /> ";
+    $html += "<input type='hidden' id='hdIdUpload'  name='hdIdUpload' value='' /> ";
+
+    //Frame From Upload
+    if($debug == true)
+    {
+             $html += "<iframe id='frUpload' src='upload' style='display:block' >";
+    }
+    else
+    {
+            $html += "<iframe id='frUpload' src='upload' style='display:none' >";
+    }
+
+    $html += "</iframe>";
+    $html += "</div>";
+
+    return $html;
+
+};
+

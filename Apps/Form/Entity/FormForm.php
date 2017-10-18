@@ -10,6 +10,7 @@
 namespace Apps\Form\Entity ;
 
 use Core\Entity\Entity\Entity;
+use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
 
 

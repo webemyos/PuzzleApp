@@ -187,6 +187,20 @@ class EntityManager
     }
     
     /*
+     * Delete entities by arg
+     */
+    public static function DeleteByArg($entity)
+    {
+        $request = SqlRequestBuilder::Delete($entity);
+        $request .= SqlRequestBuilder::Where($entity);
+        
+        $entity->Core->Db->Execute($request);
+        
+         //Store the Entity in the Storage Manager
+        StorageManager::DeleteByArg($entity);
+    }
+    
+    /*
      * Verify the entitty
      */
     public static function IsValid($entity)

@@ -139,5 +139,17 @@ class DashBoardManager
     $user = new \Core\Entity\User\User($core);
     return $user->SearchUser();
   }
+  
+    /**
+   * Instancie et retourne l'application
+   */
+  public function GetApp($appName, $core)
+  {
+    $path = "\\Apps\\".$appName ."\\".$appName;
+        
+    $app = new $path($core);
+
+    return $app;
+  }
 
 }

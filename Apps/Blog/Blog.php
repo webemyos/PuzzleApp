@@ -304,7 +304,7 @@ class Blog extends Application
            //Ajout de l'image dans le repertoire correspondant
            $directory = "Data/Apps/Blog/";
 
-					 File::CreateDirectory($directory);
+            File::CreateDirectory($directory);
 
            File::CreateDirectory($directory. $idElement);
 

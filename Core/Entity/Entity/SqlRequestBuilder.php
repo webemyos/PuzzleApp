@@ -382,7 +382,11 @@ class SqlRequestBuilder
     {
         $delete ="";
         $delete .= "DELETE FROM "  .$entity->TableName ;
-        $delete .= " WHERE Id =".$entity->IdEntite ;
+        
+        if($entity->IdEntite != "")
+        {
+            $delete .= " WHERE Id =".$entity->IdEntite ;
+        }
         
         return $delete;
     }

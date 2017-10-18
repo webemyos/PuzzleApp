@@ -8,6 +8,18 @@
 
 namespace Apps\Form;
 
+use Apps\Form\Entity\FormForm;
+use Apps\Form\Entity\FormQuestion;
+use Apps\Form\Entity\FormResponse;
+use Apps\Form\Entity\FormResponseUser;
+use Apps\Form\Helper\FormHelper;
+use Apps\Form\Helper\QuestionHelper;
+use Apps\Form\Module\Form\FormController;
+use Apps\Form\Module\Question\QuestionController;
+use Core\App\Application;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
+
 class Form extends Application
 {
   /**
@@ -59,7 +71,7 @@ class Form extends Application
          */
         function SaveForm()
         {
-             echo FormHelper::SaveForm($this->Core, JVar::GetPost('idEntity'));
+             echo FormHelper::SaveForm($this->Core, Request::GetPost('idEntity'));
         }
 
         /**
@@ -67,7 +79,7 @@ class Form extends Application
          * */
         function DeleteForm()
         {
-            FormHelper::DeleteForm($this->Core, JVar::GetPost('idEntity'));
+            FormHelper::DeleteForm($this->Core, Request::GetPost('idEntity'));
             $this->LoadForm();
         }
 
@@ -78,7 +90,7 @@ class Form extends Application
         function LoadQuestionReponse()
         {
            $formController = new FormController($this->Core);
-           echo  $formController->LoadQuestionReponse(JVar::GetPost('idEntity'));
+           echo  $formController->LoadQuestionReponse(Request::GetPost('idEntity'));
         }
 
         /**
@@ -87,7 +99,7 @@ class Form extends Application
         function DetailQuestion()
         {
             $questionController = new QuestionController($this->Core);
-            echo $questionController->DetailQuestion(JVar::GetPost('idEntity'));
+            echo $questionController->DetailQuestion(Request::GetPost('idEntity'));
         }
 
         /**
@@ -96,9 +108,9 @@ class Form extends Application
         function SaveQuestion()
         {
            echo QuestionHelper::SaveQuestion($this->Core, 
-                                 JVar::GetPost('idEntite'),
-                                 JVar::GetPost("idForm"),
-                                 JVar::GetPost("lstType")
+                                 Request::GetPost('idEntite'),
+                                 Request::GetPost("idForm"),
+                                 Request::GetPost("lstType")
                     );
         }
 
@@ -109,7 +121,7 @@ class Form extends Application
   {
     $question = new FormQuestion($this->Core);
     $idForm = $question->FormId->Value;
-    $question->GetById(JVar::GetPost('idEntity'));
+    $question->GetById(Request::GetPost('idEntity'));
 
     FormResponse::DeleteResponse($this->Core, $question->IdEntite);
     $question->Delete();
@@ -125,7 +137,7 @@ class Form extends Application
   {
       
     $questionController = new FormController($this->Core);
-    echo $questionController->TryForm(JVar::GetPost('idForm'));
+    echo $questionController->TryForm(Request::GetPost('idForm'));
   }
 
   /**
@@ -136,17 +148,17 @@ class Form extends Application
   function SendForm()
   {
     //Recuperation du formulaire
-    $formId = JVar::GetPost("FormId");
+    $formId = Request::GetPost("FormId");
     $form = new FormForm($this->Core);
     $form->GetById($formId);
   	
-    if(JVar::GetPost('tbEmail') != '')
+    if(Request::GetPost('tbEmail') != '')
     {
-      $emails = explode(';', JVar::GetPost('tbEmail'));
+      $emails = explode(';', Request::GetPost('tbEmail'));
 
       foreach($emails as $email)
       {
-        $Email  = new JEmail();
+        $Email  = new Email();
         $Email->Template = "MessageTemplate";
         $Email->Sender = WEBEMYOSMAIL;
 
@@ -205,7 +217,7 @@ class Form extends Application
  */
   function DetailResponse()
   {
-	$idForm = JVar::GetPost('idEntity');
+	$idForm = Request::GetPost('idEntity');
 	echo $this->GetTabResponseUser($idForm)->Show();
   }
 	 
@@ -348,7 +360,7 @@ class Form extends Application
   public function ShowByGroup()
   {
       $formController =new FormController($this->Core);
-      echo $formController->GetTabResponseUser(JVar::GetPost("FormId"))->Show();
+      echo $formController->GetTabResponseUser(Request::GetPost("FormId"))->Show();
   }
   
   
@@ -358,7 +370,7 @@ class Form extends Application
   public function ShowByUser()
   {
       $formController = new FormController($this->Core);
-      echo $formController->GetTabResponseUser(JVar::GetPost("FormId"), true)->Show();
+      echo $formController->GetTabResponseUser(Request::GetPost("FormId"), true)->Show();
   }
 }
 ?>

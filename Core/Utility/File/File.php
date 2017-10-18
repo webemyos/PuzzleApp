@@ -353,6 +353,7 @@ namespace Core\Utility\File;
      }
      else
      {
+        echo "Dossier inconnue";
        return false;
      }
    }
@@ -370,8 +371,6 @@ namespace Core\Utility\File;
     //echo "Supression du repertoire" . $dir;
 
 	    $files = glob( $dir . '*', GLOB_MARK );
-
-      var_dump($files);
 
            // print_r($files);
 	    foreach( $files as $file )

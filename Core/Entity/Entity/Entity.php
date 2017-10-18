@@ -206,6 +206,15 @@ class Entity
         return EntityManager::Delete($this);
     }
     
+    /*
+     * Delete Entity Filter by Arg
+     */
+    function DeleteByArg()
+    {
+        //Get all entity with Limit, order and join
+        return EntityManager::DeleteByArg($this);
+    }
+    
     /* Ajoute les propietés
     * de partage
     */

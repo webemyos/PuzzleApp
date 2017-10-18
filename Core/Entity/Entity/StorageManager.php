@@ -144,4 +144,19 @@ class StorageManager
               unset($store::$entities[$entity->Alias][$entity->IdEntite]);
         }
     }
+    
+    /*
+     * Remove the entity by arg
+     */
+    public static function DeleteByArg($entity)
+    {
+        //When the precedent request is getByArg
+        $stores = StorageManager::Find($entity);
+
+        foreach($stores as $store)
+        {
+            unset($store::$entities[$entity->Alias][$entity->IdEntite]);
+        }
+    }
+        
 }

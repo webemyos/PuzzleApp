@@ -77,7 +77,7 @@ class App
         else
         {
             $path = "Apps\\".$app. "\\".$app;
-            $apps = new $path();
+            $apps = new $path($core);
 
             if($action == "" )
             {
@@ -97,7 +97,7 @@ class App
      */
    public function IsApp($app)
    {
-       $apps = array("Blog");
+       $apps = array("Blog", "Tutoriel");
 
        return (in_array($app, $apps));
    }

@@ -254,11 +254,23 @@ class AppHelper
         echo $request = File::GetFileContent(__DIR__."/../../".$appName."/Db/unInstall.sql");
         $core->Db->ExecuteMulti($request);
       
-        File::DeleteDirectory(__DIR__."/../../".$appName);
-        
+       
         //Supprimer les utilisateur et les administrateur
+        echo "<br/> Suppression des utilisateurs et administrateurs";
+        $admin = new EeAppAdmin($core);
+        $admin->AddArgument(new Argument("Apps\EeApp\Entity\EeAppAdmin","AppId", EQUAL, $app->IdEntite));
+        $admin->DeleteByArg();
+        
+        $users = new EeAppUser($core);
+        $users->AddArgument(new Argument("Apps\EeApp\Entity\EeAppUser","AppId", EQUAL, $app->IdEntite));
+        $users->DeleteByArg();
+        
         
         //Suppression
-        $appName->Delete();
+        $app->Delete();
+        
+        //Suppression des fichiers
+        echo "<br/> Suppression des fichiers : ../../".$appName;
+        File::RemoveAllDir(__DIR__."/../../".$appName);
     }
 }

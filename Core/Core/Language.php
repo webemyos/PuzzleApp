@@ -65,11 +65,17 @@ use Core\Utility\Format\Format;
             {
                 $this->LoadCode($langue);
             }
-                
+            
             //Code exist but no libelle
             if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] === false )
             {
-                  return $code;
+                return $code;
+            }
+            
+            //Code and libelle exist return libelle
+            if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] != false )
+            {
+                return $this->ElementsCode[$code];
             }
             
             //Code not exist
