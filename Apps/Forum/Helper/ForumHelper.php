@@ -29,8 +29,7 @@ class ForumHelper
             $forum->UserId->Value = $core->User->IdEntite;
             $forum->Name->Value = $name;
             $forum->Description->Value = $description;
-            $forum->Actif->Value = "0";
-            $forum->Style->Value = 1;
+            
 
             $forum->AppName->Value = $appName;
             $forum->EntityName->Value = $entityName;
@@ -52,7 +51,7 @@ class ForumHelper
     public static function Exist($core, $name)
     {
         $forum = new ForumForum($core);
-        $forum->AddArgument(new Argument("ForumForum", "Name", EQUAL, $name));
+        $forum->AddArgument(new Argument("Apps\Forum\Entity\ForumForum", "Name", EQUAL, $name));
         $forums = $forum->GetByArg();
         
         return (count($forums) > 0) ;
@@ -81,5 +80,15 @@ class ForumHelper
         {
             return false;
         }
+    }
+    
+    /*
+     * Get All Forum
+     * 
+     */
+    public static function GetAll($core)
+    {
+        $forums = new ForumForum($core);
+        return $forums->GetAll();
     }
 }

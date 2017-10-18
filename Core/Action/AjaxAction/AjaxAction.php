@@ -76,18 +76,18 @@ class AjaxAction extends Action
   		$arguments = explode("&", $key);
   		if(sizeof($arguments) > 0)
   		{
-			foreach($arguments as $argument)
-			{
-				$argument = explode("=",$argument);
-	  			$this->Argument[$argument[0]]=$argument[1];
-			}
+                    foreach($arguments as $argument)
+                    {
+                        $argument = explode("=",$argument);
+                        $this->Argument[$argument[0]]= isset($argument[1])?$argument[1]:"" ;
+                    }
   		}
   		else
   		{
-	  		$argument = explode("=",$key);
+                    $argument = explode("=",$key);
 
-	  		if(isset($argument[1]))
-	  			$this->Argument[$argument[0]]=$argument[1];
+                    if(isset($argument[1]))
+                            $this->Argument[$argument[0]]=$argument[1];
   		}
   	}
   	else

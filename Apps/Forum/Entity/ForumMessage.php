@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
  * PuzzleApp
@@ -10,7 +10,10 @@
 namespace Apps\Forum\Entity;
 
 use Core\Entity\Entity\Entity;
+use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
+
+
 
 
 class ForumMessage extends Entity  
@@ -31,10 +34,10 @@ class ForumMessage extends Entity
         $this->Alias = "ForumMessage"; 
 
         $this->CategoryId = new Property("CategoryId", "CategoryId", NUMERICBOX,  true, $this->Alias); 
-        $this->Category = new EntityProperty("ForumCategory", "CategoryId");    
+        $this->Category = new EntityProperty("Apps\Forum\Entity\ForumCategory", "CategoryId");    
 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-        $this->User = new EntityProperty("User", "UserId");
+        $this->User = new EntityProperty("Core\Entity\User\User", "UserId");
         $this->Title = new Property("Title", "Title", TEXTBOX,  true, $this->Alias); 
         $this->Message = new Property("Message", "Message", TEXTAREA,  true, $this->Alias); 
         $this->DateCreated = new Property("DateCreated", "DateCreated", DATEBOX,  true, $this->Alias); 

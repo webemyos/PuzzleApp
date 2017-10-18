@@ -5,7 +5,7 @@ var Forum = function() {};
 	*/
 	Forum.Load = function(parameter)
 	{
-		this.LoadEvent();
+            this.LoadEvent();
 	};
 
 	/*
@@ -13,10 +13,10 @@ var Forum = function() {};
 	*/
 	Forum.LoadEvent = function()
 	{
-		Dashboard.AddEventAppMenu(Forum.Execute, "", "Forum");
-		Dashboard.AddEventWindowsTool("Forum");
-                
-                ForumAction.ShowDefaultForum();
+            Dashboard.AddEventAppMenu(Forum.Execute, "", "Forum");
+            Dashboard.AddEventWindowsTool("Forum");
+
+            ForumAction.ShowDefaultForum();
 	};
 
    /*
@@ -24,9 +24,9 @@ var Forum = function() {};
 	*/
 	Forum.Execute = function(e)
 	{
-		//Appel de la fonction
-		Dashboard.Execute(this, e, "Forum");
-		return false;
+            //Appel de la fonction
+            Dashboard.Execute(this, e, "Forum");
+            return false;
 	};
 
 	/*
@@ -34,7 +34,7 @@ var Forum = function() {};
 	*/
 	Forum.Comment = function()
 	{
-		Dashboard.Comment("Forum", "1");
+            Dashboard.Comment("Forum", "1");
 	};
 
 	/*
@@ -42,7 +42,7 @@ var Forum = function() {};
 	*/
 	Forum.About = function()
 	{
-		Dashboard.About("Forum");
+            Dashboard.About("Forum");
 	};
 
 	/*
@@ -50,7 +50,7 @@ var Forum = function() {};
 	*/
 	Forum.Help = function()
 	{
-		Dashboard.OpenBrowser("Forum","{$BaseUrl}/Help-App-Forum.html");
+            Dashboard.OpenBrowser("Forum","{$BaseUrl}/Help-App-Forum.html");
 	};
 
    /*
@@ -58,7 +58,7 @@ var Forum = function() {};
 	*/
 	Forum.ReportBug = function()
 	{
-		Dashboard.ReportBug("Forum");
+            Dashboard.ReportBug("Forum");
 	};
 
 	/*
@@ -66,7 +66,7 @@ var Forum = function() {};
 	*/
 	Forum.Quit = function()
 	{
-		Dashboard.CloseApp("","Forum");
+            Dashboard.CloseApp("","Forum");
 	};
         
         /**
@@ -78,13 +78,18 @@ var Forum = function() {};
          * Pop in d'ajout de forum
          * @returns {undefined}
          */
-        ForumAction.ShowAddForum = function()
+        ForumAction.ShowAddForum = function(forumId)
         {
             var param = Array();
                 param['App'] = 'Forum';
                 param['Title'] = 'Forum.ShowAddForum';
               
-                Dashboard.OpenPopUp('Forum','ShowAddForum', '','','', 'ForumAction.LoadMyForum()', serialization.Encode(param));
+             if(forumId != undefined)
+             {
+                param['ForumId'] = forumId;
+             }
+              
+                Dashboard.OpenPopUp('Forum','ShowAddForum', '','','', 'ForumAction.LoadAdmin()', serialization.Encode(param));
         };
         
          /**
@@ -144,8 +149,12 @@ var Forum = function() {};
                 param['App'] = 'Forum';
                 param['Title'] = 'Forum.ShowAddCategory';
                 param['forumId'] = forumId;
-                param['CategoryId'] = categoryId;
-              
+                
+                if(categoryId != undefined)
+                {
+                    param['CategoryId'] = categoryId;
+                }
+                
                 Dashboard.OpenPopUp('Forum','ShowAddCategory', '','','', 'ForumAction.RefreshCategory('+forumId+')', serialization.Encode(param));
         };
         
@@ -244,3 +253,14 @@ var Forum = function() {};
           
                dvReponse.innerHTML =  JAjax.GetRequest("Ajax.php");
         };
+        
+        /*
+         * Charge la parti administration du forum
+         */
+        ForumAction.LoadAdmin = function()
+        {
+            var data = "Class=Forum&Methode=LoadAdmin&App=Forum";
+               Dashboard.LoadControl("dvDesktop", data, "" , "div", "Forum"); 
+        };
+        
+       

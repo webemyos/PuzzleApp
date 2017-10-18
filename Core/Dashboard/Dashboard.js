@@ -292,32 +292,34 @@ Dashboard.Execute = function (element, event, appName)
 */
 Dashboard.AddEventById= function(element, event, methode, app, balise)
 {
+    
  if(element == '')
  {
- 	return;
+    return;
  }
 
  if(typeof(app) == "undefined")
  {
-	  var control = document.getElementById(element);
-	  this.AddEvent(control, event, methode);
+    var control = document.getElementById(element);
+     
+    this.AddEvent(control, event, methode);
   }
   else
   {
-        var divRun = document.getElementById("appRun" + app);
+    var divRun = document.getElementById("appRun" + app);
 
-        if(typeof(balise) != "undefined" && divRun != undefined)
+    if(typeof(balise) != "undefined" && divRun != undefined)
+    {
+        var controls = divRun.getElementsByTagName(balise);
+
+        for(i=0; i<controls.length; i++)
         {
-                var controls = divRun.getElementsByTagName(balise);
-
-                for(i=0; i<controls.length; i++)
+                if(controls[i].id == element)
                 {
-                        if(controls[i].id == element)
-                        {
-                                 this.AddEvent(controls[i], event, methode);
-                        }
+                         this.AddEvent(controls[i], event, methode);
                 }
         }
+    }
   }
 };
 

@@ -26,7 +26,7 @@ class MessageHelper
     public static function GetByCategory($core, $categoryId)
     {
         $messages = new ForumMessage($core);
-        $messages->AddArgument(new Argument("ForumMessage", "CategoryId",EQUAL, $categoryId ));
+        $messages->AddArgument(new Argument("Apps\Forum\Entity\ForumMessage", "CategoryId",EQUAL, $categoryId ));
         $messages->AddOrder("Id");
         
         return $messages->GetByArg();
@@ -83,7 +83,7 @@ class MessageHelper
     public static function GetReponse($core, $messageId)
     {
         $reponses = new ForumReponse($core);
-        $reponses->AddArgument(new Argument("ForumReponse", "MessageId", EQUAL, $messageId ));
+        $reponses->AddArgument(new Argument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $messageId ));
         
         $reponses->AddOrder("Id");
         
@@ -98,7 +98,7 @@ class MessageHelper
     public static function GetLastMessage($core, $categoryId)
     {
         $message = new ForumMessage($core);
-        $message->AddArgument(new Argument("ForumMessage", "CategoryId", EQUAL, $categoryId));
+        $message->AddArgument(new Argument("Apps\Forum\Entity\ForumMessage", "CategoryId", EQUAL, $categoryId));
         $message->AddOrder("Id");
         
         $messages = $message->GetByArg();
@@ -121,7 +121,7 @@ class MessageHelper
     public static function GetLastReponse($core, $messageId)
     {
         $reponse = new ForumReponse($core);
-        $reponse->AddArgument(new Argument("ForumReponse", "MessageId", EQUAL, $messageId));
+        $reponse->AddArgument(new Argument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $messageId));
     
         $reponse->AddOrder("Id");
         

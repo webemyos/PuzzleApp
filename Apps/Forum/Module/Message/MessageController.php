@@ -67,7 +67,7 @@ use Core\Core\Request;
           $jbForum->AddControls(array(
                                         array("Type"=>"TextBox", "Name"=> "tbTitle", "Libelle" => $this->Core->GetCode("Title")),
                                         array("Type"=>"TextArea", "Name"=> "tbMessage", "Libelle" => $this->Core->GetCode("Message")),
-                                        array("Type"=>"Button", "CssClass"=>"btn btn-primary" ,"Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                        array("Type"=>"Button", "CssClass"=>"btn btn-success" ,"Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                             )
                   );
 
