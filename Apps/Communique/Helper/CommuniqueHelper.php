@@ -9,6 +9,15 @@
 
 namespace Apps\Communique\Helper;
 
+use Apps\Communique\Entity\CommuniqueCampagne;
+use Apps\Communique\Entity\CommuniqueCampagneEmail;
+use Apps\Communique\Entity\CommuniqueCommunique;
+use Apps\Communique\Entity\CommuniqueListMember;
+use Core\Control\Link\Link;
+use Core\Entity\Entity\Argument;
+use Core\Utility\Date\Date;
+use Core\Utility\Format\Format;
+
 
 class CommuniqueHelper
 {
@@ -28,6 +37,7 @@ class CommuniqueHelper
         }
 
         $communique->UserId->Value = $core->User->IdEntite;
+        $communique->Code->Value = Format::ReplaceForUrl($title);
         $communique->Title->Value = $title;
 
         $communique->AppName->Value = $appName;
@@ -61,9 +71,9 @@ class CommuniqueHelper
     {
         $communique = new CommuniqueCommunique($core);
         
-        $communique->AddArgument(new Argument("CommuniqueCommunique","AppName", EQUAL, $appName));
-        $communique->AddArgument(new Argument("CommuniqueCommunique","EntityName", EQUAL, $entityName));
-        $communique->AddArgument(new Argument("CommuniqueCommunique","EntityId", EQUAL, $entityId));
+        $communique->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCommunique","AppName", EQUAL, $appName));
+        $communique->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCommunique","EntityName", EQUAL, $entityName));
+        $communique->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCommunique","EntityId", EQUAL, $entityId));
         
         return $communique->GetByArg();
     }
@@ -116,8 +126,8 @@ class CommuniqueHelper
         {
             //Recuperation des destinataires
             $member = new CommuniqueListMember($core);
-            $member->AddArgument(new Argument("CommuniqueListMember", "ListId", EQUAL, $listId));
-            $member->AddArgument(new Argument("CommuniqueListMember", "Actif", EQUAL, 1));
+            $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "ListId", EQUAL, $listId));
+            $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "Actif", EQUAL, 1));
             $members = $member->GetByArg();
         }
         
@@ -126,11 +136,17 @@ class CommuniqueHelper
         {
             foreach($members as $member)
             {
+                //TODO VERSION EN LIGN
+                //Version en ligne
+                 $lkVersionOnLine = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Detail/".CommuniqueCommunique->IdEntite));
+                 $message .= $lkVersionOnLine->Show();
+
+                
                 //Message
                 $message = str_replace("!et!", "&", $communique->Text->Value);
                 
                 //Lien vers les images ver webemyos
-                $message = str_replace("../Data/", "http://webemyos.com/Data/", $message);
+                $message = str_replace("Data/", "http://".$_SERVER["SERVER_NAME"]."/Data/", $message);
                 
                 
                 //Lien vers l'image de tracking
@@ -141,7 +157,9 @@ class CommuniqueHelper
                 if($email == "")
                 {
                     //Lien de desabonnement
-                    $lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/index.php?Page=app&app=Communique&ListId=".$listId."&email=".$member->Email->Value);
+                    //$lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/index.php?Page=app&app=Communique&ListId=".$listId."&email=".$member->Email->Value);
+                    $lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Desabonnement/ListId=".$listId."&email=".$member->Email->Value);
+                   
                     $message .= $lkDesabonnement->Show();
                 }
                 
@@ -172,8 +190,8 @@ class CommuniqueHelper
     function AddEmailOpen($core, $campagneId, $email)
     {
          $campagneEmail = new CommuniqueCampagneEmail($core);
-         $campagneEmail->AddArgument(new Argument("CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId));
-         $campagneEmail->AddArgument(new Argument("CommuniqueCampagneEmail", "Email", EQUAL, $email));
+         $campagneEmail->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId));
+         $campagneEmail->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCampagneEmail", "Email", EQUAL, $email));
          
          $emails =$campagneEmail->GetByArg();
          $email = $emails[0];
@@ -192,7 +210,7 @@ class CommuniqueHelper
     {
         //Supprime les emails
         $email = new CommuniqueCampagneEmail($core);
-        $email->AddArgument(new Argument("CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId ));
+        $email->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId ));
         $emails =$email->GetByArg();
         
         foreach($emails as $email)
@@ -213,7 +231,9 @@ class CommuniqueHelper
      */
     public static function GetImages($core, $communiqueId)
     { 
-        $directory = "../Data/Apps/Communique/". $communiqueId;
+        $directory = "Data/Apps/Communique/". $communiqueId;
+        $dir = "Data/Apps/Communique/". $communiqueId;
+        
         $nameFile = array();
         $nameFileMini = array();
         
@@ -225,14 +245,14 @@ class CommuniqueHelper
              {
                if($file != "." && $file != ".." && substr_count($file,"_96") == 0 )
                {
-                   $nameFile[$i] = $directory."/".$file;
+                   $nameFile[$i] = $dir."/".$file;
                    
                    $fileNameMini =str_replace(".png", "", $file);
                    $fileNameMini =str_replace(".jpg", "", $fileNameMini);
                    $fileNameMini =str_replace(".jpeg", "", $fileNameMini);
                    $fileNameMini =str_replace(".ico", "", $fileNameMini);
                            
-                   $nameFileMini[$i] = $directory."/".$fileNameMini."_96.png";
+                   $nameFileMini[$i] = $dir."/".$fileNameMini."_96.png";
                    
                    $i++;
                }

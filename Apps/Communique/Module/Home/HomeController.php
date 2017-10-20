@@ -46,22 +46,23 @@ use Core\View\View;
 
       //Bouton pour créer un communique
       $btnNewCommunique = new Button(BUTTON, "btnNewCommunique");
-      $btnNewCommunique->Value = $this->Core->GetCode("EeCommunique.NewCommunique");
-      $btnNewCommunique->OnClick = "EeCommuniqueAction.ShowAddCommunique();";
+      $btnNewCommunique->CssClass = "btn btn-info";
+      $btnNewCommunique->Value = $this->Core->GetCode("Communique.NewCommunique");
+      $btnNewCommunique->OnClick = "CommuniqueAction.ShowAddCommunique();";
       $view->AddElement($btnNewCommunique);
 
       $btnMyCommunique = new Button(BUTTON, "btnMyCommunique");
-      $btnMyCommunique->Value = $this->Core->GetCode("EeCommunique.MyCommunique");
+      $btnMyCommunique->Value = $this->Core->GetCode("Communique.MyCommunique");
       $btnMyCommunique->CssClass = "btn btn-info";
-      $btnMyCommunique->OnClick = "EeCommuniqueAction.LoadMyCommunique();";
+      $btnMyCommunique->OnClick = "CommuniqueAction.LoadMyCommunique();";
       $view->AddElement($btnMyCommunique);
 
       //Bouton de gestion des contacts
       $btnLstContact = new Button(BUTTON, "btnLstContact");
       $btnLstContact->Id = "btnLstContact";
-      $btnLstContact->Value = $this->Core->GetCode("EeCommunique.ListeContact");
+      $btnLstContact->Value = $this->Core->GetCode("Communique.ListeContact");
       $btnLstContact->CssClass = "btn btn-success";
-      $btnLstContact->OnClick = "EeCommuniqueAction.LoadListContact();";
+      $btnLstContact->OnClick = "CommuniqueAction.LoadListContact();";
       $view->AddElement($btnLstContact);
 
       return $view->Render();

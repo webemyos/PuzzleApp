@@ -23,21 +23,21 @@ namespace Core\Utility\Date;
 	//Retourne la date actuelle
 	static public function Now($heure = false, $format = '')
 	{
-		if($format == 'MYSQL')
-		{
-			return date("Y-d-m h:i:s");
-		}
-		else
-		{
-			if($heure)
-			{
-				return date("d/m/Y h:i:s");
-			}
-			else
-			{
-				return date("d/m/Y");
-			}
-		}
+            if($format == 'MYSQL')
+            {
+                    return date("Y-d-m h:i:s");
+            }
+            else
+            {
+                if($heure)
+                {
+                    return date("Y/m/d h:i:s");
+                }
+                else
+                {
+                    return date("Y/m/d");
+                }
+            }
 	}
 
 	//Retourne la date formate
