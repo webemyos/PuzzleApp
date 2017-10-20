@@ -138,15 +138,15 @@ class CommuniqueHelper
             {
                 //TODO VERSION EN LIGN
                 //Version en ligne
-                 $lkVersionOnLine = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Detail/".CommuniqueCommunique->IdEntite));
+                 $lkVersionOnLine = new Link($core->GetCode('Communique.VersionOnLine'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Detail/".$communique->IdEntite);
                  $message .= $lkVersionOnLine->Show();
 
                 
                 //Message
-                $message = str_replace("!et!", "&", $communique->Text->Value);
+                $message .= str_replace("!et!", "&", $communique->Text->Value);
                 
                 //Lien vers les images ver webemyos
-                $message = str_replace("Data/", "http://".$_SERVER["SERVER_NAME"]."/Data/", $message);
+                $message .= str_replace("Data/", "http://".$_SERVER["SERVER_NAME"]."/Data/", $message);
                 
                 
                 //Lien vers l'image de tracking
