@@ -47,15 +47,12 @@ class DashBoardManager
          $html = "<div id='lstApp'  style='height:200px;overflow:auto;'>";
        }
        //recuperation des app utilisateurs
-         //$eap = Eemmys::GetApp("EeApp", $this->Core);
-         $apps = \Apps\EeApp\Helper\AppHelper::GetByUser($core, $core->User->IdEntite);
+        $apps = \Apps\EeApp\Helper\AppHelper::GetByUser($core, $core->User->IdEntite);
 
          if(count($apps)> 0 )
          {
              foreach($apps as $app)
              {
-                // $img->OnClick = "Eemmys.StartApp('', '".$app->App->Value->Name->Value."', '')";
-
                  $icRemove = new Libelle("<b class='icon-remove' onclick='Dashboard.RemoveAppUser(\"".$app->IdEntite."\", this)'>&nbsp;</b>");
                  $html .= "<div><span onclick=\"Dashboard.StartApp('', '".$app->App->Value->Name->Value."', '')\">".$core->GetCode("Menu_".$app->App->Value->Name->Value).$icRemove->Show()."</span></div>";
              }
@@ -72,6 +69,7 @@ class DashBoardManager
              //Bouton pour ajouter des application
              $btnAddApp = new Button(BUTTON);
              $btnAddApp->Value = $core->GetCode("AddApp");
+             $btnAddApp->CssClass = "btn btn-info";
              $btnAddApp->OnClick = "Dashboard.StartApp('','EeApp')";
 
              $html .= $btnAddApp->Show();

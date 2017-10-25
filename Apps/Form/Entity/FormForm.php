@@ -31,6 +31,8 @@ class FormForm extends Entity
 
         //proprietes
         $this->Libelle = new Property("Libelle","Libelle",TEXTBOX, true,$this->Alias);
+        $this->Code = new Property("Code","Code",TEXTBOX, true,$this->Alias);
+        
         $this->Commentaire = new Property("Commentaire","Commentaire",TEXTAREA,false,$this->Alias);
         $this->Actif = new Property("Actif","Actif",CHECKBOX, false,$this->Alias);
 

@@ -11,11 +11,12 @@ namespace Apps\Form\Helper;
 use Apps\Form\Entity\FormForm;
 use Apps\Form\Entity\FormQuestion;
 use Apps\Form\Entity\FormResponseUser;
+use Apps\Form\Helper\QuestionHelper;
+use Core\App\AppManager;
 use Core\Control\Button\Button;
 use Core\Core\Request;
 use Core\Entity\Entity\Argument;
-use Apps\Form\Helper\QuestionHelper;
-use Core\Entity\UserGroupUser;
+use Core\Utility\Format\Format;
 
 
 class FormHelper
@@ -37,6 +38,7 @@ class FormHelper
          $form->UserId->Value = $core->User->IdEntite;
         }
         
+        $form->Code->Value = Format::ReplaceForUrl(Request::GetPost("Libelle"));
         if($form->IsValid())
         {
           $form->Save();
@@ -151,7 +153,7 @@ class FormHelper
 	
 	    
             //Envoi une notification au créateur
-            $eNotify = DashBoard::GetApp("Notify", $core);
+            $eNotify = AppManager::GetApp("Notify");
             $eNotify->AddNotify($core->User->Identite, $core->GetCode("Form.NewReponse"), 
                     $form->UserId->Value, "Form", $form->IdEntite, $core->GetCode("Form.NewReponseTitle") , $core->GetCode("Form.NewReponseMessage"));
 

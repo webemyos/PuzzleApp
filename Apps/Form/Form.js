@@ -28,8 +28,8 @@ var Form = function() {};
 	*/
 	Form.LoadEvent = function()
 	{
-		DashBoard.AddEventAppMenu(Form.Execute, "", "Form");
-		DashBoard.AddEventWindowsTool("Form");
+		Dashboard.AddEventAppMenu(Form.Execute, "", "Form");
+		Dashboard.AddEventWindowsTool("Form");
 	};
 
    /*
@@ -38,7 +38,7 @@ var Form = function() {};
 	Form.Execute = function(e)
 	{
 		//Appel de la fonction
-		DashBoard.Execute(this, e, "Form");
+		Dashboard.Execute(this, e, "Form");
 		return false;
 	};
 
@@ -47,7 +47,7 @@ var Form = function() {};
 	*/
 	Form.Comment = function()
 	{
-		DashBoard.Comment("Form", "1");
+		Dashboard.Comment("Form", "1");
 	};
 
 	/*
@@ -55,7 +55,7 @@ var Form = function() {};
 	*/
 	Form.About = function()
 	{
-		DashBoard.About("Form");
+		Dashboard.About("Form");
 	};
 
 	/*
@@ -63,7 +63,7 @@ var Form = function() {};
 	*/
 	Form.Help = function()
 	{
-		DashBoard.OpenBrowser("Form","{$BaseUrl}/Help-App-Form.html");
+		Dashboard.OpenBrowser("Form","{$BaseUrl}/Help-App-Form.html");
 	};
 
    /*
@@ -71,7 +71,7 @@ var Form = function() {};
 	*/
 	Form.ReportBug = function()
 	{
-		DashBoard.ReportBug("Form");
+		Dashboard.ReportBug("Form");
 	};
 
 	/*
@@ -79,7 +79,7 @@ var Form = function() {};
 	*/
 	Form.Quit = function()
 	{
-		DashBoard.CloseApp("","Form");
+		Dashboard.CloseApp("","Form");
 	};
 
     /*
@@ -90,7 +90,7 @@ var Form = function() {};
 	 	var params = Array();
                 params['Title'] = "Form.New";
 
-   		DashBoard.OpenPopUp('Form','DetailForm', '','','', 'FormAction.RefreshForm();', serialization.Encode(params), '');
+   		Dashboard.OpenPopUp('Form','DetailForm', '','','', 'FormAction.RefreshForm();', serialization.Encode(params), '');
 	};
 
 // Action Utilisateur
@@ -105,7 +105,7 @@ FormAction.LoadMyForm = function()
     FormAction.FormId = "";
 
     var data = "Class=Form&Methode=LoadForm&App=Form";
-        DashBoard.LoadControl("dvDesktop", data, "" , "div", "Form");
+        Dashboard.LoadControl("dvDesktop", data, "" , "div", "Form");
 
     //Ajoute les evements
     //FormAction.AddEvent();
@@ -116,7 +116,7 @@ FormAction.LoadMyForm = function()
 FormAction.RefreshForm = function()
 {
 	var data = 'App=Form&Methode=LoadForm';
-        DashBoard.LoadControl("dvDesktop", data, "" , "div", "Form");
+        Dashboard.LoadControl("dvDesktop", data, "" , "div", "Form");
                 
 	//TODO
 	if(typeof(Form.IdProjet) != 'undefined')
@@ -137,7 +137,7 @@ var data = 'App=Form&Methode=LoadForm';
 
 	FormAction.FormId = idForm;
 
-	DashBoard.LoadControl("dvDesktop", data, "" , "div", "Form");
+	Dashboard.LoadControl("dvDesktop", data, "" , "div", "Form");
 };
 
 /*
@@ -149,7 +149,7 @@ FormAction.EditForm = function(id)
             parameter["idEntity"] = id;
             parameter['Title'] = "Form.Edit";
 
-	DashBoard.OpenPopUp('Form','DetailForm', '','','', 'FormAction.RefreshForm();', serialization.Encode(parameter), '');
+	Dashboard.OpenPopUp('Form','DetailForm', '','','', 'FormAction.RefreshForm();', serialization.Encode(parameter), '');
 };
 
 /*
@@ -157,12 +157,12 @@ FormAction.EditForm = function(id)
 */
 FormAction.DeleteForm = function(id)
 {
-	if(DashBoard.ConfirmDelete())
+	if(Dashboard.ConfirmDelete())
 	{
             var data = 'App=Form&Methode=DeleteForm';
                 data += "&idEntity=" + id;
                 
-         DashBoard.LoadControl("dvDesktop", data, "" , "div", "Form");
+         Dashboard.LoadControl("dvDesktop", data, "" , "div", "Form");
          
                /// JAjax.GetRequest('Ajax.php');
      }
@@ -186,7 +186,7 @@ FormAction.LoadQuestionReponse = function(control, idForm)
 
             }
 
-	 DashBoard.LoadControl("dvDesktop", data, "" , "div", "Form");
+	 Dashboard.LoadControl("dvDesktop", data, "" , "div", "Form");
 };
 
 /*
@@ -198,7 +198,7 @@ FormAction.DetailQuestion = function(id)
             parameter["idForm"] = id;
             parameter['Title'] = "FormQuestion.Edit";
 
-	DashBoard.OpenPopUp('Form','DetailQuestion', '','','', 'FormAction.RefreshQuestion();', serialization.Encode(parameter), '');
+	Dashboard.OpenPopUp('Form','DetailQuestion', '','','', 'FormAction.RefreshQuestion();', serialization.Encode(parameter), '');
 };
 /*
 * Initialise le type de reponse
@@ -265,7 +265,7 @@ FormAction.AddResponse = function(type)
                         img.className = 'icon-remove';
                         img.title = "Supprimer";
                         img.innerHTML = "&nbsp;";
-                        DashBoard.AddEvent(img, "click", FormAction.DelResponse);
+                        Dashboard.AddEvent(img, "click", FormAction.DelResponse);
                         span.appendChild(img);  
  
                         dvResponse.appendChild(span);
@@ -288,7 +288,7 @@ FormAction.AddResponse = function(type)
                         img.className = 'icon-remove';
                         img.tilte = "Supprimer";
                          img.innerHTML = "&nbsp;";
-                        DashBoard.AddEvent(img, "click", FormAction.DelResponse);
+                        Dashboard.AddEvent(img, "click", FormAction.DelResponse);
                         span.appendChild(img);  
  
                         dvResponse.appendChild(span);
@@ -307,7 +307,7 @@ FormAction.AddResponse = function(type)
                         img.className = 'icon-remove';
                         img.tilte = "Supprimer";
                         img.innerHTML = "&nbsp;";
-                        DashBoard.AddEvent(img, "click", FormAction.DelResponse);
+                        Dashboard.AddEvent(img, "click", FormAction.DelResponse);
                         span.appendChild(img);  
  
                         dvResponse.appendChild(span);
@@ -381,7 +381,7 @@ FormAction.SaveQuestion = function(idForm, idEntite)
         }
         else
         {
-            alert(DashBoard.GetCode("Form.FieldError"));
+            alert(Dashboard.GetCode("Form.FieldError"));
         }
 };
 
@@ -416,7 +416,7 @@ FormAction.TryForm = function(idForm)
 	    parameter["idForm"] = idForm;
             parameter["Title"] = "Form.answer";
 
-	DashBoard.OpenPopUp('Form','TryForm', '', '','', '', serialization.Encode(parameter), '');
+	Dashboard.OpenPopUp('Form','TryForm', '', '','', '', serialization.Encode(parameter), '');
 
 };
 
@@ -430,7 +430,7 @@ FormAction.ShowByGroup = function(formId)
     var data = "Class=Form&Methode=ShowByGroup&App=Form";
         data += "&FormId="+formId;
         
-        DashBoard.LoadControl("jbResponse", data, "" , "div", "Form");
+        Dashboard.LoadControl("jbResponse", data, "" , "div", "Form");
 
 };
 
@@ -444,7 +444,7 @@ FormAction.ShowByUser = function(formId)
     var data = "Class=Form&Methode=ShowByUser&App=Form";
         data += "&FormId="+formId;
             
-    DashBoard.LoadControl("jbResponse", data, "" , "div", "Form");
+    Dashboard.LoadControl("jbResponse", data, "" , "div", "Form");
 };
 
 FormAction.SendForm = function()

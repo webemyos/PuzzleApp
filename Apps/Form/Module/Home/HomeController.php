@@ -6,11 +6,12 @@
  * GNU Licence
  */
 
-namespace Apps\Form\Module\Form;
+namespace Apps\Form\Module\Home;
 
 use Core\Control\Button\Button;
 use Core\Controller\Controller;
-use const BUTTON;
+use Core\View\View;
+
 
  class HomeController extends Controller
  {
@@ -41,28 +42,23 @@ use const BUTTON;
      */
     function Show($all=true)
     {
-          //Bouton pour créer un message
-          $btnMyForm = new Button(BUTTON);
-          $btnMyForm->Value = $this->Core->GetCode("Form.MyForm");
-          $btnMyForm->CssClass = "btn btn-info";
-          $btnMyForm->OnClick = "FormAction.LoadMyForm();";
-
-           //Fichier Partage
-          $btnNewForm = new Button(BUTTON);
-          $btnNewForm->Value = $this->Core->GetCode("Form.NewForm");
-          $btnNewForm->OnClick = "Form.New();";
-
-
-          //Passage des parametres à la vue
-          $this->AddParameters(array('!titleHome' => $this->Core->GetCode("Form.TitleHome"),
-                                      '!messageHome' => $this->Core->GetCode("Form.MessageHome"),
-                                      '!btnMyForm' =>  $btnMyForm->Show(),                     
-                                      '!btnNewForm' => $btnNewForm->Show(),
-                                  ));
-
-          $this->SetTemplate(__DIR__. "/View/Home.tpl");
-
-          return $this->Render();
+        $View = new View( __DIR__ . "/View/Home.tpl", $this->Core);
+        
+         //Nouveau formulaire
+        $btnNewForm = new Button(BUTTON, "btnNewForm");
+        $btnNewForm->Value = $this->Core->GetCode("Form.NewForm");
+        $btnNewForm->CssClass = "btn btn-warning";
+        $btnNewForm->OnClick = "Form.New();";
+        $View->AddElement($btnNewForm);
+        
+        //Bouton pour créer un message
+        $btnMyForm = new Button(BUTTON, "btnMyForm");
+        $btnMyForm->Value = $this->Core->GetCode("Form.MyForm");
+        $btnMyForm->CssClass = "btn btn-info";
+        $btnMyForm->OnClick = "FormAction.LoadMyForm();";
+        $View->AddElement($btnMyForm);
+          
+        return $View->Render();
     }
   
  }?>

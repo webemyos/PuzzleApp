@@ -80,25 +80,6 @@ class RemoveIcone extends Icone
     }
 }
 
-
-
-
-/*
-* Icone utilisateur
-*/
-class UserIcone extends Icone
-{
-	function UserIcone($core = null)
-	{
-		$this->CssClass = "icon-user";
-
-                if($core != null)
-                {
-                    $this->Title = $core->GetCode("User");
-                }
-	}
-}
-
 /*
 * Icone de validation
 */

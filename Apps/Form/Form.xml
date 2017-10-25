@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<app name='EeForm'>
-	<menu>
+<app name='Form'>
+    <menu>
         <item name='File' text='File'>
-                <subitem name='New'  text='New'   action='New' icone='AddIcone'/>
-                <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
-	</item>
-	<center>
-		 <module type='Apps\Form\Module\HomeController'></module>
-	</center>
+            <subitem name='Quit' text='Quit'  action='Quit' icone="Core\Control\Icone\CloseIcone" />
+        </item>
+    </menu>
+    <center>
+             <module type='Apps\Form\Module\Home\HomeController'></module>
+    </center>
 </app>

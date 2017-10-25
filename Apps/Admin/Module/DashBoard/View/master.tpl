@@ -43,14 +43,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>Webemyos</b></a>
+            <a href="index.html" class="logo"><b>PuzzeApp</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_men">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                    <!-- Notify -->
                     <li title="Notifications" >
-                        <a onclick="Eemmys.StartApp('','EeNotify', '');">
+                        <a onclick="Dashboard.StartApp('','EeNotify', '');">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme" id='nbNotify' >{{infoNotify}}</span>
                          </a>
@@ -58,7 +58,7 @@
                     <!-- Message -->
                     <!-- inbox dropdown start-->
                     <li title='Messages'>
-                        <a onclick="Eemmys.StartApp('', 'EeMessage', '')">
+                        <a onclick="Dashboard.StartApp('', 'EeMessage', '')">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme" id="nbMessage" >!infoMessage</span>
                         </a>
@@ -139,7 +139,7 @@
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2017 - PuzzleApp - Webemyos.com
+              2017 - PuzzleApp - PuzzeApp.com
               <a href="blank.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>

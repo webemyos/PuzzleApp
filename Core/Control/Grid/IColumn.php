@@ -7,7 +7,7 @@
  * GNU Licence
  */
 
-namespace Core\Control\GridColumn;
+namespace Core\Control\Grid;
 
 //Interface de base pour les colonnes
 interface IColumn

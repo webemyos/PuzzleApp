@@ -9,6 +9,14 @@
 
 namespace Core\Control\PopUp;
 
+use Core\Action\UserAction\UserAction;
+use Core\Block\FormBlock\FormBlock;
+use Core\Control\Button\Button;
+use Core\Control\Libelle\Libelle;
+use Core\Core\Request;
+use Core\Utility\Serialization\Serialization;
+use ReflectionObject;
+
 class PopUp
 {
 	private $Class;
@@ -112,7 +120,7 @@ class PopUp
 	function ConfirmDelete()
 	{
 		//Formulaire d'envoi
-		$Form = new FormBlock("Form",JVar::GetPost("Page")."&idEntity=".JVar::Get("idEntity")  ,POST,PAGE);
+		$Form = new FormBlock("Form",Request::GetPost("Page")."&idEntity=".Request::Get("idEntity")  ,POST,PAGE);
 		$Form->AddNew(new Libelle("AreYouShure"));
 
 		$btnSend = new Button(SUBMIT);
@@ -128,7 +136,7 @@ class PopUp
 	//Affichage d'un vid�o
 	function ShowVideo()
 	{
-		echo JVar::GetPost("Video");
+		echo Request::GetPost("Video");
 	}
 
 	//Asseceur

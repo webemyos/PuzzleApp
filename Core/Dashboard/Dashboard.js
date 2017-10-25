@@ -1160,7 +1160,7 @@ Dashboard.SendForm = function(idForm)
 		}
 
 	var JAjax = new ajax();
-	    JAjax.data = 'App=EeForm&Methode=SendFormUser';
+	    JAjax.data = 'App=Form&Methode=SendFormUser';
 	    JAjax.data += '&idForm='+ idForm;
 	    JAjax.data += '&data='+ data.join('-!');
 

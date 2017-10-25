@@ -10,6 +10,8 @@
 namespace Apps\Notify\Entity;
 
 use Core\Entity\Entity\Entity;
+use Core\Entity\Entity\EntityProperty;
+use Core\Entity\Entity\Property;
 
 class NotifyNotify extends Entity  
 {
@@ -17,7 +19,7 @@ class NotifyNotify extends Entity
     protected $User;
 
     //Constructeur
-    function NotifyNotify($core)
+    function __construct($core)
     {
         //Version
         $this->Version ="2.0.0.0"; 

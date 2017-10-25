@@ -246,6 +246,22 @@ class Entity
         }
     }
     
+    //Verification The Data
+    public function IsValid()
+    {
+        //Verification de chaque propriï¿½tï¿½
+        $IsValid=true;
+
+        foreach($this->Property as $property)
+        {
+                if(get_class($property)=="Property" && !$property->IsValid())
+                {		//echo $property->Name;
+                                $IsValid=false;
+                }
+        }
+        return $IsValid;
+    }
+        
     /*
      * Set the property
      */

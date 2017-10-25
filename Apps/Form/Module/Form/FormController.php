@@ -8,8 +8,6 @@
 
 namespace Apps\Form\Module\Form;
 
-use ActionColumn;
-use AjaxActionColumn;
 use Apps\Form\Entity\FormForm;
 use Apps\Form\Entity\FormQuestion;
 use Apps\Form\Entity\FormResponse;
@@ -20,17 +18,15 @@ use Core\Action\AjaxAction\AjaxAction;
 use Core\Block\Block;
 use Core\Control\Button\Button;
 use Core\Control\CheckBox\CheckBox;
-use Core\Control\Icone\UserIcone;
-use Core\Controller\Controller;
-use Core\Core\Request;
-use Core\Entity\Entity\Argument;
-use Core\Utility\Format\Format;
+use Core\Control\EntityGrid\AjaxActionColumn;
+use Core\Control\EntityGrid\EntityActionColumn;
+use Core\Control\EntityGrid\EntityColumn;
+use Core\Control\EntityGrid\EntityGrid;
 use Core\Control\Icone\DeleteIcone;
 use Core\Control\Icone\EditIcone;
-use Core\Control\Grid\EntityColumn;
-use Core\Control\Grid\EntityGrid;
 use Core\Control\Icone\GroupIcone;
-use Core\Control\Icone\HelpIcone;
+use Core\Control\Icone\QuestionIcone;
+use Core\Control\Icone\UserIcone;
 use Core\Control\Image\Image;
 use Core\Control\Libelle\Libelle;
 use Core\Control\Link\Link;
@@ -40,7 +36,12 @@ use Core\Control\RadioButton\RadioButton;
 use Core\Control\TabStrip\TabStrip;
 use Core\Control\TextArea\TextArea;
 use Core\Control\TextBox\TextBox;
-
+use Core\Controller\Controller;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
+use Core\Entity\User\User;
+use Core\Entity\User\UserGroupUser;
+use Core\Utility\Format\Format;
 
  class FormController extends Controller
  {
@@ -139,7 +140,7 @@ use Core\Control\TextBox\TextBox;
                       $html .= "<span class='action'><b>".$Edit->Show()."</b>";
 
                       //Gestion des questions;
-                      $Edit = new HelpIcone();
+                      $Edit = new QuestionIcone();
                       $Edit->Title = $this->Core->GetCode("Form.EditQuestion");
                       $Edit->OnClick= "FormAction.LoadQuestionReponse(this, ".$form->IdEntite.")";
                       $html .= "<b>".$Edit->Show()."</b>";
@@ -164,7 +165,7 @@ use Core\Control\TextBox\TextBox;
         function GetForms()
         {
          $form = new FormForm($this->Core);
-         $form->AddArgument(new Argument("FormForm", "UserId", EQUAL, $this->Core->User->IdEntite));
+         $form->AddArgument(new Argument("Apps\Form\Entity\FormForm", "UserId", EQUAL, $this->Core->User->IdEntite));
          $form->AddOrder("Id");
         
          return $form->GetByArg();
@@ -180,11 +181,11 @@ use Core\Control\TextBox\TextBox;
          $Forms->AddArgument(new Argument("eForm","Actif", EQUAL, "1"));
          $forms = $Forms->GetByArg();
 
-         $TextControl ="";
+         $html ="";
 
          if(count($forms) > 0)
          {
-           $TextControl = '<ul>';
+           $html = '<ul>';
 
            foreach($forms as $form)
            {
@@ -219,14 +220,14 @@ use Core\Control\TextBox\TextBox;
                  $lkForm->Title = Format::EscapeString($form->Commentaire->Value, true);
                  $lkForm->CssClass = "violet";
 
-                 $TextControl .= "<li><i class='icon-edit-sign' style='color:#bebebe'></i>".$lkForm->Show()."</li>";
+                 $html .= "<li><i class='icon-edit-sign' style='color:#bebebe'></i>".$lkForm->Show()."</li>";
              }
          }
 
-           $TextControl .= '</ul>';
+           $html .= '</ul>';
          }
 
-         return $TextControl;
+         return $html;
        }
        
        /**
@@ -268,7 +269,7 @@ use Core\Control\TextBox\TextBox;
 
         //Bouton de sauvagarde
         $btnSave = new Button(BUTTON);
-        $btnSave->CssClass = "btn btn-primary";
+        $btnSave->CssClass = "btn btn-success";
         $btnSave->Value = $this->Core->GetCode("Save");
         $btnSave->OnClick = $action;
         $jbForm->AddNew($btnSave, 2 , ALIGNRIGHT);
@@ -307,7 +308,7 @@ use Core\Control\TextBox\TextBox;
     $jbQuestion->Table = false;
 
     $btnAdd = new Button(BUTTON);
-    $btnAdd->CssClass = "btn btn-primary";
+    $btnAdd->CssClass = "btn btn-info";
     $btnAdd->Value = $this->Core->GetCode("AddQuestion");
     $btnAdd->OnClick = "FormAction.DetailQuestion(".$idForm.");";
     $btnAdd->AddStyle("width","150px");
@@ -316,12 +317,12 @@ use Core\Control\TextBox\TextBox;
     $jbQuestion->AddNew(new Libelle("<br/>"));
 
     $gdQuestion = new EntityGrid("gdQuestion",$this->Core);
-    $gdQuestion->Entity = "FormQuestion";
+    $gdQuestion->Entity = "Apps\Form\Entity\FormQuestion";
     $gdQuestion->CssClass="grid";
     $gdQuestion->EmptyVisible = true;
 
     //Filtre sur l'utilisateur
-    $gdQuestion->AddArgument(new Argument("FormQuestion", "FormId", EQUAL, $idForm));
+    $gdQuestion->AddArgument(new Argument("Apps\Form\Entity\FormQuestion", "FormId", EQUAL, $idForm));
 
     //Detail d'une question
     $popup = new PopUp("Form", "DetailQuestion");
@@ -331,8 +332,8 @@ use Core\Control\TextBox\TextBox;
     //Ajout des colonnes
     $gdQuestion->AddColumn(new EntityColumn($this->Core->GetCode("Libelle"),"Libelle"));
    //$gdQuestion->AddColumn(new EntityColumn($this->Core->GetCode("Type"),"Type"));
-    $gdQuestion->AddColumn(new ActionColumn("",$popup,"",$this->Core->GetCode("Edit"), "icon-edit"));
-    $gdQuestion->AddColumn(new AjaxActionColumn("","Form","DeleteQuestion","App=Form","",$this->Core->GetCode("Delete"),"jbQuestion",true, "icon-remove"));
+    $gdQuestion->AddColumn(new EntityActionColumn("",$popup,"",$this->Core->GetCode("Edit"), "fa fa-edit"));
+    $gdQuestion->AddColumn(new AjaxActionColumn("","Form","DeleteQuestion","App=Form","",$this->Core->GetCode("Delete"),"jbQuestion",true, "fa fa-remove"));
  
     $jbQuestion->Add($gdQuestion);
 
@@ -346,12 +347,12 @@ use Core\Control\TextBox\TextBox;
   function GetTabSend($idForm)
   {
     $jbSend = new Block($this->Core, 'jbSend');
-    $jbSend->Table = true;
+    $jbSend->Table = false;
     $jbSend->Frame = false;
    
     //bouton D'envoi
     $btnTest = new Button(BUTTON);
-    $btnTest->CssClass = "btn btn-primary";
+    $btnTest->CssClass = "btn btn-info";
     $btnTest->Value = $this->Core->GetCode("Try");
     $btnTest->OnClick = "FormAction.TryForm(".$idForm.");";
     $jbSend->AddNew($btnTest, 2, "Style='text-align:left;'");
@@ -375,11 +376,11 @@ use Core\Control\TextBox\TextBox;
 
     //bouton D'envoi
     $btnSend = new Button(BUTTON);
-    $btnSend->CssClass = "btn btn-primary";
+    $btnSend->CssClass = "btn btn-success";
     $btnSend->Value = $this->Core->GetCode("Send");
     $btnSend->OnClick = $Action;
 
-    $jbSend->AddNew($btnSend, 2, ALIGNRIGHT);
+    $jbSend->AddNew($btnSend, 3, ALIGNRIGHT);
 
     return $jbSend;
   }
@@ -401,14 +402,14 @@ use Core\Control\TextBox\TextBox;
         $userIcon->Title = $this->Core->GetCode("Form.ShowByUser");
         $userIcon->OnClick = "FormAction.ShowByUser(".$idForm.")";
         
-        $TextControl = "<div class='tools'>".$groupIcon->Show().$userIcon->Show()."</div>";
+        $html = "<div class='tools'>".$groupIcon->Show().$userIcon->Show()."</div>";
    
       
     $jbResponse = new Block($this->Core, 'jbResponse');
 
         $Reponses = QuestionHelper::GetResponseUser($this->Core, $idForm, $idUser);
 
-        $TextControl .= "<div><table class='grid' style='text-align: left'>";
+        $html .= "<div><table class='grid' style='text-align: left'>";
         $questionId = '';
         $user = '';
         $i = 0;
@@ -423,12 +424,12 @@ use Core\Control\TextBox\TextBox;
                     $member = new User($this->Core);
                     $member->GetById($user);
                             
-                    $TextControl .= "<tr><th colspan='2' class='tools'>".$member->GetPseudo()."</th></tr>";
+                    $html .= "<tr><th colspan='2' class='tools'>".$member->GetPseudo()."</th></tr>";
                 }
             }
                 if($questionId != $reponse['QuestionId'])
                 {
-                   $TextControl .= "<tr><th colspan='2' class='question'>".Format::ReplaceString($reponse['LibelleQuestion'])."</th></tr>";
+                   $html .= "<tr><th colspan='2' class='question'>".Format::ReplaceString($reponse['LibelleQuestion'])."</th></tr>";
                 }
 
         $questionId = $reponse['QuestionId'];
@@ -436,18 +437,18 @@ use Core\Control\TextBox\TextBox;
      	//Affichage des réponses
             if($reponse['LibelleReponse'])
             {
-                    $TextControl .= '<tr><td>'.Format::ReplaceString($reponse['LibelleReponse']) . '</td><td>' . $reponse['NombreReponse'].'</td></tr>';
+                    $html .= '<tr><td>'.Format::ReplaceString($reponse['LibelleReponse']) . '</td><td>' . $reponse['NombreReponse'].'</td></tr>';
             }
             else
             {
-                $TextControl .= "<tr><td colspan='2'>".Format::ReplaceString($reponse['LibelleReponseUser'])."</td></tr>";
+                $html .= "<tr><td colspan='2'>".Format::ReplaceString($reponse['LibelleReponseUser'])."</td></tr>";
             }
             $i++;
 	}
 
-	$TextControl .= '</table></div>';
+	$html .= '</table></div>';
 
-	$jbResponse->AddNew(new Libelle($TextControl));
+	$jbResponse->AddNew(new Libelle($html));
 
 	return $jbResponse;
   }
@@ -490,17 +491,20 @@ use Core\Control\TextBox\TextBox;
      return $gdProjectEvent;
    }
    
+   /*
+    * Try the Form
+    */
    function TryForm($idForm, $show = true)
    {
-       $TextControl = "<div class='FormForm' style='width:600px;' id='dvForm'>";
+       $html = "<div class='FormForm' style='width:600px;' id='dvForm'>";
 
     //Recuperation du formulaire
     $form = new FormForm($this->Core);
     $form->GetById($idForm);
 
     //Entête
-    $TextControl .= '<h1>Questionnaire : '.$form->Libelle->Value.'</h1>';
-    $TextControl .= $form->Commentaire->Value;
+    $html .= '<h1>Questionnaire : '.$form->Libelle->Value.'</h1>';
+    $html .= $form->Commentaire->Value;
 
     //Les questions
     $Question = new FormQuestion($this->Core);
@@ -512,13 +516,13 @@ use Core\Control\TextBox\TextBox;
     {
       foreach($questions as $question)
       {
-        $TextControl .= '<br/><h3>Question '.$i.'</h3>';
-        $TextControl .= $question->Libelle->Value;
+        $html .= '<br/><h3>Question '.$i.'</h3>';
+        $html .= $question->Libelle->Value;
 
         //Choix possible
         $responses = new FormResponse($this->Core);
-        $responses->AddArgument(new Argument("FormResponse","QuestionId", EQUAL, $question->IdEntite));
-        $responses->AddArgument(new Argument("FormResponse","Actif", EQUAL, 1));
+        $responses->AddArgument(new Argument("Apps\Form\Entity\FormResponse","QuestionId", EQUAL, $question->IdEntite));
+        $responses->AddArgument(new Argument("Apps\Form\Entity\FormResponse","Actif", EQUAL, 1));
 
         $Reponses = $responses->GetByArg();
 
@@ -527,12 +531,12 @@ use Core\Control\TextBox\TextBox;
         {
           case 0:
             $tbReponse = new TextBox("tb_".$question->IdEntite);
-            $TextControl .= "<br/>".$tbReponse->Show();
+            $html .= "<br/>".$tbReponse->Show();
           break;
           case 1:
             $tbReponse = new TextArea("tb_".$question->IdEntite);
             $tbReponse->AddStyle('width', '500px');
-            $TextControl .= "<br/><div>".$tbReponse->Show().'</div><br/>';
+            $html .= "<br/><div>".$tbReponse->Show().'</div><br/>';
           break;
           case 2 :
 
@@ -542,7 +546,7 @@ use Core\Control\TextBox\TextBox;
             {
               $radio = new RadioButton('rb_'.$question->IdEntite);
               $radio->Value = $reponse->IdEntite;
-              $TextControl .= "<br/>".$radio->Show(). ' ' .$reponse->Value->Value;
+              $html .= "<br/>".$radio->Show(). ' ' .$reponse->Value->Value;
             }
           }
           break;
@@ -554,7 +558,7 @@ use Core\Control\TextBox\TextBox;
             {
               $radio = new CheckBox('cb_'.$question->IdEntite.'_'.$reponse->IdEntite);
               $radio->Value = $reponse->IdEntite;
-              $TextControl .= "<br/>".$radio->Show(). ' ' .$reponse->Value->Value;
+              $html .= "<br/>".$radio->Show(). ' ' .$reponse->Value->Value;
             }
           }
           break;
@@ -569,7 +573,7 @@ use Core\Control\TextBox\TextBox;
               $lstReponse->Add($reponse->Value->Value, $reponse->IdEntite);
             }
 
-            $TextControl .= "<br/>".$lstReponse->Show();
+            $html .= "<br/>".$lstReponse->Show();
           }
           break;
         }
@@ -585,19 +589,19 @@ use Core\Control\TextBox\TextBox;
       $btnSend = new Button(BUTTON);
       $btnSend->CssClass = "btn btn-success";
       $btnSend->Value = $this->Core->GetCode('Send');
-      $btnSend->OnClick = "DashBoard.SendForm(".$idForm.")";
-      $TextControl .= "<br/>".$btnSend->Show();
+      $btnSend->OnClick = "Dashboard.SendForm(".$idForm.")";
+      $html .= "<br/>".$btnSend->Show();
     }
 
-    $TextControl .= "</div>";
+    $html .= "</div>";
 
     if($show)
     {
-        echo $TextControl;
+        echo $html;
     }
     else
     {
-        return $TextControl;
+        return $html;
     }
    }
  }?>
