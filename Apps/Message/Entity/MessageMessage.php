@@ -8,12 +8,14 @@
 
 namespace Apps\Message\Entity;
 
+use Apps\Message\Entity\MessageUser;
 use Core\Control\Image\Image;
+use Core\Entity\Entity\Argument;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
-use Core\Entity\Entity\UserGroupUser;
-use Apps\Message\Entity\MessageUser;
+use Core\Entity\User\User;
+
 
 class MessageMessage extends Entity  
 {
@@ -33,7 +35,7 @@ class MessageMessage extends Entity
         $this->Alias = "MessageMessage"; 
 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-        $this->User = new EntityProperty("User", "UserId");
+        $this->User = new EntityProperty("Core\Entity\User\User", "UserId");
 
         $this->ParentId = new Property("ParentId", "ParentId", NUMERICBOX,  false, $this->Alias); 
         $this->Parent = new EntityProperty("Apps\Message\Entity\MessageMessage", "ParentId");
@@ -80,7 +82,7 @@ class MessageMessage extends Entity
     function GetDestinataire()
     {
         $messageUser = new MessageUser($this->Core);
-        $messageUser->AddArgument(new argument("MessageUser", "MessageId", EQUAL, $this->IdEntite));
+        $messageUser->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "MessageId", EQUAL, $this->IdEntite));
         $messagesUser = $messageUser->GetByArg();
         $user = array();
 

@@ -28,7 +28,7 @@ use Core\View\View;
      */
     function __construct($core="")
     {
-          $this->Core = $core;
+        $this->Core = $core;
     }
 
     /**
@@ -119,20 +119,20 @@ use Core\View\View;
      */
     function LoadInBox($appName)
     {
-         $view = new View(__DIR__. "/View/LoadInBox.tpl", $this->Core); 
+        $view = new View(__DIR__. "/View/LoadInBox.tpl", $this->Core); 
 
-          //Recuperation 
-          $messages = MessageHelper::GetInMessage($this->Core, $appName);
+         //Recuperation 
+         $messages = MessageHelper::GetInMessage($this->Core, $appName);
 
-          if(count($messages) > 0)
-          {
-              $view->AddElement($messages);
-          }
-          else
-          {
-              $view->AddElement(array());
-          }
-          return $view->Render();
+         if(count($messages) > 0)
+         {
+             $view->AddElement($messages);
+         }
+         else
+         {
+             $view->AddElement(array());
+         }
+         return $view->Render();
    }
 
     /**
@@ -141,20 +141,20 @@ use Core\View\View;
      */
     function LoadOutBox()
     {
-          $view = new View(__DIR__. "/Blocks/MessageBlock/View/LoadOutBox.tpl", $this->Core); 
+        $view = new View(__DIR__. "/View/LoadOutBox.tpl", $this->Core); 
 
-          //Recuperation 
-          $messages = MessageHelper::GetOutMessage($this->Core);
+        //Recuperation 
+        $messages = MessageHelper::GetOutMessage($this->Core);
 
-          if(count($messages) > 0)
-          {
-              $view->AddElement($messages);
-          }
-          else
-          {
-              $view->AddElement(array());
-          }
-          return $view->Render();
+        if(count($messages) > 0)
+        {
+            $view->AddElement($messages);
+        }
+        else
+        {
+            $view->AddElement(array());
+        }
+        return $view->Render();
     }
 
     /**
@@ -171,6 +171,7 @@ use Core\View\View;
 
         //Bouton d'ajout
         $btnReponse = new Button(BUTTON, "btnReponse");
+        $btnReponse->CssClass = "btn btn-info";
         $btnReponse->Value = $this->Core->GetCode("Message.AddReponse");
         $btnReponse->OnClick = "MessageAction.ShowAddReponse()";
         $view->AddElement($btnReponse);
@@ -189,6 +190,7 @@ use Core\View\View;
 
         $btnSend = new Button(BUTTON, "btnSend");
         $btnSend->Value = $this->Core->GetCode("Message.Reponse");
+        $btnSend->CssClass = "btn btn-success";
         $btnSend->OnClick = $action;
         $view->AddElement($btnSend);
 

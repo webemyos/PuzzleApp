@@ -8,6 +8,9 @@
 
 namespace Core\Utility\Email;
 
+use Core\View\ElementView;
+use Core\View\View;
+
 class Email
 {
     private $Template;
@@ -15,33 +18,28 @@ class Email
     private $From;
     private $Sender;
     private $User;
-
+    private $Core;
+    
     /**
      * Constructeur
      * */
-    function __construct()
+    function __construct($core)
     {
+        $this->Core = $core;
     }
 
     //Envoi du mail
     function Send($To)
     {
-        //Recuperation du template
-        $template = new $this->Template();
-        $template->User = $this->User;
-        $template->Title = $this->Title;
-        $template->Body = $this->Body;
-
-        //Entete du mail
-        //$headers ='From:"'.$this->From.'"<'.$this->Sender.'>'."\n";
-//$headers .='Content-Type: text/html; charset="iso-8859-1"'."\n";
-//$headers .='Content-Transfer-Encoding: 8bit';
-
-        if($this->From == '' || !isset($this->From)) $this->From = 'WebEmyos';
-        if($this->Sender == '' || !isset($this->Sender)) $this->From = 'noreply@webemyos.com';
+        //Recuperation de la view
+        $view = new View("../View/Core/Email/email.tpl", $this->Core);
+        
+        if($this->From == '' || !isset($this->From)) $this->From = 'PuzzleApp';
+        if($this->Sender == '' || !isset($this->Sender)) $this->From = 'puzzleApp.com';
 
         $expediteur = $this->From.' <'.$this->Sender.'>';
 
+        //Entete du mail
         $headers  = 'MIME-Version: 1.0' . "\r\n"; // Version MIME
         $headers .= 'Content-type: text/html; charset="UTF-8"'."\r\n"; // l'en-tete Content-type pour le format HTML
         $headers .= 'Content-Transfer-Encoding: 8bit';
@@ -51,8 +49,11 @@ class Email
         $headers .= "Reply-To: ".$expediteur."\r\n"; // Mail de reponse
         $headers .= "From: webemyos\r\n"; // Expediteur
 
+        $view->AddElement(new ElementView("{{Title}}", $this->Title));
+        $view->AddElement(new ElementView("{{Body}}", $this->Body));
+        
         //Envoi
-        mail($To,$this->Title,$template->Show(),$headers);
+        mail($To, $this->Title, $view->Render(),$headers);
     }
 
     //Envoi au administrateur
@@ -63,20 +64,20 @@ class Email
 
     function SendUserAndAdmin($To)
     {
-            $this->Send($To);
-            $this->SendToAdmin();
+        $this->Send($To);
+        $this->SendToAdmin();
     }
 
 
     //Assecceurs
     public function __get($name)
     {
-            return $this->$name;
+        return $this->$name;
     }
 
     public function __set($name,$value)
     {
-             $this->$name=$value;
+        $this->$name=$value;
     }
 }
 ?>

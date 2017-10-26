@@ -11,9 +11,10 @@ namespace Apps\Message\Helper;
 
 use Apps\Message\Entity\MessageMessage;
 use Apps\Message\Entity\MessageUser;
+use Apps\Message\Helper\MessageHelper;
+use Core\Dashboard\DashBoardManager;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Date\Date;
-use Core\Dashboard\DashBoardManager;
 
 class MessageHelper
 {
@@ -228,7 +229,7 @@ class MessageHelper
      * Marque le message comme lu
      * @param type $messageId
      */
-    function SetRead($core, $messageId)
+    public static function SetRead($core, $messageId)
     {
         $messageUser = new MessageUser($core);
         $messageUser->GetById($messageId);

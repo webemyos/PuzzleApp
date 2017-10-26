@@ -26,19 +26,18 @@ class Message extends Application
     /**
      * Constructeur
      * */
-     function __construce($core)
+     function __construct($core)
      {
-            parent::__construct($core, "Message");
-            $this->Core = $core;
+        parent::__construct($core, "Message");
+        $this->Core = $core;
      }
 
      /**
       * Execution de l'application
       */
-     function Run()
+     function Run($core = "", $title ="", $message ="")
      {
-            $textControl = parent::Run($this->Core, "Message", "Message");
-            echo $textControl;
+        echo parent::Run($this->Core, "Message", "Message");
      }
 
     /**
