@@ -1,0 +1,14 @@
+#appRunCommunique .communique{border-top : 1px solid grey; text-align: left}
+#appRunCommunique .communiqueRead{font-weight: normal}
+#appRunCommunique .communiqueNotRead{font-weight :bold }
+
+#appRunCommunique .communique .date{color: #24D6FF}
+#appRunCommunique .communique div {display:inline-block; margin:5px;width : 150px;}
+#appRunCommunique .communique span{ margin:5px;} 
+
+#appRunCommunique  #Tools{text-align:left; border-bottom: 1px solid grey; margin: 5px; padding:5px;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=5);-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;}
+
+
+
+

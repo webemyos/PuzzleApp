@@ -297,8 +297,8 @@ class SqlRequestBuilder
             
             if(get_class($propertie) != "SqlProperty")
             {
-            //Update du champ passï¿½ en parametre
-                if($field != "")
+                //Update du champ passï¿½ en parametre
+                if(isset($field) &&  $field != "")
                 {
                     if($propertie->TableName == $field->TableName)
                     {

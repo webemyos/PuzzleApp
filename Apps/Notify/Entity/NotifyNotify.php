@@ -13,6 +13,7 @@ use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
 
+
 class NotifyNotify extends Entity  
 {
     //Entity Property

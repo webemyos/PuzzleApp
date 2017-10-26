@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<app name='EeMessage'>
+<app name='EeCommunique'>
     <menu>
         <item name='File' text='File'>
                 <subitem name='Quit' text='Quit'  action='Quit' icone="Core\Control\Icone\CloseIcone" />
         </item>
     </menu>
     <center>
-             <module type='Apps\Message\Module\Home\HomeController'></module>
+        <module type='Apps\Communique\Module\Home\HomeController'></module>
     </center>
 </app>

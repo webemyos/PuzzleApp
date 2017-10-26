@@ -210,16 +210,7 @@ class SearchIcone extends Icone
 	}
 }
 
-/*
-* Icone dechange
-*/
-class ExchangeIcone extends Icone
-{
-	function ExchangeIcone()
-	{
-		$this->CssClass = "icon-exchange";
-	}
-}
+
 
 /*
 * Icone de partage

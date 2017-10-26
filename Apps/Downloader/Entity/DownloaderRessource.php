@@ -14,25 +14,27 @@ use Core\Entity\Entity\Property;
 
 class DownloaderRessource extends Entity
 {
-	//Constructeur
-	function __construct($core)
-	{
-		//Version
-		$this->Version ="2.0.0.0";
+    //Constructeur
+    function __construct($core)
+    {
+        //Version
+        $this->Version ="2.0.0.0";
 
-		//Nom de la table
-		$this->Core=$core;
-		$this->TableName="DownloaderRessource";
-		$this->Alias = "DownloaderRessource";
+        //Nom de la table
+        $this->Core=$core;
+        $this->TableName="DownloaderRessource";
+        $this->Alias = "DownloaderRessource";
 
-		$this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias);
-		$this->Url = new Property("Url", "Url", TEXTAREA,  true, $this->Alias);
+        $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias);
+        $this->Url = new Property("Url", "Url", TEXTBOX,  true, $this->Alias);
+        $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias);
+        $this->Code = new Property("Code", "Code", TEXTBOX,  true, $this->Alias);
 
-		//Partage entre application
-		$this->AddSharedProperty();
+        //Partage entre application
+        $this->AddSharedProperty();
 
-		//Creation de l entité
-		$this->Create();
-	}
+        //Creation de l entité
+        $this->Create();
+    }
 }
 ?>

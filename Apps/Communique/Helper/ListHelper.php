@@ -18,7 +18,6 @@ use Apps\Downloader\Entity\DownloaderRessourceContact;
 use Core\Dashboard\DashBoardManager;
 use Core\Entity\Entity\Argument;
 use Core\Entity\Entity\UserGroupUser;
-use const EQUAL;
 
 class ListHelper
 {
@@ -76,8 +75,8 @@ class ListHelper
     public static function DesabonneMember($core, $ListId, $email)
     {
          $member = new CommuniqueListMember($core);
-         $member->AddArgument(new Argument("CommuniqueListMember", "ListId", EQUAL,$ListId ));
-         $member->AddArgument(new Argument("CommuniqueListMember", "Email", EQUAL, $email ));
+         $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "ListId", EQUAL,$ListId ));
+         $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "Email", EQUAL, $email ));
          
          $members = $member->GetByArg();
          
@@ -95,7 +94,7 @@ class ListHelper
     public static function GetNumberMember($core, $listId)
     {
         $member = new CommuniqueListMember($core);
-        $member->AddArgument(new Argument("CommuniqueListMember", "ListId", EQUAL,$listId ));
+        $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "ListId", EQUAL,$listId ));
         
         return count($member->GetByArg());   
     }
@@ -107,7 +106,7 @@ class ListHelper
     {
         //Recuperation des contacts de la liste
          $member = new CommuniqueListMember($core);
-         $member->AddArgument(new Argument("CommuniqueListMember", "ListId", EQUAL,$ListId ));
+         $member->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListMember", "ListId", EQUAL,$ListId ));
          $members = $member->GetByArg();
          
          //Utilisateur

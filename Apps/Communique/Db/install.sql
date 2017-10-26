@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `CommuniqueCommunique` (
 `UserId` INT  NULL ,
 `Title` TEXT  NULL ,
 `Text` TEXT  NULL ,
+`Code` TEXT  NULL ,
 `AppName` VARCHAR(200)  NULL ,
 `AppId` INT  NULL ,
 `EntityName` VARCHAR(200)  NULL ,

@@ -17,18 +17,20 @@ use Core\Action\AjaxAction\AjaxAction;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Block\Block;
 use Core\Control\Button\Button;
-use Core\Controller\Controller;
-use Core\Entity\Entity\Argument;
+use Core\Control\EmailBox\EmailBox;
+use Core\Control\EntityListBox\EntityListBox;
 use Core\Control\Icone\DeleteIcone;
 use Core\Control\Icone\EditIcone;
-use Core\Control\EmailBox\EmailBox;
-use Core\Controle\EntityListBox\EntityListBox;
 use Core\Control\Icone\ExchangeIcone;
 use Core\Control\Icone\HomeIcone;
 use Core\Control\Image\Image;
 use Core\Control\Libelle\Libelle;
 use Core\Control\TabStrip\TabStrip;
 use Core\Control\TextBox\TextBox;
+use Core\Controller\Controller;
+use Core\Entity\Entity\Argument;
+
+
 
 
 class CommuniqueController extends Controller
@@ -78,7 +80,7 @@ class CommuniqueController extends Controller
 
        $jbCommunique->AddControls(array(
                                      array("Type"=>"TextBox", "Name"=> "tbTitleCommunique", "Libelle" => $this->Core->GetCode("Name")),
-                                     array("Type"=>"Button", "CssClass"=> "btn btn-primary", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                     array("Type"=>"Button", "CssClass"=> "btn btn-success", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                          )
                );
 
@@ -93,7 +95,7 @@ class CommuniqueController extends Controller
        $html ="<div class='content-panel'>";
 
        $communique = new CommuniqueCommunique($this->Core); 
-       $communique->AddArgument(new Argument("CommuniqueCommunique", "UserId", EQUAL, $this->Core->User->IdEntite));
+       $communique->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCommunique", "UserId", EQUAL, $this->Core->User->IdEntite));
        $communique->AddOrder("Id");
 
        $communiques = $communique->GetByArg();
@@ -187,7 +189,7 @@ class CommuniqueController extends Controller
 
        $jbCommunique->AddControls(array(
                                      array("Type"=>"TextBox", "Name"=> "tbTitleCommunique", "Libelle" => $this->Core->GetCode("Title"), "Value" => $communique->Title->Value),
-                                     array("Type"=>"Button",  "CssClass"=>"btn btn-primary" , "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                     array("Type"=>"Button",  "CssClass"=>"btn btn-success" , "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                          )
                );
 
@@ -228,9 +230,9 @@ class CommuniqueController extends Controller
 
       //Liste disponible
       $lstList = new EntityListBox("lstList", $this->Core);
-      $lstList->Entity = "CommuniqueListContact";
+      $lstList->Entity = "Apps\Communique\Entity\CommuniqueListContact";
       $lstList->ListBox->Add($this->Core->GetCode("Communique.SelectList"),"");
-      $lstList->AddArgument(new Argument("CommuniqueListContact", "UserId", EQUAL, $this->Core->User->IdEntite));
+      $lstList->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueListContact", "UserId", EQUAL, $this->Core->User->IdEntite));
       $lstList->AddField("Name");
 
       $jbDiffusion->Add(new Libelle("<h3>".$this->Core->GetCode("Communique.ListDiffusion")."</h3>"));
@@ -267,6 +269,7 @@ class CommuniqueController extends Controller
       //Bouton de diffusion
       $btnDiffusion = new Button(BUTTON);
       $btnDiffusion->Value = $this->Core->GetCode("Diffuser");
+      $btnDiffusion->CssClass = "btn btn-success";
       $btnDiffusion->OnClick = $action;
       $jbDiffusion->AddNew($btnDiffusion);
 
@@ -289,7 +292,7 @@ class CommuniqueController extends Controller
 
      //Recuperation des campagnes
       $campagne = new CommuniqueCampagne($this->Core);
-      $campagne->AddArgument(new Argument("CommuniqueCampagne", "CommuniqueId", EQUAL,$communique->IdEntite ));
+      $campagne->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCampagne", "CommuniqueId", EQUAL,$communique->IdEntite ));
       $campagne->AddOrder("Id");
 
       $campagnes = $campagne->GetByArg();
@@ -388,7 +391,7 @@ class CommuniqueController extends Controller
   function EditCampagne($campagneId)
   {
       $email = new CommuniqueCampagneEmail($this->Core);
-      $email->AddArgument(new Argument("CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId ));
+      $email->AddArgument(new Argument("Apps\Communique\Entity\CommuniqueCampagneEmail", "CampagneId", EQUAL, $campagneId ));
       $emails = $email->GetByArg();
 
       if(count($emails) > 0)

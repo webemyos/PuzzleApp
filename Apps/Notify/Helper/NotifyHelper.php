@@ -76,8 +76,6 @@ class NotifyHelper
         $notify->Save();
         
         //Creation de l'email
-        $Email  = new Email();
-        $Email->Template = "MessageTemplate";
         $Email->Sender = WEBEMYOSMAIL;
 
          // sujet et message de l'email

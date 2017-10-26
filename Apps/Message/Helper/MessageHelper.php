@@ -7,13 +7,14 @@
  * GNU Licence
  */
 
-namespace Apps\Blog\Helper;
+namespace Apps\Message\Helper;
 
 use Apps\Message\Entity\MessageMessage;
 use Apps\Message\Entity\MessageUser;
+use Apps\Message\Helper\MessageHelper;
+use Core\Dashboard\DashBoardManager;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Date\Date;
-use Core\Dashboard\DashBoarManager;
 
 class MessageHelper
 {
@@ -44,7 +45,7 @@ class MessageHelper
         $userId = explode(";", $usersId);
         
         //Recuperation de l'app Notify
-        $eNotify = DashBoarManager::GetApp("Notify", $core);
+        $eNotify = DashBoardManager::GetApp("Notify", $core);
         
         foreach($userId as $user)
         {
@@ -85,7 +86,7 @@ class MessageHelper
        $messageId = $core->Db->GetInsertedId();
         
         //Recuperation de l'app Notify
-        $eNotify = DashBoarManager::GetApp("Notify", $core);
+        $eNotify = DashBoardManager::GetApp("Notify", $core);
       
         
         foreach($usersId as $user)
@@ -110,7 +111,7 @@ class MessageHelper
     static function GetInMessage($core, $appName = "", $limit ="" , $all = true )
     {
         $message = new MessageUser($core);
-        $message->AddArgument(new Argument("MessageUser", "UserId", EQUAL, $core->User->IdEntite ));
+        $message->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "UserId", EQUAL, $core->User->IdEntite ));
         $message->AddOrder("Id");
                 
         if($limit != "")
@@ -120,7 +121,7 @@ class MessageHelper
        
        if($all == false)
         {
-            $message->AddArgument(new Argument("MessageUser", "MessageUser.Read", ISNULL, 1 ));
+            $message->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "MessageUser.Read", ISNULL, 1 ));
         }
             
         if($appName != "")
@@ -166,7 +167,7 @@ class MessageHelper
     static function GetOutMessage($core)
     {
         $message = new MessageMessage($core);
-        $message->AddArgument(new Argument("MessageMessage", "UserId", EQUAL, $core->User->IdEntite ));
+        $message->AddArgument(new Argument("Apps\Message\Entity\MessageMessage", "UserId", EQUAL, $core->User->IdEntite ));
         $message->AddOrder("Id");
         
         return $message->GetByArg();
@@ -189,7 +190,7 @@ class MessageHelper
     function GetDestinataire($core, $message)
     {
         $messageUser = new MessageUser($core);
-        $messageUser->AddArgument(new Argument("MessageUser", "MessageId", EQUAL, $message->IdEntite));
+        $messageUser->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "MessageId", EQUAL, $message->IdEntite));
 
         return $messageUser->GetByArg();
     }
@@ -218,8 +219,8 @@ class MessageHelper
     function HaveMessageNotRead($core)
     {
         $messageUser = new MessageUser($core);
-        $messageUser->AddArgument(new Argument("MessageUser", "UserId", EQUAL, 1));
-        $messageUser->AddArgument(new Argument("MessageUser", "Read", NOTEQUAL, 1));
+        $messageUser->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "UserId", EQUAL, 1));
+        $messageUser->AddArgument(new Argument("Apps\Message\Entity\MessageUser", "Read", NOTEQUAL, 1));
         
         return (count($messageUser->GetByArg()) > 0);
     }
@@ -228,7 +229,7 @@ class MessageHelper
      * Marque le message comme lu
      * @param type $messageId
      */
-    function SetRead($core, $messageId)
+    public static function SetRead($core, $messageId)
     {
         $messageUser = new MessageUser($core);
         $messageUser->GetById($messageId);
@@ -270,7 +271,7 @@ class MessageHelper
         $messageUser->Save();
 
         //Recuperation de l'app Notify
-        $eNotify = DashBoarManager::GetApp("Notify", $core);
+        $eNotify = DashBoardManager::GetApp("Notify", $core);
         
         //Envoi d'une notification
         $subjet = $core->GetCode("Message.MessageReponseSendedObjet"). " : " . $core->User->GetPseudo();  
@@ -287,9 +288,9 @@ class MessageHelper
     public static function GetByApp($core, $appName, $entityName, $entityId)
     {
         $message = new MessageMessage($core);
-        $message->AddArgument(new Argument("MessageMessage", "AppName" ,EQUAL, $appName));
-        $message->AddArgument(new Argument("MessageMessage", "EntityName" ,EQUAL, $entityName));
-        $message->AddArgument(new Argument("MessageMessage", "EntityId" ,EQUAL, $entityId));
+        $message->AddArgument(new Argument("Apps\Message\Entity\MessageMessage", "AppName" ,EQUAL, $appName));
+        $message->AddArgument(new Argument("Apps\Message\Entity\MessageMessage", "EntityName" ,EQUAL, $entityName));
+        $message->AddArgument(new Argument("Apps\Message\Entity\MessageMessage", "EntityId" ,EQUAL, $entityId));
         
         return $message->GetByArg();
     }

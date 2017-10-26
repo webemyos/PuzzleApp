@@ -5,13 +5,13 @@
     <p><textarea disabled="disabled">{{element->Message->Value->Message->Value}}</textarea></p>
     
     <div>
-        btnReponse
+        {{btnReponse}}
     </div>
     
     <div id='dvReponse' style='display:none'>
-        tbReponse
+        {{tbReponse}}
         <br/>
-        btnSend
+        {{btnSend}}
     </div>
 </div>
 

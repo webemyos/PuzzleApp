@@ -28,7 +28,7 @@ class AppManager
        //TODO USE A APPMANAGE
        //REFLECHIR COMMENT ON TROUVE LES APPS
        //UTILISER EeAPP ET les app installé
-       $apps = array("Blog", "Devis", "Solution","Webemyos", "Tutoriel", "Mooc", "Form");
+       $apps = array("Blog", "Devis", "Solution","Webemyos", "Tutoriel", "Mooc", "Form", "Downloader");
 
        return (in_array($app, $apps));
    }

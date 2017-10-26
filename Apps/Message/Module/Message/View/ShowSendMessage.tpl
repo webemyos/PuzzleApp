@@ -1,4 +1,4 @@
 <div class="content-panel">
-    jbMessage
+    {{jbMessage}}
  </div>
 

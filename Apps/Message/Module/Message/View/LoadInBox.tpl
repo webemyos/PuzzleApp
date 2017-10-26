@@ -17,7 +17,7 @@
                         <td>{{element->Message->Value->DateCreated->Value}}</td>
                         <td>{{element->Message->Value->Subjet->Value}}</td>
                         <td>
-                            {{GetControl(EditIcone, Open, EeMessageAction.ShowDetail({{element->IdEntite}}))}} 
+                            {{GetControl(EditIcone,Open,{OnClick=MessageAction.ShowDetail({{element->IdEntite}})})}} 
                         </td>
                         </td>
                     </tr>

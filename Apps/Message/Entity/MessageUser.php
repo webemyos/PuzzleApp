@@ -37,7 +37,7 @@ class MessageUser extends Entity
         $this->Message = new EntityProperty("Apps\Message\Entity\MessageMessage", "MessageId");
 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-        $this->User = new EntityProperty("User", "UserId");
+        $this->User = new EntityProperty("Core\Entity\User\User", "UserId");
 
         $this->Read = new Property("Read", "Read", NUMERICBOX,  false, $this->Alias); 
 
