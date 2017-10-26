@@ -10,7 +10,7 @@
 namespace Apps\Base\Module\Install;
 
 use Core\Controller\Controller;
-use Core\Modele\Modele;
+use Core\View\View;
 
 /**
  * Install Controller
@@ -32,7 +32,7 @@ class InstallController extends Controller
     */
    function Index()
    {
-       $modele = new Modele(__DIR__."/View/index.tpl", $this->Core);
-       return $modele->Render();
+       $view = new View(__DIR__."/View/index.tpl", $this->Core);
+       return $view->Render();
    }
 }

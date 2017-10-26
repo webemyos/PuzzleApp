@@ -15,8 +15,9 @@ use Core\Control\PassWord\PassWord;
 use Core\Control\Text\Text;
 use Core\Controller\Controller;
 use Core\Core\Request;
-use Core\Modele\Modele;
 use Core\Security\Authentication;
+use Core\View\View;
+
 
 class LoginController extends Controller 
 {
@@ -33,26 +34,26 @@ class LoginController extends Controller
     */
    function Index($error = "")
    {
-        $modele = new Modele(__DIR__."/View/index.tpl", $this->Core);
+        $view = new View(__DIR__."/View/index.tpl", $this->Core);
 
         //Error
-        $modele->AddElement(new Text("error", false, $error));
+        $view->AddElement(new Text("error", false, $error));
                 
         //Login
         $login = new EmailBox("login");
-        $modele->AddElement($login);
+        $view->AddElement($login);
         
         //PassWord
         $passBlock = new PassWord("password");
-        $modele->AddElement($passBlock);
+        $view->AddElement($passBlock);
         
         //BtnConnect
         $btnConnect = new Button(SUBMIT, "btnLogin");
         $btnConnect->Value = $this->Core->GetCode("Connect");
         
-        $modele->AddElement($btnConnect);
+        $view->AddElement($btnConnect);
         
-        return $modele->Render();
+        return $view->Render();
    }
  
    /**
