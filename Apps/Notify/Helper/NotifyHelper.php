@@ -9,8 +9,11 @@
 
 namespace Apps\Notify\Helper;
 
-use Core\Entity\Entity\Argument;
 use Apps\Notify\Entity\NotifyNotify;
+use Core\Entity\Entity\Argument;
+use Core\Entity\User\UserGroupUser;
+use Core\Utility\Date\Date;
+use Core\Utility\Email\Email;
 
 class NotifyHelper
 {
@@ -69,11 +72,11 @@ class NotifyHelper
         $notify->DestinataireId->Value = $destinataireId;
         $notify->AppName->Value = $AppName;
         $notify->EntityId->Value = $EntityId;
-        $notify->DateCreate->Value = JDate::Now();
+        $notify->DateCreate->Value = Date::Now();
         $notify->Save();
         
         //Creation de l'email
-        $Email  = new JEmail();
+        $Email  = new Email();
         $Email->Template = "MessageTemplate";
         $Email->Sender = WEBEMYOSMAIL;
 

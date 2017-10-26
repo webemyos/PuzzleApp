@@ -15,62 +15,59 @@ use Core\Control\Control;
 
 class TextArea extends Control implements IControl
 {
-	//Proprietes
-	private $Title="";
-	private $Text="";
-        protected $Info;
+    //Proprietes
+    private $Title="";
+    private $Text="";
+    protected $Info;
 
-	//Constructeur
-	public function __construct($name, $resize=false)
-	{
-		//Version
-		$this->Version ="2.0.0.0";
+    //Constructeur
+    public function __construct($name, $resize=false)
+    {
+        //Version
+        $this->Version ="2.0.0.0";
 
-		$this->Id=$name;
- 		$this->Name=$name;
+        $this->Id=$name;
+        $this->Name=$name;
+        $this->CssClass="form-control";
+    }
 
- 	$this->CssClass="form-control";
+    //Affichage
+    function Show()
+    {
+        //Recuperation d'une eventuelle valeur
+        if(Request::GetPost($this->Name))
+        {
+            $this->Value= Request::GetPost($this->Name);
+        }
 
-		if($resize==true) $this->AddAttribute("onkeyup","FitToContent(this,500)");
-	}
+        //Declaration de la balisepx
+        $TextControl ="\n<textArea  " ;
+        $TextControl .= $this->getProperties(false);
+        $TextControl .=">";
 
-	//Affichage
-	function Show()
-	{
-		//Recuperation d'une eventuelle valeur
-		if(Request::GetPost($this->Name))
-		{
-			$this->Value= Request::GetPost($this->Name);
-		}
+        $TextControl .=$this->Title;
+        $TextControl .=$this->Text;
+        $TextControl .= htmlspecialchars($this->Value, ENT_QUOTES );
 
-		//Declaration de la balisepx
-		$TextControl ="\n<textArea  " ;
-		$TextControl .= $this->getProperties(false);
-		$TextControl .=">";
+        $TextControl .="</textArea>\n";
 
-		$TextControl .=$this->Title;
-		$TextControl .=$this->Text;
-		$TextControl .= htmlspecialchars($this->Value, ENT_QUOTES );
+         if($this->Info != "")
+        {
+            $TextControl .= "&nbsp;<p class='fa fa-info' title='".$this->Info."' >&nbsp;</p>";
+        }
 
-		$TextControl .="</textArea>\n";
+        return $TextControl;
+    }
 
-                 if($this->Info != "")
-                {
-                    $TextControl .= "&nbsp;<p class='fa fa-info' title='".$this->Info."' >&nbsp;</p>";
-                }
+    //Asseceurs
+    public function __get($name)
+    {
+            return $this->$name;
+    }
 
-		return $TextControl;
-	}
-
-	//Asseceurs
-	public function __get($name)
-	{
-		return $this->$name;
-	}
-
-	public function __set($name,$value)
-	{
-	  	$this->$name=$value;
-	}
+    public function __set($name,$value)
+    {
+            $this->$name=$value;
+    }
 }
 ?>

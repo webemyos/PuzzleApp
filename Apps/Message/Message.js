@@ -15,8 +15,8 @@ var Message = function() {};
 	*/
 	Message.LoadEvent = function()
 	{
-		DashBoard.AddEventAppMenu(Message.Execute, "", "Message");
-		DashBoard.AddEventWindowsTool("Message");
+		Dashboard.AddEventAppMenu(Message.Execute, "", "Message");
+		Dashboard.AddEventWindowsTool("Message");
 	};
 
    /*
@@ -25,7 +25,7 @@ var Message = function() {};
 	Message.Execute = function(e)
 	{
 		//Appel de la fonction
-		DashBoard.Execute(this, e, "Message");
+		Dashboard.Execute(this, e, "Message");
 		return false;
 	};
 
@@ -34,7 +34,7 @@ var Message = function() {};
 	*/
 	Message.Comment = function()
 	{
-		DashBoard.Comment("Message", "1");
+		Dashboard.Comment("Message", "1");
 	};
 
 	/*
@@ -42,7 +42,7 @@ var Message = function() {};
 	*/
 	Message.About = function()
 	{
-		DashBoard.About("Message");
+		Dashboard.About("Message");
 	};
 
 	/*
@@ -50,7 +50,7 @@ var Message = function() {};
 	*/
 	Message.Help = function()
 	{
-		DashBoard.OpenBrowser("Message","{$BaseUrl}/Help-App-Message.html");
+		Dashboard.OpenBrowser("Message","{$BaseUrl}/Help-App-Message.html");
 	};
 
    /*
@@ -58,7 +58,7 @@ var Message = function() {};
 	*/
 	Message.ReportBug = function()
 	{
-		DashBoard.ReportBug("Message");
+		Dashboard.ReportBug("Message");
 	};
 
 	/*
@@ -66,7 +66,7 @@ var Message = function() {};
 	*/
 	Message.Quit = function()
 	{
-		DashBoard.CloseApp("","Message");
+		Dashboard.CloseApp("","Message");
 	};
         
         /**
@@ -85,7 +85,7 @@ var Message = function() {};
                 param['App'] = 'Message';
                 param['Title'] = 'Message.ShowSendMessage';
               
-                DashBoard.OpenPopUp('Message','ShowSendMessage', '','','', 'MessageAction.RefreshNumberMessage()', serialization.Encode(param));
+                Dashboard.OpenPopUp('Message','ShowSendMessage', '','','', 'MessageAction.RefreshNumberMessage()', serialization.Encode(param));
         };
         
         /**
@@ -191,7 +191,7 @@ var Message = function() {};
         MessageAction.LoadInBox = function()
         {
            var data = "Class=Message&Methode=LoadInBox&App=Message";
-               DashBoard.LoadControl("dvDesktop", data, "" , "div", "Message");
+               Dashboard.LoadControl("dvDesktop", data, "" , "div", "Message");
         };
         
         /**
@@ -200,7 +200,7 @@ var Message = function() {};
         MessageAction.LoadOutBox = function()
         {
            var data = "Class=Message&Methode=LoadOutBox&App=Message";
-               DashBoard.LoadControl("dvDesktop", data, "" , "div", "Message");
+               Dashboard.LoadControl("dvDesktop", data, "" , "div", "Message");
         };    
         
         /**
@@ -215,7 +215,7 @@ var Message = function() {};
                 param['Title'] = 'Message.Detail';
                 param['messageId'] = messageId;
     
-                DashBoard.OpenPopUp('Message','ShowDetail', '','','', 'MessageAction.RefreshNumberMessage()', serialization.Encode(param));
+                Dashboard.OpenPopUp('Message','ShowDetail', '','','', 'MessageAction.RefreshNumberMessage()', serialization.Encode(param));
                 
                 MessageAction.UpdateMessageRead();
         };
@@ -246,7 +246,7 @@ var Message = function() {};
                 param['Title'] = 'Message.Detail';
                 param['messageId'] = messageId;
     
-                DashBoard.OpenPopUp('Message','ShowDetailSend', '','','', '', serialization.Encode(param));
+                Dashboard.OpenPopUp('Message','ShowDetailSend', '','','', '', serialization.Encode(param));
         };
         
         /**

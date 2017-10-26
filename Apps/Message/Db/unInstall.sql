@@ -1,0 +1,2 @@
+DROP TABLE IF NOT EXISTS `MessageUser` ;
+DROP TABLE IF NOT EXISTS `MessageMessage` ;

@@ -7,15 +7,15 @@
  * GNU Licence
  */
 
-namespace Apps\Message\Module\Message;
+namespace Apps\Message\Module\Home;
 
-use Apps\Blog\Helper\MessageHelper;
 use Core\Control\Button\Button;
 use Core\Controller\Controller;
 use Core\View\View;
+use Apps\Message\Helper\MessageHelper;
 
 
- class MessageController extends Controller
+ class HomeController extends Controller
  {
     /**
      * Constructeur
@@ -49,6 +49,7 @@ use Core\View\View;
       //Bouton pour créer un message
       $btnNewMessage = new Button(BUTTON, "btnNewMessage");
       $btnNewMessage->Value = $this->Core->GetCode("Message.NewMessage");
+      $btnNewMessage->CssClass = "btn btn-info";
       $btnNewMessage->OnClick = "MessageAction.ShowSendMessage();";
       $view->AddElement($btnNewMessage);
 

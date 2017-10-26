@@ -2,7 +2,7 @@
 <app name='EeMessage'>
     <menu>
         <item name='File' text='File'>
-                <subitem name='Quit' text='Quit'  action='Quit' icone="CloseIcone" />
+                <subitem name='Quit' text='Quit'  action='Quit' icone="Core\Control\Icone\CloseIcone" />
         </item>
     </menu>
     <center>

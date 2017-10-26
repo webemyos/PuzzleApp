@@ -175,7 +175,7 @@ class Control
 		//TODO d�finir la prorri�t� Ben
 		if($this->PlaceHolder != "")
 		{
-			$TextControl .= " placeholder='".$this->PlaceHolder."'";
+                    $TextControl .= " placeholder='".$this->PlaceHolder."'";
 		}
 
 		return $TextControl;
