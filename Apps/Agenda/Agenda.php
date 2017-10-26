@@ -19,18 +19,17 @@ use Core\App\Application;
 use Core\Block\Block;
 use Core\Control\AutoCompleteBox\AutoCompleteBox;
 use Core\Control\Button\Button;
-use Core\Control\DateBox\DateBox;
+use Core\Control\CheckBox\CheckBox;
+use Core\Control\DateTimeBox\DateTimeBox;
 use Core\Control\Grid\EntityColumn;
 use Core\Control\Grid\EntityGrid;
-use Core\Core\Request;
-use Core\Entity\Entity\Argument;
-use Core\Utility\Date\Date;
-use Core\Control\Libelle\Libelle;
 use Core\Control\ListBox\ListBox;
 use Core\Control\PopUp\PopUp;
 use Core\Control\TextArea\TextArea;
 use Core\Control\TextBox\TextBox;
-use Core\Entity\Entity\UserGroupUser;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
+use Core\Utility\Date\Date;
 
 
 class Agenda extends Application
@@ -38,7 +37,7 @@ class Agenda extends Application
 	/**
 	 * Auteur et version
 	 * */
-	public $Author = 'mmys';
+	public $Author = 'DashBoardManager';
 	public $Version = '1.0.0';
         public static $Directory = "../Apps/Agenda";
 
@@ -74,177 +73,175 @@ class Agenda extends Application
 	  * */
 	 function AddNewEvent()
 	 {
-                $appName = Request::GetPost("AppName");
-                $entityName = Request::GetPost("EntityName");
-                $entityId = Request::GetPost("EntityId");
-             
-		//Verification si un evenement existe
-		if(Request::GetPost('idEvent') || Request::GetPost('idEntity'))
-		{
-			$AgendaEvent = new AgendaEvent($this->Core);
-	 		if(Request::GetPost('idEvent'))
-	 		{
-	 			$AgendaEvent->GetById(Request::GetPost('idEvent'));
-	 			$idEvent = Request::GetPost('idEvent');
+            $appName = Request::GetPost("AppName");
+            $entityName = Request::GetPost("EntityName");
+            $entityId = Request::GetPost("EntityId");
 
-	 			$saveAction = "AgendaAction.SaveEvent";
-				$IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
-			}
-	 		else
-	 		{
-	 			$AgendaEvent->GetById(Request::GetPost('idEntity'));
-	 			$idEvent = Request::GetPost('idEntity');
-				$saveAction = "ProjetAction.SaveEvent";
-				$IdProjet = $AgendaEvent->ProjetId->Value;
-			}
-	 		$created = true;
-		}
-		else
-		{
-			$created = false;
-			$idEvent = 'null';
-			//Recuperation la date et l'heure de debut
-			$date = explode('!', Request::GetPost('Date'));
-			$saveAction = "AgendaAction.SaveEvent";
-			$IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
-		}
+            //Verification si un evenement existe
+            if(Request::GetPost('idEvent') || Request::GetPost('idEntity'))
+            {
+                    $AgendaEvent = new AgendaEvent($this->Core);
+                    if(Request::GetPost('idEvent'))
+                    {
+                            $AgendaEvent->GetById(Request::GetPost('idEvent'));
+                            $idEvent = Request::GetPost('idEvent');
 
-		$edit = (Request::GetPost('edit') != 'false');
+                            $saveAction = "AgendaAction.SaveEvent";
+                            $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
+                    }
+                    else
+                    {
+                            $AgendaEvent->GetById(Request::GetPost('idEntity'));
+                            $idEvent = Request::GetPost('idEntity');
+                            $saveAction = "ProjetAction.SaveEvent";
+                            $IdProjet = $AgendaEvent->ProjetId->Value;
+                    }
+                    $created = true;
+            }
+            else
+            {
+                    $created = false;
+                    $idEvent = 'null';
+                    //Recuperation la date et l'heure de debut
+                    $date = explode('!', Request::GetPost('Date'));
+                    $saveAction = "AgendaAction.SaveEvent";
+                    $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
+            }
 
-		$blEvent = new Block($this->Core);
-                $blEvent->Id = "jbEvent";
-                $blEvent->Table = true;
-                $blEvent->frame = false;
+            $edit = (Request::GetPost('edit') != 'false');
 
-	 	//Titre
-	 	$tbTitre = new TextBox("tbTitre");
-                $tbTitre->Libelle = $this->Core->GetCode("Title");
-	 	$tbTitre->Value = ($created)?$AgendaEvent->Title->Value : '';
-	 	$tbTitre->Enabled = $edit;
-	 	$blEvent->AddNew($tbTitre, 3);
+            $blEvent = new Block($this->Core);
+            $blEvent->Id = "jbEvent";
+            $blEvent->Table = true;
+            $blEvent->frame = false;
 
-	 	//Commentaire
-	 	$tbCommentaire = new TextArea("tbCommentaire");
-	 	$tbCommentaire->Libelle = $this->Core->GetCode("Commentaire");
-	 	$tbCommentaire->AddStyle("width","300px");
-		$tbCommentaire->Value = ($created)?$AgendaEvent->Commentaire->Value : '';
-	 	$tbCommentaire->Enabled = $edit;
+            //Titre
+            $tbTitre = new TextBox("tbTitre");
+            $tbTitre->Libelle = $this->Core->GetCode("Title");
+            $tbTitre->Value = ($created)?$AgendaEvent->Title->Value : '';
+            $tbTitre->Enabled = $edit;
+            $blEvent->AddNew($tbTitre, 3);
 
-	 	$blEvent->AddNew($tbCommentaire, 3);
-		$datePosted = Request::GetPost('Date');
+            //Commentaire
+            $tbCommentaire = new TextArea("tbCommentaire");
+            $tbCommentaire->Libelle = $this->Core->GetCode("Commentaire");
+            $tbCommentaire->AddStyle("width","300px");
+            $tbCommentaire->Value = ($created)?$AgendaEvent->Commentaire->Value : '';
+            $tbCommentaire->Enabled = $edit;
 
-		//Date de debut
-		$tbDateStart = new DateBox("tbDateStart");
-		
-                if(Request::GetPost("AppName") == "")
+            $blEvent->AddNew($tbCommentaire, 3);
+            $datePosted = Request::GetPost('Date');
+
+            $cbPublic = new CheckBox("cbPublic");
+            $cbPublic->Libelle = $this->Core->GetCode("Agenda.EventPublic");
+            $blEvent->AddNew($cbPublic, 3);
+            
+            //Date de debut
+            $tbDateStart = new DateBox("tbDateStart");
+  $tbDateStart->Libelle = $this->Core->GetCode("DateStart");
+
+            if($created == true)
+            {
+                    $dateStart = explode(' ',$AgendaEvent->DateStart->Value);
+                    $tbDateStart->Value = $dateStart[0];
+                    $hour = explode(":", $dateStart[1]);
+                    $datePosted = $dateStart[0]."!".$hour[0];
+            }
+            else
+            {
+                    $tbDateStart->Value = $date[0];
+            }
+
+            $blEvent->AddNew($tbDateStart);
+
+            //Heure de debut
+            $lstHourStart = new DateTimeBox("lstHourStart");
+            //$lstHourStart->Enabled = false;
+
+/*            for($i=0 ; $i < 24; $i ++)
+            {
+                if($i < 10 )
                 {
-                    $tbDateStart->Enabled = false;
+                   $lstHourStart->Add("0".$i.":00", $i); 
                 }
-                
-		$tbDateStart->Libelle = $this->Core->GetCode("DateStart");
+                else
+                {
+                    $lstHourStart->Add($i.":00", $i);
+                }
+            }
+            if($created == true)
+            {
+                    $hour = explode(':', $dateStart[1]);
+                    $lstHourStart->Selected =$hour[0];
+            }
+            else
+            {
+                    $lstHourStart->Selected = $date[1];
+            }
+*/
+            //$lstHourStart->Enabled = $edit;
 
-		if($created == true)
-		{
-			$dateStart = explode(' ',$AgendaEvent->DateStart->Value);
-	 		$tbDateStart->Value = $dateStart[0];
-	 		$hour = explode(":", $dateStart[1]);
-	 		$datePosted = $dateStart[0]."!".$hour[0];
-	 	}
-		else
-		{
-			$tbDateStart->Value = $date[0];
-		}
+            $blEvent->Add($lstHourStart);
 
-		$blEvent->AddNew($tbDateStart);
+            //Date de fin
+            $tbDateEnd = new DateTimeBox("tbDateEnd");
+            $tbDateEnd->Libelle = $this->Core->GetCode("DateEnd");
 
-		//Heure de debut
-		$lstHourStart = new ListBox("lstHourStart");
-		//$lstHourStart->Enabled = false;
+            if($created == true)
+            {
+                    $dateEnd = explode(' ',$AgendaEvent->DateEnd->Value);
+                    $tbDateEnd->Value = $dateEnd[0];
+            }
+            else
+            {
+                    $tbDateEnd->Value = $date[0];
+            }
 
-		for($i=0 ; $i < 24; $i ++)
-		{
-                    if($i < 10 )
-                    {
-                       $lstHourStart->Add("0".$i.":00", $i); 
-                    }
-                    else
-                    {
-			$lstHourStart->Add($i.":00", $i);
-                    }
-		}
-		if($created == true)
-		{
-			$hour = explode(':', $dateStart[1]);
-			$lstHourStart->Selected =$hour[0];
-		}
-		else
-		{
-			$lstHourStart->Selected = $date[1];
-		}
+            $tbDateEnd->Enabled = $edit;
 
-		//$lstHourStart->Enabled = $edit;
+            $blEvent->AddNew($tbDateEnd);
 
-		$blEvent->Add(new Libelle($lstHourStart->Show() . "h"));
+            //Heure de fin
+            $lstHourEnd= new ListBox("lstHourEnd");
 
-		//Date de fin
-		$tbDateEnd = new DateBox("tbDateEnd");
-		$tbDateEnd->Libelle = $this->Core->GetCode("DateEnd");
+            for($i=0 ; $i < 24; $i ++)
+            {
+                if($i < 10)
+                {
+                    $lstHourEnd->Add("0".$i.":00", $i);
+                }
+                else
+                {
+                    $lstHourEnd->Add($i.":00", $i);
+                }
+            }
 
-		if($created == true)
-		{
-			$dateEnd = explode(' ',$AgendaEvent->DateEnd->Value);
-	 		$tbDateEnd->Value = $dateEnd[0];
-		}
-		else
-		{
-			$tbDateEnd->Value = $date[0];
-		}
+            if($created == true)
+            {
+                    $hour = explode(':', $dateEnd[1]);
+                    $lstHourEnd->Selected =$hour[0];
+            }
+            else
+            {
+                    $lstHourEnd->Selected = $date[1] + 1;
+            }
 
-		$tbDateEnd->Enabled = $edit;
+            $lstHourEnd->Enabled = $edit;
 
-		$blEvent->AddNew($tbDateEnd);
+    //        $blEvent->Add(new Libelle($lstHourEnd->Show() . "h"));
 
-		//Heure de fin
-		$lstHourEnd= new ListBox("lstHourEnd");
+            //Bouton de sauvegare
+            $btnSave = new Button(BUTTON);
+            $btnSave->Value = $this->Core->GetCode("Save");
+            $btnSave->CssClass = "btn btn-success";
 
-		for($i=0 ; $i < 24; $i ++)
-		{
-                    if($i < 10)
-                    {
-                        $lstHourEnd->Add("0".$i.":00", $i);
-                    }
-                    else
-                    {
-                        $lstHourEnd->Add($i.":00", $i);
-                    }
-		}
+            $btnSave->OnClick = $saveAction.'(\''.$datePosted.'\', '.$idEvent.' , \''.$appName.'\' , \''.$entityName.'\',  \''.$entityId.'\');';
+            if($edit)
+            {
+                    $blEvent->AddNew($btnSave, '3',ALIGNRIGHT);
+            }
 
-		if($created == true)
-		{
-			$hour = explode(':', $dateEnd[1]);
-			$lstHourEnd->Selected =$hour[0];
-		}
-		else
-		{
-			$lstHourEnd->Selected = $date[1] + 1;
-		}
-
-		$lstHourEnd->Enabled = $edit;
-
-		$blEvent->Add(new Libelle($lstHourEnd->Show() . "h"));
-
-		//Bouton de sauvegare
-		$btnSave = new Button(BUTTON);
-		$btnSave->Value = $this->Core->GetCode("Save");
-		$btnSave->CssClass = "btn btn-success";
-		
-		$btnSave->OnClick = $saveAction.'(\''.$datePosted.'\', '.$idEvent.' , \''.$appName.'\' , \''.$entityName.'\',  \''.$entityId.'\');';
-		if($edit)
-		{
-			$blEvent->AddNew($btnSave, '3',ALIGNRIGHT);
-		}
-
-		echo $blEvent->Show();
+            echo $blEvent->Show();
 	 }
 
 	 /**
@@ -354,7 +351,7 @@ class Agenda extends Application
                 $TextControl .= "<div class='row'>";
             
                 //Recuperation du profil utilisateur
-                $eeprofil = mmys::GetApp("Profil", $this->Core);
+                $eeprofil = DashBoardManager::GetApp("Profil", $this->Core);
                   
                 if(sizeof($members) > 0)
                 {
@@ -389,7 +386,7 @@ class Agenda extends Application
             $event->GetById($idEvent);
 
             //Notification
-            $eNotify = mmys::GetApp("Notify", $this->Core);
+            $eNotify = DashBoardManager::GetApp("Notify", $this->Core);
             
             foreach($idContact as $id )
             {
@@ -440,7 +437,7 @@ class Agenda extends Application
 		$agendaMember->Save();
 	
                 //Notification
-                $eNotify = mmys::GetApp("Notify", $this->Core);
+                $eNotify = DashBoardManager::GetApp("Notify", $this->Core);
                 $eNotify->AddNotify($this->Core->User->IdEntite, "Agenda.InvitationAccepted", $agendaMember->Event->Value->UserId->Value,  "Agenda", $agendaMember->IdEvent, $this->Core->GetCode("Agenda.SubjetInvitationAccepted"),  $this->Core->GetCode("Agenda.MessageInvitationAccepted"));
          }
 
@@ -455,7 +452,7 @@ class Agenda extends Application
 		$agendaMember->Save();
 
 		                //Notification
-                $eNotify = mmys::GetApp("Notify", $this->Core);
+                $eNotify = DashBoardManager::GetApp("Notify", $this->Core);
                 $eNotify->AddNotify($this->Core->User->IdEntite, "Agenda.InvitationRefused", $agendaMember->Event->Value->UserId->Value,  "Agenda", $agendaMember->IdEvent, $this->Core->GetCode("Agenda.SubjetInvitationRefused"),  $this->Core->GetCode("Agenda.MessageInvitationRefused"));
 	  }
 
@@ -511,7 +508,7 @@ class Agenda extends Application
             
             foreach($events as $event)
             {
-                   $html .= "<div class='event'><a href='#' onclick='mmys.StartApp(\"\",\"Agenda\")'>";
+                   $html .= "<div class='event'><a href='#' onclick='DashBoardManager.StartApp(\"\",\"Agenda\")'>";
                     
                    $html .= "<span class='date'>".Date::FormatFrench($event->DateStart->Value)."</span>";
                    $html .= "<span class='text'>".$event->Title->Value."</span></a>";

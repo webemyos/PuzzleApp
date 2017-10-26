@@ -22,31 +22,25 @@
                    {{element->Libelle->Value}}
                   
                    <p>
-                   {{if element->Type->Value == 0}}
-                    {{GetControl(TextBox)}}
-                   {{/if element->Type->Value == 0}}
-                   
-                   {{if element->Type->Value == 1}}
-                    {{GetControl(TextArea)}}
-                   {{/if element->Type->Value == 1}}
-                   
-                   {{if element->Type->Value == 2}}
-                    Merci de selectionner un elements ci dessous
-                    
-                        {{GetControl(ListRadio, lstResponse,{Name=reponse,Elements={{element->GetReponse()}}})}}
-                        
-                   {{/if element->Type->Value == 2}}
-                   
-                   {{if element->Type->Value == 3}}
-                   
-                   Vous pouvez selectionner une ou plusieurs options
-                        {{GetControl(ListCheckBox, lstResponse,{Elements={{element->GetReponse()}}})}}
-                    {{/if element->Type->Value == 3}}
-                   
-                   {{if element->Type->Value == 4}}
-                   Selectionner un élements dans la liste ci-dessous
-                    {{GetControl(ListBox, lstResponse,{Options={{element->GetReponse()}}})}}
-                   {{/if element->Type->Value == 4}}
+                    {{if element->Type->Value == 0}}
+                     {{GetControl(TextBox,tb_{{element->IdEntite}})}}
+                    {{/if element->Type->Value == 0}}
+
+                    {{if element->Type->Value == 1}}
+                     {{GetControl(TextArea,ta_{{element->IdEntite}})}}
+                    {{/if element->Type->Value == 1}}
+
+                    {{if element->Type->Value == 2}}
+                         {{GetControl(ListRadio, ls_{{element->IdEntite}},{Name=rb_{{element->IdEntite}},Elements={{element->GetReponse()}}})}}
+                    {{/if element->Type->Value == 2}}
+
+                    {{if element->Type->Value == 3}}
+                         {{GetControl(ListCheckBox, lcb_{{element->IdEntite}},{Elements={{element->GetReponse()}}})}}
+                     {{/if element->Type->Value == 3}}
+
+                    {{if element->Type->Value == 4}}
+                     {{GetControl(ListBox, lst_{{element->IdEntite}},{Options={{element->GetReponse()}}})}}
+                    {{/if element->Type->Value == 4}}
                    </p>
                    
                </li>

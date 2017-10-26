@@ -30,7 +30,7 @@
         {
             $data = explode(":", $element);
             
-            $html .= "<li><input type='checkBox' value='$data[0]'>$data[1]</input></li>";
+            $html .= "<li><input type='checkBox' name='cb_$data[0]' value='$data[0]'>$data[1]</input></li>";
         }
          
          $html .= "</ul>";

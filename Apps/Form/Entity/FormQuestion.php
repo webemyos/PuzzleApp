@@ -38,7 +38,7 @@ class FormQuestion extends Entity
 
         //Categorie
         $this->FormId = new Property("FormId","FormId", TEXTBOX,false,$this->Alias);
-        $this->Form = new EntityProperty("Apps/Entity/FormForm","FormId");
+        $this->Form = new EntityProperty("Apps\Form\Entity\FormForm","FormId");
 
         $this->Create();
     }

@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS `AgendaMember`;
+DROP TABLE IF EXISTS `AgendaEvent` ;

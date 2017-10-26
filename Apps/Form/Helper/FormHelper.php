@@ -166,6 +166,50 @@ class FormHelper
      }
     }
     
+    /*
+     * Save the User Response
+     */
+    public static function SaveReponseUser($core, $data)
+    {
+        foreach($data as $key => $value)
+        {
+            $key = explode("_", $key);
+            $type = $key[0];
+            $questionId = $key[1];
+            
+            $reponseUser = new FormResponseUser($core);
+	    $reponseUser->UserId->Value = $core->User->IdEntite;
+            $reponseUser->QuestionId->Value = $questionId;
+                    
+            switch($type)
+            {
+                case "tb":
+                case "ta":
+                   $reponseUser->Value->Value = $value; 
+                break;
+                case "cb":
+                case "rb":
+                case "lst":
+                    $reponseUser->ResponseId->Value = $value;
+                break;
+            }
+            
+             $reponseUser->AdresseIp->Value =  $_SERVER["REMOTE_ADDR"];
+             $reponseUser->Save();
+        }
+        
+        //Get the Form
+        $question = new FormQuestion($core);
+        $question->GetById($questionId);
+        
+        
+        //Envoi une notification au créateur
+        $eNotify = AppManager::GetApp("Notify");
+        $eNotify->AddNotify($core->User->IdEntite, $core->GetCode("Form.NewReponse"), 
+        $question->Form->Value->UserId->Value, "Form", $form->IdEntite, $core->GetCode("Form.NewReponseTitle") , $core->GetCode("Form.NewReponseMessage"));
+
+    }
+    
     /**
      * Obtient le nombre de répondant pour un formulaire
      * @param type $core

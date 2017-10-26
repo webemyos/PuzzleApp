@@ -11,7 +11,7 @@ namespace Apps\Notify\Helper;
 
 use Apps\Notify\Entity\NotifyNotify;
 use Core\Entity\Entity\Argument;
-use Core\Entity\User\UserGroupUser;
+use Core\Entity\User\User;
 use Core\Utility\Date\Date;
 use Core\Utility\Email\Email;
 

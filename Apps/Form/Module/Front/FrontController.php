@@ -10,6 +10,7 @@
 namespace Apps\Form\Module\Front;
 
 use Apps\Form\Entity\FormForm;
+use Apps\Form\Helper\FormHelper;
 use Apps\Form\Helper\QuestionHelper;
 use Core\Controller\Controller;
 use Core\Core\Request;
@@ -31,8 +32,9 @@ class FrontController extends Controller
     function Index($params)
     {
         if(Request::GetPost() != null)
-        {
-            print_r(Request::GetPost());
+        {   
+            FormHelper::SaveReponseUser($this->Core, Request::GetPost());
+            
             $view = new View(__DIR__."/View/valid.tpl", $this->Core);
         }
         else
