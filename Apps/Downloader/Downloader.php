@@ -11,8 +11,9 @@
 
 use Apps\Downloader\Entity\DownloaderRessource;
 use Apps\Downloader\Entity\DownloaderRessourceContact;
-use Apps\Downloader\Module\Ressource\RessourceController;
 use Apps\Downloader\Module\Front\FrontController;
+use Apps\Downloader\Module\Ressource\RessourceController;
+use Apps\Downloader\Helper\RessourceHelper;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
@@ -64,7 +65,18 @@ class Downloader extends Application
         echo $ressourceController->ShowAddRessource();
     }
 
-            /**
+    /*
+     * Save the ressource
+     */
+    public function SaveRessource()
+    {
+        RessourceHelper::SaveRessource($this->Core,
+                                        Request::GetPost("tbRessourceName"),
+                                        Request::GetPost("tbRessourceDescription")    
+                );
+    }
+    
+    /**
      * Sauvegare les images de presentation
      */
     function DoUploadFile($idElement, $tmpFileName, $fileName, $action)

@@ -53,10 +53,9 @@ use Core\Controller\Controller;
         $btnMyRessource->OnClick = "DownloaderAction.LoadMyRessource();";
 
         //Passage des parametres à la vue
-        $this->AddParameters(array('!titleHome' => $this->Core->GetCode("Downloader.TitleHome"),
-                                    '!messageHome' => $this->Core->GetCode("Downloader.MessageHome"),
-                                    '!btnNewRessource' =>  $btnNewRessource->Show(),
-                                    '!btnMyRessource' => $btnMyRessource->Show(),
+        $this->AddParameters(array(
+                                    '{{btnNewRessource}}' =>  $btnNewRessource->Show(),
+                                    '{{btnMyRessource}}' => $btnMyRessource->Show(),
                                     ));
 
         $this->SetTemplate(__DIR__ . "/View/Home.tpl");

@@ -9,9 +9,10 @@
 
  namespace Apps\Downloader\Helper;
 
- use Core\Entity\Entity\Argument;
-
- use Apps\Downloader\Entity\DownloaderRessourceContact;
+use Apps\Downloader\Entity\DownloaderRessource;
+use Apps\Downloader\Entity\DownloaderRessourceContact;
+use Core\Entity\Entity\Argument;
+use Core\Utility\Format\Format;
 
 
 class RessourceHelper
@@ -28,5 +29,19 @@ class RessourceHelper
         $contact->AddArgument(new Argument("Apps\Downloader\Entity\DownloaderRessourceContact", "RessourceId", EQUAL, $ressourceId));
 
         return count($contact->GetByArg());
+    }
+    
+    /*
+     * Save the ressource
+     */
+    public static function SaveRessource($core, $name, $description)
+    {
+        $ressource = new DownloaderRessource($core);
+        $ressource->UserId->Value = $core->User->IdEntite;
+        $ressource->Name->Value = $name;
+        $ressource->Description->Value = $description;
+        $ressource->Code->Value = Format::ReplaceForUrl($name);
+        
+        $ressource->Save();
     }
 }
