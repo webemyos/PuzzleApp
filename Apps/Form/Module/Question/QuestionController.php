@@ -14,12 +14,13 @@ use Apps\Form\Entity\FormResponse;
 use Core\Action\AjaxAction\AjaxAction;
 use Core\Block\Block;
 use Core\Control\Button\Button;
-use Core\Controller\Controller;
-use Core\Core\Request;
-use Core\Entity\Entity\Argument;
 use Core\Control\Libelle\Libelle;
 use Core\Control\ListBox\ListBox;
 use Core\Control\TextArea\TextArea;
+use Core\Control\TextBox\TextBox;
+use Core\Controller\Controller;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
 
 
  class QuestionController extends Controller
@@ -72,7 +73,8 @@ use Core\Control\TextArea\TextArea;
 
           $jbQuestion->AddNew(new Libelle("<span id='lbResultQuestion'></span>"));
 
-          $question->Libelle->Control = new TextArea("Libelle");
+          $question->Libelle->Control = new TextBox("Libelle");
+          
           $question->Libelle->Control->AddStyle("height", "50px");
           $jbQuestion->AddNew($question->Libelle);
 
@@ -127,7 +129,7 @@ use Core\Control\TextArea\TextArea;
 
           //Bouton de sauvagarde
           $btnSave = new Button(BUTTON);
-          $btnSave->CssClass = "btn btn-primary";
+          $btnSave->CssClass = "btn btn-success";
           $btnSave->Value = $this->Core->GetCode("Save");
           $btnSave->OnClick = "FormAction.SaveQuestion('".$idForm."','".$idEntite."');";
           $jbQuestion->AddNew($btnSave, 2 , ALIGNRIGHT);

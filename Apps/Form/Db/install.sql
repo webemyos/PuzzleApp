@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `FormForm` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `UserId` int(11) ,
   `Libelle` varchar(500) NOT NULL,
+  `Code` varchar(500) NOT NULL,
   `Actif` INT(1) NULL ,
   `Commentaire` varchar(500) NOT NULL,
   `AppName` VARCHAR(200)  NULL ,

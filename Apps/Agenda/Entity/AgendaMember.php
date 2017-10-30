@@ -32,7 +32,9 @@ class AgendaMember extends Entity
         //Categorie
         $this->UserId = new Property("UserId","UserId",TEXTBOX,false,$this->Alias);
         $this->User = new EntityProperty("User","UserId");
-
+        $this->UserId = new Property("Name","Name",EMAILBOX,false,$this->Alias);
+        $this->UserId = new Property("FirstName","FirstName",TEXTBOX,false,$this->Alias);
+        $this->UserId = new Property("Email","Email",TEXTBOX,false,$this->Alias);
         $this->EventId = new Property("EventId","EventId",TEXTBOX,false,$this->Alias);
         $this->Event = new EntityProperty("Apps\Agende\Entity\AgendaEvent","EventId");
 

@@ -9,15 +9,19 @@
 
 namespace Apps\Form\Entity ;
 
+use Apps\Form\Entity\FormResponse;
+use Core\Entity\Entity\Argument;
 use Core\Entity\Entity\Entity;
+use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
+use Core\Utility\Serialization\Serialization;
 
 class FormQuestion extends Entity
 {
     // Propriété
     protected $Form;
 
-    function FormQuestion($core)
+    function __construct($core)
     {
         //Version
         $this->Version ="2.0.1.0";
@@ -34,8 +38,19 @@ class FormQuestion extends Entity
 
         //Categorie
         $this->FormId = new Property("FormId","FormId", TEXTBOX,false,$this->Alias);
-        $this->Form = new EntityProperty("Apps/Entity/FormForm","FormId");
+        $this->Form = new EntityProperty("Apps\Form\Entity\FormForm","FormId");
 
         $this->Create();
+    }
+    
+    /*
+     * Get The réponse
+    */
+    function GetReponse()
+    {
+        $reponse = new FormResponse($this->Core);
+        $reponse->AddArgument(new Argument("Apps\Form\Entity\FormResponse","QuestionId", EQUAL, $this->IdEntite));
+        
+        return Serialization::SerializeKeyValue($reponse->GetByArg(), "IdEntite", "Value" );
     }
 }

@@ -30,7 +30,7 @@ class NotifyNotify extends Entity
         $this->TableName="NotifyNotify"; 
         $this->Alias = "NotifyNotify"; 
 
-        $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
+        $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  false, $this->Alias); 
         $this->User = new EntityProperty("User", "UserId"); 
 
         $this->Code = new Property("Code", "Code", TEXTBOX,  true, $this->Alias); 

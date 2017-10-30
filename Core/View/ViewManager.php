@@ -56,16 +56,8 @@ class ViewManager
         
         if(get_parent_class($value) == "Core\Entity\Entity\Entity")
         {
-            $pattern = "`{{".$key."->(.+)->Value}}`";
-            preg_match_all($pattern, $html, $macthes);
-            $i = 0;
-
-            foreach($macthes[0] as $match)
-            { 
-               $prop = $macthes[1][$i];
-               $html = str_replace($match, $value->$prop->Value, $html);
-               $i++;
-            }
+           $html = ViewManager::ReplaceIf($key, $value, $html);
+           $html = ViewManager::ReplaceProperty($key, $value, $html);
         }
         else if(is_array($value))
         {
@@ -79,6 +71,67 @@ class ViewManager
         
         return $html;
     }
+    
+    /*
+     * Replace the property
+    */
+    public static function ReplaceProperty($key, $value, $html)
+    {
+        $pattern = "`{{".$key."->(.+)->Value}}`";
+        preg_match_all($pattern, $html, $macthes);
+        $i = 0;
+
+        foreach($macthes[0] as $match)
+        { 
+           $prop = $macthes[1][$i];
+           $html = str_replace($match, $value->$prop->Value, $html);
+           $i++;
+        }
+
+        return $html;
+    }
+    
+    /*
+     * Replace If COndition
+     */
+    public static function ReplaceIf($key, $value, $html)
+    {
+        //Remplacement des if
+        $pattern = "`{{if ".$key."->(.+)->Value == (.+)}}`";
+        
+        preg_match_all($pattern, $html, $macthes);
+        $i = 0;
+ 
+        foreach($macthes[0] as $match)
+        {
+           $prop = $macthes[1][$i];
+           $searchValue = $macthes[2][$i];
+
+           
+           $start = strpos($html, "{{if ".$key."->".$prop."->Value == ".$searchValue."}}");
+           $end = strpos($html, "{{/if ".$key."->".$prop."->Value == ".$searchValue."}}");
+           
+           $line = substr($html, $start, $end - $start);
+      
+           
+           if($value->$prop->Value == $searchValue)
+           {
+              $html = str_replace("{{if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
+              $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
+           }
+           else
+           {
+              $html = str_replace($line, "", $html);
+               $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
+           }
+           
+           $i++;
+        } 
+        
+        return $html;
+    }
+    
+    
     
     /*
      * Load Collections
@@ -108,6 +161,7 @@ class ViewManager
                 $newLine = str_replace("{{element->IdEntite}}", $elm->IdEntite, $newLine);
                 $newLine = ViewManager::LoadElementProperty($elm, $html, $newLine );
                 $newLine = ViewManager::LoadFunction($elm, $html, $newLine );
+                $newLine = ViewManager::ReplaceIf("element", $elm, $newLine );
                
                 //Ajout de la ligne
                 $lines .= $newLine;
@@ -157,7 +211,7 @@ class ViewManager
            $newLine = str_replace($match, $elm->$prop->Value, $newLine);
            $i++;
         }
-
+ 
         return $newLine;
     }
     
@@ -195,6 +249,7 @@ class ViewManager
         return $newLine;
     }
     
+   // function LoadIf()
 
     
 }

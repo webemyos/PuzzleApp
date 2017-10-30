@@ -76,42 +76,42 @@ class Control
 	//Fonction d'affichage du control
 	function Show()
 	{
-		$TextControl ="\n<input type='".$this->Type."'";
-		$TextControl .= $this->getProperties();
-		$TextControl .="></input>";
+		$html ="\n<input type='".$this->Type."'";
+		$html .= $this->getProperties();
+		$html .="></input>";
 
 		//Affichage d'une eventuelle erreur d'expression reguliere saisie
 		if(!$this->IsValid)
 		{
-                    $TextControl .="<span style='color:red;'> ".(($this->MessageErreur)?$this->MessageErreur:'Invalide')." </span>";
+                    $html .="<span style='color:red;'> ".(($this->MessageErreur)?$this->MessageErreur:'Invalide')." </span>";
 		}
 
 		//Affichage d'un champ obligatoire non saisi
 		if(!$this->Obligatory)
 		{
-			//TODO gerer si on vu on non l'�toile'$TextControl .="<span style='color:blue;'> ".(($this->MessageObligatoire)?$this->MessageObligatoire:'*')." </span>";
-			//$TextControl .="<span style='color:blue;'> ".(($this->MessageObligatoire)?$this->MessageObligatoire:'')." </span>";
+			//TODO gerer si on vu on non l'�toile'$html .="<span style='color:blue;'> ".(($this->MessageObligatoire)?$this->MessageObligatoire:'*')." </span>";
+			//$html .="<span style='color:blue;'> ".(($this->MessageObligatoire)?$this->MessageObligatoire:'')." </span>";
 		}
 
                 if($this->Info != "")
                 {
-                    $TextControl .= "&nbsp;<p class='fa fa-info' title='".$this->Info."' >&nbsp;</p>";
+                    $html .= "&nbsp;<p class='fa fa-info' title='".$this->Info."' >&nbsp;</p>";
                 }
-		return $TextControl ;
+		return $html ;
 	}
 
 	//Retourne les propri�tes du control
 	protected function getProperties($addValue = true)
 	{
-		$TextControl ="";
+		$html ="";
 
-		$TextControl .=($this->Id  !="")?"id='".$this->Id."' ":"";
-		$TextControl .=($this->Name !="")?"name='".$this->Name."' ":"";
-		$TextControl .=($this->Enabled !=true)?" Disabled " :"";
-		$TextControl .=($this->CssClass !="")?" class='".$this->CssClass."' " :  "";
-		$TextControl .=($this->Style !="")?"    style='".$this->Style."'    "  :  "";
-		$TextControl .=($this->Attribute !="")? $this->Attribute : "";
-                $TextControl .=($this->Required == true)?" required "  :  "";
+		$html .=($this->Id  !="")?"id='".$this->Id."' ":"";
+		$html .=($this->Name !="")?"name='".$this->Name."' ":"";
+		$html .=($this->Enabled !=true)?" Disabled " :"";
+		$html .=($this->CssClass !="")?" class='".$this->CssClass."' " :  "";
+		$html .=($this->Style !="")?"    style='".$this->Style."'    "  :  "";
+		$html .=($this->Attribute !="")? $this->Attribute : "";
+                $html .=($this->Required == true)?" required "  :  "";
 	
 		if($addValue)
 		{
@@ -120,65 +120,65 @@ class Control
                     {
                         $this->Value = !is_array(Request::GetPost($this->Id))?Request::GetPost($this->Id):"" ;
                     }
-                    $TextControl .=($this->Value !="")? "  value='".htmlspecialchars($this->Value, ENT_QUOTES ). "'" : "";
+                    $html .=($this->Value !="")? "  value='".htmlspecialchars($this->Value, ENT_QUOTES ). "'" : "";
 		}
                 
 		
 		//Gestion des actions
 		if(is_object($this->OnClick))
-			$TextControl .=($this->OnClick != "")? " onclick=\"".$this->OnClick->DoAction()."\"": "";
+			$html .=($this->OnClick != "")? " onclick=\"".$this->OnClick->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnClick != "")? " onclick=\"".$this->OnClick."\"": "";
+			$html .=($this->OnClick != "")? " onclick=\"".$this->OnClick."\"": "";
 
 		//Survol de la sourie
 		if(is_object($this->OnMouseMove))
-			$TextControl .=($this->OnMouseMove != "")? " onmousemove=\"".$this->OnMouseMove->DoAction()."\"": "";
+			$html .=($this->OnMouseMove != "")? " onmousemove=\"".$this->OnMouseMove->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnMouseMove != "")? " onmousemove=\"".$this->OnMouseMove."\"": "";
+			$html .=($this->OnMouseMove != "")? " onmousemove=\"".$this->OnMouseMove."\"": "";
 
 		//Passage de la sourie
 		if(is_object($this->OnMouseOver))
-			$TextControl .=($this->OnMouseOver != "")? " onmouseover=\"".$this->OnMouseOver->DoAction()."\"": "";
+			$html .=($this->OnMouseOver != "")? " onmouseover=\"".$this->OnMouseOver->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnMouseOver != "")? " onmouseover=\"".$this->OnMouseOver."\"": "";
+			$html .=($this->OnMouseOver != "")? " onmouseover=\"".$this->OnMouseOver."\"": "";
 
 		//Entr�e de la sourie
 		if(is_object($this->OnMouseEnter))
-			$TextControl .=($this->OnMouseEnter != "")? " onmouseenter=\"".$this->OnMouseEnter->DoAction()."\"": "";
+			$html .=($this->OnMouseEnter != "")? " onmouseenter=\"".$this->OnMouseEnter->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnMouseEnter != "")? " onmouseenter=\"".$this->OnMouseEnter."\"": "";
+			$html .=($this->OnMouseEnter != "")? " onmouseenter=\"".$this->OnMouseEnter."\"": "";
 
 		//Sourie de la sourie
 		if(is_object($this->OnMouseLeave))
-			$TextControl .=($this->OnMouseLeave != "")? " onmouseleave=\"".$this->OnMouseLeave->DoAction()."\"": "";
+			$html .=($this->OnMouseLeave != "")? " onmouseleave=\"".$this->OnMouseLeave->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnMouseLeave != "")? " onmouseleave=\"".$this->OnMouseLeave."\"": "";
+			$html .=($this->OnMouseLeave != "")? " onmouseleave=\"".$this->OnMouseLeave."\"": "";
 
 		//Sortie de la sourie
 		if(is_object($this->OnMouseOut))
-			$TextControl .=($this->OnMouseOut != "")? " onmouseout=\"".$this->OnMouseOut->DoAction()."\"": "";
+			$html .=($this->OnMouseOut != "")? " onmouseout=\"".$this->OnMouseOut->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnMouseOut != "")? " onmouseout=\"".$this->OnMouseOut."\"": "";
+			$html .=($this->OnMouseOut != "")? " onmouseout=\"".$this->OnMouseOut."\"": "";
 
 		//Changement de la valeur
 		if(is_object($this->OnChange))
-			$TextControl .=($this->OnChange != "")? " onchange=\"".$this->OnChange->DoAction()."\"": "";
+			$html .=($this->OnChange != "")? " onchange=\"".$this->OnChange->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnChange != "")? " onchange=\"".$this->OnChange."\"": "";
+			$html .=($this->OnChange != "")? " onchange=\"".$this->OnChange."\"": "";
 
 		//Sortie du clavier
 		if(is_object($this->OnKeyUp))
-			$TextControl .=($this->OnKeyUp != "")? " onkeyup=\"".$this->OnKeyUp->DoAction()."\"": "";
+			$html .=($this->OnKeyUp != "")? " onkeyup=\"".$this->OnKeyUp->DoAction()."\"": "";
 		else
-			$TextControl .=($this->OnKeyUp != "")? " onkeyup=\"".$this->OnKeyUp."\"": "";
+			$html .=($this->OnKeyUp != "")? " onkeyup=\"".$this->OnKeyUp."\"": "";
 
 		//TODO d�finir la prorri�t� Ben
 		if($this->PlaceHolder != "")
 		{
-                    $TextControl .= " placeholder='".$this->PlaceHolder."'";
+			$html .= " placeholder='".$this->PlaceHolder."'";
 		}
 
-		return $TextControl;
+		return $html;
 	}
 
 	//fonction de verification

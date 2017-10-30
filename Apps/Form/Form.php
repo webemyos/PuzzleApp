@@ -10,15 +10,16 @@ namespace Apps\Form;
 
 use Apps\Form\Entity\FormForm;
 use Apps\Form\Entity\FormQuestion;
-use Apps\Form\Entity\FormResponse;
 use Apps\Form\Entity\FormResponseUser;
 use Apps\Form\Helper\FormHelper;
 use Apps\Form\Helper\QuestionHelper;
 use Apps\Form\Module\Form\FormController;
 use Apps\Form\Module\Question\QuestionController;
+use Apps\Form\Module\Front\FrontController;
 use Core\App\Application;
 use Core\Core\Request;
 use Core\Entity\Entity\Argument;
+use Core\Utility\Email\Email;
 
 class Form extends Application
 {
@@ -36,8 +37,19 @@ class Form extends Application
    {
      parent::__construct($core, "Form");
      $this->Core = $core;
- }
+   }
 
+   /*
+    * Détail d'un formulaire 
+    */
+   function detail($params)
+   {
+        $this->Core->MasterView->Set("Title", "Form");
+
+        $frontConroller = new FrontController($this->Core);
+        return $frontConroller->Index($params);
+   }
+   
    /**
     * Execution de l'application
     */
@@ -47,72 +59,72 @@ class Form extends Application
      echo $textControl;
    }
 
-         /**
-        * Récupère les formulaires de l'utilisateur
-        */
-        function LoadForm()
-        {
-           $formController = new FormController($this->Core);
-           echo $formController->LoadForm();
-        }
-  
-        /**
-         * Edition d'un formulaire
-         *
-         */
-        function DetailForm()
-        {
-           $formController = new FormController($this->Core);
-           echo $formController->DetailForm();
-        }
+    /**
+   * Récupère les formulaires de l'utilisateur
+   */
+   function LoadForm()
+   {
+      $formController = new FormController($this->Core);
+      echo $formController->LoadForm();
+   }
 
-        /**
-         * Enregistre le formulaire
-         */
-        function SaveForm()
-        {
-             echo FormHelper::SaveForm($this->Core, Request::GetPost('idEntity'));
-        }
+   /**
+    * Edition d'un formulaire
+    *
+    */
+   function DetailForm()
+   {
+      $formController = new FormController($this->Core);
+      echo $formController->DetailForm();
+   }
 
-        /**
-         * Suppression du formulaire
-         * */
-        function DeleteForm()
-        {
-            FormHelper::DeleteForm($this->Core, Request::GetPost('idEntity'));
-            $this->LoadForm();
-        }
+   /**
+    * Enregistre le formulaire
+    */
+   function SaveForm()
+   {
+        echo FormHelper::SaveForm($this->Core, Request::GetPost('idEntity'));
+   }
 
-        /**
-         * Charge les questions et les réponses utilisateurs
-         *
-         */
-        function LoadQuestionReponse()
-        {
-           $formController = new FormController($this->Core);
-           echo  $formController->LoadQuestionReponse(Request::GetPost('idEntity'));
-        }
+   /**
+    * Suppression du formulaire
+    * */
+   function DeleteForm()
+   {
+       FormHelper::DeleteForm($this->Core, Request::GetPost('idEntity'));
+       $this->LoadForm();
+   }
 
-        /**
-         * Detail d'une question
-         */
-        function DetailQuestion()
-        {
-            $questionController = new QuestionController($this->Core);
-            echo $questionController->DetailQuestion(Request::GetPost('idEntity'));
-        }
+   /**
+    * Charge les questions et les réponses utilisateurs
+    *
+    */
+   function LoadQuestionReponse()
+   {
+      $formController = new FormController($this->Core);
+      echo  $formController->LoadQuestionReponse(Request::GetPost('idEntity'));
+   }
 
-        /**
-         * Enregistre la question
-         */
-        function SaveQuestion()
-        {
-           echo QuestionHelper::SaveQuestion($this->Core, 
-                                 Request::GetPost('idEntite'),
-                                 Request::GetPost("idForm"),
-                                 Request::GetPost("lstType")
-                    );
-        }
+   /**
+    * Detail d'une question
+    */
+   function DetailQuestion()
+   {
+       $questionController = new QuestionController($this->Core);
+       echo $questionController->DetailQuestion(Request::GetPost('idEntity'));
+   }
+
+   /**
+    * Enregistre la question
+    */
+   function SaveQuestion()
+   {
+      echo QuestionHelper::SaveQuestion($this->Core, 
+                            Request::GetPost('idEntite'),
+                            Request::GetPost("idForm"),
+                            Request::GetPost("lstType")
+               );
+   }
 
   /**
    * Supprime une question et ces réponses
@@ -120,13 +132,15 @@ class Form extends Application
   function DeleteQuestion()
   {
     $question = new FormQuestion($this->Core);
-    $idForm = $question->FormId->Value;
     $question->GetById(Request::GetPost('idEntity'));
-
-    FormResponse::DeleteResponse($this->Core, $question->IdEntite);
+    $idForm = $question->FormId->Value;
+  
+    QuestionHelper::DeleteResponse($this->Core, $question->IdEntite);
     $question->Delete();
 
-    echo $this->GetTabQuestion($idForm)->Show();
+    $formController = new FormController($this->Core);
+    
+    echo$formController->GetTabQuestion($idForm)->Show();
   }
   
 
@@ -135,7 +149,6 @@ class Form extends Application
    * */
   function TryForm()
   {
-      
     $questionController = new FormController($this->Core);
     echo $questionController->TryForm(Request::GetPost('idForm'));
   }

@@ -11,11 +11,12 @@ namespace Apps\Form\Helper;
 use Apps\Form\Entity\FormForm;
 use Apps\Form\Entity\FormQuestion;
 use Apps\Form\Entity\FormResponseUser;
+use Apps\Form\Helper\QuestionHelper;
+use Core\App\AppManager;
 use Core\Control\Button\Button;
 use Core\Core\Request;
 use Core\Entity\Entity\Argument;
-use Apps\Form\Helper\QuestionHelper;
-use Core\Entity\UserGroupUser;
+use Core\Utility\Format\Format;
 
 
 class FormHelper
@@ -37,6 +38,7 @@ class FormHelper
          $form->UserId->Value = $core->User->IdEntite;
         }
         
+        $form->Code->Value = Format::ReplaceForUrl(Request::GetPost("Libelle"));
         if($form->IsValid())
         {
           $form->Save();
@@ -151,7 +153,7 @@ class FormHelper
 	
 	    
             //Envoi une notification au créateur
-            $eNotify = DashBoard::GetApp("Notify", $core);
+            $eNotify = AppManager::GetApp("Notify");
             $eNotify->AddNotify($core->User->Identite, $core->GetCode("Form.NewReponse"), 
                     $form->UserId->Value, "Form", $form->IdEntite, $core->GetCode("Form.NewReponseTitle") , $core->GetCode("Form.NewReponseMessage"));
 
@@ -162,6 +164,50 @@ class FormHelper
     	echo "Ce compte est un compte de demonstration vous ne pouvez donc pas répondre au questionnaire!";
   		echo "<br/> Vous pouvez créer votre compte en cliquant sur le bouton 'Créer mon compte' ci-dessus.";
      }
+    }
+    
+    /*
+     * Save the User Response
+     */
+    public static function SaveReponseUser($core, $data)
+    {
+        foreach($data as $key => $value)
+        {
+            $key = explode("_", $key);
+            $type = $key[0];
+            $questionId = $key[1];
+            
+            $reponseUser = new FormResponseUser($core);
+	    $reponseUser->UserId->Value = $core->User->IdEntite;
+            $reponseUser->QuestionId->Value = $questionId;
+                    
+            switch($type)
+            {
+                case "tb":
+                case "ta":
+                   $reponseUser->Value->Value = $value; 
+                break;
+                case "cb":
+                case "rb":
+                case "lst":
+                    $reponseUser->ResponseId->Value = $value;
+                break;
+            }
+            
+             $reponseUser->AdresseIp->Value =  $_SERVER["REMOTE_ADDR"];
+             $reponseUser->Save();
+        }
+        
+        //Get the Form
+        $question = new FormQuestion($core);
+        $question->GetById($questionId);
+        
+        
+        //Envoi une notification au créateur
+        $eNotify = AppManager::GetApp("Notify");
+        $eNotify->AddNotify($core->User->IdEntite, $core->GetCode("Form.NewReponse"), 
+        $question->Form->Value->UserId->Value, "Form", $form->IdEntite, $core->GetCode("Form.NewReponseTitle") , $core->GetCode("Form.NewReponseMessage"));
+
     }
     
     /**

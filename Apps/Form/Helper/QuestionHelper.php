@@ -9,6 +9,12 @@
 
 namespace Apps\Form\Helper;
 
+use Apps\Form\Entity\FormQuestion;
+use Apps\Form\Entity\FormResponse;
+use Apps\Form\Entity\FormResponseUser;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
+
 class QuestionHelper
 {
     /**
@@ -191,6 +197,17 @@ ORDER By reponseUser.Id";
            }
         $resultat = $core->Db->GetArray($requete);
            return $resultat;
+   }
+   
+   /*
+    * Get the reponee of form
+    */
+   function GetByForm($core, $form)
+   {
+       $questions = new FormQuestion($core);
+       $questions->AddArgument(new Argument("Apps\Form\Entity\FormQuestion", "FormId", EQUAL, $form->IdEntite));
+       
+       return $questions->GetByArg();
    }
 }
 

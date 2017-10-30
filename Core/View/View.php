@@ -113,6 +113,7 @@ class View
 
         $html = FunctionManager::LoadSpecialFunction($this->Core, $html);
 
+               
         return $html;
     }
 
@@ -198,6 +199,40 @@ class View
            $i++;
         }
 
+       // return $newLine;
+        
+        //Remplacement des if
+        $pattern = "`{{if element->(.+)->Value == (.+)}}`";
+        
+        preg_match_all($pattern, $newLine, $macthes);
+        $i = 0;
+// var_dump($macthes);
+ 
+        foreach($macthes[0] as $match)
+        {
+           $prop = $macthes[1][$i];
+           $value = $macthes[2][$i];
+
+           $start = strpos($html, "{{if element->$prop->Value == $value}}");
+           $end = strpos($html, "{{/if}}");
+           
+           $line = substr($html, $start, $end - $start);
+      
+           echo $elm->$prop->Value ."== " .$value ;
+           
+           if($elm->$prop->Value == $value)
+           {
+               $newLine = $line;
+           }
+           else
+           {
+             $newLine = str_replace($line, "dddd", $html);
+          }
+           
+           $i++;
+        }
+        
+        
         return $newLine;
     }
 
@@ -290,5 +325,17 @@ class View
         {
           $property->Load();
         }
+    }
+    
+    /*
+     * Show or Hide content
+     */
+    public function LoadIf($html, $element)
+    {
+         //On extrait la ligne a convertir
+        $start = strpos($html, "{{if $key}}");
+        $end = strpos($html, "{{/if $key}}");
+  
+        
     }
 }

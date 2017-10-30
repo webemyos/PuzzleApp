@@ -33,6 +33,8 @@ class AgendaEvent extends Entity
 
         //proprietes
         $this->Title = new Property("Title","Title",TEXTBOX,false,$this->Alias);
+        $this->Code = new Property("Code","Code",TEXTBOX,false,$this->Alias);
+
         $this->Commentaire = new Property("Commentaire","Commentaire",TEXTAREA,false,$this->Alias);
 
         //Categorie
@@ -42,6 +44,7 @@ class AgendaEvent extends Entity
         //Date
         $this->DateStart = new Property("DateStart", "DateStart", DATETIMEBOX, false,$this->Alias);
         $this->DateEnd = new Property("DateEnd", "DateEnd", DATETIMEBOX, false,$this->Alias);
+        $this->Public = new Property("Public", "Public",TEXTBOX,false,$this->Alias);
 
         //Partage entre application 
         $this->AddSharedProperty();
