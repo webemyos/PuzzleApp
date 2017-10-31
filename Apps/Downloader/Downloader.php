@@ -44,6 +44,8 @@ class Downloader extends Application
      */
     function Download($params)
     {
+        $this->Core->MasterView->Set("Title", "Download");
+         
         $frontController = new FrontController($this->Core);
         return $frontController->DownLoad($params);
     }
@@ -62,7 +64,7 @@ class Downloader extends Application
     public function ShowAddRessource()
     {
         $ressourceController = new RessourceController($this->Core);
-        echo $ressourceController->ShowAddRessource();
+        echo $ressourceController->ShowAddRessource(Request::GetPost("RessourceId"));
     }
 
     /*
@@ -71,6 +73,7 @@ class Downloader extends Application
     public function SaveRessource()
     {
         RessourceHelper::SaveRessource($this->Core,
+                                        Request::GetPost("RessourceId"),
                                         Request::GetPost("tbRessourceName"),
                                         Request::GetPost("tbRessourceDescription")    
                 );
@@ -83,18 +86,21 @@ class Downloader extends Application
     {
       $core = Core::getInstance();
 
-        $directory = "Data/Apps/Downloader/".$core->User->IdEntite;
-       //Ajout de l'image dans le repertoire correspondant
+      $directory = "Data/Apps/Downloader";
+      //Ajout de l'image dans le repertoire correspondant
 
-       File::CreateDirectory($directory);
+      File::CreateDirectory($directory);
+      //Add the user Directory
+      $directory .= "/" . $core->User->IdEntite;
+      File::CreateDirectory($directory);
 
        switch($action)
        {
            case "UploadRessource":
 
                $ressource = new DownloaderRessource($core);
-               $ressource->Url->Value = str_replace("../Data/", "Data/", $directory."/".$fileName);
-               $ressource->UserId->Value = $core->User->IdEntite;
+               $ressource->GetById($idElement);
+               $ressource->Url->Value = $directory."/".$fileName;
                $ressource->Save();
 
             //Sauvegarde

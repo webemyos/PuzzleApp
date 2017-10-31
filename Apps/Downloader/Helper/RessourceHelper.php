@@ -34,9 +34,15 @@ class RessourceHelper
     /*
      * Save the ressource
      */
-    public static function SaveRessource($core, $name, $description)
+    public static function SaveRessource($core, $ressourceId,  $name, $description)
     {
         $ressource = new DownloaderRessource($core);
+        
+        if($ressourceId != "")
+        {
+            $ressource->GetById($ressourceId);
+        }
+        
         $ressource->UserId->Value = $core->User->IdEntite;
         $ressource->Name->Value = $name;
         $ressource->Description->Value = $description;

@@ -9,8 +9,10 @@
 
 namespace Apps\Downloader\Module\Home;
 
+use Apps\Message\Helper\MessageHelper;
 use Core\Control\Button\Button;
 use Core\Controller\Controller;
+use Core\View\View;
 
  class HomeController extends Controller
  {
@@ -41,26 +43,22 @@ use Core\Controller\Controller;
      */
     function Show($all=true)
     {
+        $view = new View(__DIR__ . "/View/Home.tpl", $this->Core);
+        
         //Bouton pour créer ajouter une ressource
-        $btnNewRessource = new Button(BUTTON);
+        $btnNewRessource = new Button(BUTTON, "btnNewRessource");
         $btnNewRessource->Value = $this->Core->GetCode("Downloader.NewRessource");
         $btnNewRessource->CssClass = "btn btn-info";
         $btnNewRessource->OnClick = "DownloaderAction.ShowAddRessource();";
-
-        $btnMyRessource = new Button(BUTTON);
+        $view->AddElement($btnNewRessource);
+        
+        $btnMyRessource = new Button(BUTTON, "btnMyRessource");
         $btnMyRessource->Value = $this->Core->GetCode("Downloader.MyRessource");
         $btnMyRessource->CssClass = "btn btn-success";
         $btnMyRessource->OnClick = "DownloaderAction.LoadMyRessource();";
-
-        //Passage des parametres à la vue
-        $this->AddParameters(array(
-                                    '{{btnNewRessource}}' =>  $btnNewRessource->Show(),
-                                    '{{btnMyRessource}}' => $btnMyRessource->Show(),
-                                    ));
-
-        $this->SetTemplate(__DIR__ . "/View/Home.tpl");
-
-        return $this->Render();
+        $view->AddElement($btnMyRessource);
+ 
+        return $view->Render();
     }
 
     /**

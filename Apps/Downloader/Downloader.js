@@ -77,11 +77,16 @@ var Downloader = function() {};
         /*
          * Pop in d'ajout/ Edition d'une ressources
          */
-        DownloaderAction.ShowAddRessource = function()
+        DownloaderAction.ShowAddRessource = function(ressourceId)
         {
             var param = Array();
                 param['App'] = 'Downloader';
                 param['Title'] = 'Downloader.ShowAddRessource';
+
+                if(ressourceId != undefined)
+                {
+                    param['RessourceId'] = ressourceId;
+                }
 
                 Dashboard.OpenPopUp('Downloader','ShowAddRessource', '','','', 'DownloaderAction.LoadMyRessource()', serialization.Encode(param));
         };

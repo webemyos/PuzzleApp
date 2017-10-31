@@ -14,8 +14,10 @@ use Apps\Downloader\Helper\RessourceHelper;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Control\Icone\EditIcone;
 use Core\Control\Link\Link;
+use Core\Control\Upload\Upload;
 use Core\Controller\Controller;
 use Core\Entity\Entity\Argument;
+
 
 
  class RessourceController extends Controller
@@ -52,24 +54,34 @@ use Core\Entity\Entity\Argument;
     /**
      * Ajout d'une ressources
      */
-    function ShowAddRessource($resssourceId = "")
+    function ShowAddRessource($ressourceId = "")
     {
         $jbRessource = new AjaxFormBlock($this->Core, "jbRessource");
         $jbRessource->App = "Downloader";
         $jbRessource->Action = "SaveRessource";
         
-        if($resssourceId != "")
+        if($ressourceId != "")
         {
             $ressource = new DownloaderRessource($this->Core);
-            $ressource->GetById($resssourceId);
+            $ressource->GetById($ressourceId);
+            $jbRessource->AddArgument("RessourceId", $ressourceId);
         }
         
-        $jbRessource->AddControls(array(
-                                            array("Type"=>"TextBox", "Name"=> "tbRessourceName", "Libelle" => $this->Core->GetCode("Name"), "Value"=> ($ressource != "") ? $ressource->Name->Value : ""),
-                                            array("Type"=>"TextArea", "Name"=> "tbRessourceDescription", "Libelle" => $this->Core->GetCode("Description"),"Value"=> ($ressource != "") ? $ressource->Description->Value : ""),
-                                            array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+        $controls = array(
+                            array("Type"=>"TextBox", "Name"=> "tbRessourceName", "Libelle" => $this->Core->GetCode("Name"), "Value"=> ($ressource != "") ? $ressource->Name->Value : ""),
+                            array("Type"=>"TextArea", "Name"=> "tbRessourceDescription", "Libelle" => $this->Core->GetCode("Description"),"Value"=> ($ressource != "") ? $ressource->Description->Value : ""),
+                            array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")));
+     
+        if($ressourceId != "")
+        {
+             $upload = new Upload("Downloader", $ressourceId, "DownloaderAction.LoadMyRessource()", "UploadRessource", "EeFileUpload");
+
+            $controls[] =    array("Type"=>"Libelle", "Libelle" => $this->Core->GetCode("Dowload"), "Value"=> $upload->Show(true));
+        }     
+        
+        $jbRessource->AddControls($controls);
                              
-            ));
+            
                    
         return $jbRessource->Show();
        //Ajout de la photo de profil
@@ -108,6 +120,7 @@ use Core\Entity\Entity\Argument;
                $number = RessourceHelper::GetNumberEmail($this->Core,$ressource->IdEntite );
 
                $icDetail = new EditIcone($this->Core);
+               $icDetail->OnClick = "DownloaderAction.ShowAddRessource(".$ressource->IdEntite.")";;
                $html .= "<div> ".$icDetail->Show()."</div>";
                
                 //Lien pour afficher le détail
