@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `DownloaderRessource` (
 `UserId` INT  NULL ,
 `Name` TEXT  NULL ,
 `Code` TEXT  NULL ,
+`Description` TEXT  NULL ,
 `Url` TEXT  NULL ,
 `AppName` VARCHAR(200)  NULL ,
 `AppId` INT  NULL ,

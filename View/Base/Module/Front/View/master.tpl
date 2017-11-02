@@ -34,7 +34,7 @@
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.php" alt="lepupitredigital" title="Tripnparty, discover a city by night with a local will make you feel insider.">
+            <a class="navbar-brand" href="index.php" alt="PuzzleApp" title="Plus qu'un framework ...">
                   <img src='Images/logo-tnp.png' />
             </a>
           </div>
