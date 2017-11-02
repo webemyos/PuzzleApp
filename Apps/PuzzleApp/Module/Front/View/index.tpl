@@ -3,7 +3,7 @@
 <div class='row'>
 
    <div class='col-md-6'>
-        <p>Vous allez lancer un site ? Félicitation.</p>
+       <h2>Vous allez lancer un site ? Félicitation.</h2>
         <p>Vous avez dèjà parcouru internet pour trouver la meilleur solutions possible.</p>
         <p>Il existe des solutions de bloggins, des solutions e-commerce, des systèmes de gestions de contenu. Mais lequel choisir et qu'allez vous mettre dessus ?</p>
         <p>Ne cherchez plus PuzzleApp  et fait pour vous. </p>

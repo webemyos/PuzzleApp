@@ -151,21 +151,21 @@ namespace Core\Utility\Date;
         $timestamp = strtotime("monday january $year + $week week -2 week");
         // A verifier selon les années mettre -2 ou -1
         setlocale(LC_TIME, "fr");
-        return date('d/m/Y', $timestamp);
+        return date('Y-m-d', $timestamp);
     }
     /**
      * Ajoute un jour
      * */
     static function AddDay($date, $num =1, $hour= false)
     {
-        $date = str_replace('-_',' ', $date);
-        $date = explode(' ', $date);
-
+        //$date = str_replace('-',' ', $date);
+        $date = explode('-', $date);
+        
         $dates = explode("/", $date[0]);
         if($hour)
-                return date('d/m/Y h:i:s',mktime(0,0,0,$dates[1], $dates[0]+$num, $dates[2]));
+            return date('d/m/Y h:i:s',mktime(0,0,0,$dates[0], $dates[2]+$num, $dates[1]));
         else
-                return date('d/m/Y',mktime(0,0,0,$dates[1], $dates[0]+$num, $dates[2]));
+            return date('d/m/Y',mktime(0,0,0,$dates[2], $dates[1]+$num, $dates[0]));
     }
  }
 

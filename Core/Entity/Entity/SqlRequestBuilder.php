@@ -226,7 +226,7 @@ class SqlRequestBuilder
                                 $values .= ",'".md5(Format::EscapeString($propertie->Value))."'";
                         }
                 }
-                else if(get_class($propertie->Control) == DATEBOX )
+                else if(get_class($propertie->Control) == DATEBOX || get_class($propertie->Control) == DATETIMEBOX)
                 {
                         if($fields=="")
                         {
@@ -239,38 +239,18 @@ class SqlRequestBuilder
                                 $values .= ",'".$propertie->Value. "'";
                         }
                 }
-                else if(get_class($propertie->Control) == DATETIMEBOX)
-                {
-                        //Separation heure et jour
-                        $dateJour  =  explode(" ", $propertie->Value);
-
-                        if($fields=="")
-                        {
-                                $fields .= $propertie->TableName;
-
-                                $date = explode("/",$dateJour[0]);
-                                $values .= "'".$date[2]."-".$date[1]."-".$date[0] . " ".$dateJour[1]."' ";
-                        }
-                        else
-                        {
-                                $fields .= ",".$propertie->TableName;
-
-                                $date = explode("/",$dateJour[0]);
-                                $values .= ",'".$date[2]."-".$date[1]."-".$date[0] . " ".$dateJour[1]."' ";
-                        }
-                }
                 else
                 {
-                        if($fields=="")
-                        {
-                                $fields .= $propertie->TableName;
-                                $values .= "'".Format::EscapeString($propertie->Value)."'";
-                        }
-                        else
-                        {
-                                $fields .= ",".$propertie->TableName;
-                                $values .= ",'".Format::EscapeString($propertie->Value)."' ";
-                        }
+                    if($fields=="")
+                    {
+                        $fields .= $propertie->TableName;
+                        $values .= "'".Format::EscapeString($propertie->Value)."'";
+                    }
+                    else
+                    {
+                        $fields .= ",".$propertie->TableName;
+                        $values .= ",'".Format::EscapeString($propertie->Value)."' ";
+                    }
                 }
             }
         }

@@ -185,11 +185,12 @@ AgendaAction.SaveEvent = function(date, idEvent, appName, entityName, entityId)
   //Recuperation des controles
   tbTitre = document.getElementById('tbTitre');
   tbCommentaire = document.getElementById('tbCommentaire');
+  cbPublic = document.getElementById("cbPublic");
   tbDateStart = document.getElementById('tbDateStart');
   tbDateEnd = document.getElementById('tbDateEnd');
 
-  lstHourStart = document.getElementById('lstHourStart');
-  lstHourEnd = document.getElementById('lstHourEnd');
+  tbHourStart = document.getElementById('tbHourStart');
+  tbtHourEnd = document.getElementById('tbHourEnd');
 
   if(tbTitre.value != '')
   {
@@ -197,8 +198,9 @@ AgendaAction.SaveEvent = function(date, idEvent, appName, entityName, entityId)
         data += '&Date='+ date;
         data += '&Titre='+ tbTitre.value;
         data += '&Commentaire='+ tbCommentaire.value;
-        data += '&DateStart='+ tbDateStart.value + " " +lstHourStart.value + ":00:00";
-        data += '&DateEnd='+ tbDateEnd.value + " " + lstHourEnd.value+ ":00:00";
+        data += '&public='+cbPublic.value;
+        data += '&DateStart='+ tbDateStart.value + " " +tbHourStart.value;
+        data += '&DateEnd='+ tbDateEnd.value + " " + tbtHourEnd.value;
         data += '&idEvent='+idEvent;
         
         data += '&AppName='+ appName;

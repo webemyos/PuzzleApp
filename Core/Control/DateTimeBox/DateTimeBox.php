@@ -22,7 +22,7 @@ class DateTimeBox extends Control implements IControl
 
         $this->Id=$name;
         $this->Name=$name;
-        $this->RegExp="'([0-9]{1,4})/([0-9]{1,2})/([0-9]{1,4})'";
+       // $this->RegExp="'([0-9]{1,4})/([0-9]{1,2})/([0-9]{1,4})'";
         $this->MessageErreur="Date invalide elle doit être au format jj/mm/aaaa";
         $this->Type="time";
         $this->CssClass="form-control";

@@ -20,6 +20,7 @@ use Core\Block\Block;
 use Core\Control\AutoCompleteBox\AutoCompleteBox;
 use Core\Control\Button\Button;
 use Core\Control\CheckBox\CheckBox;
+use Core\Control\DateBox\DateBox;
 use Core\Control\DateTimeBox\DateTimeBox;
 use Core\Control\Grid\EntityColumn;
 use Core\Control\Grid\EntityGrid;
@@ -28,7 +29,9 @@ use Core\Control\PopUp\PopUp;
 use Core\Control\TextArea\TextArea;
 use Core\Control\TextBox\TextBox;
 use Core\Core\Request;
+use Core\Dashboard\DashBoardManager;
 use Core\Entity\Entity\Argument;
+use Core\Entity\User\UserGroupUser;
 use Core\Utility\Date\Date;
 
 
@@ -48,7 +51,7 @@ class Agenda extends Application
 	 {
 	 	parent::__construct($core, "Agenda");
 	 	$this->Core = $core;
-   }
+        }
 
 	 /**
 	  * Execution de l'application
@@ -80,32 +83,32 @@ class Agenda extends Application
             //Verification si un evenement existe
             if(Request::GetPost('idEvent') || Request::GetPost('idEntity'))
             {
-                    $AgendaEvent = new AgendaEvent($this->Core);
-                    if(Request::GetPost('idEvent'))
-                    {
-                            $AgendaEvent->GetById(Request::GetPost('idEvent'));
-                            $idEvent = Request::GetPost('idEvent');
+                $AgendaEvent = new AgendaEvent($this->Core);
+                if(Request::GetPost('idEvent'))
+                {
+                        $AgendaEvent->GetById(Request::GetPost('idEvent'));
+                        $idEvent = Request::GetPost('idEvent');
 
-                            $saveAction = "AgendaAction.SaveEvent";
-                            $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
-                    }
-                    else
-                    {
-                            $AgendaEvent->GetById(Request::GetPost('idEntity'));
-                            $idEvent = Request::GetPost('idEntity');
-                            $saveAction = "ProjetAction.SaveEvent";
-                            $IdProjet = $AgendaEvent->ProjetId->Value;
-                    }
-                    $created = true;
+                        $saveAction = "AgendaAction.SaveEvent";
+                        $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
+                }
+                else
+                {
+                        $AgendaEvent->GetById(Request::GetPost('idEntity'));
+                        $idEvent = Request::GetPost('idEntity');
+                        $saveAction = "ProjetAction.SaveEvent";
+                        $IdProjet = $AgendaEvent->ProjetId->Value;
+                }
+                $created = true;
             }
             else
             {
-                    $created = false;
-                    $idEvent = 'null';
-                    //Recuperation la date et l'heure de debut
-                    $date = explode('!', Request::GetPost('Date'));
-                    $saveAction = "AgendaAction.SaveEvent";
-                    $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
+                $created = false;
+                $idEvent = 'null';
+                //Recuperation la date et l'heure de debut
+                $date = explode('!', Request::GetPost('Date'));
+                $saveAction = "AgendaAction.SaveEvent";
+                $IdProjet = Request::GetPost('IdProjet')? Request::GetPost('IdProjet') : 'null';
             }
 
             $edit = (Request::GetPost('edit') != 'false');
@@ -138,63 +141,39 @@ class Agenda extends Application
             
             //Date de debut
             $tbDateStart = new DateBox("tbDateStart");
-  $tbDateStart->Libelle = $this->Core->GetCode("DateStart");
+            $tbDateStart->Libelle = $this->Core->GetCode("DateStart");
 
             if($created == true)
             {
-                    $dateStart = explode(' ',$AgendaEvent->DateStart->Value);
-                    $tbDateStart->Value = $dateStart[0];
-                    $hour = explode(":", $dateStart[1]);
-                    $datePosted = $dateStart[0]."!".$hour[0];
+                $dateStart = explode(' ',$AgendaEvent->DateStart->Value);
+                $tbDateStart->Value = $dateStart[0];
+                $hour = explode(":", $dateStart[1]);
+                $datePosted = $dateStart[0]."!".$hour[0];
             }
             else
             {
-                    $tbDateStart->Value = $date[0];
+                echo $date[0];
+                $tbDateStart->Value = "10/16/2017";//$date[0];
             }
 
             $blEvent->AddNew($tbDateStart);
 
             //Heure de debut
-            $lstHourStart = new DateTimeBox("lstHourStart");
-            //$lstHourStart->Enabled = false;
-
-/*            for($i=0 ; $i < 24; $i ++)
-            {
-                if($i < 10 )
-                {
-                   $lstHourStart->Add("0".$i.":00", $i); 
-                }
-                else
-                {
-                    $lstHourStart->Add($i.":00", $i);
-                }
-            }
-            if($created == true)
-            {
-                    $hour = explode(':', $dateStart[1]);
-                    $lstHourStart->Selected =$hour[0];
-            }
-            else
-            {
-                    $lstHourStart->Selected = $date[1];
-            }
-*/
-            //$lstHourStart->Enabled = $edit;
-
-            $blEvent->Add($lstHourStart);
+            $tbHourStart = new DateTimeBox("tbHourStart");
+            $blEvent->Add($tbHourStart);
 
             //Date de fin
-            $tbDateEnd = new DateTimeBox("tbDateEnd");
+            $tbDateEnd = new DateBox("tbDateEnd");
             $tbDateEnd->Libelle = $this->Core->GetCode("DateEnd");
 
             if($created == true)
             {
-                    $dateEnd = explode(' ',$AgendaEvent->DateEnd->Value);
-                    $tbDateEnd->Value = $dateEnd[0];
+                $dateEnd = explode(' ',$AgendaEvent->DateEnd->Value);
+                $tbDateEnd->Value = $dateEnd[0];
             }
             else
             {
-                    $tbDateEnd->Value = $date[0];
+                $tbDateEnd->Value = $date[0];
             }
 
             $tbDateEnd->Enabled = $edit;
@@ -202,43 +181,31 @@ class Agenda extends Application
             $blEvent->AddNew($tbDateEnd);
 
             //Heure de fin
-            $lstHourEnd= new ListBox("lstHourEnd");
+            $tbHourEnd= new DateTimeBox("tbHourEnd");
 
-            for($i=0 ; $i < 24; $i ++)
-            {
-                if($i < 10)
-                {
-                    $lstHourEnd->Add("0".$i.":00", $i);
-                }
-                else
-                {
-                    $lstHourEnd->Add($i.":00", $i);
-                }
-            }
-
+         
             if($created == true)
             {
-                    $hour = explode(':', $dateEnd[1]);
-                    $lstHourEnd->Selected =$hour[0];
+                $hour = explode(':', $dateEnd[1]);
+                $lstHourEnd->Selected =$hour[0];
             }
             else
             {
-                    $lstHourEnd->Selected = $date[1] + 1;
+                $lstHourEnd->Selected = $date[1] + 1;
             }
 
-            $lstHourEnd->Enabled = $edit;
-
-    //        $blEvent->Add(new Libelle($lstHourEnd->Show() . "h"));
+            $tbHourEnd->Enabled = $edit;
+            $blEvent->Add($tbHourEnd);
 
             //Bouton de sauvegare
             $btnSave = new Button(BUTTON);
             $btnSave->Value = $this->Core->GetCode("Save");
             $btnSave->CssClass = "btn btn-success";
 
-            $btnSave->OnClick = $saveAction.'(\''.$datePosted.'\', '.$idEvent.' , \''.$appName.'\' , \''.$entityName.'\',  \''.$entityId.'\');';
+            $btnSave->OnClick = $saveAction.'(\'\', '.$idEvent.' , \''.$appName.'\' , \''.$entityName.'\',  \''.$entityId.'\');';
             if($edit)
             {
-                    $blEvent->AddNew($btnSave, '3',ALIGNRIGHT);
+                $blEvent->AddNew($btnSave, '3',ALIGNRIGHT);
             }
 
             echo $blEvent->Show();
@@ -315,7 +282,7 @@ class Agenda extends Application
             $event = new AgendaEvent($this->Core);
             $event->GetById(Request::GetPost("idEvent"));
 
-            $TextControl = "<div class='FormUser'>";
+            $html = "<div class='FormUser'>";
 
             //Recherche d'utilisateur
             $tbContact = new AutoCompleteBox("tbContact", $this->Core);
@@ -324,22 +291,22 @@ class Agenda extends Application
             $tbContact->Methode = "SearchUser";
             $tbContact->Parameter = "AddAction=AgendaAction.SaveUser(".Request::GetPost("idEvent").")";
             
-            $TextControl .= $this->Core->GetCode("Contact"). " " .$tbContact->Show();
+            $html .= $this->Core->GetCode("Contact"). " " .$tbContact->Show();
 
             //TODO Membre du groupe
-            $TextControl .= "<div id='lstContact'>";
-            $TextControl .= $this->GetMembers(Request::GetPost("idEvent"));
-            $TextControl .= "</div>";
+            $html .= "<div id='lstContact'>";
+            $html .= $this->GetMembers(Request::GetPost("idEvent"));
+            $html .= "</div>";
 
-            $TextControl .= "</div>";
+            $html .= "</div>";
 
-            echo $TextControl;
+            echo $html;
 	 }
          
          /**
           * 
           * @param type $idEvent
-          * @return stringObtient les membres
+          * @return string Obtient les membres
           */
 	 function GetMembers($idEvent)
 	{
@@ -348,7 +315,7 @@ class Agenda extends Application
 
                 $members = $agendaMember->GetByArg();
 
-                $TextControl .= "<div class='row'>";
+                $html .= "<div class='row'>";
             
                 //Recuperation du profil utilisateur
                 $eeprofil = DashBoardManager::GetApp("Profil", $this->Core);
@@ -357,19 +324,19 @@ class Agenda extends Application
                 {
                         foreach($members as $member)
                         {
-                                $TextControl .= "<div class='col-md-3'>";
+                                $html .= "<div class='col-md-3'>";
                             
                                 //Icone de suppression
-                                $TextControl .= "<b class='icon-remove' id=".$member->UserId->Value." onclick='AgendaAction.DeleteMember(this ,".$idEvent.");' title='".$this->Core->GetCode("Agenda.DeleteMember")."'></b>";
-                                $TextControl .= $eeprofil->GetProfil($member->User->Value);
+                                $html .= "<b class='icon-remove' id=".$member->UserId->Value." onclick='AgendaAction.DeleteMember(this ,".$idEvent.");' title='".$this->Core->GetCode("Agenda.DeleteMember")."'></b>";
+                                $html .= $eeprofil->GetProfil($member->User->Value);
                                 
-                                $TextControl .= "</div>";
+                                $html .= "</div>";
                         }
                 }
 
-                $TextControl .= "</div>";
+                $html .= "</div>";
 
-                return $TextControl;
+                return $html;
         }
 
 	 /**

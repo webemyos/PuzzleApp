@@ -124,7 +124,7 @@ class EntityManager
             }
             
             $request .= SqlRequestBuilder::CreateOrder($entity);
-            $request .= SqlRequestBuilder::CreateLimit($entity);
+            echo $request .= SqlRequestBuilder::CreateLimit($entity);
                 
             //Get the data
             $data = $entity->Core->Db->GetArray($request);
