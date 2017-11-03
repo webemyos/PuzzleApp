@@ -34,8 +34,8 @@
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.php" alt="PuzzleApp" title="Plus qu'un framework ...">
-                  <img src='Images/logo-tnp.png' />
+            <a class="navbar-brand" href="index.php" alt="PuzzleApp" title="Plus qu'un framework, une solution compléte pour tous les types de site.">
+               <h2 style="font-family: fantasy">PuzzleApp</h2>
             </a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
@@ -116,16 +116,7 @@
     wid
   </script>
 
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-76711078-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+ 
 
 </body>
 </html>

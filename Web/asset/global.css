@@ -3008,7 +3008,7 @@ input:focus ~ .highlight {
 .navbar-wrapper .navbar .last-item-menu {
     padding: 16px 30px;
     color: #fff;
-    background: #0097A7;
+    background: #31708f;
 }
 
 .navbar-wrapper .navbar .last-item-menu:hover,
@@ -4779,3 +4779,14 @@ footer li {
 .global-input-material select {
     max-width: 315px;
 }
+
+/* Spécifique PuzzleApp. */
+h2, h3, .mention {color:#31708f;}
+.width100{width:100%}
+.width80{width:80%}
+
+
+.borderBottom{border-bottom:1px solid grey; margin:10px; padding:10px;}
+.borderTop{border-top:1px solid grey; width:100%; padding:10px;}
+.headerHome{width:100%; margin-top: 0px; text-align: center;border-bottom: 1px solid grey; color:white;background-image : url(../images/code.jpeg)}
+.mention{display:block; margin :7px}
