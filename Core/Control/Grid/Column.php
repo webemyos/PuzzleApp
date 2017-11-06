@@ -7,7 +7,7 @@
  * GNU Licence
  */
 
-namespace Core\Control\GridColumn;
+namespace Core\Control\Grid;
 
 use Core\Control\Control;
 

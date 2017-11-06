@@ -7,10 +7,10 @@
  * GNU Licence
  */
 
-namespace Core\Control\GridColumn;
+namespace Core\Control\Grid;
 
 use Core\Control\Control;
-use Core\Control\GridColumn\IColumn;
+use Core\Control\Grid\IColumn;
 
 //Classe les colonnes coontenant un control
 class IconColumn extends Control implements IColumn
