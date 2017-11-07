@@ -9,6 +9,7 @@
 
 namespace Apps\Downloader\Entity ;
 
+use Core\Entity\Entity\Argument;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\Property;
 
@@ -36,6 +37,17 @@ class DownloaderRessource extends Entity
 
         //Creation de l entité
         $this->Create();
+    }
+    
+    /*
+     * Get Number of Download
+     */
+    function GetNumberEmail()
+    {
+        $contact = new DownloaderRessourceContact($this->Core);
+        $contact->AddArgument(new Argument("Apps\Downloader\Entity\DownloaderRessourceContact", "RessourceId", EQUAL, $this->IdEntite));
+
+        return count($contact->GetByArg());
     }
 }
 ?>

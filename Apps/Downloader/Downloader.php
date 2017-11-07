@@ -11,13 +11,12 @@
 
 use Apps\Downloader\Entity\DownloaderRessource;
 use Apps\Downloader\Entity\DownloaderRessourceContact;
+use Apps\Downloader\Helper\RessourceHelper;
 use Apps\Downloader\Module\Front\FrontController;
 use Apps\Downloader\Module\Ressource\RessourceController;
-use Apps\Downloader\Helper\RessourceHelper;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
-use Core\Entity\Entity\Argument;
 use Core\Utility\File\File;
 
 
@@ -154,30 +153,8 @@ class Downloader extends Application
      */
     function ShowContact()
     {
-       $contact = new DownloaderRessourceContact($this->Core);
-       $contact->AddArgument(new Argument("Apps\Downloader\Entity\DownloaderRessourceContact", "RessourceId", EQUAL, Request::GetPost("RessourceId")));
-
-       $contacts = $contact->GetByArg();
-
-       $html = "";
-
-       if(count($contacts) > 0)
-       {
-           $html .= "<ul style='text-align:left'>";
-           foreach($contacts as $contact)
-           {
-               $html .= "<li>".$contact->Email->Value."</li>";
-           }
-
-           $html .= "</ul>";
-
-           echo $html;
-       }
-       else
-       {
-           echo $this->Core->GetCode("Downloader.NoContact");
-       }
-
+        $ressourceController = new RessourceController($this->Core);
+        echo $ressourceController->ShowContact(Request::GetPost("RessourceId"));
     }
 
     /**
@@ -187,6 +164,14 @@ class Downloader extends Application
    {
        $projet = new $entity($this->Core);
        return count($projet->GetAll());
+   }
+   
+   /*
+    * Retourne les ressources disponible en téléchargement
+    */
+   public function GetRessources()
+   {
+       return RessourceHelper::GetAll($this->Core);
    }
 }
 ?>
