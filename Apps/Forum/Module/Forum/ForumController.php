@@ -13,6 +13,7 @@ use Apps\Forum\Entity\ForumCategory;
 use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Entity\ForumMessage;
 use Apps\Forum\Helper\MessageHelper;
+use Apps\Forum\Modele\MessageModele;
 use Apps\Profil\Profil;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Control\Button\Button;
@@ -22,12 +23,10 @@ use Core\Control\Libelle\Libelle;
 use Core\Control\Link\Link;
 use Core\Control\TabStrip\TabStrip;
 use Core\Controller\Controller;
-use Core\Core\Request;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Format\Format;
 use Core\View\ElementView;
 use Core\View\View;
-
 
 
  class ForumController extends Controller
@@ -431,30 +430,23 @@ use Core\View\View;
       /*
        * Add A discussion
        */
-      function NewDiscussion()
+      function NewDiscussion($params)
       {
           $view = new View(__DIR__."/View/newDiscussion.tpl", $this->Core);
-          $modele = new MessageModele();
-                  
-          $view->AddElement($modele);
+         
+          //Recuperation de la catégorie
+          $category = new ForumCategory($this->Core);
+          $category = $category->GetByCode($params);
+          
+          $view->AddElement(new ElementView("Category", $category));
+          $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
+           
+          //Add Message Modele
+          $modele = new MessageModele($this->Core);
+          $modele->SetCategory($category);
+          $view->SetModel($modele);
           
           return $view->Render();
-          
-         /* if(Request::GetPost("sujet"))
-          {
-              ModeleManager::Save("ForumMessage");
-              
-             MessageHelper::Save($this->Core, $categoryId, 
-                                Request::GetPost("sujet"), 
-                                Request::GetPost("message"));
-          }
-          else
-          {
-            $view->AddElement(new ElementView("connected", $this->Core->IsConnected()));
-          }*/
-          
-         
-          
       }
 
           /*action*/

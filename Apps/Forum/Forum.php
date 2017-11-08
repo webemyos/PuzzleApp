@@ -64,12 +64,12 @@ class Forum extends Application {
     /*
      * Add  discussion
      */
-    function NewDiscussion()
+    function NewDiscussion($params)
     {
         $this->Core->MasterView->Set("Title", $this->Core->GetCode("Forum.NewDiscussion"));
         
         $forumController = new ForumController($this->Core);
-        return $forumController->NewDiscussion();
+        return $forumController->NewDiscussion($params);
     }
     
     /**

@@ -1,34 +1,36 @@
 <section>
   
+    <h2>{{GetCode(Forum.NewMessageInCategory)}} : {{Category->Name->Value}}</h2>
+
+    {{if Connected == true}}
+
+        {{if Model->State = Init}}
+            {{RenderModel()}}
+        {{/if Model->State = Init}}
+
+        {{if Model->State = Updated}}
+
+        <div class='success'>
+          {{GetCode(Forum.MessageSaved)}}
+        </div>
+
+        <a class='btn btn-success' href='{{GetPath(/Forum/Category/{{Category->Code->Value}})}}' >
+            {{GetCode(Forum.ReturnToCategory)}}
+        </a>
+
+        {{/if Model->State = Updated}}
+
+    {{/if Connected == true}}
     
-    {{if Modele->State == Init}}
-        {{RenderModele(Modele)}}
-    {{/if Modele->State == Init}}
+    {{if Connected == false}}
+       {{GetCode(Forum.MustBeConnected)}}
+       
+       <br/>
+       <a class='btn btn-primary' href='{{GetPath(/singup)}}' >
+            {{GetCode(Singup)}}
+        </a>
+
+    {{/if Connected == false}}
+
     
-    {{if Modele->State == Updated}}
-        {{GetCode(Forum.DiscussionAdded)}}
-    {{/if Modele->State == Updated}}
-    
-        
-    
-    {{if Modele->Saved == false}}
-    
-    {{/if Modele->Saved}}
-    
-    
-    
-  {{GetForm(\Forum\NewDiscussion)}}
-  
-  {{GetCode(Forum.Sujet)}}
-  {{GetControl(TextBox,sujet,{Required=true})}} 
-  
-  {{GetCode(Forum.Message)}}
-  {{GetControl(TextArea,message,{Required=true})}} 
-  
-  {{GetControl(Submit,Submit,{Value,Send})}}
-    
-  {{CloseForm()}}
-  
-  
-  
 </section>

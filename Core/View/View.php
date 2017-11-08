@@ -28,6 +28,7 @@ class View
     private $Template;
     private $Elements = array();
     private $Core;
+    private $Model;
 
     /*
      * Constructeur
@@ -59,6 +60,13 @@ class View
         $this->Elements[] = $element;
     }
 
+    /*
+     * SetModel
+     */
+    public function SetModel($model)
+    {
+        $this->Model = $model;
+    }
     /*
     * Utiliser dans les tab strip
     */
@@ -113,6 +121,11 @@ class View
 
         $html = FunctionManager::LoadSpecialFunction($this->Core, $html);
 
+        //Replace the element model
+        if($this->Model != null)
+        {   
+            $html = ViewModelManager::ReplaceModel($html, $this->Model);
+        }
                
         return $html;
     }

@@ -9,6 +9,6 @@
 
 include("../autoload.php");
 include("../Core/Runner.php");
-Runner::Run("Base", "dev", true);
+Runner::Run("PuzzleApp", "dev", true);
 
 ?>
