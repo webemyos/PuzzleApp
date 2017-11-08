@@ -89,6 +89,7 @@ class Base extends Application
     {
         if(Request::IsPost())
         {
+            //YOUR CODE
         }
         else
         {
@@ -111,8 +112,13 @@ class Base extends Application
                                    Request::GetPost("Serveur"),
                                    Request::GetPost("DataBase"),
                                    Request::GetPost("User"),
-                                   Request::GetPost("Password")
-                                    );
+                                   Request::GetPost("Password"),
+                                   Request::GetPost("Admin"),
+                                   Request::GetPost("PassAdmin")
+                    );
+            
+            $installBlock = new InstallController($this->Core);
+            return $installBlock->Success();
         }
         else
         {

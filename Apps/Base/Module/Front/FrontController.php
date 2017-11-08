@@ -9,10 +9,11 @@
 
 namespace Apps\Base\Module\Front;
 
-use Core\Control\Text\Text;
 use Core\Controller\Controller;
-use Core\View\CacheManager;
+use Core\Core\Core;
 use Core\Modele\Modele;
+use Core\View\CacheManager;
+use Core\View\ElementView;
 use Core\View\View;
 
 /**
@@ -42,19 +43,8 @@ class FrontController extends Controller
       {
         $view = new View(__DIR__."/View/master.tpl", $this->Core);
 
-        $view->AddElement(new Text("menu", false, "<ul>Accueil</ul>"));
-
-        //Acces to the administartion
-        if($this->Core->IsConnected())
-        {
-            $html = "<li><a href='Admin'>dashboard</a></li>";
-        }
-        else
-        {
-            $html = "";
-        }
-
-        $view->AddElement(new Text("lkAdmin", false, $html));
+        //Acces to the login or administration 
+        $view->AddElement(new ElementView("connected", $this->Core->isConnected()));
         
         CacheManager::Store($template, $view->Render());
       }

@@ -5,7 +5,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.*)$ http://localhost/puzzleApp/ [QSA,L]
+RewriteRule ^(.*)$ http://localhost/puzzleAppInstall/index.php [QSA,L]
 
 
 ErrorDocument 404 /index.php
