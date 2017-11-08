@@ -91,4 +91,16 @@ class ForumHelper
         $forums = new ForumForum($core);
         return $forums->GetAll();
     }
+    
+    /*
+     * Get The First Forum by user
+     */
+    public static function GetFirst($core)
+    {
+        $forum = new ForumForum($core);
+        $forum->AddArgument(new Argument("Apps\Forum\Entity\ForumForum", "UserId", EQUAL, $core->User->IdEntite ));
+        $forums = $forum->GetByArg();
+        
+        return $forums[0];
+    }
 }

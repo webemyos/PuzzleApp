@@ -12,8 +12,8 @@ namespace Apps\Forum\Module\Forum;
 use Apps\Forum\Entity\ForumCategory;
 use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Entity\ForumMessage;
-use Apps\Forum\Helper\CategoryHelper;
 use Apps\Forum\Helper\MessageHelper;
+use Apps\Profil\Profil;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Control\Button\Button;
 use Core\Control\Icone\DeleteIcone;
@@ -22,9 +22,12 @@ use Core\Control\Libelle\Libelle;
 use Core\Control\Link\Link;
 use Core\Control\TabStrip\TabStrip;
 use Core\Controller\Controller;
-use Core\Dashboard\DashBoardManager;
+use Core\Core\Request;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Format\Format;
+use Core\View\ElementView;
+use Core\View\View;
+
 
 
  class ForumController extends Controller
@@ -260,93 +263,29 @@ use Core\Utility\Format\Format;
          */
         function ShowCategorie($name, $front)
         {
-           //Recuperation du forum
+            $view = new View(__DIR__."/View/ShowCategory.tpl", $this->Core);
+            
+            //Recuperation du forum
             $forum = new ForumForum($this->Core);
             $forum = $forum->GetByName($name);
 
             //Titre et description
             if($front)
             {
-              $this->Core->Page->Masterpage->AddBlockTemplate("!Title", "Forum : " . $forum->Name->Value);
-              $this->Core->Page->Masterpage->AddBlockTemplate("!description", $forum->Description->Value);
+                $this->Core->MasterView->Set("Title", "Forum");
+                $this->Core->MasterView->Set("Title", $forum->Description->Value);
             }
-
-            //Titre et description
-            $html = "<h1>".$forum->Name->Value."</h1>";
-            $html .= "<p>".$forum->Description->Value."</p>";
-
+     
+            $view->AddElement(new ElementView("Forum", $forum));
+            
             //Affichage des categories avec le nombre de message
             $categorie = new ForumCategory($this->Core);
             $categorie->AddArgument(new Argument("Apps\Forum\Entity\ForumCategory", "ForumId", EQUAL, $forum->IdEntite));
-
             $categories = $categorie->GetByArg();
 
-            if(count($categories) > 0)
-            {
-                $html .= "<table class='forum'>";
-                $html .= "<tr><th class='blueTree'><b>".$this->Core->GetCode("Forum.Name")."</b></th>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.Description")."</b></th>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.NbMessage")."</b></th>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.LastMessage")."</th>";
-
-                $html .= "</tr>"; 
-
-                foreach($categories as $categorie)
-                {
-                    if($front)
-                    {
-                      $lkDetail = new Link($categorie->Name->Value, "forum-".Format::ReplaceForUrl($categorie->Name->Value).".html");
-                    }
-                    else
-                    {
-                      $lkDetail = new Link($categorie->Name->Value, "#");
-                      $lkDetail->OnClick= "ForumAction.ShowDefaultForum('', '".$categorie->IdEntite."')";
-                    }
-
-                    $html .= "<tr class='forum'>";
-                    $html .= "<td >".$lkDetail->Show()."</td>";
-                    $html .= "<td >".$categorie->Description->Value."</td>";
-                    $html .= "<td >".CategoryHelper::GetNumberMessage($this->Core, $categorie->IdEntite)."</td>";
-
-                     //Information du dernier message
-                     $lastMessage = MessageHelper::GetLastMessage($this->Core, $categorie->IdEntite);
-                     $html .= "<td class='detailMessage'>";
-
-                     if($lastMessage != null)
-                     {
-
-                          if($front)
-                          {
-                              //lien direct
-                              $lkSujet = new Link($lastMessage->Title->Value, "forum-sujet-".$lastMessage->IdEntite.".html");
-                          }
-                          else
-                          {
-                            $lkSujet = new Link($lastMessage->Title->Value, "#");
-                            $lkSujet->OnClick= "ForumAction.ShowDefaultForum('','', '".$lastMessage->IdEntite."')";
-                          }
-
-                         $html .= "<span>".$lastMessage->User->Value->GetPseudo()."</span>";
-                         $html .= "<span>".$lastMessage->DateCreated->Value."</span>";
-
-                         $html .= "<span>".$lkSujet->Show()."</span>";
-                     }
-                     else
-                     {
-                         $html .= $this->Core->GetCode("Forum.NoMessage");
-                     }
-                     $html .= "</td>";
-
-                     $html .= "</tr>";
-                }
-            }
-            else
-            {
-                return $this->Core->GetCode("Forum.NoCategory");
-            }
-
-            $html .= "</table>";
-            return $html; 
+            $view->AddElement(new ElementView("Category", $categories));
+            
+            return $view->Render();
         }
 
         /*
@@ -363,90 +302,21 @@ use Core\Utility\Format\Format;
             }
             else
             {
-              $categorie->GetByName(str_replace("_", "-_",$categorieName));
+               $categorie = $categorie->GetByCode($categorieName);
             }
-            //Titre et description
+            
+            //Titre et description on The Front page
             if($showTitle && $front)
             {
-              $this->Core->Page->Masterpage->AddBlockTemplate("!Title", "Forum - categorie : " . $categorie->Name->Value);
-              $this->Core->Page->Masterpage->AddBlockTemplate("!description", $categorie->Description->Value);
+                $this->Core->MasterView->Set("Title", "Forum - categorie : " . $categorie->Name->Value);
+                $this->Core->MasterView->Set("Title", $categorie->Description->Value);
             }
-
-            $html ="<div id='dvMessage'>";
-
-            //Titre et description
-            $html .= "<h1>".$categorie->Name->Value."</h1>";
-            $html .= "<p>".$categorie->Description->Value."</p>";
-
-            //Lien vers la page de base
-            $link = new Link("forum", "forum.html");
-            $html .= "<p>".$link->Show()."</p>";
-
-
-            //Bouton pour créer un sujet
-            $btnAddSubjet = new Button(BUTTON);
-            $btnAddSubjet->CssClass = "btn btn-info";
-            $btnAddSubjet->Value = $this->Core->GetCode("Forum.CreateSujet");
-            $btnAddSubjet->OnClick = "ForumAction.ShowAddSujet(".$categorie->IdEntite.")";
-
-            $html .= "<br/>".$btnAddSubjet->Show();
-
-            $messages = MessageHelper::GetByCategory($this->Core, $categorie->IdEntite );
-
-            if(count($messages) > 0)
-            {
-                //entete
-                $html .= "<table class='forum'><tr>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.Sujet")."</th></div>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.Date")."</th></div>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.NbReponse")."</th></div>";
-                $html .= "<th class='blueTree'><b>".$this->Core->GetCode("Forum.LastReponse")."</th></div>";
-
-                $html .= "</tr>"; 
-
-                foreach($messages as $message)
-                {
-                     $html .= "<tr class='forum'>";
-
-                     if($front)
-                     {
-                      //Lien pour afficher la discussion
-                      $lkDetail = new Link($message->Title->Value, "forum-sujet-".$message->IdEntite.".html");
-                     }
-                     else
-                     {
-                          $lkDetail = new Link($message->Title->Value, "#");
-                          $lkDetail->OnClick= "ForumAction.ShowDefaultForum('', '', '".$message->IdEntite."')";
-                     }
-
-                     $html .= "<td>".$lkDetail->Show()."</td>";
-                     $html .= "<td>".$message->DateCreated->Value."</td>";
-                     $html .= "<td>".MessageHelper::GetNumberReponse($this->Core, $message->IdEntite)."</td>";
-
-                     $lastReponse = MessageHelper::GetLastReponse($this->Core, $message->IdEntite);
-
-                     if($lastReponse != null)
-                     {
-                          $html .= "<td><span>".$lastReponse->User->Value->GetPseudo()."</span>";
-                          $html .= "<span>".$lastReponse->DateCreated->Value."</span></td>";
-                     }
-                     else
-                     {
-                         $html .= "<td>".$this->Core->GetCode("Forum.NoReponse")."</td>";
-                     }
-
-                     $html .= "</tr>";
-                }
-            }
-            else
-            {
-                $html .= "<br/>".$this->Core->GetCode("Forum.NoMessage");
-            }
-
-            $html .= "</table>";
-            $html .= "</div>";
-
-            return $html;
+            
+            $view = new View(__DIR__."/View/ShowMessages.tpl", $this->Core);
+            $view->AddElement(new ElementView("Category", $categorie));
+            $view->AddElement(new ElementView("Messages", MessageHelper::GetByCategory($this->Core, $categorie->IdEntite )));
+            
+            return $view->Render();
         }
 
        /*
@@ -457,7 +327,7 @@ use Core\Utility\Format\Format;
           $this->SetTemplate(__DIR__ . "/View/ShowMessage.tpl");
 
           //Recuperation de l'appli Profil
-          $eProfil = new \Apps\Profil\Profil($this->Core);
+          $eProfil = new Profil($this->Core);
           
           //Recuperation du message
           $message = new ForumMessage($this->Core);
@@ -489,9 +359,8 @@ use Core\Utility\Format\Format;
       {
           if($front)
           {
-              //Titre et description
-              $this->Core->Page->Masterpage->AddBlockTemplate("!Title", "Forum : " . $message->Title->Value);
-              $this->Core->Page->Masterpage->AddBlockTemplate("!description", $message->Message->Value);
+            $this->Core->MasterView->Set("Title", "Forum : " . $message->Title->Value);
+            $this->Core->MasterView->Set("Title", $message->Message->Value);
           }
 
           $html = "<div class='forum'>";
@@ -557,6 +426,35 @@ use Core\Utility\Format\Format;
           $html .= $btnAddReponse->Show();
 
           return $html;
+      }
+      
+      /*
+       * Add A discussion
+       */
+      function NewDiscussion()
+      {
+          $view = new View(__DIR__."/View/newDiscussion.tpl", $this->Core);
+          $modele = new MessageModele();
+                  
+          $view->AddElement($modele);
+          
+          return $view->Render();
+          
+         /* if(Request::GetPost("sujet"))
+          {
+              ModeleManager::Save("ForumMessage");
+              
+             MessageHelper::Save($this->Core, $categoryId, 
+                                Request::GetPost("sujet"), 
+                                Request::GetPost("message"));
+          }
+          else
+          {
+            $view->AddElement(new ElementView("connected", $this->Core->IsConnected()));
+          }*/
+          
+         
+          
       }
 
           /*action*/

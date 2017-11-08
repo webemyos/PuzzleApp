@@ -4792,3 +4792,17 @@ h2, h3, .mention {color:#31708f;}
 .headerDownload{width:100%; margin-top: 0px; text-align: center;border-bottom: 1px solid grey; color:white;background-image : url(../images/download.jpg)}
 
 .mention{display:block; margin :7px}
+
+.grid{
+    border : 1px solid grey;
+}
+
+.grid th{
+    background : #bebebe;
+}
+
+.grid th, .grid td{
+    margin:0px;
+    padding:5px;
+    border : 1px solid grey;
+}

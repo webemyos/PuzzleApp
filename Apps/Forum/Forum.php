@@ -6,14 +6,13 @@ use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Helper\CategoryHelper;
 use Apps\Forum\Helper\ForumHelper;
 use Apps\Forum\Helper\MessageHelper;
+use Apps\Forum\Module\Admin\AdminController;
 use Apps\Forum\Module\Category\CategoryController;
 use Apps\Forum\Module\Forum\ForumController;
 use Apps\Forum\Module\Message\MessageController;
-use Apps\Forum\Module\Admin\AdminController;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
-use Core\Dashboard\DashBoardManager;
 
 /**
  * Application de gestion des forums
@@ -35,6 +34,44 @@ class Forum extends Application {
         parent::__construct($this->Core, "Forum");
     }
 
+    /*
+     * Front Home Page
+     */
+    function Index()
+    {
+        $this->Core->MasterView->Set("Title", "Forum");
+        return $this->ShowDefaultForum(false);
+    }
+    
+    /*
+     * Front category page
+     */
+    function Category($params)
+    {
+        $frontController = new ForumController($this->Core);
+        return $frontController->ShowMessages($params, null, true, true);
+    }
+    
+    /*
+     * Show message 
+     */
+    function Sujet($params)
+    {
+        $forumController = new ForumController($this->Core);
+        return $forumController->ShowMessage($params, true);
+    }
+   
+    /*
+     * Add  discussion
+     */
+    function NewDiscussion()
+    {
+        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Forum.NewDiscussion"));
+        
+        $forumController = new ForumController($this->Core);
+        return $forumController->NewDiscussion();
+    }
+    
     /**
      * Execution de l'application
      */
@@ -148,13 +185,18 @@ class Forum extends Application {
      * Affiche le forum par defaut
      */
 
-    function ShowDefaultForum() {
+    function ShowDefaultForum($show = true)
+    {
         //TODO POuvoir parametrer un forum par défaut
-        
-          $forum = "test";
+        $forum = ForumHelper::GetFirst($this->Core);
 
-          $forumController = new ForumController($this->Core);
-          echo $forumController->ShowForum($forum, "", Request::GetPost("categoryId"), Request::GetPost("messageId"), false);
+        $forumController = new ForumController($this->Core);
+        $html = $forumController->ShowForum($forum->Name->Value, "", Request::GetPost("categoryId"), Request::GetPost("messageId"), $show);
+        
+        if($show)
+            echo $html; 
+        else
+            return $html; 
         
     }
 
@@ -235,7 +277,7 @@ class Forum extends Application {
         $forumController = new ForumController($this->Core);
 
         //Recuperation de l'appli Profil
-        $eProfil = new \Apps\Forum\Forum($this->Core);
+        $eProfil = new Forum($this->Core);
 
         echo $forumController->ShowReponses(Request::GetPost("sujetId"), $eProfil);
     }

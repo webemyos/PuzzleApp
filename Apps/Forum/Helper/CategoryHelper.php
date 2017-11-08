@@ -12,6 +12,7 @@ namespace Apps\Forum\Helper;
 use Apps\Forum\Entity\ForumCategory;
 use Apps\Forum\Entity\ForumMessage;
 use Core\Entity\Entity\Argument;
+use Core\Utility\Format\Format;
 
 
 class CategoryHelper
@@ -29,6 +30,7 @@ class CategoryHelper
         }
         
         $category->Name->Value = $name;
+        $category->Code->Value = Format::ReplaceForUrl($name);
         $category->Description->Value = $description;
         $category->ForumId->Value = $forumId;
         $category->Save();   

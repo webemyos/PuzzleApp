@@ -16,6 +16,7 @@
     <script src='{{GetPath(/script.php)}}' ></script>
     <script src='{{GetPath(/script.php?a=Downloader)}}' ></script>
     <script src='{{GetPath(/script.php?a=Blog)}}' ></script>  
+    <script src='{{GetPath(/script.php?a=Forum)}}' ></script>  
 
 
     <!-- Script

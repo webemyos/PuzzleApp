@@ -122,7 +122,7 @@ class ViewManager
            else
            {
               $html = str_replace($line, "", $html);
-               $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
+              $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
            }
            
            $i++;

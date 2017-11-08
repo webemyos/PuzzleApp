@@ -9,11 +9,10 @@
 
 namespace Apps\Forum\Entity;
 
+use Apps\Forum\Helper\MessageHelper;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
-
-
 
 
 class ForumMessage extends Entity  
@@ -45,5 +44,26 @@ class ForumMessage extends Entity
         //Creation de l entité 
         $this->Create(); 
     }
-}
+    
+    /*
+     * Get Number Reponse
+     */
+    function GetNumberReponse()
+    {
+        $reponse = new ForumReponse($this->Core);
+        $reponse->AddArgument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $this->IdEntite);
+        
+        return count($reponse->GetByArg());
+    }
+    
+    /*
+     * Get The Las Réponse
+     */
+    function GetLastReponse()
+    {
+        $reponse = MessageHelper::GetLastReponse($this->Core, $this->IdEntite);
+        
+        return $reponse->Message->Value . "(".$reponse->DateCreated->Value.")";
+    }
+ }
 ?>
