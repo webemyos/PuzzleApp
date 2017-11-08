@@ -69,19 +69,14 @@ class PuzzleApp extends Base
    }
    
    /*
-    * Obtient les News
+    * Store du framework et des applications
     */
-   function GetNew()
+   function store()
    {
-       $this->Core->MasterView = new View(__DIR__."/View/masterNew.tpl");
-       echo "<h1>Bienvenue sur le pupitre digital.com.</h1>";
-       echo "<p>Merci d'avoir télécharger notre logiciel.<br/>
-           Nous sommes en version Beta pour l'instant et sommes conscients qu'il reste des bugs,<br/>
-       et des évolutions importantes à réaliser. Merci de nous donner votre avis, améliorations, défauts rencontrér sur 
-       <a href='http://lepupitredigital.com' > LePupitredigital.com</a></p>
-      ";
-       
-       
-       return false;
+      $this->Core->MasterView->Set("Title", $this->Core->GetCode("LeStore"));
+      $this->Core->MasterView->Set("Description", "Besion d'un forum, d'un blog, d'un système d'envoi d'email ? Trouvez votre application dans notre store. Faite les évoluers selon votre besoin ou métier. ");
+    
+      $frontController = new FrontController($this->Core);
+      return $frontController->Store();
    }
 }

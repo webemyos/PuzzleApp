@@ -10,17 +10,15 @@
  namespace Apps\Downloader\Module\Ressource;
 
 use Apps\Downloader\Entity\DownloaderRessource;
-use Apps\Downloader\Helper\RessourceHelper;
+use Apps\Downloader\Entity\DownloaderRessourceContact;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
-use Core\Control\Icone\EditIcone;
-use Core\Control\Link\Link;
 use Core\Control\Upload\Upload;
 use Core\Controller\Controller;
+use Core\Core\Request;
 use Core\Entity\Entity\Argument;
+use Core\View\View;
 
-
-
- class RessourceController extends Controller
+class RessourceController extends Controller
  {
     /**
      * Constructeur
@@ -80,65 +78,40 @@ use Core\Entity\Entity\Argument;
         }     
         
         $jbRessource->AddControls($controls);
-                             
-            
                    
         return $jbRessource->Show();
-       //Ajout de la photo de profil
-      // $uploadAjax = new Upload("Downloader", "", "DownloaderAction.LoadMyRessource()", "UploadRessource", "EeFileUpload");
-
-      // return $uploadAjax->Show(true);
     }
 
     /**
-     * Charge les blogs de l'utilisateur
+     * Charge les ressources de l'utilisateur
      */
     function LoadMyRessource()
     {
-        $html ="<div class='content-panel'>";
-
         $ressource = new DownloaderRessource($this->Core);
         $ressource->AddArgument(new Argument("Apps\Downloader\Entity\DownloaderRessource", "UserId", EQUAL, $this->Core->User->IdEntite));
         $ressources = $ressource->GetByArg();
 
-        if(count($ressources)> 0)
-        {
-            //Ligne D'entete
-            $html .= "<div class='download'>";
-            $html .= "<div class='blueTree'><b>".$this->Core->GetCode("EeRessource.Name")."</b></div>";
-            $html .= "<div class='blueTree'></div>";
-            
-            $html .= "<div class='blueTree'><b>".$this->Core->GetCode("EeRessource.NumberContact")."</b></div>";
-
-            $html .= "</div>";
-
-            foreach($ressources as $ressource)
-            {
-               $html .= "<div class='download'>";
-               $html .= "<div> ".$ressource->Name->Value."</div>";
-
-               $number = RessourceHelper::GetNumberEmail($this->Core,$ressource->IdEntite );
-
-               $icDetail = new EditIcone($this->Core);
-               $icDetail->OnClick = "DownloaderAction.ShowAddRessource(".$ressource->IdEntite.")";;
-               $html .= "<div> ".$icDetail->Show()."</div>";
-               
-                //Lien pour afficher le détail
-               $lkDetail = new Link($number, "#");
-               $lkDetail->OnClick ="DownloaderAction.LoadContact(".$ressource->IdEntite.")";
-
-               $html .= "<div> ".$lkDetail->Show()."</div>";
-               $html .= "</div>";
-            }
-        }
-        else
-        {
-            $html = $this->Core->GetCode("EeBlog.NoRessource");
-        }
-
-        $html .= "</div>";
-        return $html;
+        $view = new View(__DIR__."/View/loadMyRessource.tpl", $this->Core);
+        
+        $view->AddElement($ressources);
+        
+        return $view->Render();
+    }
+    
+    /*
+     * Affiche les contact d'une ressource
+     */
+    function ShowContact($ressourceId)
+    {
+       $contact = new DownloaderRessourceContact($this->Core);
+       $contact->AddArgument(new Argument("Apps\Downloader\Entity\DownloaderRessourceContact", "RessourceId", EQUAL, $ressourceId));
+       $contacts = $contact->GetByArg();
+       
+       $view = new View(__DIR__."/View/showContact.tpl", $this->Core);
+       $view->AddElement($contacts);
+        
+       return $view->Render();
     }
 
-          /*action*/
+    /*action*/
  }?>

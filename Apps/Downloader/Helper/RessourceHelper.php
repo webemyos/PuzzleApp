@@ -18,6 +18,15 @@ use Core\Utility\Format\Format;
 class RessourceHelper
 {
 
+    /*
+     * Return all ressource
+     */
+    public static function GetAll($core)
+    {
+        $ressources = new DownloaderRessource($core);
+        return $ressources->GetAll();
+    }
+    
     /**
      * Obtient le nombre d'email
      * @param type $core

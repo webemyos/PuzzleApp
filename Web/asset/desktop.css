@@ -306,3 +306,17 @@ and open the template in the editor.
 
 
 #lstApp div{cursor:pointer}
+
+.grid{
+    border : 1px solid grey;
+}
+
+.grid th{
+    background : #bebebe;
+}
+
+.grid th, .grid td{
+    margin:0px;
+    padding:5px;
+    border : 1px solid grey;
+}

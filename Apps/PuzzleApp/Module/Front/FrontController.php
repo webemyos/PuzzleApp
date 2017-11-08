@@ -12,6 +12,7 @@ namespace Apps\PuzzleApp\Module\Front;
 use Apps\Blog\Entity\BlogBlog;
 use Apps\Blog\Helper\BlogHelper;
 use Apps\Downloader\Downloader;
+use Core\App\AppManager;
 use Core\Control\Text\Text;
 use Core\Controller\Controller;
 use Core\View\CacheManager;
@@ -95,6 +96,21 @@ class FrontController extends Controller
    {
        $view = new View(__DIR__."/View/contact.tpl", $this->Core);
 
+       return $view->Render();
+   }
+   
+   /*
+    * Page de téléchargement du framework
+    * et des app
+    */
+   function Store()
+   {
+        $view = new View(__DIR__."/View/store.tpl", $this->Core);
+
+        $downloader = AppManager::GetApp("Downloader");
+        
+        $view->AddElement($downloader->GetRessources());
+        
        return $view->Render();
    }
 }

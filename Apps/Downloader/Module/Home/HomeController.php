@@ -60,26 +60,4 @@ use Core\View\View;
  
         return $view->Render();
     }
-
-    /**
-     * Obtient le menu
-     */
-    function GetMenu()
-    {
-        if(MessageHelper::HaveMessageNotRead($this->Core))
-        {
-            $class='MessageNotRead';
-        }
-        else
-        {
-            $class='MessageRead';
-        }
-
-        $html = "<ul class='blueOne alignLeft'>";
-        $html .= "<li><a href='#' onclick='EeMessageAction.LoadInBox()'  class='icon-envelope'>&nbsp;".$this->Core->GetCode("EeMessage.InBox")." (<span id='spNbInMessage' class=".$class.">".MessageHelper::GetNumberInBox($this->Core) ."</span>) </a></li>";
-        $html .= "<li><a href='#' onclick='EeMessageAction.LoadOutBox()' class='icon-envelope-alt'>&nbsp".$this->Core->GetCode("EeMessage.OutBox")." (<span id='spNbOutMessage' >".MessageHelper::GetNumberOutBox($this->Core)."</span>)</a></li>";
-        $html .= "</ul>";
-
-        return $html;
-    }
  }?>

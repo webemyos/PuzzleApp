@@ -42,8 +42,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a  class="last-item-menu" href="{{GetPath(/index)}}">Accueil</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Tutoriel)}}">Tutoriel</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/download)}}">Téléchargement</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/store)}}">Le store</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Forum)}}">Le forum</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Blog)}}">Le blog</a></li>
             </ul>
           </div>
