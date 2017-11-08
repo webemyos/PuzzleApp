@@ -35,4 +35,13 @@ class InstallController extends Controller
        $view = new View(__DIR__."/View/index.tpl", $this->Core);
        return $view->Render();
    }
+   
+   /*
+    * Get the Installe ok Page 
+    */
+   function Success()
+   {
+       $view = new View(__DIR__."/View/success.tpl", $this->Core);
+       return $view->Render();
+   }
 }

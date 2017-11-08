@@ -92,7 +92,7 @@ class View
             {
                 $html = str_replace("{{".$element->Name."}}", $element->Text, $html);
             }
-            else if(get_class($element) == "JBlock")
+            else if(get_class($element) == "Block")
             {
                 $html = str_replace("{{".$element->Id."}}", $element->Show(), $html);
             }

@@ -43,27 +43,11 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>PuzzeApp</b></a>
+            <a href="index.html" class="logo"><b>PuzzleApp</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_men">
                 <!--  notification start -->
                 <ul class="nav top-menu">
-                   <!-- Notify -->
-                    <li title="Notifications" >
-                        <a onclick="Dashboard.StartApp('','EeNotify', '');">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme" id='nbNotify' >{{infoNotify}}</span>
-                         </a>
-                    </li>      
-                    <!-- Message -->
-                    <!-- inbox dropdown start-->
-                    <li title='Messages'>
-                        <a onclick="Dashboard.StartApp('', 'EeMessage', '')">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-theme" id="nbMessage" >!infoMessage</span>
-                        </a>
-                    </li>
-                   
                     <!-- App -->
                     <li class="dropdown">
                         <div id='tdApp' class='span8'>
@@ -94,7 +78,6 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-                  <li>!infoUser</li>
                   <li class="mt" id="btnStart">
                       <a href="javascript:;" >
                       <i class="fa fa-dashboard"></i>
@@ -127,7 +110,8 @@
                             <div id='dvCenter'>
                                 <div class='App row-fluid white-panel pn'>
                                 <h2>Bienvenue sur la partie administration de votre site.</h2>
-                                <p>Cette section permet d'ajouter des applications, de gérer vos utilisateurs ...</p>
+                                <p>Cette section permet de gérer votre site.</p>
+                                <p>Vous pouvez ajouter des applications depuis le bouton à gauche ("AddApp").</p>
                                 </div>
                             </div>
           		</div>

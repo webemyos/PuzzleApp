@@ -32,16 +32,15 @@
             <ul>
                 <li><a href='Index'>{{GetCode(Home)}}</a></li>
                 <li><a href='Contact'>{{GetCode(Contact)}}</a></li>
-                <li><a href='Login'>{{GetCode(Login)}}</a></li>
-                {{lkAdmin}}
+                {{if connected == false}}
+                     <li><a href='Login'>{{GetCode(Login)}}</a></li>
+                {{/if connected == false}}
+                   
+                {{if connected == true}}
+                      <li><a href='Admin'>{{GetCode(DashBoard)}}</a></li>
+                {{/if connected == true}}
             </ul>
         
         {{content}}
     </body>
-    
-    <script type='text/javascript'>
-        alert("ok");
-        
-        </script>
-    
 </html>

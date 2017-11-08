@@ -21,7 +21,7 @@ use Core\Core\Core;
 class ViewManager 
 {
     /*
-     * 
+     * Find Template in the cache
      */
     public static function Find($template)
     {
@@ -65,9 +65,9 @@ class ViewManager
         }
         else
         {
+            $html = ViewManager::ReplaceIfElement($element->key, $element->value, $html);
             $html = str_replace($element->key, $element->value, $html);
         }
-       
         
         return $html;
     }
@@ -122,7 +122,7 @@ class ViewManager
            else
            {
               $html = str_replace($line, "", $html);
-               $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
+              $html = str_replace("{{/if ".$key."->".$prop."->Value == ".$searchValue."}}", "", $html);
            }
            
            $i++;
@@ -131,7 +131,47 @@ class ViewManager
         return $html;
     }
     
+    /*
+     * Replace if element == value
+     */
+    public static function ReplaceIfElement($key, $value, $html)
+    {
+        //Remplacement des if
+        $pattern = "`{{if ".$key." == (.+)}}`";
+        
+        preg_match_all($pattern, $html, $macthes);
+        $i = 0;
+ 
+        foreach($macthes[0] as $match)
+        {
+           $searchValue = $macthes[1][$i];
     
+           $start = strpos($html, "{{if ".$key." == ".$searchValue."}}");
+           $end = strpos($html, "{{/if ".$key." == ".$searchValue."}}");
+           
+           $line = substr($html, $start, $end - $start);
+      
+           if($value === $searchValue || 
+            (($value == true && $searchValue == "true"))
+            || 
+            (($value == false && $searchValue == "false"))
+                   
+           )
+           {
+              $html = str_replace("{{if ".$key." == ".$searchValue."}}", "", $html);
+              $html = str_replace("{{/if ".$key." == ".$searchValue."}}", "", $html);
+           }
+           else
+           {
+              $html = str_replace($line, "", $html);
+              $html = str_replace("{{/if ".$key." == ".$searchValue."}}", "", $html);
+           }
+           
+           $i++;
+        } 
+        
+        return $html;
+    }
     
     /*
      * Load Collections
