@@ -16,101 +16,81 @@ use Core\Controller\Controller;
 
  class CompetenceController extends Controller
  {
-        /**
-         * Constructeur
-         */
-        function __construct($core="")
-        {
-              $this->Core = $core;
-        }
+    /**
+     * Constructeur
+     */
+    function __construct($core="")
+    {
+        $this->Core = $core;
+    }
 
-        /**
-         * Creation
-         */
-        function Create()
-        {
-        }
+    /*
+   * Charges les compétences de l'utilisateur
+   */
+    function Load()
+    {
+           $this->SetTemplate(__DIR__ . "/View/Load.tpl");
+           $this->AddParameters(array('!dvCompetenceUser' => $this->GetUserCompetence(),
+                                    ));
 
-        /**
-         * Initialisation
-         */
-        function Init()
-        {
-        }
+           return $this->Render();
+    }
 
-        /**
-         * Affichage du module
-         */
-        function Show($all=true)
-        {
-        }
+    /*
+     * Obtiens les compétences disponibles
+     */        
+    function GetCompetence()
+    {
+       return $this->GetUserCompetence(false);
+    }
+    
+    /**
+    * Compétence de l'utilisateur
+    */
+    function GetUserCompetence($showUser = true)
+    {
+       //Recuperation des catégorie
+       $categories = CompetenceHelper::GetCategorie($this->Core);
 
-       /*
-      * Charges les compétences de l'utilisateur
-      */
-       function Load()
-      {
-              $this->SetTemplate(__DIR__ . "/View/Load.tpl");
-              $this->AddParameters(array('!dvCompetenceUser' => $this->GetUserCompetence(),
-                                       ));
+       $html = "<div id='dvCompetenceUser'>";
 
-              return $this->Render();
-      }
+       foreach($categories as $categorie)
+       {
+           $html .= "<div class='categorie col-md-4'>";
+           $html .= "<div class='titleBlue'>".$categorie->Name->Value."</div>";
 
-      /*
-       * Obtiens les compétences disponibles
-       */        
-      function GetCompetence()
-      {
-          return $this->GetUserCompetence(false);
-      }
-      /**
-       * Compétence de l'utilisateur
-       */
-      function GetUserCompetence($showUser = true)
-      {
-          //Recuperation des catégorie
-          $categories = CompetenceHelper::GetCategorie($this->Core);
+           //Recuperation des compétences
+           $competences = CompetenceHelper::GetByCategoryByUser($this->Core, $categorie->IdEntite, $this->Core->User->IdEntite);
 
-          $html = "<div id='dvCompetenceUser'>";
+           $html .= "<ul>";
 
-          foreach($categories as $categorie)
-          {
-              $html .= "<div class='categorie col-md-4'>";
-              $html .= "<div class='titleBlue'>".$categorie->Name->Value."</div>";
+           foreach($competences as $competence)
+           {
+             $cbCompetence = new CheckBox($competence["Id"]); 
+             if($showUser)
+             {
+               $cbCompetence->Checked = $competence["Selected"];
+             }
 
-              //Recuperation des compétences
-              $competences = CompetenceHelper::GetByCategoryByUser($this->Core, $categorie->IdEntite, $this->Core->User->IdEntite);
+             $html .= "<li>".$cbCompetence->Show()."&nbsp;".$competence["Code"]."</li>";
+           }
 
-              $html .= "<ul>";
+           $html .= "</ul>";
+           $html .= "</div>";
+       }
 
-              foreach($competences as $competence)
-              {
-                $cbCompetence = new CheckBox($competence["Id"]); 
-                if($showUser)
-                {
-                  $cbCompetence->Checked = $competence["Selected"];
-                }
+       if($showUser)
+       {
+           //Enregistrement
+           $btnSave = new Button(BUTTON);
+           $btnSave->Value = $this->Core->GetCode("Save");
+           $btnSave->CssClass = "btn btn-primary";
+           $btnSave->OnClick = "ProfilAction.SaveCompetence()";
 
-                $html .= "<li>".$cbCompetence->Show()."&nbsp;".$competence["Code"]."</li>";
-              }
+           $html .= "<div class='alignCenter '>".$btnSave->Show()."</div>";
+       }
 
-              $html .= "</ul>";
-              $html .= "</div>";
-          }
-
-          if($showUser)
-          {
-              //Enregistrement
-              $btnSave = new Button(BUTTON);
-              $btnSave->Value = $this->Core->GetCode("Save");
-              $btnSave->CssClass = "btn btn-primary";
-              $btnSave->OnClick = "ProfilAction.SaveCompetence()";
-
-              $html .= "<div class='alignCenter '>".$btnSave->Show()."</div>";
-          }
-
-          $html .= "</div>";
-          return $html;
-      }
+       $html .= "</div>";
+       return $html;
+   }
 }?>

@@ -14,7 +14,7 @@ use Core\Entity\Entity\Property;
 class TaskState extends Entity  
 {
     //Constructeur
-    function _construct($core)
+    function __construct($core)
     {
         //Version
         $this->Version ="2.0.0.0"; 

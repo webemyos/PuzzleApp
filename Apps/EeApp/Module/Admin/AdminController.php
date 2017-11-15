@@ -73,7 +73,7 @@ use Core\View\View;
       //Recherche d'utilisateur
       $tbContact = new AutoCompleteBox("tbContact", $this->Core);
       $tbContact->PlaceHolder = $this->Core->GetCode("SearchUser");
-      $tbContact->Entity = "User";
+      $tbContact->Entity = "Core/Entity/User/User";
       $tbContact->Methode = "SearchUser";
       $tbContact->Parameter = "AddAction=EeAppAction.AddAdmin(".Request::GetPost("appId").")";
 

@@ -9,7 +9,7 @@
 
 namespace Apps\Profil\Helper;
 
-use Apps\Downloader\Entity\ProfilCompetenceCategory;
+use Apps\Profil\Entity\ProfilCompetenceCategory;
 
 class CompetenceHelper
 {

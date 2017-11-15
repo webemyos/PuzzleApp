@@ -27,27 +27,6 @@ use Core\Controller\Controller;
     }
 
     /**
-     * Creation
-     */
-    function Create()
-    {
-    }
-
-    /**
-     * Initialisation
-     */
-    function Init()
-    {
-    }
-
-    /**
-     * Affichage du module
-     */
-    function Show($all=true)
-    {
-    }
-
-    /**
      * Ecran de gestion ds actions à réaliser pour les taches
      */
     function Load($taskId)
@@ -56,7 +35,7 @@ use Core\Controller\Controller;
 
         //bouton d'ajout js d'action
         $btnAddAction = new Button(BUTTON);
-        $btnAddAction->CssClass = "btn btn-primary";
+        $btnAddAction->CssClass = "btn btn-info";
         $btnAddAction->Value = $this->Core->GetCode("Task.AddAction");
         $btnAddAction->OnClick = "TaskAction.AddAction();";
 

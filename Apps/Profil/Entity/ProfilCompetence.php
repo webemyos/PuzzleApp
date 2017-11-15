@@ -6,7 +6,7 @@
  * GNU Licence
  */
 
-namespace Apps\Downloader\Entity ;
+namespace Apps\Profil\Entity ;
 
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
@@ -30,7 +30,7 @@ class ProfilCompetence extends Entity
         $this->Alias = "ProfilCompetence"; 
 
         $this->CategoryId = new Property("CategoryId", "CategoryId", NUMERICBOX,  true, $this->Alias); 
-        $this->Category = new EntityProperty("ProfilCompetenceCategory", "CategoryId");
+        $this->Category = new EntityProperty("Apps\Profil\Entity\ProfilCompetenceCategory", "CategoryId");
         $this->Code = new Property("Code", "Code", TEXTBOX,  true, $this->Alias); 
         $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias); 
 

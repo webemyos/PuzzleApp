@@ -52,7 +52,7 @@ class ActionHelper
     public static function DeleteActions($core, $taskId)
     {
         $action = new TaskAction($core);
-        $action->AddArgument(new Argument("TaskAction", "TaskId", EQUAL, $taskId));
+        $action->AddArgument(new Argument("Apps\Task\Entity\TaskAction", "TaskId", EQUAL, $taskId));
         
         $actions = $action->GetByArg();
         
@@ -73,7 +73,7 @@ class ActionHelper
     public static function GetByTask($core, $taskId)
     {
         $action = new TaskAction($core);
-        $action->AddArgument(new Argument("TaskAction", "TaskId", EQUAL, $taskId ));
+        $action->AddArgument(new Argument("Apps\Task\Entity\TaskAction", "TaskId", EQUAL, $taskId ));
         
         return $action->GetByArg();
     }

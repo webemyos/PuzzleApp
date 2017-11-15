@@ -6,7 +6,7 @@
  * GNU Licence
  */
 
-namespace Apps\Downloader\Entity ;
+namespace Apps\Profil\Entity ;
 
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\Property;

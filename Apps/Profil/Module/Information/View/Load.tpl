@@ -1,5 +1,5 @@
 <div class='content-panel'>
     <div id='dvDetailInfo'>
-        !detail
+        {{detail}}
     </div>
 </div>

@@ -60,7 +60,7 @@ use Core\View\View;
       $btnMyForum->OnClick = "ForumAction.LoadMyForum();";
       $modele->AddElement($btnMyForum);
 
-      if(EeApp::isAdmin($this->Core, "App", $this->Core->User->IdEntite))
+      if(EeApp::isAdmin($this->Core, "Forum", $this->Core->User->IdEntite))
       {
           $btnAdmin = new Button(BUTTON, "btnAdmin");
           $btnAdmin->Value = "App.Admin";

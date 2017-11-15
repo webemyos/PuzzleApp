@@ -33,26 +33,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Creation
-     */
-    function Create()
-    {
-    }
-
-    /**
-     * Initialisation
-     */
-    function Init()
-    {
-    }
-
-    /**
-     * Affichage du module
-     */
-    function Show($all=true)
-    {}
-
-    /**
      * Pop in d'ajout de groupe
      */
     function ShowAddGroup($groupId, $appName, $entityName, $entityId)
@@ -76,7 +56,7 @@ class GroupController extends Controller
         $jbGroup->AddControls(array(
                                       array("Type"=>"TextBox", "Name"=> "tbTitle", "Libelle" => $this->Core->GetCode("Title") , "Value" => ($groupId != "")?$group->Title->Value :""),
                                       array("Type"=>"TextArea", "Name"=> "tbDescription", "Libelle" => $this->Core->GetCode("Description"), "Value" => ($groupId != "")?$group->Description->Value :""),
-                                      array("Type"=>"Button", "CssClass"=> "btn btn-primary", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                      array("Type"=>"Button", "CssClass"=> "btn btn-success", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                           )
                 );
 
@@ -136,7 +116,7 @@ class GroupController extends Controller
                $html .= "<div class='date'>".$groupe->DateCreated->Value."</div>";
 
                //Icone d'action
-               $editIcon = new EditIcone();
+               $editIcon = new EditIcone($this->Core);
                $editIcon->Title = $this->Core->GetCode("Edit");
                $editIcon->OnClick = "TaskAction.ShowAddGroup(".$groupe->IdEntite.")";
                $html .= "<div >".$editIcon->Show();

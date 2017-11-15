@@ -147,22 +147,22 @@ class FunctionManager
 
             $html = str_replace($match, $control->Show(), $html);
           }
-           else if(class_exists($iconePath))
-        {
-          $control = new $iconePath($name);
+          else if(class_exists($iconePath))
+         {
+            $control = new $iconePath($name);
 
-          $propertys = explode(",", $property);
+            $propertys = explode(",", $property);
 
-          foreach($propertys as $prop)
-          {
-              $props = explode("=", $prop);
-               $key =  $props[0];
-               $value = $props[1];
+            foreach($propertys as $prop)
+            {
+                $props = explode("=", $prop);
+                 $key =  $props[0];
+                 $value = $props[1];
 
-              $control->$key = $value;
-          }
+                $control->$key = $value;
+            }
 
-          $html = str_replace($match, $control->Show(), $html);
+            $html = str_replace($match, $control->Show(), $html);
         }
         
         else {

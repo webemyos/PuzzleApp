@@ -15,29 +15,29 @@ use Core\Control\ListBox\ListBox;
 
  class EntityListBox extends Control implements IControl
  {
- 	 //Propriete
-	  private $Core;
-	  private $Entity;
-	  private $ListBox;
-	  private $Selected;
-	  private $Argument = array();
-	  private $Fields = array();
+    //Propriete
+    private $Core;
+    private $Entity;
+    private $ListBox;
+    private $Selected;
+    private $Argument = array();
+    private $Fields = array();
 
-	//Constructeur
-	public function __construct($name, $core="")
-	{
-	  	//Version
-		$this->Version ="2.0.0.0";
+    //Constructeur
+    public function __construct($name, $core="")
+    {
+       //Version
+       $this->Version ="2.0.0.0";
 
-	    $this->Name = $name;
-	    $this->Core = $core;
-	    $this->Id = $name ;
-	    $this->EmptyVisible =false;
-	    $this->Asc=true;
+       $this->Name = $name;
+       $this->Core = $core;
+       $this->Id = $name ;
+       $this->EmptyVisible =false;
+       $this->Asc=true;
 
-	    $this->ListBox = new ListBox($name);
-	    $this->ListBox->Libelle = $this->Libelle;
-   }
+       $this->ListBox = new ListBox($name);
+       $this->ListBox->Libelle = $this->Libelle;
+    }
 
    //Ajout d'un parametre
    public function AddArgument($argument)
@@ -74,26 +74,26 @@ use Core\Control\ListBox\ListBox;
     }
     if(sizeof($Entites)> 0)
     {
-		//Chargement
-		foreach($Entites as $entity)
-		{
-			if(sizeof($this->Fields)>0)
-			{
-				$Value ="";
-				foreach($this->Fields as $fields)
-				{
-					$field = $fields;
-					$Value .= " ".$entity->$field->Value;
-				}
+        //Chargement
+        foreach($Entites as $entity)
+        {
+                if(sizeof($this->Fields)>0)
+                {
+                    $Value ="";
+                    foreach($this->Fields as $fields)
+                    {
+                        $field = $fields;
+                        $Value .= " ".$entity->$field->Value;
+                    }
 
-			  $this->ListBox->Add($Value,$entity->IdEntite);
+                   $this->ListBox->Add($Value,$entity->IdEntite);
 
-			}
-			else
-			  $this->ListBox->Add($entity->Name->Value,$entity->IdEntite);
-		}
+                }
+                else
+                  $this->ListBox->Add($entity->Name->Value,$entity->IdEntite);
+        }
     }
-   }
+  }
 
     //Affichage
   public function Show()

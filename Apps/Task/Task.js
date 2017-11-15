@@ -91,8 +91,12 @@ var Task = function() {};
             var param = Array();
                 param['App'] = 'Task';
                 param['Title'] = 'Task.ShowAddGroup';
-                param['GroupId'] = groupId;
-              
+                
+                if(groupId != undefined)
+                {
+                    param['GroupId'] = groupId;
+                }
+            
                 Dashboard.OpenPopUp('Task','ShowAddGroup', '','','', 'TaskAction.LoadMyGroup()', serialization.Encode(param));
         };
         

@@ -130,7 +130,7 @@ class Runner
 
     public static function IsSection($section)
     {
-        $sections = array("Admin");
+        $sections = array("Admin", "Membre");
 
         return (in_array($section, $sections));
     }

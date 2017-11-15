@@ -14,6 +14,7 @@ use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Entity\ForumMessage;
 use Apps\Forum\Helper\MessageHelper;
 use Apps\Forum\Modele\MessageModele;
+use Apps\Forum\Modele\ReponseModele;
 use Apps\Profil\Profil;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Control\Button\Button;
@@ -323,32 +324,28 @@ use Core\View\View;
       */
       function ShowMessage($sujet, $front)
       {
-          $this->SetTemplate(__DIR__ . "/View/ShowMessage.tpl");
-
-          //Recuperation de l'appli Profil
-          $eProfil = new Profil($this->Core);
-          
           //Recuperation du message
           $message = new ForumMessage($this->Core);
           $message->GetById($sujet);
 
-          //Lien vers la page de base
-          $lkForum = new Link("forum", "forum.html");
-          $filAriane = $lkForum->Show();
-
-          //Lien vers la catégorie
-          $lkCategory = new Link($message->Category->Value->Name->Value, "forum-".Format::ReplaceForUrl($message->Category->Value->Name->Value).".html");
-          $filAriane .= " > " . $lkCategory->Show();
-
-          $this->AddParameters(array(
-                 '!filAriane' => $filAriane,
-                 '!message' => $this->ShowMessageBlock($message, $eProfil, $front),
-                 '!action' => $this->ShowBtnActions($sujet),
-                 '!sujet' => $this->Core->GetCode("Forum.Sujet"),
-                 '!reponses' => $this->Core->GetCode("Forum.Reponses"),
-                 '!lstReponse' => $this->ShowReponses($sujet, $eProfil)
-              ));
-          return $this->Render();
+          if($front)
+          {
+            $this->Core->MasterView->Set("Title", "Forum - Discussion : " . $message->Title->Value);
+            $this->Core->MasterView->Set("Description", $message->Message->Value);
+          }
+          
+          $view = new View (__DIR__ . "/View/ShowMessage.tpl", $this->Core);
+          $view->AddElement(new ElementView("Message", $message));
+          $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
+          
+          //Modele for add Reponse
+          $modele = new ReponseModele($this->Core);
+          $modele->SetSujetId($message->IdEntite);
+          $view->SetModel($modele);
+          
+          $view->AddElement(new ElementView("Reponses", MessageHelper::GetReponse($this->Core, $message->IdEntite)));
+ 
+          return $view->Render();
       }
 
       /*

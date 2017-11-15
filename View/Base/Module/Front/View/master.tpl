@@ -38,14 +38,28 @@
             <a class="navbar-brand" href="index.php" alt="PuzzleApp" title="Plus qu'un framework, une solution compléte pour tous les types de site.">
                <h2 style="font-family: fantasy">PuzzleApp</h2>
             </a>
+             
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li> <div id='tdApp' class='span8'>
+                        </div>  </li>
                 <li><a  class="last-item-menu" href="{{GetPath(/index)}}">Accueil</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Tutoriel)}}">Tutoriel</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/store)}}">Le store</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Forum)}}">Le forum</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Blog)}}">Le blog</a></li>
+                <li>
+                    {{if connected == true}}
+                        <a class="last-item-menu"  href='{{GetPath(/Membre)}}' >Membre</a>
+                    {{/if connected == true}}
+                    
+                     {{if connected == false}}
+                        <a class="last-item-menu" href='{{GetPath(/Login)}}' >Login</a>
+                    {{/if connected == false}}
+                    
+                    
+                </li>
             </ul>
           </div>
         </div>
@@ -56,11 +70,12 @@
     ================================================== -->
 
     <div class="content">
-      <div id="dvCenter">
+      <div id="dvCente">
         <div id="appRunLePupitreDigital" class="App row-fluid">
           <div id='appCenter'>
              <section class="full-bg-fixed home-bg" >
-                <div class='content-main'>
+            <div id="appRunLePupitreDigital" class="App row-fluid">
+          <div id='appCenter'>      <div class='content-main'>
                   <div class="container">
                     <div class="row" >
                         <div class='global-sub-block'>
@@ -107,16 +122,6 @@
 
   <!-- Script
   ================================================== -->
-  <script type='text/javascript'>
-  $( document ).ready(function() {
-
-    Eemmys.LoadLanguage();
-
-    });
-    
-    wid
-  </script>
-
  
 
 </body>

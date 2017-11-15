@@ -50,4 +50,28 @@ class Authentication
         }
     }
     
+    /*
+     * Create User
+     */
+    public function CreateUser($core, $email, $pass, $verify)
+    {
+        if($pass != $verify)
+        {
+            return $core->GetCode("Base.PassNotEqual");
+        }
+        
+        $User = new User($core);
+        $User->Email->Value = $email;
+        
+        if($User->Exist())
+        {
+            return $core->GetCode("Base.UserExist");
+        }
+        
+        $User->PassWord->Value = $pass;
+        $User->GroupeId->Value = 2;
+        $User->Save();
+        
+    }
+    
 }

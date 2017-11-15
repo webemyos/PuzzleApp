@@ -54,7 +54,7 @@ class GroupHelper
     public static function GetByUser($core, $userId)
     {
          $group = new TaskGroup($core);
-         $group->AddArgument(new Argument("TaskGroup", "UserId", EQUAL, $userId));
+         $group->AddArgument(new Argument("Apps\Task\Entity\TaskGroup", "UserId", EQUAL, $userId));
          
          $group->AddOrder("Id");
                  
@@ -87,9 +87,9 @@ class GroupHelper
     {
         $group = new TaskGroup($core);
         
-        $group->AddArgument(new Argument("TaskGroup","AppName", EQUAL, $appName));
-        $group->AddArgument(new Argument("TaskGroup","EntityName", EQUAL, $entityName));
-        $group->AddArgument(new Argument("TaskGroup","EntityId", EQUAL, $entityId));
+        $group->AddArgument(new Argument("Apps\Task\Entity\TaskGroup","AppName", EQUAL, $appName));
+        $group->AddArgument(new Argument("Apps\Task\Entity\TaskGroup","EntityName", EQUAL, $entityName));
+        $group->AddArgument(new Argument("Apps\Task\Entity\TaskGroup","EntityId", EQUAL, $entityId));
         
         return $group->GetByArg();
     }
@@ -104,9 +104,6 @@ class GroupHelper
           $group->$property->Value = $value;
           $group->Save();
     }
-    
-            
 }
-
 
 ?>

@@ -10,9 +10,11 @@
 namespace Apps\Forum\Entity;
 
 use Apps\Forum\Helper\MessageHelper;
+use Core\Entity\Entity\Argument;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
+
 
 
 class ForumMessage extends Entity  
@@ -46,12 +48,20 @@ class ForumMessage extends Entity
     }
     
     /*
+     * Get The user
+     */
+    function GetUser()
+    {
+        return $this->User->GetPseudo();
+    }
+    
+    /*
      * Get Number Reponse
      */
     function GetNumberReponse()
     {
         $reponse = new ForumReponse($this->Core);
-        $reponse->AddArgument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $this->IdEntite);
+        $reponse->AddArgument(new Argument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $this->IdEntite));
         
         return count($reponse->GetByArg());
     }
@@ -63,7 +73,14 @@ class ForumMessage extends Entity
     {
         $reponse = MessageHelper::GetLastReponse($this->Core, $this->IdEntite);
         
-        return $reponse->Message->Value . "(".$reponse->DateCreated->Value.")";
+        if($reponse->Message->Value != "")
+        {
+            return $reponse->Message->Value . "(".$reponse->DateCreated->Value.")";
+        }
+        else
+        {
+            return $this->Core->GetCode("Forum.NoReponse");
+        }
     }
  }
 ?>

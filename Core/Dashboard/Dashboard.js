@@ -29,7 +29,7 @@ Dashboard.Load = function()
 
     //Div de d�marrage
     var parameters = Array();
-        parameters["Class"] = 'Dashboard';
+        parameters["Class"] = 'DashBoardManager';
         parameters["Methode"] = 'GetImageLoading';
         parameters["Argument"] = 'Array';
         parameters["Action"] = 'Array';
@@ -90,7 +90,7 @@ Dashboard.LoadLanguage = function()
 	var LangElement = Array();
 
 	var JAjax = new ajax();
-	JAjax.data = 'Class=Dashboard&Methode=LoadLanguage';
+	JAjax.data = 'Class=DashBoardManager&Methode=LoadLanguage';
 
 	var elements = JAjax.GetRequest("Ajax.php");
 
@@ -328,17 +328,17 @@ Ajoute un evenement
 */
 Dashboard.AddEvent = function(control, event, methode)
 {
-	if(control != null)
-	{
-		  if(control.addEventListener)
-		  {
-		    control.addEventListener(event, methode, false);
-		  }
-		  else
-		  {
-		    control.attachEvent("on"+event,methode);
-		  }
-  	}
+    if(control != null)
+    {
+        if(control.addEventListener)
+        {
+          control.addEventListener(event, methode, false);
+        }
+        else
+        {
+          control.attachEvent("on"+event,methode);
+        }
+    }
 };
 
 /**
@@ -533,7 +533,7 @@ Chargement des donnees dans une div
 Dashboard.LoadDiv = function(searchDiv, methode, parameter, url, mode)
 {
    var JAjax = new ajax();
-   JAjax.data = "Class=Dashboard&Methode=" + methode;
+   JAjax.data = "Class=DashBoardManager&Methode=" + methode;
    JAjax.data += "&Parameter=" + parameter;
 
    if(typeof(url) != 'undefined')
@@ -702,7 +702,7 @@ Dashboard.ShowTchat = function()
 	  Dashboard.CloseMenu();
 
 	  //Rafrachit le tchat
-	  var data = "Class=Dashboard&Methode=GetTchat";
+	  var data = "Class=DashBoardManager&Methode=GetTchat";
 	  Dashboard.LoadControl("dvTchat", data, "250px","div");
 };
 
@@ -712,7 +712,7 @@ Dashboard.ShowTchat = function()
 Dashboard.GetMessageTchat = function(link)
 {
 	 //Rafrachit le tchat
-	  var data = "Class=Dashboard&Methode=GetMessageTchat";
+	  var data = "Class=DashBoardManager&Methode=GetMessageTchat";
 	  	  data += "&UserId = " + link.id;
 
 	  //Enregistrement du contact en cours
@@ -881,7 +881,7 @@ Dashboard.GetCode = function(code)
 	{
 		//Creation du code multilingue si il n'existe pas
 		var JAjax = new ajax();
-   		    JAjax.data = 'Class=Dashboard&Methode=GetCode';
+   		    JAjax.data = 'Class=DashBoardManager&Methode=GetCode';
 		    JAjax.data += '&Code=' + code;
 
 			return	JAjax.GetRequest(Dashboard.GetPath('Ajax.php'));
@@ -1175,7 +1175,7 @@ Dashboard.SendForm = function(idForm)
 Dashboard.ConnectDemo = function()
 {
     var JAjax = new ajax();
-        JAjax.data = 'Class=Dashboard&Methode=ConnectDemo';
+        JAjax.data = 'Class=DashBoardManager&Methode=ConnectDemo';
 
         JAjax.GetRequest('Ajax.php');
 };
@@ -1287,3 +1287,60 @@ Dashboard.GetUploadButton = function(app, idEntity, reloadAction, action, $debug
 
 };
 
+/*
+ * Update Model/Save Entity
+ */
+Dashboard.UpdateModele = function()
+{
+    var ajaxModel = document.getElementById("ajaxModel");
+    var error = document.getElementById("error");
+    var app = document.getElementById("app");
+    var action = document.getElementById("action");
+    var errorMsg = "";
+    
+    //Send Data
+    var JAjax = new ajax();
+    	JAjax.data = 'App=' + app.value + '&Methode=' + action.value;
+        
+    //Verify Required element
+    var inputs = ajaxModel.getElementsByTagName("input");
+    
+    for(i = 0; i < inputs.length; i++)
+    {
+        if( inputs[i].value == "" && inputs[i].type != "hidden"   )
+        {
+            errorMsg += "<li>" + inputs[i].name + "</li>" ;
+        }
+        else
+        {
+            JAjax.data += "&" +  inputs[i].name  + "=" + inputs[i].value;
+        }
+    }
+    
+    //Add ListBox 
+    var select = ajaxModel.getElementsByTagName("select");
+    
+    for(i = 0; i < select.length; i++)
+    {
+        if( select[i].value == ""    )
+        {
+            errorMsg += "<li>" + select[i].name + "</li>" ;
+        }
+        else
+        {
+            JAjax.data += "&" +  select[i].name  + "=" + select[i].value;
+        }
+    }
+    
+    if(errorMsg != "")
+    {
+      error.innerHTML = Dashboard.GetCode("PleaseCompleteField");
+      error.innerHTML += errorMsg;
+    }
+    else
+    {
+        error.innerHTML = "";
+        
+        ajaxModel.innerHTML = JAjax.GetRequest("Ajax.php");
+    }
+};

@@ -21,6 +21,7 @@ use Core\Control\Link\Link;
 use Core\Control\TextArea\TextArea;
 use Core\Control\TextBox\TextBox;
 use Core\Control\Upload\Upload;
+use Core\Control\DateBox\DateBox;
 
 class AjaxFormBlock extends Block
 {
@@ -125,6 +126,13 @@ class AjaxFormBlock extends Block
                          $ctr->Value = $this->Exist($control, "Value");
                          $ctr->Libelle = $this->Exist($control, "Libelle");
                     break;
+                case "DateBox"  :
+                        $ctr = new DateBox($this->Exist($control, "Name"), $this->Core);
+                        $ctr->Title = $this->Exist($control, "Title");
+                        $ctr->Value = $this->Exist($control, "Value");
+                        $ctr->Libelle = $this->Exist($control, "Libelle");
+                   break;
+
                   case "TextArea"  :
                          $ctr = new TextArea($this->Exist($control, "Name"), $this->Core);
                          $ctr->Title = $this->Exist($control, "Title");

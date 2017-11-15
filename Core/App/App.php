@@ -9,10 +9,10 @@
 
 namespace Core\App;
 
-use Core\Core\Core;
-use Core\Control\Text\Text;
-use Core\View\ContentView;
 use Apps\Cms\Cms;
+use Core\Core\Core;
+use Core\View\ContentView;
+use Runner;
 
 
 /**
@@ -76,7 +76,7 @@ class App
         }
         else
         {
-           $path = "Apps\\".$app. "\\".$app;
+            $path = "Apps\\".$app. "\\".$app;
             $apps = new $path($core);
 
             if($action == "" )

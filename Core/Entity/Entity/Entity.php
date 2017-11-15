@@ -68,7 +68,7 @@ class Entity
                         //Suffixe de la propriete par le nom de l'entite
                         $this->Property[]=$this->$Name;
                 }
-                else if(is_object($this->$Name) && get_class($this->$Name)=="EntityProperty")
+                else if(is_object($this->$Name) && get_class($this->$Name)=="Core\Entity\Entity\EntityProperty")
                 {
                         $this->EntityProperty[]=$this->$Name;
                 }
@@ -83,6 +83,14 @@ class Entity
        return $this->Property;
     }
 
+    /*
+     * Get All EntityProperty
+     */
+    public function GetEntityProperty()
+    {
+        return $this->EntityProperty;
+    }
+    
     /*
     * Ajout d'un argument
     * @param $arg Argument

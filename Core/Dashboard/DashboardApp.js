@@ -552,7 +552,7 @@ Dashboard.AddAppUser = function(appName)
             alert(JAjax.GetRequest("Ajax.php"));
             
                  var JAjax = new ajax();
-               JAjax.data = "Class=Dashboard&Methode=LoadUserApp&show=1" ;
+               JAjax.data = "Class=DashBoardManager&Methode=LoadUserApp&show=1" ;
               
             var lstApp = document.getElementById("lstApp");
             lstApp.innerHTML = JAjax.GetRequest("Ajax.php");

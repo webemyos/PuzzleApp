@@ -20,8 +20,8 @@ use Core\Control\Libelle\Libelle;
 use Core\Control\ToolTip\ToolTip;
 use Core\Control\Upload\Upload;
 use Core\Controller\Controller;
-
-
+use Core\View\ElementView;
+use Core\View\View;
 
  class InformationController extends Controller
  {
@@ -30,28 +30,7 @@ use Core\Controller\Controller;
      */
     function __construct($core="")
     {
-          $this->Core = $core;
-    }
-
-    /**
-     * Creation
-     */
-    function Create()
-    {
-    }
-
-    /**
-     * Initialisation
-     */
-    function Init()
-    {
-    }
-
-    /**
-     * Affichage du module
-     */
-    function Show($all=true)
-    {
+        $this->Core = $core;
     }
 
    /*
@@ -61,11 +40,11 @@ use Core\Controller\Controller;
    {
        if($showTemplate)
        {
-          $this->SetTemplate(__DIR__ . "/View/Load.tpl");
+          $view = new View(__DIR__ . "/View/Load.tpl", $this->Core);
+         
+          $view->AddElement(new ElementView('{{detail}}', $this->GetInformation()));
 
-          $this->AddParameters(array('!detail' => $this->GetInformation() ));
-
-          return $this->Render();
+          return $view->Render();
        }
        else
        {
@@ -92,7 +71,7 @@ use Core\Controller\Controller;
        //Ville
        $tbCity = new AutoCompleteBox("tbCity",$this->Core);
        $tbCity->Libelle = $this->Core->GetCode("City");
-       $tbCity->Entity = "City";
+       $tbCity->Entity = "Core/Entity/City/City";
        $tbCity->Methode = "SearchCity";
        $tbCity->Value = $this->Core->User->City->Value->Name->Value;
        $tbCity->AutoComplete = false;
@@ -139,45 +118,60 @@ use Core\Controller\Controller;
    {
        $setWidth = false;
 
-          //Repertoire des données
-          if(Profil::InFront())
-          {
-             $directory = "Data/Apps/Profil/";
-          }
-          else
-          {
-             $directory = "../Data/Apps/Profil/";
-          }
+        //Repertoire des données
+        $directory = "Data/Apps/Profil/";
+        if(file_exists($directory."/".$userId.".jpg"))
+        {
+            if($mini)
+            {
+               $file = $directory."/".$userId."_96.jpg";
+            }
+            else
+            {
+               $file = $directory."/".$userId.".jpg";
 
-          if(file_exists($directory."/".$userId.".jpg"))
-          {
-              if($mini)
-              {
-                 $file = $directory."/".$userId."_96.jpg";
-              }
-              else
-              {
-                 $file = $directory."/".$userId.".jpg";
+               $setWidth = true;
+            }
+        }
+        else
+        {
+          $file =   "Images/noprofil.png";
+        }
+        if($rand)
+        {
+            $file .= "?rand=".rand(0,1999);
+        }
+        $img = new Image($file);
+        $img->ToolTip = new ToolTip("Profil", "ShowDetail", $userId);
 
-                 $setWidth = true;
-              }
-          }
-          else
-          {
-            $file =   "Images/noprofil.png";
-          }
-          if($rand)
-          {
-              $file .= "?rand=".rand(0,1999);
-          }
-          $img = new Image($file);
-          $img->ToolTip = new ToolTip("Profil", "ShowDetail", $userId);
+        if($setWidth)
+        {
+           $img->AddStyle("width", $width); 
+        }
 
-          if($setWidth)
-          {
-             $img->AddStyle("width", $width); 
-          }
+        return $img;
+   }
+   
+   /*
+    * Get Profil
+    */
+   function GetProfil($user, $cssClass, $addInvitation )
+   {
+       $view = new View(__DIR__."/View/GetProfil.tpl", $this->Core);
+       $view->AddElement(new ElementView("class", $cssClass));
+       
+        if($user != false)
+        {
+            $view->AddElement(new ElementView("image", $this->GetImage($user->IdEntite, true)->Show()));
+        }
+        else
+        {
+            $view->AddElement(new ElementView("image", $this->GetImage($this->Core->User->IdEntite, true)->Show()));
+            $user = $this->Core->User;
+        }
 
-          return $img;
+        $view->AddElement(new ElementView("pseudo", $user->GetPseudo()));
+        
+        return $view->Render() ;
    }
 }?>

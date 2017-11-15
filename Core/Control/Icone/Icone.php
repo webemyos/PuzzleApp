@@ -34,25 +34,25 @@ class Icone extends Control implements IControl
 	//Affichage
 	function Show()
 	{
-            $TextControl ="\n<span ";
+            $html ="\n<span ";
 
             $this->CssClass .= " ".$this->Color;
 
-            $TextControl .= $this->getProperties();
-            $TextControl .=" title='".$this->Title."'";
-            $TextControl .=" alt ='".$this->Alt."'";
+            $html .= $this->getProperties();
+            $html .=" title='".$this->Title."'";
+            $html .=" alt ='".$this->Alt."'";
 
             if($this->ToolTip != "")
             {
-               $TextControl .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
-              // $TextControl .= " onmouseleave='CloseTool(this);'";
+               $html .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
+              // $html .= " onmouseleave='CloseTool(this);'";
             }
 
-            $TextControl .="  >";
+            $html .="  >";
 
-            $TextControl .="</span>";
+            $html .="</span>";
 
-            return $TextControl ;
+            return $html ;
 	}
 
 	//Asseceurs
@@ -123,22 +123,6 @@ class RefreshIcone extends Icone
 	{
 		$this->CssClass = "icon-refresh";
                 $this->Title = $core->GetCode("Refresh");
-	}
-}
-
-/*
-* Icone d'ajout
-*/
-class AddIcone extends Icone
-{
-	function AddIcone($core)
-	{
-		$this->CssClass = "icon-plus-sign";
-
-            if($core != null)
-            {
-                $this->Title = $core->GetCode("Add");
-            }
 	}
 }
 
@@ -277,15 +261,5 @@ class ZoomInIcone extends Icone
     }
 }
 
-/**
- * icone type liste
- */
-class ListIcone extends Icone
-{
-    function ListIcone()
-    {
-        $this->CssClass = "icon-list";
-    }
-}
 
 ?>

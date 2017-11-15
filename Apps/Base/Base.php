@@ -13,6 +13,7 @@ use Apps\Base\Helper\InstallHelper;
 use Apps\Base\Module\Front\FrontController;
 use Apps\Base\Module\Install\InstallController;
 use Apps\Base\Module\Login\LoginController;
+use Apps\Base\Module\SingUp\SingUpController;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
@@ -40,8 +41,8 @@ class Base extends Application
      */
     public function GetMasterView()
     {
-        $frontBlock = new FrontController($this->Core);
-        return $frontBlock->GetMasterView();
+        $frontController = new FrontController($this->Core);
+        return $frontController->GetMasterView();
     }
     
     /*
@@ -49,8 +50,8 @@ class Base extends Application
      */
     public function Index()
     {
-        $frontBlock = new FrontController($this->Core);
-        return $frontBlock->Index();
+        $frontController = new FrontController($this->Core);
+        return $frontController->Index();
     }
     
     /*
@@ -61,8 +62,8 @@ class Base extends Application
        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Login"));
        $this->Core->MasterView->Set("Description", $this->Core->GetCode("ConnetToYourEspace"));
  
-        $loginBlock = new LoginController($this->Core);
-        return $loginBlock->Index();
+        $loginController = new LoginController($this->Core);
+        return $loginController->Index();
     }
     
     /*
@@ -70,8 +71,8 @@ class Base extends Application
      */
     public function Connect()
     {
-        $loginBlock = new LoginController($this->Core);
-        return $loginBlock->Connect();
+        $loginController = new LoginController($this->Core);
+        return $loginController->Connect();
     }
     
     /*
@@ -80,6 +81,14 @@ class Base extends Application
     public function Disconnect()
     {
         $this->Core->Disconnect();
+    }
+    
+    /*
+     * Member 
+     */
+    public function Membre()
+    {
+        
     }
     
     /*
@@ -93,9 +102,20 @@ class Base extends Application
         }
         else
         {
-            $frontBlock = new FrontController($this->Core);
-            return $frontBlock->contact();
+            $frontController = new FrontController($this->Core);
+            return $frontController->contact();
         }
+    }
+    
+    /*
+     * Inscription to the site
+     */
+    public function singup()
+    {
+       $this->Core->MasterView->Set("Title", $this->Core->GetCode("Login"));
+       
+       $singUpController = new SingUpController($this->Core);
+       return $singUpController->Index();
     }
     
     /*
@@ -117,13 +137,13 @@ class Base extends Application
                                    Request::GetPost("PassAdmin")
                     );
             
-            $installBlock = new InstallController($this->Core);
-            return $installBlock->Success();
+            $installController = new InstallController($this->Core);
+            return $installController->Success();
         }
         else
         {
-            $installBlock = new InstallController($this->Core);
-            return $installBlock->Index();
+            $installController = new InstallController($this->Core);
+            return $installController->Index();
         }
     }
 }

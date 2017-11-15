@@ -9,142 +9,142 @@
 
 namespace Core\Entity\User;
 
-use Core\Entity\Entity\Entity;
-use Core\Entity\Entity\Property;
-use Core\Entity\Entity\EntityProperty;
-
-use Core\Utility\Format\Format;
-use Core\Core\Request;
-use Core\Control\Image\Image;
-use Core\Control\CheckBox\CheckBox;
 use Core\Control\Button\Button;
+use Core\Control\CheckBox\CheckBox;
+use Core\Control\Image\Image;
+use Core\Core\Request;
+use Core\Entity\Entity\Argument;
+use Core\Entity\Entity\Entity;
+use Core\Entity\Entity\EntityProperty;
+use Core\Entity\Entity\Property;
 use Core\Utility\File\File;
+use Core\Utility\Format\Format;
 
 /*
 * Classe des utilisateurs
 */
 class User extends Entity
 {
-	protected $Groupe;
-	protected $Country;
-	protected $City;
-	protected $HomeTown;
-	protected $Job;
+    protected $Groupe;
+    protected $Country;
+    protected $City;
+    protected $HomeTown;
+    protected $Job;
 
-	//Constructeur
-	function __construct($core)
-	{
-            //Version
-            $this->Version ="2.0.0.0";
+    //Constructeur
+    function __construct($core)
+    {
+        //Version
+        $this->Version ="2.0.0.0";
 
-            //Nom de la table
-            $this->Core=$core;
-            $this->TableName="ee_user";
-            $this->Alias = "us";
+        //Nom de la table
+        $this->Core=$core;
+        $this->TableName="ee_user";
+        $this->Alias = "us";
 
-            //Proprietes
-            $this->GroupeId=new Property("GroupeId","GroupId",TEXTBOX,true,$this->Alias);
-            $this->Groupe=new EntityProperty("Core\Entity\Group\Group","GroupeId");
+        //Proprietes
+        $this->GroupeId=new Property("GroupeId","GroupId",TEXTBOX,true,$this->Alias);
+        $this->Groupe=new EntityProperty("Core\Entity\Group\Group","GroupeId");
 
-            //Identifiant
-            $this->Email =new Property($this->Core->GetCode("Email"),"Email",TEXTBOX,true,$this->Alias);
-            $this->Pseudo =new Property($this->Core->GetCode("Pseudo"),"Pseudo",TEXTBOX,false,$this->Alias);
+        //Identifiant
+        $this->Email =new Property($this->Core->GetCode("Email"),"Email",TEXTBOX,true,$this->Alias);
+        $this->Pseudo =new Property($this->Core->GetCode("Pseudo"),"Pseudo",TEXTBOX,false,$this->Alias);
 
-            $this->PassWord =new Property("Password","Password",PASSWORD,true,$this->Alias);
+        $this->PassWord =new Property("Password","Password",PASSWORD,true,$this->Alias);
 
-            $this->Name=new Property($this->Core->GetCode("Name"),"Name",TEXTBOX,false,$this->Alias);
-            $this->FirstName=new Property($this->Core->GetCode("FirstName"),"FirstName",TEXTBOX,false,$this->Alias);
-            $this->Sexe=new Property($this->Core->GetCode("Sexe"),"Sexe",NUMERICBOX,false,$this->Alias);
-            $this->BirthDate=new Property($this->Core->GetCode("BirthDate"),"BirthDate",DATEBOX,false,$this->Alias);
+        $this->Name=new Property($this->Core->GetCode("Name"),"Name",TEXTBOX,false,$this->Alias);
+        $this->FirstName=new Property($this->Core->GetCode("FirstName"),"FirstName",TEXTBOX,false,$this->Alias);
+        $this->Sexe=new Property($this->Core->GetCode("Sexe"),"Sexe",NUMERICBOX,false,$this->Alias);
+        $this->BirthDate=new Property($this->Core->GetCode("BirthDate"),"BirthDate",DATEBOX,false,$this->Alias);
 
-            $this->CountryId=new Property("CountryId","CountryId",TEXTBOX,false,$this->Alias);
-            //$this->Country=new EntityProperty($this->Core->GetCode("Country"),"CountryId",TEXTBOX,false,$this->Alias);
+        $this->CountryId=new Property("CountryId","CountryId",TEXTBOX,false,$this->Alias);
+        //$this->Country=new EntityProperty($this->Core->GetCode("Country"),"CountryId",TEXTBOX,false,$this->Alias);
 
-            $this->CityId=new Property("CityId","CityId",TEXTBOX,false,$this->Alias);
-            $this->City=new EntityProperty("City","CityId",TEXTBOX,false,$this->Alias);
+        $this->CityId=new Property("CityId","CityId",TEXTBOX,false,$this->Alias);
+        $this->City=new EntityProperty("Core\Entity\City\City","CityId",TEXTBOX,false,$this->Alias);
 
-            //Téléphone
-            $this->Phone =new Property("Phone","Phone",TEXTBOX,false,$this->Alias);
+        //Téléphone
+        $this->Phone =new Property("Phone","Phone",TEXTBOX,false,$this->Alias);
 
-            //Chemin de l'image
-            $this->Image = new Property("Image","Image",IMAGE, false,$this->Alias);
-            $this->ImageMini = new Property("ImageMini","ImageMini",IMAGE, false,$this->Alias);
+        //Chemin de l'image
+        $this->Image = new Property("Image","Image",IMAGE, false,$this->Alias);
+        $this->ImageMini = new Property("ImageMini","ImageMini",IMAGE, false,$this->Alias);
 
-            //Date de creation
-            $this->DateCreate = new Property("DateCreate","DateCreate",DATEBOX, false,$this->Alias);
-            $this->DateChange = new Property("DateChange","DateChange",DATEBOX, false,$this->Alias);
+        //Date de creation
+        $this->DateCreate = new Property("DateCreate","DateCreate",DATEBOX, false,$this->Alias);
+        $this->DateChange = new Property("DateChange","DateChange",DATEBOX, false,$this->Alias);
 
-            //Url Du serveur de fichier
-            $this->Serveur = new Property("Serveur","Serveur",TEXTBOX, false,$this->Alias);
+        //Url Du serveur de fichier
+        $this->Serveur = new Property("Serveur","Serveur",TEXTBOX, false,$this->Alias);
 
-            //Date de connection
-            $this->DateConnect = new Property("DateConnect", "DateConnect", DATETIMEBOX, false,$this->Alias);
+        //Date de connection
+        $this->DateConnect = new Property("DateConnect", "DateConnect", DATETIMEBOX, false,$this->Alias);
 
-            //Identifiant facebook
-            $this->FacebookId=new Property("FacebookId","FacebookId",TEXTBOX,false,$this->Alias);
+        //Identifiant facebook
+        $this->FacebookId=new Property("FacebookId","FacebookId",TEXTBOX,false,$this->Alias);
 
-            //Position dans le jeux
-            $this->Position = new Property("Position","Position",TEXTBOX,false,$this->Alias);
-            $this->Description = new Property("Description","Description",TEXTBOX,false,$this->Alias);
+        //Position dans le jeux
+        $this->Position = new Property("Position","Position",TEXTBOX,false,$this->Alias);
+        $this->Description = new Property("Description","Description",TEXTAREA,false,$this->Alias);
 
-            //Creation de l'entit�
-            $this->Create();
-  	}
+        //Creation de l'entit�
+        $this->Create();
+    }
 
-	// Verification
-	function Verify()
-	{
-		$User = new User($this->Core);
-		$User->AddArgument(new Argument("User","Email",EQUAL,Request::GetPost("sourceControl")));
-		$Users = $User->GetByArg();
+    // Verification
+    function Verify()
+    {
+            $User = new User($this->Core);
+            $User->AddArgument(new Argument("User","Email",EQUAL,Request::GetPost("sourceControl")));
+            $Users = $User->GetByArg();
 
-		if(sizeof($Users) > 0)
-		{
-			echo "False";
-		}
-		else
-		{
-			echo "True";
-		}
-	}
+            if(sizeof($Users) > 0)
+            {
+                    echo "False";
+            }
+            else
+            {
+                    echo "True";
+            }
+    }
 
-	//Verifie si un utilisateur existe
-	function Exist($userId ="")
-	{
-		$User = new User($this->Core);
-		$User->AddArgument(new Argument("User","Email",EQUAL,$this->Email->Value));
+    //Verifie si un utilisateur existe
+    function Exist($userId ="")
+    {
+        $User = new User($this->Core);
+        $User->AddArgument(new Argument("Core\Entity\User\User","Email",EQUAL,$this->Email->Value));
 
-		if($userId != "")
-		{
-			$User->AddArgument(new Argument("User","IdEntite",NOTEQUAL,$userId));
-		}
+        if($userId != "")
+        {
+            $User->AddArgument(new Argument("Core\Entity\User\User","IdEntite",NOTEQUAL,$userId));
+        }
 
-		$Users = $User->GetByArg();
+        $Users = $User->GetByArg();
 
-		if(sizeof($Users) > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+        if(sizeof($Users) > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-	/**
-	 * Modifie le mot de passe de l'utilisateur
-	 * */
-	function ChangePassword($pass)
-	{
-		$request = " UPDATE ee_user SET PassWord='".md5($pass)."' ";
-		$request .= " WHERE Id=". $this->IdEntite ;
+    /**
+     * Modifie le mot de passe de l'utilisateur
+     * */
+    function ChangePassword($pass)
+    {
+            $request = " UPDATE ee_user SET PassWord='".md5($pass)."' ";
+            $request .= " WHERE Id=". $this->IdEntite ;
 
-		$this->Core->Db->Execute($request);
-	}
+            $this->Core->Db->Execute($request);
+    }
 
-	function GetNumber()
-	{
-	   $user = $this->GetAll();
+    function GetNumber()
+    {
+       $user = $this->GetAll();
        return sizeof($user);
    }
 

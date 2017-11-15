@@ -10,6 +10,8 @@ namespace Apps\Task\Module\Home;
 
 use Core\Control\Button\Button;
 use Core\Controller\Controller;
+use Core\View\View;
+
 
  class HomeController extends Controller
  {
@@ -22,44 +24,27 @@ use Core\Controller\Controller;
     }
 
     /**
-     * Creation
-     */
-    function Create()
-    {
-    }
-
-    /**
-     * Initialisation
-     */
-    function Init()
-    {
-    }
-
-    /**
      * Affichage du module
      */
     function Show($all=true)
     {
+        $view = new View(__DIR__ . "/View/Home.tpl", $this->Core);
+        
         //Bouton pour créer un message
-        $btnNewGroup = new Button(BUTTON);
-        $btnNewGroup->Value = $this->Core->GetCode("EeTask.NewProjet");
-        $btnNewGroup->OnClick = "EeTaskAction.ShowAddGroup();";
-
-        $btnMyGroup = new Button(BUTTON);
-        $btnMyGroup->Value = $this->Core->GetCode("EeTask.MyProjet");
+        $btnNewGroup = new Button(BUTTON, "btnNewGroup");
+        $btnNewGroup->Value = $this->Core->GetCode("Task.NewProjet");
+        $btnNewGroup->OnClick = "TaskAction.ShowAddGroup();";
+        $btnNewGroup->CssClass = "btn btn-info";
+        $view->AddElement($btnNewGroup);
+        
+        
+        $btnMyGroup = new Button(BUTTON, "btnMyGroup");
+        $btnMyGroup->Value = $this->Core->GetCode("Task.MyProjet");
         $btnMyGroup->CssClass = "btn btn-info";
-        $btnMyGroup->OnClick = "EeTaskAction.LoadMyGroup();";
-
-        //Passage des parametres à la vue
-        $this->AddParameters(array('!titleHome' => $this->Core->GetCode("EeTask.TitleHome"),
-                                    '!messageHome' => $this->Core->GetCode("EeTask.MessageHome"),
-                                    '!btnNewProjet' =>  $btnNewGroup->Show(),  
-                                    '!btnMyProjet' =>  $btnMyGroup->Show(), 
-                                ));
-
-        $this->SetTemplate(__DIR__ . "/View/HomeBlock.tpl");
-
-        return $this->Render();
+        $btnMyGroup->OnClick = "TaskAction.LoadMyGroup();";
+        $view->AddElement($btnMyGroup);
+        
+        return $view->Render();
     }
          
  }?>

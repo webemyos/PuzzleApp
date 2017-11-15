@@ -23,7 +23,7 @@ class TaskHelper
     public static function GetByGroup($core, $groupId)
     {
         $tasks = new TaskTask($core);
-        $tasks->AddArgument(new Argument("TaskTask","GroupId",  EQUAL, $groupId));
+        $tasks->AddArgument(new Argument("Apps\Task\Entity\TaskTask","GroupId",  EQUAL, $groupId));
         
         return $tasks->GetByArg();
     }
@@ -36,7 +36,7 @@ class TaskHelper
     public static function GetByTask($core, $taskId)
     {
         $tasks = new TaskTask($core);
-        $tasks->AddArgument(new Argument("TaskTask","ParentId",  EQUAL, $taskId));
+        $tasks->AddArgument(new Argument("Apps\Task\Entity\TaskTask","ParentId",  EQUAL, $taskId));
         
         return $tasks->GetByArg();
     }

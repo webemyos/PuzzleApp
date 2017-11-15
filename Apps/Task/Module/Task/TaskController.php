@@ -32,26 +32,7 @@ class TaskController extends Controller
         $this->Core = $core;
     }
 
-    /**
-     * Creation
-     */
-    function Create()
-    {
-    }
-
-    /**
-     * Initialisation
-     */
-    function Init()
-    {
-    }
-
-    /**
-     * Affichage du module
-     */
-    function Show($all=true)
-    {}
-
+   
      /**
      * Pop uin d'ajout de taches
      */
@@ -83,12 +64,12 @@ class TaskController extends Controller
 
         $jbTask->AddControls(array(
                                       array("Type"=>"TextBox", "Name"=> "tbTitle", "Libelle" => $this->Core->GetCode("Title") , "Value" => ($taskId != "" || $subTaskId != "" )?$task->Title->Value :""),
-                                      array("Type"=>"EntityListBox", "Entity"=> "TaskState" ,"Field"=>"Libelle",  "Name"=> "lstState", "Libelle" => $this->Core->GetCode("State") , "Value" => ($taskId != "" || $subTaskId != "" )?$task->StateId->Value :""),
+                                      array("Type"=>"EntityListBox", "Entity"=> "Apps\Task\Entity\TaskState" ,"Field"=>"Libelle",  "Name"=> "lstState", "Libelle" => $this->Core->GetCode("State") , "Value" => ($taskId != "" || $subTaskId != "" )?$task->StateId->Value :""),
 
                                       array("Type"=>"DateBox", "Name"=> "tbDateStart", "Libelle" => $this->Core->GetCode("DateStart") , "Value" => ($taskId != "" || $subTaskId != "")?$task->DateStart->Value :""),
                                       array("Type"=>"DateBox", "Name"=> "tbDateEnd", "Libelle" => $this->Core->GetCode("DateEnd") , "Value" => ($taskId != "" || $subTaskId != "")?$task->DateEnd->Value :""),
                                       array("Type"=>"TextArea", "Name"=> "tbDescription", "Libelle" => $this->Core->GetCode("Description"), "Value" => ($taskId != "" || $subTaskId != "")?$task->Description->Value :""),
-                                      array("Type"=>"Button", "CssClass"=>"btn btn-primary", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                      array("Type"=>"Button", "CssClass"=>"btn btn-success", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                           )
                 );
 
@@ -107,6 +88,7 @@ class TaskController extends Controller
         //Bouton D'ajout de taches parentes
         $btnAddTask = new Button(BUTTON);
         $btnAddTask->Value = $this->Core->GetCode("Task.AddTask");
+        $btnAddTask->CssClass = "btn btn-info";
         $btnAddTask->OnClick = "TaskAction.ShowAddTask(".$GroupId.", '', '".$appName."')";
 
         $html .= $btnAddTask->Show();

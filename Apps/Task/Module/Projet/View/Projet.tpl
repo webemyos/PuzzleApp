@@ -6,15 +6,11 @@
         <div>
         <h4>{{GetCode(EeTask.Lot)}}</h4>
             <div id='lstParent'>
-                parentTask
+                {{parentTask}}
             </div>
-            btnAddParent
+            {{btnAddParent}}
         </div>
-         <div>
-            <h4>{{GetCode(EeTask.childTask)}}</h4>
-            <div>Developpement front</div>
-            <div>Developpement back</div>
-        </div>
+         
     </div>
     <div class='col-lg-9 mt' id='lstChild' >
     </div>

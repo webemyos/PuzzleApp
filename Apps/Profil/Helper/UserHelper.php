@@ -9,19 +9,21 @@
 
 namespace Apps\Profil\Helper;
 
-use Core\Entity\Entity\City;
+use Core\Entity\City\City;
 
 class UserHelper
 {
     /**
      * Sauvegarde les informations de l'utilisateur
      */
-    public static function Save($core, $firstName, $name, $city)
+    public static function Save($core, $firstName, $name, $description, $city)
     {
         if($firstName != "" && $name != "")
         {
             $core->User->FirstName->Value = $firstName;
             $core->User->Name->Value = $name;
+            $core->User->Descritpion->Value = $description;
+            
             
            if($city != "")
            {

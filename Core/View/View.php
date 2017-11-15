@@ -29,6 +29,9 @@ class View
     private $Elements = array();
     private $Core;
     private $Model;
+    private $Ajax;
+    private $App;
+    private $Action;
 
     /*
      * Constructeur
@@ -63,10 +66,28 @@ class View
     /*
      * SetModel
      */
-    public function SetModel($model)
+    public function SetModel($model, $ajax = false)
     {
         $this->Model = $model;
+        $this->Ajax = $ajax;
     }
+    
+    /*
+     * Define the app
+     */
+    public function SetApp($app)
+    {
+        $this->App = $app;
+    }
+    
+    /*
+     * Défine the Action
+     */
+    public function SetAction($action)
+    {
+        $this->Action = $action;
+    }
+    
     /*
     * Utiliser dans les tab strip
     */
@@ -124,7 +145,7 @@ class View
         //Replace the element model
         if($this->Model != null)
         {   
-            $html = ViewModelManager::ReplaceModel($html, $this->Model);
+            $html = ViewModelManager::ReplaceModel($html, $this->Model, $this->Ajax, $this->App, $this->Action);
         }
                
         return $html;
