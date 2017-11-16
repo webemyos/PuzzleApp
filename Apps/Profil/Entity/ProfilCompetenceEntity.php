@@ -20,7 +20,7 @@ class ProfilCompetenceEntity extends Entity
     protected $Competence;
 
     //Constructeur
-    function ProfilCompetenceEntity($core)
+    function __construct($core)
     {
         //Version
         $this->Version ="2.0.0.0"; 

@@ -12,6 +12,8 @@ use Apps\Profil\Helper\CompetenceHelper;
 use Core\Control\Button\Button;
 use Core\Control\CheckBox\CheckBox;
 use Core\Controller\Controller;
+use Core\View\ElementView;
+use Core\View\View;
 
 
  class CompetenceController extends Controller
@@ -29,11 +31,15 @@ use Core\Controller\Controller;
    */
     function Load()
     {
-           $this->SetTemplate(__DIR__ . "/View/Load.tpl");
-           $this->AddParameters(array('!dvCompetenceUser' => $this->GetUserCompetence(),
-                                    ));
-
-           return $this->Render();
+        $view = new View(__DIR__ . "/View/Load.tpl", $this->Core);
+        
+        $categories = CompetenceHelper::GetCategorie($this->Core);
+        
+        $view->AddElement(new ElementView('Category',  $categories));
+        
+        //$view->AddElement(new ElementView('dvCompetenceUser',  $this->GetUserCompetence()));
+     
+        return $view->Render();
     }
 
     /*
@@ -84,7 +90,7 @@ use Core\Controller\Controller;
            //Enregistrement
            $btnSave = new Button(BUTTON);
            $btnSave->Value = $this->Core->GetCode("Save");
-           $btnSave->CssClass = "btn btn-primary";
+           $btnSave->CssClass = "btn btn-success";
            $btnSave->OnClick = "ProfilAction.SaveCompetence()";
 
            $html .= "<div class='alignCenter '>".$btnSave->Show()."</div>";

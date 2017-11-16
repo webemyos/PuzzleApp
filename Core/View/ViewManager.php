@@ -66,7 +66,7 @@ class ViewManager
         else
         {
             $html = ViewManager::ReplaceIfElement($element->key, $element->value, $html);
-            $html = str_replace($element->key, $element->value, $html);
+            $html = str_replace("{{" .$element->key. "}}", $element->value, $html);
         }
         
         return $html;

@@ -157,6 +157,15 @@ class Profil extends Application
         echo $adminController->ShowAddCategory(Request::GetPost("entityId"));
     }
     
+    /*
+     * Get The Categorie Tab for Refresh
+     */
+    function GetTabCategory()
+    {
+        $adminController = new AdminController($this->Core);
+        echo $adminController->GetTabCategory();
+    }
+    
      /*
      * PopIn d'ajout de comptence
      */
@@ -164,6 +173,15 @@ class Profil extends Application
     {
         $adminController = new AdminController($this->Core);
         echo $adminController->ShowAddCompetence(Request::GetPost("entityId"));
+    }
+    
+     /*
+     * Get The Competence Tab for Refresh
+     */
+    function GetTabCompetence()
+    {
+        $adminController = new AdminController($this->Core);
+        echo $adminController->GetTabCompetence();
     }
     
     /*

@@ -42,7 +42,7 @@ use Core\View\View;
        {
           $view = new View(__DIR__ . "/View/Load.tpl", $this->Core);
          
-          $view->AddElement(new ElementView('{{detail}}', $this->GetInformation()));
+          $view->AddElement(new ElementView('detail', $this->GetInformation()));
 
           return $view->Render();
        }

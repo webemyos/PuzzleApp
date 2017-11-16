@@ -1,20 +1,21 @@
+<div id='dvCompetence'>
+    {{GetControl(Button,btnAddCompetence,{CssClass=btn btn-info,Value=AddCompetence,OnClick=ProfilAction.ShowAddCompetence()})}}
 
-{{GetControl(Button,btnAddCompetence,{CssClass=btn btn-info,Value=AddCompetence,OnClick=ProfilAction.ShowAddCompetence()})}}
 
-
-<table>
-    <tr>
-        <th>{{GetCode(Libelle)}}</th>
-        <th>{{GetCode(Category)}}</th>
-        <th></th>
-    </tr>
-    {{foreach Competence}}
+    <table class='grid'>
         <tr>
-            <td>{{element->Name->Value}}</td>
-            <td>{{element->Category->Value->Name->Value}}</td>
-            <td>
-                {{GetControl(EditIcone, icEdit,{OnClick=ProfilAction.ShowAddCompetence({{element->IdEntite}})})}}
-            </td>
+            <th>{{GetCode(Libelle)}}</th>
+            <th>{{GetCode(Category)}}</th>
+            <th></th>
         </tr>
-    {{/foreach Competence}}
-</table>
+        {{foreach Competence}}
+            <tr>
+                <td>{{element->Name->Value}}</td>
+                <td>{{element->Category->Value->Name->Value}}</td>
+                <td>
+                    {{GetControl(EditIcone, icEdit,{OnClick=ProfilAction.ShowAddCompetence({{element->IdEntite}})})}}
+                </td>
+            </tr>
+        {{/foreach Competence}}
+    </table>
+</div>

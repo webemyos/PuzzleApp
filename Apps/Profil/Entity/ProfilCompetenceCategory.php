@@ -8,6 +8,8 @@
 
 namespace Apps\Profil\Entity ;
 
+use Apps\Profil\Helper\CompetenceHelper;
+use Core\Control\CheckBox\CheckBox;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\Property;
 
@@ -29,6 +31,30 @@ class ProfilCompetenceCategory extends Entity
 
         //Creation de l entité 
         $this->Create(); 
+    }
+    
+    /*
+     * Get the compétence 
+     * And Cheked for current user
+     */
+    public function GetHtmlCompetenceByUser()
+    {
+        //Recuperation des compétences
+        $competences = CompetenceHelper::GetByCategoryByUser($this->Core, $this->IdEntite, $this->Core->User->IdEntite);
+
+        $html .= "<ul>";
+
+        foreach($competences as $competence)
+        {
+          $cbCompetence = new CheckBox($competence["Id"]); 
+          $cbCompetence->Checked = $competence["Selected"];
+
+          $html .= "<li>".$cbCompetence->Show()."&nbsp;".$competence["Code"]."</li>";
+        }
+
+        $html .= "</ul>";
+
+        return $html;
     }
 }
 ?>

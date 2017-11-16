@@ -222,7 +222,7 @@ and open the template in the editor.
 
 .TabContent
 {
-    margin-top: 15px;
+    margin: 15px;
 }
 
 .TabStripEnabled,

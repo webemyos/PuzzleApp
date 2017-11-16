@@ -142,6 +142,15 @@ var Profil = function() {};
     };
     
     /*
+     * Refresh list Category
+     */
+    ProfilAction.RefreshTabCategory = function()
+    {
+        var data = "Class=Profil&Methode=GetTabCategory&App=Profil";
+            Dashboard.LoadControl("dvCategory", data, "" , "div", "Profil");
+    };
+    
+    /*
      * Add Competence
      */
     ProfilAction.ShowAddCompetence = function(competenceId)
@@ -158,5 +167,13 @@ var Profil = function() {};
         Dashboard.OpenPopUp('Profil','ShowAddCompetence', '','','', 'ProfilAction.RefreshTabCompetence()', serialization.Encode(param));
     };
     
+    /*
+     * Refresh list Competence
+     */
+    ProfilAction.RefreshTabCompetence = function()
+    {
+        var data = "Class=Profil&Methode=GetTabCompetence&App=Profil";
+            Dashboard.LoadControl("dvCompetence", data, "" , "div", "Profil");
+    };
     
         

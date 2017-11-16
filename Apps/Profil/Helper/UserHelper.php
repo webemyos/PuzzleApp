@@ -9,6 +9,7 @@
 
 namespace Apps\Profil\Helper;
 
+use Apps\Profil\Entity\ProfilCompetenceEntity;
 use Core\Entity\City\City;
 
 class UserHelper
@@ -42,7 +43,7 @@ class UserHelper
         }
         else
         {
-           return "<div class='error'>".$core->GetCode("EeProfil.SaveInformation")."</div>";
+           return "<div class='error'>".$core->GetCode("CompetenceProfil.SaveInformation")."</div>";
         }
     }
     
@@ -61,7 +62,7 @@ class UserHelper
         
         foreach($competences as $competence)
         {
-            $competenceUser = new EeProfilCompetenceEntity($core);
+            $competenceUser = new ProfilCompetenceEntity($core);
             $competenceUser->UserId->Value = $userId;
             $competenceUser->CompetenceId->Value = $competence;
             
@@ -79,7 +80,7 @@ class UserHelper
      */
     public static function DeleteCompetence($core, $userId)
     {
-        $request = "DELETE FROM EeProfilCompetenceEntity WHERE UserId=".$userId;
+        $request = "DELETE FROM ProfilCompetenceEntity WHERE UserId=".$userId;
         $core->Db->Execute($request);
     }
     
