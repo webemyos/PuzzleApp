@@ -2,7 +2,11 @@
     <div class='span11' id='Tools'>
         {{btnInformation}}
         {{btnCompetence}}
-        {{btnAdmin}}
+        
+        {{if IsAdmin == true}}
+            {{btnAdmin}}
+        {{/if IsAdmin == true}}
+        
     </div>
     <div class="" id='dvDesktop'>
           <h4 class='blueOne'>{{GetCode(EeProfil.TitleHome)}}</h4>

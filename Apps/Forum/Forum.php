@@ -75,9 +75,8 @@ class Forum extends Application {
     /**
      * Execution de l'application
      */
-    function Run($core = "", $title = "", $name = "") {
-        $textControl = parent::Run($this->Core, "Forum", "Forum");
-        echo $textControl;
+    function Run() {
+        echo parent::RunApp($this->Core, "Forum", "Forum");
     }
 
     /**

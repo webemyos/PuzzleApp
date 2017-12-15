@@ -4,10 +4,7 @@
             <h1>Centre de télechargement </h1>
         </div>
     </div>
-    <div class='borderBottom' >
-        <h2>Le framework</h2>
-        <a class='btn btn-success' href='{{GetPath(/Downloader/download/puzzleApp)}}'>Télécharger le framework</a>
-    </div>
+   
     <div>
         
         <h2>Les applications</h2>

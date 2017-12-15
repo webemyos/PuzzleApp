@@ -39,8 +39,8 @@ class DashBoardController extends Controller
       
       //Replace All Element in the Template
       //TODO METTRE EN CACHE UNE PARTIE DE ELEMENT
-      $view->AddElement(new ElementView("{{infoNotify}}", DashBoardManager::GetInfoNotify($this->Core) ));
-      $view->AddElement(new ElementView("{{appUser}}", DashBoardManager::LoadUserApp($this->Core)));
+      $view->AddElement(new ElementView("infoNotify", DashBoardManager::GetInfoNotify($this->Core) ));
+      $view->AddElement(new ElementView("appUser", DashBoardManager::LoadUserApp($this->Core)));
       
      
       return $view;

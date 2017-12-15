@@ -17,6 +17,16 @@ use Core\Entity\Entity\Argument;
 
 class BlogHelper
 {
+    /*
+     * @param type $core
+     * Get The blog define in the config 
+     */
+    public static function GetDefault($core)
+    {
+        $blog = new BlogBlog($core);
+        return $blog->GetByName($core->Config->GetKey("BLOG"));
+    }
+    
     /**
      * Crée un nouveau blog
      * @param type $core

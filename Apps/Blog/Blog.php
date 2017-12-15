@@ -72,14 +72,22 @@ class Blog extends Application
              return $frontController->Article($params);
          }
 
+         /*
+          * Insription newsletters
+          */
+         function Subscribe()
+         {   
+             $frontController = new FrontController($this->Core);
+             return $frontController->Subscribe();
+         }
+         
 	 /**
 	  * Execution de l'application
 	  */
-	 function Run($core, $title, $name)
+	 function Run()
 	 {
-            $textControl = parent::Run($this->Core, "Blog", "Blog");
-            echo $textControl;
-	 }
+            echo parent::RunApp($this->Core, "Blog", "Blog");
+         }
 
         /**
          * Pop in d'ajout de blog

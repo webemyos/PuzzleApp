@@ -287,7 +287,7 @@ var Blog = function() {};
                var editor = CKEDITOR.replace( 'tbContentArticle_' + articleId  );
 
                CKEDITOR.setApp("BlogAction");
-        }
+        };
 
         /**
          * Retrouve l'ongelt actif
@@ -573,4 +573,4 @@ var Blog = function() {};
              { 
                  alert(Dashboard.GetCode("Blog.MustAddEmailNews"))
              }
-        }
+        };

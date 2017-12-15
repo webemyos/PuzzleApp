@@ -74,7 +74,7 @@ class FrontController extends Controller
        $view = new View(__DIR__."/View/index.tpl", $this->Core);
 
        //Telechargement du programme
-       $downloader = new Downloader();
+       $downloader = new Downloader($this->Core);
        $view->AddElement(new ElementView("{{downloader}}", $downloader->ShowRessource(1, "Je télecharge") ));
 
        //Dernieres articles de blog

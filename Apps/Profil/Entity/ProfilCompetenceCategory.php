@@ -42,7 +42,7 @@ class ProfilCompetenceCategory extends Entity
         //Recuperation des compétences
         $competences = CompetenceHelper::GetByCategoryByUser($this->Core, $this->IdEntite, $this->Core->User->IdEntite);
 
-        $html .= "<ul>";
+        $html = "<ul>";
 
         foreach($competences as $competence)
         {

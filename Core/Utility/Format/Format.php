@@ -140,7 +140,7 @@ namespace Core\Utility\Format;
 		"o","o","o","o","o","o","o","o",
 		"s","s","s","s","s","t","t","u",
 		"u","u","u","u","u","u","u","y",
-		"y","y","y","_");
+		"y","y","y","-");
 
 		$Text = str_replace($search, $replace, $text);
 		return $Text;

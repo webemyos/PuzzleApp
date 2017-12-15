@@ -112,11 +112,11 @@ class Runner
             
             if(!$debug)
             {
-                $View->AddElement(new ElementView("{{message}}", "Ca bug grave"));
+                $View->AddElement(new ElementView("message", "Ca bug grave"));
             }
             else
             {
-                 $View->AddElement(new ElementView("{{message}}", $ex->getMessage()));
+                 $View->AddElement(new ElementView("message", $ex->getMessage()));
             }
             
             echo $View->Render();

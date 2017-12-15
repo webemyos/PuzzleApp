@@ -9,13 +9,13 @@
 
 namespace Apps\Blog\Module\Front;
 
-use Apps\Blog\Module\Front\Model\BlogModel;
 use Apps\Blog\Entity\BlogArticle;
 use Apps\Blog\Entity\BlogBlog;
 use Apps\Blog\Entity\BlogCategory;
 use Apps\Blog\Helper\ArticleHelper;
 use Apps\Blog\Helper\BlogHelper;
 use Apps\Blog\Helper\CommentHelper;
+use Apps\Blog\Module\Front\Model\BlogModel;
 use Core\Block\Block;
 use Core\Control\Button\Button;
 use Core\Control\EmailBox\EmailBox;
@@ -25,6 +25,7 @@ use Core\Core\Core;
 use Core\View\CacheManager;
 use Core\View\ElementView;
 use Core\View\View;
+use Apps\Blog\Modele\UserNewLetterModele;
 
 /**
  * Front Controller
@@ -40,8 +41,7 @@ class FrontController extends Controller
     {
         parent::__construct($core);
      
-        $blog = new BlogBlog($this->Core);
-        $this->Blog = $blog->GetByName($core->Config->GetKey("BLOG"));
+        $this->Blog = BlogHelper::GetDefault($core);
         
         $this->Model = new BlogModel($this->Core);
     }
@@ -85,7 +85,7 @@ class FrontController extends Controller
     public function Index()
     {
         //Information Page
-        $this->Core->MasterView->Set("Title", "| Blog");
+        $this->Core->MasterView->Set("Title", "Blog");
         $this->Core->MasterView->Set("Description", $this->Blog->Description->Value);
         
         $masterView = $this->GetMasterView();
@@ -113,7 +113,7 @@ class FrontController extends Controller
         $categorie = new BlogCategory(Core::getInstance());
         $categorie = $categorie->GetByCode($code);
         
-        $this->Core->MasterView->Set("Title", "| " .$categorie->Name->Value );
+        $this->Core->MasterView->Set("Title", $categorie->Name->Value );
         $this->Core->MasterView->Set("Description", $categorie->Description->Value);
         
         $view->AddElement(new ElementView("Category", $categorie));
@@ -137,7 +137,7 @@ class FrontController extends Controller
         $article = new BlogArticle(Core::getInstance());
         $article = $article->GetByCode($code);
         
-        $this->Core->MasterView->Set("Title", "| " .$article->Name->Value );
+        $this->Core->MasterView->Set("Title", $article->Name->Value );
         $this->Core->MasterView->Set("Description", $article->Description->Value);
         
         $view->AddElement(new ElementView("Article", $article));
@@ -166,5 +166,21 @@ class FrontController extends Controller
         $block->AddNew($btnInscription);
         
         return $block->Show();
+    }
+    
+    /*
+     * Inscription to the newletters
+     */
+    public function Subscribe()
+    {
+        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Blog.Subscribe") );
+        
+        $view = new View(__DIR__."/View/subscribe.tpl", $this->Core);
+
+        //Add Message Modele
+        $modele = new UserNewletterModele($this->Core);
+        $view->SetModel($modele);
+
+        return $view->Render();
     }
 }

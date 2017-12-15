@@ -11,8 +11,8 @@ namespace Apps\Profil\Module\Home;
 
 use Apps\EeApp\EeApp;
 use Core\Control\Button\Button;
-use Core\Control\Text\Text;
 use Core\Controller\Controller;
+use Core\View\ElementView;
 use Core\View\View;
 
 
@@ -45,19 +45,14 @@ class HomeController extends Controller
        $btnCompetence->OnClick = "ProfilAction.LoadCompetence()";
        $modele->AddElement($btnCompetence);
 
-       if(EeApp::isAdmin($this->Core, "Profil", $this->Core->User->IdEntite))
-       {
-          $btnAdmin = new Button(BUTTON, "btnAdmin");
-          $btnAdmin->Value = "App.Admin";
-          $btnAdmin->CssClass = "btn btn-danger";
-          $btnAdmin->OnClick = "ProfilAction.LoadAdmin();";
-          $modele->AddElement($btnAdmin);
-       }
-       else
-       {
-          $modele->AddElement(new Text("btnAdmin"));
-       }
-      
+       $btnAdmin = new Button(BUTTON, "btnAdmin");
+       $btnAdmin->Value = "App.Admin";
+       $btnAdmin->CssClass = "btn btn-danger";
+       $btnAdmin->OnClick = "ProfilAction.LoadAdmin();";
+       $modele->AddElement($btnAdmin);
+          
+       $modele->AddElement(new ElementView("IsAdmin" , EeApp::isAdmin($this->Core, "Profil", $this->Core->User->IdEntite)));
+       
        return $modele->Render();
    }
  }?>

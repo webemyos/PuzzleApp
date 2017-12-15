@@ -188,7 +188,7 @@ class AppHelper
     public static function IsAdmin($core, $appName, $userId)
     {
         $app = new EeAppApp($core);
-        $app->GetByName($appName);
+        $app = $app->GetByName($appName);
                 
         $appAdmin = new EeAppAdmin($core);
         $appAdmin->AddArgument(new Argument("Apps\EeApp\Entity\EeAppAdmin", "AppId",EQUAL, $app->IdEntite));

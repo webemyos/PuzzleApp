@@ -120,7 +120,7 @@ class ViewModelManager
     /*
      * Render content if model is init
      */
-    function RenderState($html, $model, $state)
+    public static function RenderState($html, $model, $state)
     {
          $start = strpos($html, "{{if Model->State = ".$state."}}");
          $end = strpos($html, "{{/if Model->State = ".$state."}}");

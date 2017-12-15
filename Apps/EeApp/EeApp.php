@@ -48,8 +48,7 @@ class EeApp extends Application
            AppHelper::Install($this->Core);
        }
 
-        $textControl = parent::Run($this->Core, "EeApp", "EeApp");
-        echo $textControl;
+       echo parent::RunApp($this->Core, "EeApp", "EeApp");
      }
 
     /**

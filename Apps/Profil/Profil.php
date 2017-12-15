@@ -44,8 +44,7 @@ class Profil extends Application
       */
      function Run()
      {
-        $textControl = parent::Run($this->Core, "Profil", "Profil");
-        echo $textControl;
+        echo parent::RunApp($this->Core, "Profil", "Profil");
      }
 
     /**

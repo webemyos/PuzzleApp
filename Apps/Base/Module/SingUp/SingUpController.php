@@ -55,7 +55,7 @@ class SingUpController extends Controller
         }
        
         $view->AddElement(new ElementView("Success", $success));
-        $view->AddElement(new ElementView("{{error}}", $error));
+        $view->AddElement(new ElementView("error", $error));
       
         return $view->Show();
    }

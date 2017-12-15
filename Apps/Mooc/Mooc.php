@@ -46,9 +46,7 @@ class Mooc extends Application
       */
     function Run()
     {
-        
-        $textControl = parent::Run($this->Core, "Mooc", "Mooc");
-        echo $textControl;
+        echo parent::RunApp($this->Core, "Mooc", "Mooc");
     }
 
      /*

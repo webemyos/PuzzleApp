@@ -35,7 +35,7 @@ class PuzzleApp extends Base
     */
    public function Index()
    {
-      $this->Core->MasterView->Set("Title", "Puzzle App |Le framework qui vous permet de tout faire sans coder");
+      $this->Core->MasterView->Set("Title", "Le framework qui vous permet de tout faire sans coder");
       $this->Core->MasterView->Set("Description", "Vous allez lancer un site, bravo. Mais que vous faut il ? Un Cms, un blog, un site Ecommerce ? Ne cherchez plus avec PuzzleApp vos commencer avec une base simple puis vous ajoutez ce que vous avez besoin au fur et à mesure. PuzzleApp fait à peu prêt tout sauf le café.");
 
       $frontController = new FrontController($this->Core);

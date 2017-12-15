@@ -13,7 +13,7 @@
                    <i class='mention fa fa-check'>&nbsp;Pour adapter rapidement votre design.</i>
                 </li>
                 <li>Du javascript integré et compilé à la volée. 
-                    <i class='mention fa fa-check'>&nbsp;Pas besoin d'integrér des bibliothèques tiers.</i>
+                    <i class='mention fa fa-check'>&nbsp;Pas besoin d'integrér des bibliothèques tierces.</i>
                 </li>
                 <li>Des contrôles qui font presque tout sauf le café. 
                     <i class='mention fa fa-check'>&nbsp;Champ email, date, datagrid, onglet, slider ... </i>
@@ -56,13 +56,13 @@
         <h2 class='fa fa-play fa-2x borderBottom' >&nbsp;Démarrez tout de suite</h2>
         </div>
       <div class='col-md-4'>
-          <h3 class='fa fa-download fa-2x'>&nbsp;1.  Télécharger la solution</h3>
+          <h3 class='fa fa-download fa-2x'>&nbsp;1.Téléchargez la solution</h3>
           <p>Télechargez la solution et déposez la sur votre serveur.</p>
           <p>C'est simple.</p>
           <a href='{{GetPath(/Downloader/download/puzzlApp)}}' class='btn btn-info'>Je télécharge</a>
       </div>
       <div class='col-md-4'>
-          <h3 class='fa fa-desktop fa-2x'>&nbsp;2. Installer les applications.</h3>
+          <h3 class='fa fa-desktop fa-2x'>&nbsp;2.Installez les applications.</h3>
           <p>Installer et configurez les applications dont vous avez besoin pour lancer votre site.
               Un Cms, Un Blog, une landing page pour recueillir des avis.</p>
              
@@ -73,7 +73,7 @@
            <button class='btn btn-warning'>Je découvre le store</button>
       </div>
       <div class='col-md-4'>
-          <h3 class='fa fa-group fa-2x'>&nbsp;3. Développer vos fonctionnalités.</h3>
+          <h3 class='fa fa-group fa-2x'>&nbsp;3.Développez vos fonctionnalités.</h3>
           <p>Travailler sur les fonctionnalités clés de votre métier.
           L'équipe développement peut intégrer facilement et rapidement les fonctionnalités clés de votre application.
           En intégrant des statistiques vous saurez rapidement ce qu'il faut faire évoluer ou abandonner.
@@ -84,24 +84,28 @@
     <div class='col-md-12'  style='border-bottom:1px solid grey; width:100%; background-color: #bebebe'>
         <div class='col-md-4'>
             <h3 class='fa fa-newspaper-o fa-2x'>&nbsp;Les news</h3>
-            <li><a href=''>Premier article</a></li>
-            <li><a href=''> Deuxième article</a></li>
+            <ul>
+                {{foreach Articles}}
+                <li><a href='{{GetPath(/Blog/Article/{{element->Code->Value}})}}'>
+                    {{element->Name->Value}}
+                    </a>
+                </li>
+                {{/foreach Articles}}
+            </ul>
         </div>
         <div class='col-md-4'>
             <h3 class='fa fa-flash fa-2x' >We need You</h3>
             <p>Rejoins la communauté et viens donner un peu de temps, ton génie, ton savoir faire, tes idées...</p>
-            <img src='images/weneedyou.jpg' style='width:200px' />
+            <a class='btn btn-primary' href='{{GetPath(/singup)}}' >Rejoins nous</a><br/>
         </div>
         <div class='col-md-4'>
             <h3 class='fa fa-share fa-2x'>Suis nous</h3>
-            <p>
-                <i class='fa fa-facebook'>&nbsp;</i>
-                <i class='fa fa-twitter'>&nbsp;</i>
-                
-            </p>
             <p>Laisse ton email</p>
-            <input type='email' placeholder='email'/><br/>
-            <button class='btn btn-primary'>Laisse ton email</button>
+            {{GetForm(/Blog/Subscribe)}}
+                {{GetControl(EmailBox,Email,{Required=true,PlaceHolder=Email})}}
+            
+                {{GetControl(Submit,Send,{Value=Inscription,CssClass=btn btn-primary})}}
+            {{CloseForm()}}
         </div>
             
     </div>
