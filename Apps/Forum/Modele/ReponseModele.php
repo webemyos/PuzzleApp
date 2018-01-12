@@ -40,7 +40,7 @@ class ReponseModele extends Modele
      */
     public function Prepare()
     {
-       $this->Exclude(array("MessageId", "UserId", "DateCreated"));
+       $this->Exclude(array("MessageId", "UserId", "Core\Entity\User\User", "DateCreated"));
     }
     
     /*

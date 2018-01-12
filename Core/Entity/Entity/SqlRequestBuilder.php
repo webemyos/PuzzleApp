@@ -183,7 +183,7 @@ class SqlRequestBuilder
             else
                 $orders .= " desc";
 
-           return "ORDER BY " . $orders;
+           return " ORDER BY " . $orders;
         }
         else
                 return "";

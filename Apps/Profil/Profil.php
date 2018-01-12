@@ -133,9 +133,6 @@ class Profil extends Application
 
         $informationController = new InformationController($this->Core);
         return $informationController->GetProfil($user, $cssClass, $addInvitation);
-        
-        
-       
     }
 
     /*

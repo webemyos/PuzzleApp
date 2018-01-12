@@ -307,6 +307,8 @@ and open the template in the editor.
 
 #lstApp div{cursor:pointer}
 
+.grid{width:100%}
+
 .grid{
     border : 1px solid grey;
 }
@@ -320,3 +322,6 @@ and open the template in the editor.
     padding:5px;
     border : 1px solid grey;
 }
+
+.grid .entityPager{display: inline-grid; text-decoration: underline; cursor:pointer; margin-left:5px; color:white}
+.grid .order {text-decoration: underline; cursor:pointer; color:white}

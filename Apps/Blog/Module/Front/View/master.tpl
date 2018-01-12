@@ -34,13 +34,7 @@
           </ul>
           
           <div id='dvNewsLetter' >
-              <h2>{{GetCode(Newsletter)}}</h2>
-              <p>{{GetCode(Blog.TxtInscriptionNewsLetter)}}</p>
-              {{GetForm(/Blog/Subscribe)}}
-                {{GetControl(EmailBox,Email,{Required=true,PlaceHolder=Email})}}
-            
-                {{GetControl(Submit,Send,{Value=Inscription,CssClass=btn btn-primary})}}
-            {{CloseForm()}}
+              {{inscriptionNewletters}}
           </div>
       </div>
   <div class="clearfix"></div>

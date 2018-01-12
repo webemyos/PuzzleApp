@@ -40,7 +40,7 @@ class EeApp extends Application
      /**
       * Execution de l'application
       */
-     function Run($core="", $title="", $name="")
+     function Run()
      {
        //Install EeApp
        if(!AppHelper::IsInstalled($this->Core))

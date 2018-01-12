@@ -32,7 +32,12 @@ class CategoryHelper
         $category->Name->Value = $name;
         $category->Code->Value = Format::ReplaceForUrl($name);
         $category->Description->Value = $description;
-        $category->BlogId->Value = $blogId;
+        
+        if($blogId != "")
+        {
+            $category->BlogId->Value = $blogId;
+        }
+        
         $category->Save();   
     }
     

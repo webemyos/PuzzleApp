@@ -43,7 +43,7 @@ class MessageModele extends Modele
      */
     public function Prepare()
     {
-        $this->Exclude(array("CategoryId", "UserId", "DateCreated"));
+        $this->Exclude(array("CategoryId", "UserId", "Core\Entity\User\User", "Apps\Forum\Entity\ForumCategory", "DateCreated"));
     }
     
     /*

@@ -38,6 +38,7 @@ class Entity
     
     protected $Property=array();
     protected $Argument=array();
+
         
     function __construct($core)
     {
@@ -196,6 +197,14 @@ class Entity
     {
         //Get all entity with Limit, order and join
         return EntityManager::GetByArg($this);
+    }
+    
+    /*
+     * Return the Number Of Element
+     */
+    function GetCount()
+    {
+       return EntityManager::GetCount($this); 
     }
     
     /*

@@ -15,56 +15,72 @@ use Core\Control\Control;
 
 class Icone extends Control implements IControl
 {
-	//Proprietes
-	private $Directory;
-	private $Src;
-	private $Title;
-	private $Description;
-	private $Alt;
-	public $Color;
-        public $ToolTip;
+    //Proprietes
+    private $Directory;
+    private $Src;
+    private $Title;
+    private $Description;
+    private $Alt;
+    public $Color;
+    public $ToolTip;
+    public $Action;
+    public $IdEntite;
+    public $Params;
+    
+    //Constructeur
+    function __construct()
+    {
+        //Version
+        $this->Version ="2.0.0.1";
+    }
 
-	//Constructeur
-	function __construct()
-	{
-            //Version
-            $this->Version ="2.0.0.1";
+    //Affichage
+    function Show()
+    {
+        $html ="\n<span ";
+
+        $this->CssClass .= " ".$this->Color;
+
+        $html .= $this->getProperties();
+        $html .=" title='".$this->Title."'";
+        $html .=" alt ='".$this->Alt."'";
+
+        if($this->Action != "")
+        {
+            $html .=" data-action ='".$this->Action."'";
+        }
+        
+        if($this->IdEntite)
+        {
+            $html .=" data-idEntite ='".$this->IdEntite."'";
+        }
+        
+        if($this->Params)
+        {
+            $html .=" data-params ='".$this->Params."'";
+        }
+        if($this->ToolTip != "")
+        {
+           $html .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
         }
 
-	//Affichage
-	function Show()
-	{
-            $html ="\n<span ";
+        $html .="  >";
 
-            $this->CssClass .= " ".$this->Color;
+        $html .="</span>";
 
-            $html .= $this->getProperties();
-            $html .=" title='".$this->Title."'";
-            $html .=" alt ='".$this->Alt."'";
+        return $html ;
+    }
 
-            if($this->ToolTip != "")
-            {
-               $html .= " onmouseenter=\"".$this->ToolTip->DoAction()."\"";
-              // $html .= " onmouseleave='CloseTool(this);'";
-            }
+    //Asseceurs
+    public function __get($name)
+    {
+        return $this->$name;
+    }
 
-            $html .="  >";
-
-            $html .="</span>";
-
-            return $html ;
-	}
-
-	//Asseceurs
-	public function __get($name)
-	{
-            return $this->$name;
-	}
-
-	public function __set($name,$value)
-	{
-	  $this->$name=$value;
-	}
+    public function __set($name,$value)
+    {
+      $this->$name=$value;
+    }
 }
 
 

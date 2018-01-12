@@ -149,5 +149,10 @@ class DashBoardManager
 
     return $app;
   }
+  
+  public function LoadPage()
+  {
+     print_r($_POST);
+  }
 
 }

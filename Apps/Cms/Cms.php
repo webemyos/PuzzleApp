@@ -41,10 +41,9 @@ class Cms extends Base
 	 /**
 	  * Execution de l'application
 	  */
-	 function Run($core="", $title="", $name="")
+	 function Run()
 	 {
-	 	$textControl = parent::Run($this->Core, "Cms", "Cms");
-	 	echo $textControl;
+            echo parent::RunApp($this->Core, "Cms", "Cms");
 	 }
 
         /**

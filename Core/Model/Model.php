@@ -7,12 +7,12 @@
  * GNU Licence
  */
 
-namespace Core\Modele;
+namespace Core\Model;
 
 use Core\Core\Request;
 
 
-class Modele
+class Model
 {
     /*
      * Core

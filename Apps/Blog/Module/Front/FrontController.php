@@ -10,22 +10,19 @@
 namespace Apps\Blog\Module\Front;
 
 use Apps\Blog\Entity\BlogArticle;
-use Apps\Blog\Entity\BlogBlog;
 use Apps\Blog\Entity\BlogCategory;
 use Apps\Blog\Helper\ArticleHelper;
 use Apps\Blog\Helper\BlogHelper;
 use Apps\Blog\Helper\CommentHelper;
-use Apps\Blog\Module\Front\Model\BlogModel;
-use Core\Block\Block;
-use Core\Control\Button\Button;
-use Core\Control\EmailBox\EmailBox;
+use Apps\Blog\Model\CommentModel;
+use Apps\Blog\Model\UserNewLetterModel;
+use Apps\Blog\Model\BlogModel;
 use Core\Control\Text\Text;
 use Core\Controller\Controller;
 use Core\Core\Core;
 use Core\View\CacheManager;
 use Core\View\ElementView;
 use Core\View\View;
-use Apps\Blog\Modele\UserNewLetterModele;
 
 /**
  * Front Controller
@@ -67,7 +64,7 @@ class FrontController extends Controller
         $view->AddElement(new ElementView("Article", $this->Model->GetLastArticle($this->Core, $this->Blog)));
         
         //Inscription NewsLetter
-        $view->AddElement(new ElementView("{{newletterBlock}}", $this->GetNewletterBlock()));
+        $view->AddElement(new ElementView("inscriptionNewletters", $this->Subscribe()));
         
         CacheManager::Store($template, $view->Render());
       }
@@ -142,6 +139,8 @@ class FrontController extends Controller
         
         $view->AddElement(new ElementView("Article", $article));
         $view->AddElement(new ElementView("Articles", ArticleHelper::GetSimilare($this->Core,$article)));
+        $view->AddElement(new ElementView("AddComment", $this->GetAddComment($article)));
+       
         $view->AddElement(new ElementView("Comments", CommentHelper::GetByArticle($this->Core,$article->IdEntite, true)));
         
         $masterView->AddElement(new Text("content", false, $view->Render()));
@@ -149,23 +148,19 @@ class FrontController extends Controller
         return $masterView->Render();
     }
     
-    /*
-     * 
+    /**
+     * Module Add Comment
+     * @param type $article
+     * @return type
      */
-    public function GetNewletterBlock()
+    public function GetAddComment($article)
     {
-        $block = new Block();
+        $view = new View(__DIR__ . "/View/addComment.tpl");
         
-        $tbEmail = new EmailBox("tbEmailNews");
-        $tbEmail->PlaceHolder = $this->Core->GetCode("Email");
-        $block->Add($tbEmail);
+        $commentModel = new CommentModel($this->Core, $article->IdEntite);
+        $view->SetModel($commentModel);
         
-        $btnInscription = new Button(BUTTON);
-        $btnInscription->Value = $this->Core->GetCode("Inscription");
-        $btnInscription->OnClick = "Blog.AddEmailNews(".$this->Blog->IdEntite.")";
-        $block->AddNew($btnInscription);
-        
-        return $block->Show();
+        return $view->Render();
     }
     
     /*
@@ -178,7 +173,7 @@ class FrontController extends Controller
         $view = new View(__DIR__."/View/subscribe.tpl", $this->Core);
 
         //Add Message Modele
-        $modele = new UserNewletterModele($this->Core);
+        $modele = new UserNewLetterModel($this->Core);
         $view->SetModel($modele);
 
         return $view->Render();

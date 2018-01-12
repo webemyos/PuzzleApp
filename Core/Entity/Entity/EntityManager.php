@@ -140,6 +140,23 @@ class EntityManager
     }
     
     /*
+     * Obtient le nombre d'élement
+     */
+    public static function GetCount($entity)
+    {
+        $request = "Select Count(Id) as number";
+        $request .= SqlRequestBuilder::From($entity);
+            
+        if($where)
+        {
+           $request .= SqlRequestBuilder::Where($entity);
+        }
+        
+        $result = $entity->Core->Db->GetLine($request);
+        return $result["number"];
+    }
+    
+    /*
      * Save the Entity
      */
     public static function Save($entity)

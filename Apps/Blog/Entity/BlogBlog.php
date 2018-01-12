@@ -29,7 +29,7 @@ class BlogBlog extends Entity
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
         $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias); 
         $this->Description = new Property("Description", "Description", TEXTAREA,  true, $this->Alias); 
-        $this->Style = new Property("Style", "Style", NUMERICBOX,  true, $this->Alias); 
+        $this->Style = new Property("Style", "Style", NUMERICBOX,  false, $this->Alias); 
         $this->Actif = new Property("Actif", "Actif", NUMERICBOX,  true, $this->Alias); 
 
         //Partage entre application 

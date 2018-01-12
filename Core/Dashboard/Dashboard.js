@@ -16,6 +16,7 @@ function press(e)
 //Creation de l'objet principale
 var Dashboard = function(){};
 
+
 /**
 Chargement de l'application
 */
@@ -336,7 +337,7 @@ Dashboard.AddEvent = function(control, event, methode)
         }
         else
         {
-          control.attachEvent("on"+event,methode);
+         control.attachEvent("on"+event,methode);
         }
     }
 };
@@ -600,7 +601,7 @@ Dashboard.LoadControl = function (searchDiv, data, height, balise, appName, mode
 		var dvControl = document.getElementById(searchDiv);
 	}
 
-	dvControl.innerHTML = "<img src='../Images/loading/load.gif'/>";
+	dvControl.innerHTML = "<img src='Images/loading/load.gif'/>";
 
 	var JAjax = new ajax();
 		JAjax.data = data;
@@ -613,13 +614,15 @@ Dashboard.LoadControl = function (searchDiv, data, height, balise, appName, mode
 		}
 		else
 		{
-			dvControl.innerHTML = JAjax.GetRequest("Ajax.php");
-		}
+                  	dvControl.innerHTML = JAjax.GetRequest("Ajax.php");
+                }
 
 	if(typeof(height) != "undefined")
 		dvControl.style.height = height;
 	else
 		dvControl.style.height = "250px";
+            
+        
 };
 
 /**
@@ -1245,7 +1248,7 @@ Dashboard.GetPath = function(page)
   
     if(window.location.origin.indexOf("localhost") > - 1)
     {
-           return "http://localhost/" + url[3] + "/"+page;
+           return "http://localhost:85/" + url[3] + "/"+page;
     }
     else
     {
@@ -1314,6 +1317,20 @@ Dashboard.UpdateModele = function()
         else
         {
             JAjax.data += "&" +  inputs[i].name  + "=" + inputs[i].value;
+        }
+    }
+    
+    var textarea = ajaxModel.getElementsByTagName("textarea");
+    
+    for(i = 0; i < textarea.length; i++)
+    {
+        if( textarea[i].value == "" )
+        {
+            errorMsg += "<li>" + textarea[i].name + "</li>" ;
+        }
+        else
+        {
+            JAjax.data += "&" +  textarea[i].name  + "=" + textarea[i].value;
         }
     }
     

@@ -11,6 +11,7 @@ namespace Core\Control\EntityGrid;
 
 use Core\Control\Control;
 use Core\Control\IControl;
+use Core\Core\Request;
 
 class EntityGrid extends Control implements IControl
 {
@@ -26,6 +27,9 @@ class EntityGrid extends Control implements IControl
   private $LimitStart;
   private $LimitNumber;
   private $Asc;
+  private $App;
+  private $Action;
+  private $Params;
 
   //Constructeur
   public function __construct($name, $core="")
@@ -90,18 +94,38 @@ class EntityGrid extends Control implements IControl
       }
     }
 
+    $page = Request::GetPost("Page");
+    
    if($this->LimitStart != "")
-	{
-		$this->LimitStart.$this->LimitNumber;
-		$Entity->SetLimit($this->LimitStart,$this->LimitNumber);
-	}
+    {
+            $this->LimitStart.$this->LimitNumber;
+            $Entity->SetLimit($this->LimitStart,$this->LimitNumber);
+    }
+    else if($page != "" )
+    {
+       $Entity->SetLimit($page == 0 ? 1 : $page * 10 + 1, 10); 
+    }
+    else
+    {
+        $Entity->SetLimit(1, 10);
+    }
 
+     $sort = Request::GetPost("Sort");
+     
+    if($sort != "" )
+    {
+        //Sauvegarde l'order de tri en session
+        $Entity->AddOrder($sort);
+    }
+    
+    
     //Recuperation des entit�s
     if(sizeof($this->Argument) > 0)
     {
       foreach($this->Argument as $argument)
       {
         $Entity->AddArgument($argument);
+        $lines .= "<input type='hidden' name='".$argument->Field."' value='".$argument->Value."' />" ;   
       }
 
       $Entites = $Entity->GetByArg();
@@ -111,11 +135,31 @@ class EntityGrid extends Control implements IControl
       $Entites = $Entity->GetAll();
     }
 
+    //Nombre d'element et numéro
+    $lines .= "<tr>";
+    $lines .="<th colspan='8'>";
+    $nbElement =  $Entity->GetCount();
+    
+    $lines .= "Nombre d'element :" . $nbElement;
+    
+    //Numero de pagde
+    $nbPage = $nbElement / 10;
+    
+    //$lines .= "<th class='pager'  colspan='2'>";
+    for($i = 0; $i < $nbPage ; $i++)
+    { 
+        $lines .= "<span class='entityPager' >".$i."</span>";
+    }
+    $lines .= "</th>";
+    
+    $lines .= "</tr>";
+    
+    
     //Entete de le grille
     $lines .="\n<tr>";
     foreach($this->Column as $Column)
     {
-        $lines .="\n\t<th>".$Column->GetHeader()."</th>";
+        $lines .="\n\t<th class='order'>".$Column->GetHeader()."</th>";
     }
     $lines .="\n</tr>";
 
@@ -154,18 +198,19 @@ class EntityGrid extends Control implements IControl
   //Affichage
   public function Show()
   {
-    $TextControl  =" \n<table " ;
-    $TextControl .= $this->getProperties();
-    $TextControl .= ">";
+    $html  =" \n<table class='grid' data-app='" . $this->App ."' data-action='" . $this->Action . "' data-order=''  data-params='".$this->Params."'  "   ;
+    $html .= $this->getProperties();
+    $html .= ">";
+    
+    $html .= $this->Load();
 
-    $TextControl .= $this->Load();
-
-    $TextControl .="</table>";
-
+    $html .="</table>";
+    
+    
 	if($this->Count == 0 && $this->EmptyVisible)
-    	return $TextControl;
+    	return $html;
     else if($this->Count>0)
-    	return $TextControl;
+    	return $html;
   }
 
   //asseceurs

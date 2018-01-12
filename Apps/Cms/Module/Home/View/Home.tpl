@@ -1,6 +1,5 @@
 <div class='row-fluid span12'>
     <div class='span11' id='Tools'>
-        <img src="../Apps/EeCms/Images/logo.png" />
         {{btnNewCms}}
         {{btnMyCms}}
     </div>

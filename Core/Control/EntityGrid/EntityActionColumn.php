@@ -57,7 +57,7 @@ class EntityActionColumn extends Control implements IColumn
     
     if($this->ClassCss != '')
     {
- 		$class= " class='".$this->ClassCss."'";   
+        $class= " class='".$this->ClassCss."'";   
     }
     else
     {

@@ -2,30 +2,19 @@
 
   {{Article->Content->Value}}
 
-<h3>{{GetCode(Comment)}}</h3>
-
-
 <div>
     <div id='dvAddComment' >
-       {{GetCode(YourName)}}
-       {{GetControl(TextBox,tbName)}}
-       {{GetCode(YourEmail)}}
-       {{GetControl(EmailBox,tbEmail)}}
-       {{GetCode(YourMessage)}}
-       {{GetControl(TextArea,tbComment)}}
-
-       {{GetControl(Submit,btnSubmit,{Value=Send,CssClass=btn btn-success,OnClick=BlogAction.AddComment('{{Article->Code->Value}}')})}}
-
+         {{AddComment}}
     </div>
 </div>
 
-       <h3>{{GetCode(Comments)}}</h3>
-{{foreach Comments}}
-    <div class='col-md-12' style='border-top:1px solid grey; width:100%'>
-        <h4>{{element->UserName->Value}}</h4>
-        <p>{{element->Message->Value}}</p>
-    </div>    
-{{/foreach Comments}}
+<h3>{{GetCode(Comments)}}</h3>
+ {{foreach Comments}}
+     <div class='col-md-12' style='border-top:1px solid grey; width:100%'>
+         <h4>{{element->UserName->Value}}</h4>
+         <p>{{element->Message->Value}}</p>
+     </div>    
+ {{/foreach Comments}}
        
        
 <h3>{{GetCode(EeBlog.YouCanLike)}}</h3>

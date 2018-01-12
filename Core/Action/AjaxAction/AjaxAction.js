@@ -285,7 +285,8 @@ ajax = function()
              {
             	type=requete.responseText;
              }
- 		return type;
+         
+            return type;
  	}
   };
 

@@ -39,111 +39,16 @@ class CommentController extends Controller
      */
     function Load($articleId, $showAddBlock)
     {
+        $view = new View(__DIR__."/View/Load.tpl");
+    
         //App pour recuperer les profils
         $eprofil = Dashboard::GetAppFront("EeProfil");
-          
-        $html .= "<div><div id='dvComment'>";
-        $html .= "<h2>".$this->Core->GetCode("EeComunity.Commentaires")."</h2>";
-        if($showAddBlock)
-        {
-            $html .= $this->GetAddBlock($articleId, $eprofil);
-        }
-        $html .= $this->GetComment($articleId, $eprofil)."</div></div>";
-            
-        return $html;
-    }
-    
-    /**
-     * Module d'ajout
-     * Mode connecté ou non
-     */
-    function GetAddBlock($articleId, $eprofil)
-    {
-        $block = new JBlock("jbComment");
-        $block->CssClass = "comment";
-        $block->Table = false;
-        $block->Frame = false;
         
-        //Sauvagarde ajax
-        $action = new AjaxAction("EeBlog", "AddComment");
-        $action->AddArgument("App", "EeBlog");
-        $action->AddArgument("ArticleId", $articleId);
-       
-        $action->ChangedControl = "dvComment";
-        
-        if(JVar::IsConnected($this->Core))
-        {
-              //Affichage de l'iconde de l'utilisateur connecté
-            $block->AddNew(new Libelle($eprofil->GetProfil($this->Core->User)));
-        }
-        else
-        {
-            //Nom
-            $tbName = new BsTextBox("tbName");
-            $tbName->Title = $this->Core->GetCode("Name");
-            $block->AddNew($tbName);
-            
-            //Email
-            $tbEmail = new BsEmailBox("tbEmail");
-            $tbEmail->Title = $this->Core->GetCode("Email");
-            $block->AddNew($tbEmail);
-            
-            $action->AddControl($tbName->Id);
-            $action->AddControl($tbEmail->Id);
-        }
-        
-        //Champ commentaire
-        $tbCommentaire = new TextArea("tbComment");
-        $tbCommentaire->AddStyle("width","100%");
-        $block->AddNew($tbCommentaire);
-        $action->AddControl($tbCommentaire->Id);
-        
-        //Bouton de sauvegarde
-        $btnSave = new Button(BUTTON);
-        $btnSave->Value = $this->Core->GetCode("Send");
-        $btnSave->CssClass = "btn btn-primary";
-        $btnSave->OnClick = $action;
-        
-        $block->AddNew($btnSave);
-        
-        return $block->Show();
-            
-    }
-    
-    /**
-     * Recuperation des commentaires
-     */
-    function GetComment($articleId,$eprofil)
-    {
-        $comments = CommentHelper::GetByArticle($this->Core, $articleId, 1);
-        
-        if(count($comments) > 0)
-        {
-            $html = "";
-             
-            foreach($comments as $comment)
-            {
-                $html .= "<div class='comment'>";
+        $view->AddElement(new ElementView("ShowAddBlock", $showAddBlock));
                 
-                if($comment->UserId->Value == "0" || $comment->UserId->Value =="")
-                {
-                    $html .= "<span class='user'>".$this->Core->GetCode("Name")." : ".$comment->UserName->Value."</span>";
-                    $html .= "<p>".$comment->Message->Value."</p>";
-                }
-                else
-                {
-                    $html .= "<span class='user'>".$eprofil->GetProfil($comment->User->Value)."</span>";
-                    $html .= "<p>".$comment->Message->Value."</p>";
-                }
-                
-                $html .= "</div>";
-            }
-            
-            return $html;
-        }
-        else
-        {
-            return $this->Core->GetCode("EeComunity.NoComment");
-        }
+        $view->AddElement(new ElementView("AddBlock", $this->GetAddBlock($articleId, $eprofil)));
+        $view->AddElement(new ElementView("Comments", $this->GetComment($articleId, $eprofil)));
+        
+        return $view->Render();
     }
 }

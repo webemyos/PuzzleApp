@@ -76,7 +76,6 @@ class ViewModelManager
         }
      
         $entityProperty = $model->GetEntity()->GetEntityProperty();
-      //  echo count($entityProperty);
         
         foreach($entityProperty as $propertie)
         {

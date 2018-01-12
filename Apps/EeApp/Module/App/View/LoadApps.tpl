@@ -3,7 +3,6 @@
         <table class="table">
             <thead>
                 <tr>
-                  <th></th>
                   <th>{{GetCode(Category)}}</th>
                   <th>{{GetCode(Name)}}</th>
                   <th>{{GetCode(Description)}}</th>
@@ -12,8 +11,7 @@
             <tbody>
                 {{foreach}}
                     <tr>
-                        <td>{{element->GetImage()}}</td>
-                         <td>{{element->Category->Value->Name->Value}}</td>
+                        <td>{{element->Category->Value->Name->Value}}</td>
                         <td>{{element->Name->Value}}</td>
                         <td>{{element->Description->Value}}</td>
                         <td>

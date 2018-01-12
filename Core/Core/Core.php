@@ -210,9 +210,9 @@ class Core
      */
     function GetPath($url)
     {
-       if($_SERVER["HTTP_HOST"] == "localhost")
+       if(1==1 || strpos("localhost", $_SERVER["HTTP_HOST"]) != false)
        {
-          return "http://".$_SERVER['SERVER_NAME'] .$_SERVER['CONTEXT_PREFIX'] .$url;
+          return "http://".$_SERVER['SERVER_NAME'].":85" .$_SERVER['CONTEXT_PREFIX'] .$url;
        }
        else
        {

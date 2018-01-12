@@ -9,10 +9,10 @@
 
 namespace Core\App;
 
+use Apps\Api\Api;
 use Apps\Cms\Cms;
 use Core\Core\Core;
 use Core\View\ContentView;
-use Runner;
 
 
 /**
@@ -53,6 +53,13 @@ class App
 
         $core->MasterView = $this->appBase->GetMasterView();
 
+        if($app == "Api")
+        {
+            $api = new Api($core);
+            echo $api->Execute();
+            return;
+        }
+        
         //Execute action on app
         if(!AppManager::IsApp($app))
         {
