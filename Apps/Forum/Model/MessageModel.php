@@ -6,13 +6,13 @@
  * Jérôme Oliva
  * GNU Licence
  */
-namespace Apps\Forum\Modele;
+namespace Apps\Forum\Model;
 
 use Apps\Forum\Entity\ForumCategory;
-use Core\Modele\Modele;
+use Core\Model\Model;
 use Core\Utility\Date\Date;
 
-class MessageModele extends Modele
+class MessageModel extends Model
 {
     /*
      * Category of the message

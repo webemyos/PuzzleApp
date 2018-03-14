@@ -13,8 +13,8 @@ use Apps\Forum\Entity\ForumCategory;
 use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Entity\ForumMessage;
 use Apps\Forum\Helper\MessageHelper;
-use Apps\Forum\Modele\MessageModele;
-use Apps\Forum\Modele\ReponseModele;
+use Apps\Forum\Model\MessageModel;
+use Apps\Forum\Model\ReponseModel;
 use Apps\Profil\Profil;
 use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Control\Button\Button;
@@ -338,8 +338,8 @@ use Core\View\View;
           $view->AddElement(new ElementView("Message", $message));
           $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
           
-          //Modele for add Reponse
-          $modele = new ReponseModele($this->Core);
+          //Model for add Reponse
+          $modele = new ReponseModel($this->Core);
           $modele->SetSujetId($message->IdEntite);
           $view->SetModel($modele);
           
@@ -438,8 +438,8 @@ use Core\View\View;
           $view->AddElement(new ElementView("Category", $category));
           $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
            
-          //Add Message Modele
-          $modele = new MessageModele($this->Core);
+          //Add Message Model
+          $modele = new MessageModel($this->Core);
           $modele->SetCategory($category);
           $view->SetModel($modele);
           

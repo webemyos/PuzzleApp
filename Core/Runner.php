@@ -52,7 +52,7 @@ class Runner
 
                 return;
             }
-
+ 
             $core->Init();
 
             //Show Uploader
@@ -108,6 +108,8 @@ class Runner
         } 
         catch (Exception $ex) 
         {
+            print_r($ex);
+            
             $View = new View("../View/Core/Exception/exception.tpl", $core);
             
             if(!$debug)

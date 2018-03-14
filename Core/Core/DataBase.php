@@ -34,16 +34,16 @@ class DataBase implements IDataBase
 
 		if($server != "")
 		{
-			$erreur="";
+                    	$erreur="";
 
-			//Connection � la base de donn�e
-			$this->connection = @mysql_connect($server,$login,$pass) ;
-			$erreurBase = @mysql_select_db($baseName,$this->connection);
+                        //Connection � la base de donn�e
+			$this->connection = mysqli_connect($server,$login,$pass) ;
+			$erreurBase = mysqli_select_db($this->connection, $baseName);
 
-			if(!$this->connection)
-			 throw new Exception("Probleme serveur :".mysql_error());
+            		if(!$this->connection)
+			 throw new Exception("Probleme serveur :".mysqli_error());
 			if(!$erreurBase)
-			 throw new Exception("Probleme Base de donnee :" .mysql_error() );
+			 throw new Exception("Probleme Base de donnee :" .mysqli_error() );
 
 			Log::Title(DB,"Connection",INFO);
 		}
@@ -54,7 +54,7 @@ class DataBase implements IDataBase
          */
         function SelectDb($baseName)
         {
-            @mysql_select_db($baseName, $this->connection);
+            @mysqli_select_db($baseName, $this->connection);
         }
         
 	/*
@@ -69,21 +69,21 @@ class DataBase implements IDataBase
             $result="";
             
             if($requete !="")
-                $res=mysql_query(''.$requete.'');
+                $res=mysqli_query($this->connection, ''.$requete.'');
             else
-                $res=mysql_query($this->CommandText);
+                $res=mysqli_query($this->connection, $this->CommandText);
 
             //Log de l'erreur
             if(!$res)
             {
-                throw new  Exception(mysql_error());
+                throw new  Exception(mysqli_error());
                 
-                Log::Write(DB," GetLine : ".mysql_error() ,ERR);
+                Log::Write(DB," GetLine : ".mysqli_error() ,ERR);
                 return false;
             }
             else
             {
-                $result=mysql_fetch_assoc($res);
+                $result=mysqli_fetch_assoc($res);
 
                 Log::Write(DB," GetLine : ".$requete ,INFO);
 
@@ -98,16 +98,16 @@ class DataBase implements IDataBase
 	 * */
 	function GetArray($requete="")
 	{
-          	//Execution de la requete
+            //Execution de la requete
 		if($requete !="")
-			$res=mysql_query($requete);
+                    $res=mysqli_query($this->connection, $requete);
 		else
-			$res=mysql_query($this->CommandText);
+                    $res=mysqli_query($this->connection, $this->CommandText);
 
-		//Log de l'erreur
+            	//Log de l'erreur
 		if(!$res)
 		{
-			Log::Write(DB," GetArray : ".mysql_error() ,ERR);
+	            Log::Write(DB," GetArray : ".mysqli_error() ,ERR);
 		 	return false;
 		}
 		else
@@ -116,7 +116,7 @@ class DataBase implements IDataBase
 			$i=0 ;
 			$Tab=array();
 			//Parcourt des lignes
-			while($lines=mysql_fetch_assoc($res))
+			while($lines=mysqli_fetch_assoc($res))
 			{
 				foreach($lines as $Key=>$Value)
 				{
@@ -165,11 +165,11 @@ class DataBase implements IDataBase
               Trace::Sql($requete);
               
 		Log::Write(DB," Execute : ".$requete , INFO);
-         if(mysql_query($requete))
+         if(mysqli_query($requete))
          {}
          else
          {
-             echo mysql_error();
+             echo mysqli_error();
          }
          
          return true ;
@@ -188,7 +188,7 @@ class DataBase implements IDataBase
 		{
 			if(!DataBase::Execute($request[$i]))
 			{
-				Log::Write(DB,mysql_error(),ERR);
+				Log::Write(DB,mysqli_error(),ERR);
 				return false;
 			}
 		}
@@ -202,7 +202,7 @@ class DataBase implements IDataBase
 	 */
 	function GetInsertedId()
 	{
-            return mysql_insert_id();
+            return mysqli_insert_id();
 	}
 }
 

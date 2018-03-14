@@ -35,10 +35,9 @@ class Notify extends Application
      /**
       * Execution de l'application
       */
-     function Run($core="", $app="", $app="")
+     function Run()
      {
-        $textControl = parent::Run($this->Core, "Notify", "Notify");
-        echo $textControl;
+        echo parent::RunApp($this->Core, "Notify", "Notify");
      }
 
 

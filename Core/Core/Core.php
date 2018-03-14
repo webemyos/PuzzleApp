@@ -109,7 +109,7 @@ class Core
                         $this->Config->GetKey("DATABASELOGIN"),
                         $this->Config->GetKey("DATABASEPASS")
                 );
-
+              
                 //Gestion des langues
                 $this->Lang=new Language($this);
 

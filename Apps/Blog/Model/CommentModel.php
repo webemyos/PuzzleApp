@@ -41,7 +41,6 @@ class CommentModel extends Model
         //Get The Defaul blog
         $this->Entity->UserId->Value = $this->Core->User->IdEntite;
         $this->Entity->Actif->Value = false;
-               
         
         if(Request::GetPost("Message"))
         {

@@ -26,7 +26,7 @@ class Router
         
         if($_SERVER["HTTP_HOST"] == "localhost:85")
         {
-            $route = new Route($url[2], isset($url[3])?$url[3]:"", isset($url[4])?$url[4]:"");
+            $route = new Route($url[3], isset($url[4])?$url[4]:"", isset($url[5])?$url[5]:"");
         }
         else
         {

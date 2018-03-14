@@ -220,7 +220,7 @@ Dashboard.IncludeJs = function(application, widget, url, source)
   }
   else
   {
-     script.setAttribute('src', 'script.php?a=' + application);
+     script.setAttribute('src', '../script.php?a=' + application);
   }
   document.body.appendChild(script);
   //TODO Verifier que le script existe
@@ -244,7 +244,7 @@ Dashboard.IncludeJs = function(application, widget, url, source)
   }
   else
   {
-    script.setAttribute('href', 'style.php?a=' + application);
+    script.setAttribute('href', '../style.php?a=' + application);
   }
   script.setAttribute('rel', 'stylesheet');
   document.body.appendChild(script);
@@ -549,11 +549,11 @@ Dashboard.LoadDiv = function(searchDiv, methode, parameter, url, mode)
         JAjax.mode = mode;
 
         JAjax.Control = div;
-        JAjax.GetRequest("Ajax.php");
+        JAjax.GetRequest("../Ajax.php");
    }
    else
    {
-        div.innerHTML = JAjax.GetRequest("Ajax.php");
+        div.innerHTML = JAjax.GetRequest("../Ajax.php");
    }
 };
 
@@ -614,7 +614,7 @@ Dashboard.LoadControl = function (searchDiv, data, height, balise, appName, mode
 		}
 		else
 		{
-                  	dvControl.innerHTML = JAjax.GetRequest("Ajax.php");
+                  	dvControl.innerHTML = JAjax.GetRequest("../Ajax.php");
                 }
 
 	if(typeof(height) != "undefined")

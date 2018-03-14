@@ -202,6 +202,7 @@ ajax = function()
 	//envoi de la requete
 	this.GetRequest=function(fichier)
   	{
+                fichier = "../Ajax.php";
 
   		this.CreateRequete();
   		typef = fichier.substring(fichier.indexOf("."));

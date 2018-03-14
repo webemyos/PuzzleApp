@@ -17,6 +17,7 @@ use Apps\Base\Module\SingUp\SingUpController;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
+use Core\Entity\User\User;
 
 
 /**
@@ -125,8 +126,8 @@ class Base extends Application
     {
        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Install"));
        $this->Core->MasterView->Set("Description", $this->Core->GetCode("InstallSite"));
-       
-        if(Request::IsPost())
+   
+       if(Request::IsPost())
         {
             InstallHelper::Install($this->Core,
                                    Request::GetPost("Serveur"),
