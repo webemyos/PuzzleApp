@@ -9,10 +9,13 @@ namespace Apps\Mooc;
 
 use Apps\Mooc\Helper\CategoryHelper;
 use Apps\Mooc\Helper\MoocHelper;
+use Apps\Mooc\Helper\SitemapHelper;
 use Apps\Mooc\Module\Admin\AdminController;
 use Apps\Mooc\Module\Mooc\MoocController;
 use Apps\Mooc\Module\Search\SearchController;
 use Apps\Mooc\Module\Front\FrontController;
+use Apps\Mooc\Entity\MoocMooc;
+use Apps\Mooc\Entity\MoocLesson;
 use Core\App\Application;
 use Core\Control\Image\Image;
 use Core\Core\Request;
@@ -65,7 +68,10 @@ class Mooc extends Application
      */
     public function Mooc($params)
     {
-        $this->Core->MasterView->Set("Title", "Mooc");
+        $Mooc = new MoocMooc($this->Core);
+        $Mooc = $Mooc->GetByCode($params);
+
+        $this->Core->MasterView->Set("Title",  $Mooc->Name->Value);
          
         $frontConroller = new FrontController($this->Core);
         return $frontConroller->Mooc($params);
@@ -77,8 +83,11 @@ class Mooc extends Application
      */
     public function Lesson($params)
     {
-        $this->Core->MasterView->Set("Title", "Lessons");
-         
+        $MoocLesson = new MoocLesson($this->Core);
+        $MoocLesson = $MoocLesson->GetByCode($params);
+
+        $this->Core->MasterView->Set("Title",  $MoocLesson->Name->Value);
+
         $frontConroller = new FrontController($this->Core);
         return $frontConroller->Lesson($params);
     }
@@ -367,7 +376,7 @@ class Mooc extends Application
      */
     function GetImages()
     {
-      echo MoocHelper::GetImages(Request::GetPost("moocId"));
+      echo MoocHelper::GetImages($this->Core, Request::GetPost("moocId"));
     }
 
      /**
@@ -388,6 +397,14 @@ class Mooc extends Application
         $image = new \Core\Utility\ImageHelper\ImageHelper();
         $image->load($directory.$idElement."/".$fileName);
         $image->fctredimimage(48, 0,$directory.$idElement."/".$fileName."_96.jpg");
+    }
+
+    /**
+     * Get The siteMap 
+     */
+    public function GetSiteMap()
+    {
+        return SitemapHelper::GetSiteMap($this->Core);
     }
 }
 ?>

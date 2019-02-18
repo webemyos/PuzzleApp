@@ -53,7 +53,7 @@ class ControlColumn extends Control implements IColumn
   	{
 	  	foreach($this->Style as $style)
 	  	{
-          $styleValue= split(":",$style);
+          $styleValue= explode(":",$style);
           $TextControl->AddStyle($styleValue[0],$styleValue[1]);
 	  	}
   	}

@@ -43,8 +43,7 @@ class Task extends Application
       */
      function Run()
      {
-            $textControl = parent::Run($this->Core, "Task", "Task");
-            echo $textControl;
+        return parent::RunApp($this->Core, "Task", "Task");
      }
 
     /**

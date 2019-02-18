@@ -10,7 +10,7 @@ class Tools
     protected $Title;
     protected $OnClick;
     
-    function Tools($core)
+    function __construct($core)
     {
        $this->Core = $core; 
     }

@@ -179,9 +179,12 @@ class SqlRequestBuilder
         if($orders != "")
         {
             if($entity->Asc)
-                $orders .= " asc";
+            {
+               // $orders .= " asc";
+            }
             else
-                $orders .= " desc";
+           {  // $orders .= " desc";
+           }
 
            return " ORDER BY " . $orders;
         }
@@ -272,7 +275,8 @@ class SqlRequestBuilder
         //Parcours des proprietes
         foreach($entity->GetProperty() as $propertie)
         {
-
+            if($propertie->Value !="")
+            {
           //  echo get_class($propertie) . " : " . get_class($propertie->Control);
             
             if(get_class($propertie) != "SqlProperty")
@@ -346,6 +350,7 @@ class SqlRequestBuilder
                         $elementlang->SaveElement($entity->Core->GetLang("code"), $entity->IdEntite, $entity->Libelle->Value, isset($entity->Description)?$entity->Description->Value:"");
                     }
                 }
+             }
             }
         }
         $update .= $entity->TableName." AS ".$entity->Alias." SET ".$fields;
@@ -369,5 +374,46 @@ class SqlRequestBuilder
         }
         
         return $delete;
+    }
+
+    /**
+     * Créer les requets multiples
+     */
+    public static function Flush($entity)
+    {
+        $keys = array();
+        $finalValue = "";
+        $i=0;
+
+        //INsert Request 
+        foreach($entity->Inserts as $insert)
+        {
+            $values = array();
+
+            foreach($insert as $key=>$value)
+            {
+                if($i==0){
+                    $keys[] = $key;
+                }
+
+                $values[] = "'"  . $value . "'";
+            }
+
+            if($finalValue != "")
+            {
+                $finalValue .= ",";    
+            }
+
+            $finalValue .= "(" . implode(",", $values) . ")"; 
+
+            $i++;
+        }
+        
+        $sql = "INSERT INTO " . $entity->TableName;
+        $sql .= "(" . implode(",", $keys)  . ")" ;
+        $sql .= " VALUES ";
+        $sql .= $finalValue;
+
+        return $sql;
     }
 }

@@ -6,6 +6,8 @@ use Apps\Forum\Entity\ForumForum;
 use Apps\Forum\Helper\CategoryHelper;
 use Apps\Forum\Helper\ForumHelper;
 use Apps\Forum\Helper\MessageHelper;
+use Apps\Forum\Helper\SitemapHelper;
+
 use Apps\Forum\Module\Admin\AdminController;
 use Apps\Forum\Module\Category\CategoryController;
 use Apps\Forum\Module\Forum\ForumController;
@@ -13,6 +15,7 @@ use Apps\Forum\Module\Message\MessageController;
 use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
+use Core\Utility\Format\Format;
 
 /**
  * Application de gestion des forums
@@ -58,7 +61,16 @@ class Forum extends Application {
     function Sujet($params)
     {
         $forumController = new ForumController($this->Core);
-        return $forumController->ShowMessage($params, true);
+        $html = $forumController->ShowMessage($params, true);
+
+        if(Request::GetPost("Message"))
+        {
+            $this->Core->Redirect($this->Core->GetPath("/Forum/Sujet/" .$params ));
+        }
+        else
+        {
+            return $html;
+        }
     }
    
     /*
@@ -69,7 +81,16 @@ class Forum extends Application {
         $this->Core->MasterView->Set("Title", $this->Core->GetCode("Forum.NewDiscussion"));
         
         $forumController = new ForumController($this->Core);
-        return $forumController->NewDiscussion($params);
+        $html = $forumController->NewDiscussion($params);
+
+        if(Request::GetPost("Title"))
+        {
+            $this->Core->Redirect($this->Core->GetPath("/Forum/Sujet/" .Format::ReplaceForUrl(Request::GetPost("Title"))));
+        }
+        else
+        {
+            return $html;
+        }
     }
     
     /**
@@ -129,7 +150,13 @@ class Forum extends Application {
      */
     function UpdateForum() {
         if (Request::GetPost("tbName") != "") {
-            ForumHelper::Update($this->Core, Request::GetPost("forumId"), Request::GetPost("tbName"), Request::GetPost("tbDescription"));
+
+            ForumHelper::Update($this->Core, 
+                                Request::GetPost("forumId"),
+                                Request::GetPost("tbName"), 
+                                Request::GetPost("tbDescription"), 
+                                Request::GetPost("cbDefault") 
+                            );
         }
 
         $forumController = new ForumController($this->Core);
@@ -288,6 +315,14 @@ class Forum extends Application {
     function LoadAdmin() {
         $adminController = new AdminController($this->Core);
         echo $adminController->Show();
+    }
+
+      /**
+     * Get The siteMap 
+     */
+    public function GetSiteMap()
+    {
+        return SitemapHelper::GetSiteMap($this->Core);
     }
 
 }

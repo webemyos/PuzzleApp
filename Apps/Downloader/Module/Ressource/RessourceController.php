@@ -72,9 +72,13 @@ class RessourceController extends Controller
      
         if($ressourceId != "")
         {
-             $upload = new Upload("Downloader", $ressourceId, "DownloaderAction.LoadMyRessource()", "UploadRessource", "EeFileUpload");
-
-            $controls[] =    array("Type"=>"Libelle", "Libelle" => $this->Core->GetCode("Dowload"), "Value"=> $upload->Show(true));
+            $controls[] =    array("Type"=>"Upload", 
+                                   "Libelle" => $this->Core->GetCode("Dowload"), 
+                                   "App"=> "Downloader",
+                                    "IdEntite"=> $ressourceId,
+                                    "CallBack"=>"DownloaderAction.LoadMyRessource()",
+                                    "Action"=>"UploadRessource"
+                                    );
         }     
         
         $jbRessource->AddControls($controls);

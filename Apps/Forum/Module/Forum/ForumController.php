@@ -143,9 +143,7 @@ use Core\View\View;
             //Ajout des onglets
             $tbForum->AddTab($this->Core->GetCode("Property"), $this->GetTabProperty($forum, $forumId));
             $tbForum->AddTab($this->Core->GetCode("Category"), $this->GetTabCategory($forum, $forumId));
-           // $tbForum->AddTab($this->Core->GetCode("Lecteur"), $this->GetTabLecteur($forum));
-           // $tbForum->AddTab($this->Core->GetCode("Articles"), $this->GetTabArticles($forum));
-
+       
             return $tbForum->Show();
         }
 
@@ -169,6 +167,8 @@ use Core\View\View;
             $jbForum->AddControls(array(
                                           array("Type"=>"TextBox", "Name"=> "tbName", "Libelle" => $this->Core->GetCode("Name"), "Value" => $forum->Name->Value),
                                           array("Type"=>"TextArea", "Name"=> "tbDescription", "Libelle" => $this->Core->GetCode("Description"), "Value" => $forum->Description->Value),
+                                          array("Type"=>"CheckBox", "Name"=> "cbDefault", "Libelle" => $this->Core->GetCode("Default"), "Value" => $forum->Default->Value),
+                                       
                                           array("Type"=>"Button", "CssClass"=>"btn btn-primary",  "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                               )
                     );
@@ -270,7 +270,7 @@ use Core\View\View;
             $forum = $forum->GetByName($name);
 
             //Titre et description
-            if($front)
+            if($this->Core->MasterView != null)
             {
                 $this->Core->MasterView->Set("Title", "Forum");
                 $this->Core->MasterView->Set("Title", $forum->Description->Value);
@@ -323,14 +323,14 @@ use Core\View\View;
       * Affiche un message et les réponses
       */
       function ShowMessage($sujet, $front)
-      {
+      { 
           //Recuperation du message
           $message = new ForumMessage($this->Core);
-          $message->GetById($sujet);
+          $message = $message->GetByCode($sujet);
 
           if($front)
           {
-            $this->Core->MasterView->Set("Title", "Forum - Discussion : " . $message->Title->Value);
+            $this->Core->MasterView->Set("Title", $message->Title->Value);
             $this->Core->MasterView->Set("Description", $message->Message->Value);
           }
           
@@ -339,9 +339,9 @@ use Core\View\View;
           $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
           
           //Model for add Reponse
-          $modele = new ReponseModel($this->Core);
-          $modele->SetSujetId($message->IdEntite);
-          $view->SetModel($modele);
+          $Model = new ReponseModel($this->Core);
+          $Model->SetSujetId($message->IdEntite);
+          $view->SetModel($Model);
           
           $view->AddElement(new ElementView("Reponses", MessageHelper::GetReponse($this->Core, $message->IdEntite)));
  
@@ -439,10 +439,11 @@ use Core\View\View;
           $view->AddElement(new ElementView("Connected", $this->Core->IsConnected()));
            
           //Add Message Model
-          $modele = new MessageModel($this->Core);
-          $modele->SetCategory($category);
-          $view->SetModel($modele);
-          
+          $Model = new MessageModel($this->Core);
+          $Model->SetCategory($category);
+          $view->SetModel($Model); 
+
+                  
           return $view->Render();
       }
 

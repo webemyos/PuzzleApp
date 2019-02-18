@@ -36,10 +36,10 @@ class ElementHelper
     /*
      * Met a jour un element dans la langue courante
      */
-    public function UpdateElement($core, $idElement, $value)
+    public static function UpdateElement($core, $idElement, $value)
     {
         //Recuperation de l'identifiant de la langue
-        $Lang = new Langs($this->Core);
+        $Lang = new Langs($core);
         $Lang->AddArgument(new Argument("Core\Entity\Langs\Langs","Code",EQUAL, $core->GetLang()));
         $Langs=$Lang->GetByArg();
                 

@@ -15,7 +15,7 @@
         {{foreach Messages}}
         <tr>
             <td>
-                <a href='{{GetPath(/Forum/Sujet/{{element->IdEntite}}/{{element->Title->Value}})}}'> 
+                <a href='{{GetPath(/Forum/Sujet/{{element->Code->Value}})}}'> 
                     {{element->Title->Value}}
                 </a>
             </td>

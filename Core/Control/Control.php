@@ -111,7 +111,8 @@ class Control
 		$html .=($this->CssClass !="")?" class='".$this->CssClass."' " :  "";
 		$html .=($this->Style !="")?"    style='".$this->Style."'    "  :  "";
 		$html .=($this->Attribute !="")? $this->Attribute : "";
-                $html .=($this->Required == true)?" required "  :  "";
+	      //  $html .= $this->Required;
+                $html .=($this->Required === true || $this->Required === "1"  )?" required "  :  "";
 	
 		if($addValue)
 		{

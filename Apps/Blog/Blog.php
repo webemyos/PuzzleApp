@@ -21,6 +21,8 @@ use Apps\Blog\Helper\ArticleHelper;
 use Apps\Blog\Helper\BlogHelper;
 use Apps\Blog\Helper\CategoryHelper;
 use Apps\Blog\Helper\CommentHelper;
+use Apps\Blog\Helper\SitemapHelper;
+
 use Apps\Blog\Module\Article\ArticleController;
 use Apps\Blog\Module\Blog\BlogController;
 use Apps\Blog\Module\Category\CategoryController;
@@ -446,6 +448,14 @@ class Blog extends Application
     function Synchronise()
     {
        echo BlogHelper::Synchronise($this->Core, Request::GetPost("BlogId"));
+    }
+
+      /**
+     * Get The siteMap 
+     */
+    public function GetSiteMap()
+    {
+        return SitemapHelper::GetSiteMap($this->Core);
     }
 }
 ?>

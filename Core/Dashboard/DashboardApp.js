@@ -331,7 +331,7 @@ Dashboard.MnimizeApp = function(e)
 
     //Ajout dans la barre de menu
     var tdApp = document.getElementById("tdApp");
-    tdApp.innerHTML += "<img onclick='Dashboard.RestoreApp(this)'  id='"+appName[0].value+"' src='../Apps/"+appName[0].value +"/Images/logo.png'  title='" + appName[0].value +"' />    ";    
+    tdApp.innerHTML += "<p style='display:inline' onclick='Dashboard.RestoreApp(this)'  id='"+appName[0].value+"' >" + appName[0].value +" </p>    ";    
 
     Dashboard.AppStarted = null;
 
@@ -390,7 +390,7 @@ Dashboard.RestoreApp = function (element, appName)
   //Suppression de la barre
   var tdApp = document.getElementById("tdApp");
 
-  appStarted = tdApp.getElementsByTagName("img");
+  appStarted = tdApp.getElementsByTagName("p");
 
   for(i = 0; i <appStarted.length; i++)
   {

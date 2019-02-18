@@ -391,5 +391,13 @@ class Application
     {
         return (file_exists("front.php"));
     }
+
+    /**
+     * Get The siteMap 
+     */
+    public function GetSiteMap()
+    {
+
+    }
 }
 ?>

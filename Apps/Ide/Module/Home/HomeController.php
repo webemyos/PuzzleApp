@@ -62,7 +62,7 @@ class HomeController extends Controller
            //Creation de projet
            $btnNewProjet = new Button(BUTTON);
            $btnNewProjet->CssClass = "btn btn-success";
-           $btnNewProjet->Value = $this->Core->GetCode("EeIde.StartProjet");
+           $btnNewProjet->Value = $this->Core->GetCode("Ide.StartProjet");
            $btnNewProjet->OnClick = "IdeAction.NewProjet()";
            
            $html .= $btnNewProjet->Show();

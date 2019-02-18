@@ -12,6 +12,7 @@ namespace Apps\Forum\Entity;
 use Core\Entity\Entity\Entity;
 use Core\Entity\Entity\EntityProperty;
 use Core\Entity\Entity\Property;
+use Core\Entity\User\User;
 
 class ForumReponse extends Entity  
 {
@@ -37,6 +38,16 @@ class ForumReponse extends Entity
 
         //Creation de l entité 
         $this->Create(); 
+    }
+
+        /*
+     * Get The user
+     */
+    function GetUser()
+    {
+        $user = new User($this->Core);
+        $user->GetById($this->UserId->Value);
+        return $user->GetPseudo();
     }
 }
 ?>

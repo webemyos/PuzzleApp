@@ -307,7 +307,7 @@ IdeElement.LoadRefreshModule = function()
 {
     var data = "Class=Ide&Methode=LoadModule&App=Ide&Projet=" +  Ide.Projet;
     Dashboard.LoadControl("lstBlock", data, "" , "div", "Ide");
-}
+};
 
 /**
  * Pop in d'ajout d'une entité
@@ -355,7 +355,7 @@ IdeElement.ShowTableElement = function(table)
     { 
         $("#"+table).hide();
     }
-}
+};
 
 /**
  * Ajoute une ligne de champ

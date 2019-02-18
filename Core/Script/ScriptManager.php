@@ -33,7 +33,7 @@ class ScriptManager
             {
                case "Dashboard":
                   $script =  ScriptManager::GetDashBoard();
-                  //$script = ScriptManager::Minify($script);
+                  $script = ScriptManager::Minify($script);
                break;
             }
         }
@@ -48,7 +48,10 @@ class ScriptManager
     {
         $scripts  = File::GetFileContent(dirname(__DIR__)."/Dashboard/Dashboard.js");
         $scripts  .= File::GetFileContent(dirname(__DIR__)."/Dashboard/DashboardApp.js");
+        $scripts  .= File::GetFileContent(dirname(__DIR__)."/Dashboard/DashboardModule.js");
         $scripts  .= File::GetFileContent(dirname(__DIR__)."/Dashboard/DashboardWidget.js");
+        $scripts  .= File::GetFileContent(dirname(__DIR__)."/Core/Request.js");
+        $scripts  .= File::GetFileContent(dirname(__DIR__)."/Core/Dom.js");
 
         return $scripts;
     }
@@ -56,10 +59,41 @@ class ScriptManager
     /*
      * Get Application Script
      */
-    public static function GetApp($a, $type)
+    public static function GetApp($a, $m, $type)
     {
         $core = Core::GetInstance();
-        $script  = File::GetFileContent(dirname(dirname(__DIR__)). "/Apps/".$a. "/".$a.".".$type);
+        if($m != "")
+        {
+            $directory = dirname(dirname(__DIR__)). "/Apps/".$a. "/Module/".$m."/";
+            $script  = File::GetFileContent( $directory.$m."Controller.".$type);
+
+            //Ajout des vue dans un tableau js
+            $ViewsArray = $a . $m . "View";
+            $Views = "var ".$ViewsArray . " = new Array();";
+
+            if($dossier = opendir($directory . "View"))
+            {
+                while(false !== ($fichier = readdir($dossier)))
+                {
+                    if($fichier != '.' && $fichier != '..' && $fichier != 'index.php')
+                    {
+                        if (stripos($fichier, '.jtpl') !== FALSE) {
+                            
+                            $content = File::GetFileContent($directory ."View/" .$fichier);
+
+                            $Views .= $ViewsArray.".push(new Array('" .$fichier. "', '".$content."'));"; 
+                        }
+                        
+                    }
+                }
+
+                $script .= "\n\r".  $Views;
+            }
+        }
+        else
+        {
+            $script  = File::GetFileContent(dirname(dirname(__DIR__)). "/Apps/".$a. "/".$a.".".$type);
+        }
 
         if($type == "js" && $core->Debug === false)
         {
@@ -102,7 +136,7 @@ class ScriptManager
 
         foreach($folders as $folder)
         {
-            if($dossier = opendir(dirname(__DIR__)."/".$folder))
+           if($dossier = opendir(dirname(__DIR__)."/".$folder))
             {
                 while(false !== ($fichier = readdir($dossier)))
                 {
@@ -112,7 +146,6 @@ class ScriptManager
                         {
                            while(false !== ($script = readdir($child)))
                             {
-                              // echo $script;
                                if( strpos($script, ".js") !== false)
                                {
                                 $scripts  .= File::GetFileContent(dirname(__DIR__)."/".$folder."/".$fichier . "/". $script);

@@ -47,18 +47,18 @@ class User extends Entity
         $this->Groupe=new EntityProperty("Core\Entity\Group\Group","GroupeId");
 
         //Identifiant
-        $this->Email =new Property($this->Core->GetCode("Email"),"Email",TEXTBOX,true,$this->Alias);
-        $this->Pseudo =new Property($this->Core->GetCode("Pseudo"),"Pseudo",TEXTBOX,false,$this->Alias);
+        $this->Email =new Property("Email","Email",TEXTBOX,true,$this->Alias);
+        $this->Pseudo =new Property("Pseudo","Pseudo",TEXTBOX,false,$this->Alias);
 
-        $this->PassWord =new Property("Password","Password",PASSWORD,true,$this->Alias);
+        $this->PassWord =new Property("Password","Password",PASSWORD,false,$this->Alias);
 
-        $this->Name=new Property($this->Core->GetCode("Name"),"Name",TEXTBOX,false,$this->Alias);
-        $this->FirstName=new Property($this->Core->GetCode("FirstName"),"FirstName",TEXTBOX,false,$this->Alias);
-        $this->Sexe=new Property($this->Core->GetCode("Sexe"),"Sexe",NUMERICBOX,false,$this->Alias);
-        $this->BirthDate=new Property($this->Core->GetCode("BirthDate"),"BirthDate",DATEBOX,false,$this->Alias);
+        $this->Name=new Property("Name","Name",TEXTBOX,false,$this->Alias);
+        $this->FirstName=new Property("FirstName","FirstName",TEXTBOX,false,$this->Alias);
+        $this->Sexe=new Property("Sexe","Sexe",TEXTBOX,false,$this->Alias);
+        $this->BirthDate=new Property("BirthDate","BirthDate",DATEBOX,false,$this->Alias);
 
         $this->CountryId=new Property("CountryId","CountryId",TEXTBOX,false,$this->Alias);
-        //$this->Country=new EntityProperty($this->Core->GetCode("Country"),"CountryId",TEXTBOX,false,$this->Alias);
+       // $this->Country=new EntityProperty($this->Core->GetCode("Country"),"CountryId",TEXTBOX,false,$this->Alias);
 
         $this->CityId=new Property("CityId","CityId",TEXTBOX,false,$this->Alias);
         $this->City=new EntityProperty("Core\Entity\City\City","CityId",TEXTBOX,false,$this->Alias);
@@ -81,10 +81,10 @@ class User extends Entity
         $this->DateConnect = new Property("DateConnect", "DateConnect", DATETIMEBOX, false,$this->Alias);
 
         //Identifiant facebook
-        $this->FacebookId=new Property("FacebookId","FacebookId",TEXTBOX,false,$this->Alias);
+        //$this->FacebookId=new Property("FacebookId","FacebookId",TEXTBOX,false,$this->Alias);
 
         //Position dans le jeux
-        $this->Position = new Property("Position","Position",TEXTBOX,false,$this->Alias);
+       // $this->Position = new Property("Position","Position",TEXTBOX,false,$this->Alias);
         $this->Description = new Property("Description","Description",TEXTAREA,false,$this->Alias);
 
         //Creation de l'entit�
@@ -109,19 +109,19 @@ class User extends Entity
     }
 
     //Verifie si un utilisateur existe
-    function Exist($userId ="")
+    function Exist($email)
     {
         $User = new User($this->Core);
-        $User->AddArgument(new Argument("Core\Entity\User\User","Email",EQUAL,$this->Email->Value));
+        $User->AddArgument(new Argument("Core\Entity\User\User","Email",EQUAL,$email));
 
         if($userId != "")
         {
             $User->AddArgument(new Argument("Core\Entity\User\User","IdEntite",NOTEQUAL,$userId));
         }
 
-        $Users = $User->GetByArg();
-
-        if(sizeof($Users) > 0)
+		$Users = $User->GetByArg();
+	
+        if(count($Users) > 0)
         {
             return true;
         }

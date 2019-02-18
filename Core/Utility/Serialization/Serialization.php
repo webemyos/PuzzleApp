@@ -98,9 +98,14 @@ namespace Core\Utility\Serialization;
      * Sérialize a liste of Entitu 
      * And retun Pair Key : Value 
      */
-    public static function SerializeKeyValue($objects, $keys, $value)
+    public static function SerializeKeyValue($objects, $keys, $value, $addEmpty = false)
     {
         $data = array();
+        
+        if($addEmpty)
+        {
+            $data[] = ":-";  
+        }
         
         foreach($objects as $object )
         {

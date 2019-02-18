@@ -213,7 +213,7 @@ class AjaxFormBlock extends Block
 
             $action->AddControl($ctr->Id);
 
-            if($control["Type"] == "Button"  || $control["Type"] == "UploadAjaxFile" )
+            if($control["Type"] == "Button"  || $control["Type"] == "Upload" )
             {
                 $block->AddNew($ctr, 2, ALIGNRIGHT);
             }

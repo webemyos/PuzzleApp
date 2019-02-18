@@ -41,9 +41,9 @@ class DataBase implements IDataBase
 			$erreurBase = mysqli_select_db($this->connection, $baseName);
 
             		if(!$this->connection)
-			 throw new Exception("Probleme serveur :".mysqli_error());
+			 throw new Exception("Probleme serveur :".mysqli_error($this->connection));
 			if(!$erreurBase)
-			 throw new Exception("Probleme Base de donnee :" .mysqli_error() );
+			 throw new Exception("Probleme Base de donnee :" .mysqli_error($this->connection));
 
 			Log::Title(DB,"Connection",INFO);
 		}
@@ -76,9 +76,9 @@ class DataBase implements IDataBase
             //Log de l'erreur
             if(!$res)
             {
-                throw new  Exception(mysqli_error());
+                throw new  Exception(mysqli_error($this->connection));
                 
-                Log::Write(DB," GetLine : ".mysqli_error() ,ERR);
+                Log::Write(DB," GetLine : ".mysqli_error($this->connection) ,ERR);
                 return false;
             }
             else
@@ -107,7 +107,7 @@ class DataBase implements IDataBase
             	//Log de l'erreur
 		if(!$res)
 		{
-	            Log::Write(DB," GetArray : ".mysqli_error() ,ERR);
+	            Log::Write(DB," GetArray : ".mysqli_error($this->connection) ,ERR);
 		 	return false;
 		}
 		else
@@ -165,11 +165,11 @@ class DataBase implements IDataBase
               Trace::Sql($requete);
               
 		Log::Write(DB," Execute : ".$requete , INFO);
-         if(mysqli_query($requete))
+         if(mysqli_query($this->connection, $requete))
          {}
          else
          {
-             echo mysqli_error();
+             echo mysqli_error($this->connection);
          }
          
          return true ;
@@ -202,7 +202,7 @@ class DataBase implements IDataBase
 	 */
 	function GetInsertedId()
 	{
-            return mysqli_insert_id();
+            return mysqli_insert_id($this->connection);
 	}
 }
 

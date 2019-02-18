@@ -27,17 +27,18 @@ class CacheManager
         $core = Core::GetInstance();
         $lang = $core->GetLang();
 
-
+         
+        $racine = str_replace("/Core/View", "", __DIR__);
+        $template = str_replace($racine, "", $template);
+    
         $cacheTemplate = str_replace("Apps", "Cache", $template);
         
         //Environnement WINDOWS
         //TODO A TESTER POUR LINUX
-        $cacheTemplate = str_replace("/", "\\", $cacheTemplate);
-       
         $cacheTemplate = str_replace("View\\", "View\\".$lang."\\", $cacheTemplate);
         
         //Cache de 1 heure
-       $cacheTemplate = str_replace(".tpl", date("YmjH").".tpl", $cacheTemplate);
+      $cacheTemplate = "..".str_replace(".tpl", date("YmjH").".tpl", $cacheTemplate);
 
         //Search if the Template is rewrite in the APP
         if(file_exists($cacheTemplate) && $core->Debug != true)
@@ -55,7 +56,11 @@ class CacheManager
      */
     public static function Store($template, $content)
     {
-        //Recuperation de la langue courante
+    
+      $racine = str_replace("/Core/View", "", __DIR__);
+      $template = str_replace($racine, "", $template);
+                         
+             //Recuperation de la langue courante
        $lang = Core::GetInstance()->GetLang();
 
        $realPath = str_replace("/Web/", "", $_SERVER['CONTEXT_DOCUMENT_ROOT']);
@@ -66,14 +71,9 @@ class CacheManager
 
        //Géneration du path
        $cachetemplate = str_replace("Apps", "Cache", $template);
-       $cachetemplate = str_replace(lcfirst($search), lcfirst($replace), lcfirst($cachetemplate));
-       
-       //Environnement WINDOWS
-        //TODO A TESTER POUR LINUX
-       $cachetemplate = str_replace("/", "\\", $cachetemplate);
        
        //Cache de 1 heure
-       $cachetemplate = str_replace(".tpl", date("YmjH").".tpl", $cachetemplate);
+       $cachetemplate = "..".str_replace(".tpl", date("YmjH").".tpl", $cachetemplate);
        
        $cachetemplate = str_replace("View\\", "View\\".$lang."\\", $cachetemplate);
 

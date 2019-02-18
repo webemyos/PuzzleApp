@@ -141,7 +141,7 @@ class DashBoardManager
     /**
    * Instancie et retourne l'application
    */
-  public function GetApp($appName, $core)
+  public static function GetApp($appName, $core)
   {
     $path = "\\Apps\\".$appName ."\\".$appName;
         

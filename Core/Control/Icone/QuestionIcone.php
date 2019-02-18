@@ -14,7 +14,7 @@ namespace Core\Control\Icone;
 */
 class QuestionIcone extends Icone
 {
-    function __construct($core)
+    function __construct($core=null)
     {
         $this->CssClass = "fa fa-question";
 

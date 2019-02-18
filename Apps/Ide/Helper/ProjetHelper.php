@@ -127,18 +127,18 @@ class ProjetHelper
             
             //Création du controleur de base
             File::CreateDirectory($destination. "/Module");
-            File::CreateDirectory($destination. "/Module/Home");
-            File::CreateDirectory($destination. "/Module/Home/View");
+            File::CreateDirectory($destination. "/Module/Admin");
+            File::CreateDirectory($destination. "/Module/Admin/View");
             
-            copy(Ide::$Directory. '/Modele/Module/XXXController.php', $destination."/Module/Home/HomeController.php");
-            copy(Ide::$Directory. '/Modele/Module/View/XXX.tpl', $destination."/Module/Home/View/index.tpl");
+            copy(Ide::$Directory. '/Modele/Module/XXXController.php', $destination."/Module/Admin/AdminController.php");
+            copy(Ide::$Directory. '/Modele/Module/View/XXX.tpl', $destination."/Module/Admin/View/index.tpl");
            
-            $content = File::GetFileContent($destination."/Module/Home/HomeController.php");
+            $content = File::GetFileContent($destination."/Module/Admin/AdminController.php");
             $content = str_replace("YYY", $name, $content);
-            $content = str_replace("XXX", "Home", $content);
+            $content = str_replace("XXX", "Admin", $content);
             
             //Enregistrement
-            File::SetFileContent($destination."/Module/Home/HomeController.php", $content);
+            File::SetFileContent($destination."/Module/Admin/AdminController.php", $content);
         
             //Copie du logo
             copy(Ide::$Directory. '/Modele/App/Images/logo.png', $destination."/Images/logo.png");

@@ -10,7 +10,7 @@
 namespace Core\App;
 
 use Core\Core\Core;
-
+use Apps\EeApp\EeApp;
 
 class AppManager
 {
@@ -23,14 +23,17 @@ class AppManager
     * Défine if te system use à app or one page on site base
     *
     */
-   public static function IsApp($app)
+   public static function IsApp($core, $appName)
    {
-       //TODO USE A APPMANAGE
-       //REFLECHIR COMMENT ON TROUVE LES APPS
-       //UTILISER EeAPP ET les app installé
-       $apps = array( "Blog", "Devis", "Solution","Webemyos", "Tutoriel", "Mooc", "Form", "Downloader", "Forum");
+       $eapp = new EeApp();
+       $apps = $eapp->GetAll();
+       $appsName = array();
 
-       return (in_array($app, $apps));
+       foreach($apps as $app)
+       {
+            $appsName[] = $app->Name->Value;
+       }
+       return (in_array($appName, $appsName));
    }
    
    /**

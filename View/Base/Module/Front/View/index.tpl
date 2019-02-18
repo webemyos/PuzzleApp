@@ -34,7 +34,7 @@
 <p>La communauté grandit, des nouvelles applications sont disponibles réguliérement sur le store</p>
 
 
-Venez le découvir en Exclusivité. .
+Venez le découvrir en Exclusivité. .
 
 Comment faire ?
 

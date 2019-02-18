@@ -1,0 +1,10 @@
+<h2>Ajout de modele</h2>
+
+
+Nom
+<input type="text" data-bind="nom" />
+Prenom
+<input type="text" data-bind="prenom" />
+
+
+<button id="btnSave">Sauvegarder</button>

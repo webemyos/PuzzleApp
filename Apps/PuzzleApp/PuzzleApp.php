@@ -45,7 +45,7 @@ class PuzzleApp extends Base
     /*
     * Get The contact Page
    */
-   function Contact()
+   /*function Contact()
    {
       $this->Core->MasterView->Set("Title", $this->Core->GetCode("ContactUs"));
       $this->Core->MasterView->Set("Description", "Une question, envie de discuter musique ou nous présenter vos objets connectés, vos instruments ou simplement envie de nous dire un petit mot ? Contactez nous.");
@@ -67,7 +67,8 @@ class PuzzleApp extends Base
         return parent::contact();
       }
    }
-   
+   */
+  
    /*
     * Store du framework et des applications
     */

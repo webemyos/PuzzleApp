@@ -81,12 +81,41 @@ class ViewManager
         preg_match_all($pattern, $html, $macthes);
         $i = 0;
 
+        $html = str_replace("{{".$key."->IdEntite}}", $value->IdEntite, $html);
+              
+
         foreach($macthes[0] as $match)
         { 
            $prop = $macthes[1][$i];
            $html = str_replace($match, $value->$prop->Value, $html);
            $i++;
         }
+
+        //Remplacement des proprietes
+        $pattern = "`{{".$key."->(.+)\(\)}}`";
+
+        preg_match_all($pattern,  $html , $macthes);
+        $i = 0;
+
+        foreach($macthes[0] as $match)
+        { 
+           $func = $macthes[1][$i];
+           $html = str_replace($match, $value->$func(), $html);
+           $i++;
+        }
+
+        //Ajout des control
+        $pattern = "`{{".$key."->(.+)->Control}}`";
+        preg_match_all($pattern, $html, $macthes);
+        $i = 0;
+
+        foreach($macthes[0] as $match)
+        { 
+           $prop = $macthes[1][$i];
+           $html = str_replace($match, $value->$prop->Show(), $html);
+           $i++;
+        }    
+
 
         return $html;
     }

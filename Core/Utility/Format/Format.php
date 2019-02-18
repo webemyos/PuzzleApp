@@ -60,7 +60,7 @@ namespace Core\Utility\Format;
 		"ó","Ó","ô","Ô","ò","Ò","ø","Ø","õ","Õ","ö","Ö","œ","Œ",
 		"š","Š","ß","ð","Ð","þ","Þ",
 		"ú","Ú","û","Û","ù","Ù","ü","Ü",
-		"ý","Ý","ÿ","Ÿ"," ");
+		"ý","Ý","ÿ","Ÿ"," ", "<script>", "</script>");
 
 		$replace = array ("&quot;","&acute;",
 		"&aacute;","&Aacute;","&acirc;","&Acirc;","&agrave;","&Agrave;","&aring;","&Aring;",
@@ -71,7 +71,7 @@ namespace Core\Utility\Format;
 		"&oslash;","&Oslash;","&otilde;","&Otilde;","&ouml;","&Ouml;","&oelig;","&OElig;",
 		"&scaron;","&Scaron;","&szlig;","&eth;","&ETH;","&thorn;","&THORN;","&uacute;",
 		"&Uacute;","&ucirc;","&Ucirc;","&ugrave;","&Ugrave;","&uuml;","&Uuml;","&yacute;",
-		"&Yacute;","&yuml;","&Yuml"," ");
+		"&Yacute;","&yuml;","&Yuml"," ", "", "");
 
 		$Text = str_replace($search, $replace, $text);
 

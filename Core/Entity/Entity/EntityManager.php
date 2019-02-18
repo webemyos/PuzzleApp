@@ -139,6 +139,27 @@ class EntityManager
         }
     }
     
+    /***
+     * Find Entité by Params
+     */
+    public static function Find($entity, $where)
+    {
+        //TODO UTILISE LE SYSTEME DE STORAGE
+        
+        $request = SqlRequestBuilder::Select($entity);
+        $request .= SqlRequestBuilder::From($entity);
+        $request .= " WHERE " . $where;
+
+         //Get the data
+         $data = $entity->Core->Db->GetArray($request);
+
+         //Map the data in the Entity
+         $entities = DataManager::LoadEntities($entity, $data);
+
+         return $entities;
+    }
+
+
     /*
      * Obtient le nombre d'élement
      */
@@ -182,7 +203,7 @@ class EntityManager
                 //Store the Entity in the Storage Manager
                 StorageManager::StoreById($stores);
             }
-
+          
             $entity->Core->Db->Execute($request);
         }
         else
@@ -233,5 +254,27 @@ class EntityManager
             }
         }
         return $IsValid;
+    }
+
+    /**
+     * Construit et lance les requetes multiple
+     */
+    public static function Flush($entity)
+    {
+       //INSERT REQUEST
+       $insertRequest = SqlRequestBuilder::Flush($entity);
+
+       //TODO Other Request
+
+       $entity->Core->Db->Execute($insertRequest);
+    }
+
+    /**
+     * Update all entity 
+     * filter by where
+     */
+    public static function Update($entity, $property, $where)
+    {
+
     }
 }

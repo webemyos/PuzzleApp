@@ -18,24 +18,22 @@ class EeXXX extends Application
 	 * */
 	public $Author = 'Webemyos';
 	public $Version = '1.0.0';
-        public static $Directory = "../Apps/EeXXX";
-
+   
 	/**
 	 * Constructeur
 	 * */
 	function __construct($core)
 	{
-            parent::__construct($core, "EeXXX");
-            $this->Core = $core;
-        }
+		parent::__construct($core, "EeXXX");
+		$this->Core = $core;
+	}
 
 	 /**
 	  * Execution de l'application
 	  */
 	 function Run()
 	 {
-            $textControl = parent::Run($this->Core, "EeXXX", "EeXXX");
-            echo $textControl;
+		echo parent::RunApp($this->Core, "EeXXX", "EeXXX");
 	 }
 }
 ?>

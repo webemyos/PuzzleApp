@@ -48,14 +48,14 @@ namespace Core\Utility\File;
     */
    public static function CreateArboresence($file)
    {
-       $path = explode("\\" , $file);
+       $path = explode("/" , $file);
        $createPath = "";
 
        for($i=0 ; $i < count($path)- 1 ; $i++)
        {
            if($createPath != "")
            {
-               $createPath .= "\\";
+               $createPath .= "/";
            }
            $createPath .= $path[$i];
            File::CreateDirectory($createPath);

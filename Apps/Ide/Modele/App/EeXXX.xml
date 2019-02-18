@@ -7,6 +7,6 @@
 
     </menu>
     <center>
-            <module type='Apps\EeXXX\Module\Home\HomeController'></module>
+            <module type='Apps\EeXXX\Module\Admin\AdminController'></module>
     </center>
 </app>

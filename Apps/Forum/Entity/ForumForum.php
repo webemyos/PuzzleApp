@@ -28,7 +28,8 @@ class ForumForum extends Entity
         $this->Name = new Property("Name", "Name", TEXTAREA,  true, $this->Alias); 
         $this->Description = new Property("Description", "Description", TEXTBOX,  true, $this->Alias); 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-
+        $this->Default = new Property("Default", "Default", CHECKBOX,  false, $this->Alias); 
+       
         //Partage entre application 
         $this->AddSharedProperty();
 

@@ -1,0 +1,38 @@
+<h1>hello&nbsp;{{name}}&nbsp;{{prenom}} : tu as {{age}} ans</h1>
+
+
+<button id="btnTest" style="color:red;">Test</button>
+<button id="btnChange" style="color:green;">Reviens</button>
+<button id="btnConteur">Incrémente</button>
+
+<br/>
+Tu a appuyé &nbsp;{{compteur}}&nbsp; sur le bouton
+<br/>
+<input type="text" placeHolder="Saisie un texte" data-bind="entree" />
+<br/>
+<input type="text" placeHolder="Saisie un age" data-bind="age" />
+
+
+
+tu a saisi &nbsp;{{entree}}&nbsp {{email}} &nbsp {{telephone}}
+
+
+
+<div>
+    <input type="text" data-bind="email" />
+   <br/> <input type="text" data-bind="telephone" />
+  <br/>
+    <button id="btnValid" >Valider</button>
+</div>
+
+<table>
+    <tr>
+        <td>test</td>
+    </tr>
+</table>
+
+<ul>
+{{foreach articles}}
+    <li>{{entity.Nom}}</li>
+{{/foreach products}}
+</ul>

@@ -11,7 +11,6 @@ namespace Apps\Base\Module\Front;
 
 use Core\Controller\Controller;
 use Core\Core\Core;
-use Core\Modele\Modele;
 use Core\View\CacheManager;
 use Core\View\ElementView;
 use Core\View\View;
@@ -68,10 +67,12 @@ class FrontController extends Controller
    /*
     * Get The contact Page
    */
-   function Contact()
+   function Contact($valide=true)
    {
-       $modele = new Modele(__DIR__."/View/contact.tpl", $this->Core);
-       
-       return $modele->Render();
+       $view = new View(__DIR__."/View/contact.tpl", $this->Core);
+    
+       $view->AddElement(new ElementView("valide", $valide));
+
+       return $view->Render();
    }
 }

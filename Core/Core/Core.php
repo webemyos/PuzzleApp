@@ -13,7 +13,11 @@ use Core\Core\Config;
 use Core\Core\DataBase;
 use Core\Core\Request;
 
+use Core\Entity\Group\Group;
 use Core\Entity\User\User;
+
+use Core\Entity\Entity\Argument;
+
 
 //Inclusion of the class of core
 include "Constante.php";
@@ -210,9 +214,9 @@ class Core
      */
     function GetPath($url)
     {
-       if(1==1 || strpos("localhost", $_SERVER["HTTP_HOST"]) != false)
+       if( $_SERVER['HTTP_HOST'] == "localhost")
        {
-          return "http://".$_SERVER['SERVER_NAME'].":85" .$_SERVER['CONTEXT_PREFIX'] .$url;
+          return "http://".$_SERVER['SERVER_NAME'] .$_SERVER['CONTEXT_PREFIX'] .$url;
        }
        else
        {
@@ -466,15 +470,15 @@ class Core
      //Retourne les utilisateurs admin
     function GetAdminUser()
     {
-           //Recuperation groupeAdmin
-           $Group = new Group($this);
-           $Group->GetByName("Admin");
+        //Recuperation groupeAdmin
+        $Group = new Group($this);
+        $Group = $Group->GetByName("Admin");
 
-           $User = new User($this);
-           $User->AddArgument(new Argument("User","GroupeId",EQUAL,$Group->IdEntite));
-           $Users = $User->GetByArg();
+        $User = new User($this);
+        $User->AddArgument(new Argument("Core\Entity\User\User","GroupeId",EQUAL,$Group->IdEntite));
+        $Users = $User->GetByArg();
 
-           return $Users;
+        return $Users;
     }
 
     //Redirection

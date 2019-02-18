@@ -32,10 +32,10 @@ class Downloader extends Application
     /**
      * Constructeur
      * */
-    function __construct($core)
+    function __construct($core="")
     {
+        $this->Core = Core::getInstance();
         parent::__construct($core, "Downloader");
-        $this->Core = $core;
     }
 
     /*
@@ -54,7 +54,7 @@ class Downloader extends Application
       */
     function Run()
     {
-       echo parent::Run($this->Core, "Downloader", "Downloader");
+       echo parent::RunApp($this->Core, "Downloader", "Downloader");
     }
      
     /*
@@ -83,6 +83,7 @@ class Downloader extends Application
      */
     function DoUploadFile($idElement, $tmpFileName, $fileName, $action)
     {
+        echo "DO UPLOAD";
       $core = Core::getInstance();
 
       $directory = "Data/Apps/Downloader";
@@ -90,7 +91,7 @@ class Downloader extends Application
 
       File::CreateDirectory($directory);
       //Add the user Directory
-      $directory .= "/" . $core->User->IdEntite;
+      echo $directory .= "/" . $core->User->IdEntite;
       File::CreateDirectory($directory);
 
        switch($action)

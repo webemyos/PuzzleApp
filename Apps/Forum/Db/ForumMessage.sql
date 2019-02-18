@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `ForumMessage` (
 `CategoryId` INT  NULL ,
 `UserId` INT  NULL ,
 `Title` VARCHAR(200)  NULL ,
+`Code` VARCHAR(200)  NULL ,
 `Message` TEXT  NULL ,
 `DateCreated` DATE  NULL ,
 PRIMARY KEY (`Id`),

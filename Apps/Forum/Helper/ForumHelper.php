@@ -60,18 +60,23 @@ class ForumHelper
     /**
      * Met a jour le forum
      */
-    public function Update($core, $forumId, $name, $description)
+    public static function Update($core, $forumId, $name, $description, $default)
     {
-         if(!self::Exist($core, $name))
+        if($forumId != "" || ($forumId =="" && !self::Exist($core, $name)))
         {
             $forum = new ForumForum($core);
+           
+            if($default == 1)
+            {
+                $forum->Update(array("Default"=>0));
+            }
+
             $forum->GetById($forumId);
             
             $forum->Name->Value = $name;
             $forum->Description->Value = $description;
- //           $forum->Actif->Value = "0";
-   //         $forum->Style->Value = 1;
-
+            $forum->Default->Value = $default;
+ 
             $forum->Save();
             
             return true;
@@ -98,9 +103,8 @@ class ForumHelper
     public static function GetFirst($core)
     {
         $forum = new ForumForum($core);
-        $forum->AddArgument(new Argument("Apps\Forum\Entity\ForumForum", "UserId", EQUAL, $core->User->IdEntite ));
-        $forums = $forum->GetByArg();
-        
+        $forums = $forum->GetAll();
+          
         return $forums[0];
     }
 }

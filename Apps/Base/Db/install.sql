@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `ee_section` (
 --
 
 INSERT INTO `ee_section` (`Id`, `Name`, `Directory`) VALUES
-(1, 'Root', 'Admin'),
+(1, 'Admin', 'Admin'),
 (2, 'Membre', 'Membre');
 
 -- --------------------------------------------------------
@@ -223,20 +223,20 @@ CREATE TABLE IF NOT EXISTS `ee_user` (
   `Email` varchar(45) NOT NULL,
   `Pseudo` varchar(45) DEFAULT NULL,
   `PassWord` varchar(45) NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  `FirstName` varchar(45) NOT NULL,
-  `Sexe` tinyint(1) NOT NULL,
+  `Name` varchar(45) NULL,
+  `FirstName` varchar(45) NULL,
+  `Sexe` tinyint(1)  NULL,
   `BirthDate` date DEFAULT NULL,
   `CountryId` int(11) DEFAULT NULL,
   `CityId` int(11) DEFAULT NULL,
   `Phone` varchar(45) DEFAULT NULL,
   `Image` varchar(200) DEFAULT NULL,
-  `ImageMini` varchar(250) NOT NULL,
+  `ImageMini` varchar(250) NULL,
   `DateCreate` date DEFAULT NULL,
   `DateChange` date DEFAULT NULL,
   `Serveur` varchar(45) DEFAULT NULL,
   `DateConnect` datetime DEFAULT NULL,
-  `FacebookId` bigint(20) NOT NULL,
+  `FacebookId` bigint(20) NULL,
   `Position` int(11) DEFAULT NULL,
   `TypeId` int(11) DEFAULT NULL,
   `Description` TEXT DEFAULT NULL,
@@ -251,8 +251,13 @@ CREATE TABLE IF NOT EXISTS `ee_user` (
 -- Contenu de la table `ee_user`
 --
 
-INSERT INTO `ee_user` (`Id`, `GroupId`, `Email`, `Pseudo`, `PassWord`, `Name`, `FirstName`, `Sexe`, `BirthDate`, `CountryId`, `CityId`, `Phone`, `Image`, `ImageMini`, `DateCreate`, `DateChange`, `Serveur`, `DateConnect`, `FacebookId`, `Position`, `TypeId`) VALUES
-(1, 1, 'jerome.oliva@gmail.com', '', '603edc5ad257edd10764ca5261b6d356', 'oliva', 'jerome', 1, '1980-01-20', 0, 29795, '', '../Data/Apps/EeProfil//1.jpg', '', '2012-09-25', NULL, 'Data', '0000-00-00 00:00:00', 0, 1, 0);
+CREATE TABLE IF NOT EXISTS `ee_userToken` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`UserId` INT  NULL ,
+`Token` TEXT  NULL ,
+`expire` VARCHAR(200)  NULL ,
+PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 
 
 --
 -- Structure de la table `stat_app`
@@ -330,6 +335,13 @@ ALTER TABLE `ee_lang_element`
 
 ALTER TABLE `ee_user`
   ADD CONSTRAINT `user_group` FOREIGN KEY (`GroupId`) REFERENCES `ee_group` (`Id`);
+
+--
+-- Contraintes pour la table `ee_userToken`
+--
+
+ALTER TABLE `ee_userToken`
+ ADD CONSTRAINT `ee_user_ee_userToken` FOREIGN KEY (`UserId`) REFERENCES `ee_user`(`Id`);
 
 --
 -- Contraintes pour la table `ee_user_app_admin`

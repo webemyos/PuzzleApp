@@ -11,6 +11,8 @@ namespace Apps\Forum\Model;
 use Apps\Forum\Entity\ForumCategory;
 use Core\Model\Model;
 use Core\Utility\Date\Date;
+use Core\Utility\Format\Format;
+use Core\Core\Request;
 
 class MessageModel extends Model
 {
@@ -43,7 +45,7 @@ class MessageModel extends Model
      */
     public function Prepare()
     {
-        $this->Exclude(array("CategoryId", "UserId", "Core\Entity\User\User", "Apps\Forum\Entity\ForumCategory", "DateCreated"));
+        $this->Exclude(array("CategoryId", "Code",  "UserId", "Core\Entity\User\User", "Apps\Forum\Entity\ForumCategory", "DateCreated"));
     }
     
     /*
@@ -54,7 +56,9 @@ class MessageModel extends Model
         $this->Entity->CategoryId->Value = $this->category->IdEntite;
         $this->Entity->UserId->Value = $this->Core->User->IdEntite;
         $this->Entity->DateCreated->Value = Date::Now();
-       
+        $this->Entity->Code->Value = Format::ReplaceForUrl(Request::GetPost("Title"));
+
+
         parent::updated();
     }
 }

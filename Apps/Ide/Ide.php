@@ -53,9 +53,8 @@ class Ide extends Application
 	  */
 	 function Run()
 	 {
-	 	$textControl = parent::Run($this->Core, "Ide", "Ide");
-	 	echo $textControl;
-	 }
+            echo parent::RunApp($this->Core, "Ide", "Ide");
+         }
          
          /**
           * Charge la page d'accueil

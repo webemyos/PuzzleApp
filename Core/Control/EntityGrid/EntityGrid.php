@@ -85,15 +85,25 @@ class EntityGrid extends Control implements IControl
     $Entity = new $this->Entity($this->Core);
     $Entity->Asc= $this->Asc;
 
-    //Ajout des ordres de tri
-    if(sizeof($this->Order)>0)
+    $sort = Request::GetPost("Sort");
+ 
+    if($sort != "")
     {
-      foreach($this->Order as $order)
+        //Sauvegarde l'order de tri en session
+        $Entity->AddOrder($sort);
+    }
+    else
+    {        
+      //Ajout des ordres de tri
+      if(sizeof($this->Order)>0)
       {
-        $Entity->AddOrder($Entity->$order);
+        foreach($this->Order as $order)
+        {
+          $Entity->AddOrder($order);
+        }
       }
     }
-
+    
     $page = Request::GetPost("Page");
     
    if($this->LimitStart != "")
@@ -110,14 +120,6 @@ class EntityGrid extends Control implements IControl
         $Entity->SetLimit(1, 10);
     }
 
-     $sort = Request::GetPost("Sort");
-     
-    if($sort != "" )
-    {
-        //Sauvegarde l'order de tri en session
-        $Entity->AddOrder($sort);
-    }
-    
     
     //Recuperation des entit�s
     if(sizeof($this->Argument) > 0)

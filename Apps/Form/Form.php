@@ -55,8 +55,7 @@ class Form extends Application
     */
    function Run()
    {
-     $textControl = parent::Run($this->Core, "Form", "Form");
-     echo $textControl;
+     echo parent::RunApp($this->Core, "Form", "Form");
    }
 
     /**

@@ -4,7 +4,7 @@
         {{btnMyCms}}
     </div>
     <div class='content-panel' id='dvDesktop'>
-       <h4 class='blueOne'>{{GetCode(EeCms.titleHome)}}</h4>
-       <p>{{GetCode(EeCms.messageHome)}}</p>
+       <h4 class='blueOne'>{{GetCode(Cms.titleHome)}}</h4>
+       <p>{{GetCode(Cms.messageHome)}}</p>
     </div>
 </div>

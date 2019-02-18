@@ -193,7 +193,7 @@ class MoocHelper
      * @param type $core
      * @param type $blogId
      */
-    public static function GetImages($moocId)
+    public static function GetImages($core, $moocId)
     { 
         $directory = "Data/Apps/Mooc/". $moocId;
         $nameFile = array();
@@ -206,8 +206,8 @@ class MoocHelper
              {
                if($file != "." && $file != ".." && substr_count($file,"_96") == 0 )
                {
-                   $nameFile[$i] = Core::GetPath("/".$directory."/".$file);
-                   $nameFileMini[$i] = Core::GetPath("/".$directory."/".$file."_96.jpg");
+                   $nameFile[$i] = $core->GetPath("/".$directory."/".$file);
+                   $nameFileMini[$i] = $core->GetPath("/".$directory."/".$file."_96.jpg");
                    
                    $i++;
                }

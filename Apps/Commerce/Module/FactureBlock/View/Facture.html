@@ -1,0 +1,100 @@
+<page>
+    <style type="text/css">
+<!--
+
+table { width:100%;font-size:14px; border-collapse:collapse; padding:10px}
+.productss {border:solid 2mm #66AACC;}
+-->
+</style>
+
+<table style='width:80%;margin-bottom:30px;text-align: center;'>
+    <tr>
+        <td>
+            Ventegivree.com
+        </td>
+        <td style='border-right:2px solid grey;margin:10px;'>
+            Plus Qu'une vente, Une défi !
+        </td>
+        <td style='border-right:2px solid grey;margin:10px;'>
+         </td>
+    </tr>
+</table>
+<table style='border:1px solid grey;width:80%;'>
+    <tr>
+        <th style="background-color: #BEBEBE;width:200px">Relevé de facture</th>
+        <th style="background-color: #BEBEBE;width:200px">Adresse de livraison</th>
+        <th style="background-color: #BEBEBE;width:200px">Adresse de facturation</th>
+    </tr>
+    <tr>
+        <td style='border:1px solid grey'>
+            <table>
+                <tr><td>{{GetCode(FactureNumero)}}</td><td> :{{factureNumero}}</td></tr> 
+                <tr><td>{{GetCode(FactureDate)}}</td><td> :{{factureDate}}</td></tr> 
+            </table>
+            
+        </td>
+        <td style='border:1px solid grey;text-align: left'>
+           
+                {{adressLivraison}} <br/>
+                {{complementLivraison}}<br/>
+                {{codePostalLivraison}}<br/>
+                {{cityLivraison}}<br/>
+           
+        </td>
+        <td style='border:1px solid grey'>
+            {{adressFacturation}}<br/>
+            {{complementFacturation}}<br/> 
+            {{codePostalFacturation}}<br/>
+            {{cityFacturation}}<br/>
+        </td>
+        
+    </tr>
+</table>
+
+<table style='border:1px solid grey;margin-top:10px;padding:10px;width:80%;'>
+    <tr>
+        <td colspan ='3'>
+            <h2>{{GetCode(DetailFacture)}}</h2>
+        </td>
+    </tr>
+    <tr>
+            <td></td>
+            <td colspan ='2'>
+                <table style="width: 80%; border: solid 1px #000000;">
+                    <tr>
+                        <th style="background-color: #BEBEBE;width:200px">{{GetCode(Product)}}</th>
+                        <th style="background-color: #BEBEBE;">{{GetCode(Price)}}</th>
+                        <th style="background-color: #BEBEBE;">{{GetCode(PricePort)}}</th>
+                        <th style="background-color: #BEBEBE;">{{GetCode(Total)}}</th>
+                    </tr>
+                    {{foreach}}
+                        <tr>
+                            <td style="border: solid 1px #AEAEAE;">{{element-NameProduct-}}</td>
+                            <td style="border: solid 1px #AEAEAE;">{{element-Price-}}</td>
+                            <td style="border: solid 1px #AEAEAE;">{{element-PricePort-}}</td>
+                            <td style="border: solid 1px #AEAEAE;">{{element-PriceTotal-}}</td>
+                        </tr>
+                    {{/foreach}}
+                    
+                    <tr>
+                        <td colspan='2'></td>
+                        <td>{{GetCode(TOTAL)}} </td>
+                        <td>{{total}}</td>
+                    </tr>
+                    
+                    
+                </table>
+            </td>
+            <td></td>
+        </tr> 
+    
+</table>
+<table style='width:80%;margin-top:30px;text-align: center;'>
+    <tr style="border: solid 1px #AEAEAE;"><td>
+        Ventegivree.com vous remercie et espère que votre commande vous donnera entière satisfaction
+            
+        </td></tr>    
+</table>
+
+    
+</page>

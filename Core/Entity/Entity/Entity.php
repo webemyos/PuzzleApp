@@ -39,6 +39,8 @@ class Entity
     protected $Property=array();
     protected $Argument=array();
 
+    protected $Inserts = array();
+
         
     function __construct($core)
     {
@@ -200,6 +202,15 @@ class Entity
     }
     
     /*
+     * Get Entity By Params
+     */
+    function Find($where)
+    {
+        //Get all entity with Limit, order and join
+        return EntityManager::Find($this, $where);
+    }
+
+    /*
      * Return the Number Of Element
      */
     function GetCount()
@@ -215,6 +226,16 @@ class Entity
         return EntityManager::Save($this);
     }
     
+    /**
+     * Update property
+     * filtrer by WHere entity 
+     * 
+     */
+    function Update($property, $where ="")
+    {
+        return EntityManager::Update($this, $property, $where);
+    }
+
     /*
      * Delete a entity
      */
@@ -278,7 +299,36 @@ class Entity
         }
         return $IsValid;
     }
-        
+     
+    function ToArray()
+	{
+		$values = array();
+
+		foreach($this->GetProperty()  as $key => $value)
+		{
+			$values["IdEntite"] = $this->IdEntite;
+			$values[$value->Name] = $value->Value;
+		}
+
+		return $values;
+    }
+    
+    /**
+     * Ajout des élements de sauvegarde
+     */
+    public function Insert($insert)
+    {
+        $this->Inserts[] = $insert;
+    }
+
+    /**
+     * Construit et lance la requete d'insertion multiple
+     */
+    public function Flush()
+    {
+        EntityManager::Flush($this);
+    }
+
     /*
      * Set the property
      */

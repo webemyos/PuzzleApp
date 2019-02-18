@@ -21,7 +21,9 @@
             </tr>
             {{foreach Reponses}}
                 <tr>
-                    <td>{{element->DateCreated->Value}}</td>
+                    <td>
+                    {{element->GetUser()}}
+                    {{element->DateCreated->Value}}</td>
                     <td>{{element->Message->Value}}</td>
                 </tr>
                
@@ -60,3 +62,8 @@
         
     </div>    
 </section>
+
+
+<script>
+    setTimeout(function(){console.log("ck"); Dashboard.SetBasicAdvancedText("Message")},200) ;
+</script>

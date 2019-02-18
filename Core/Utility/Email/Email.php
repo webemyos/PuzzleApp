@@ -34,8 +34,17 @@ class Email
         //Recuperation de la view
         $view = new View("../View/Core/Email/email.tpl", $this->Core);
         
-        if($this->From == '' || !isset($this->From)) $this->From = 'PuzzleApp';
-        if($this->Sender == '' || !isset($this->Sender)) $this->From = 'puzzleApp.com';
+        //Récuperation depuis la config
+        $sender = $this->Core->Config->GetKey("EMAILSENDER");
+        $from = $this->Core->Config->GetKey("EMAILFROM");
+        $reply = $this->Core->Config->GetKey("EMAILREPLYTO");
+
+
+        if($this->From == '') 
+        {
+             $this->From = ( $from != "" ) ?  $from : 'PuzzleApp' ;
+        };
+        if($this->Sender == '' ) { $this->Sender = ($sender != ""  ) ? $sender : 'puzzleApp.com' ;};
 
         $expediteur = $this->From.' <'.$this->Sender.'>';
 
@@ -45,15 +54,14 @@ class Email
         $headers .= 'Content-Transfer-Encoding: 8bit';
         $headers .= "X-Sender: <".$_SERVER['HTTP_HOST'].">\r\n";
         $headers .= "X-auth-smtp-user: ".$expediteur."\r\n";
-        $headers .= "X-abuse-contact: spam@webemyos.fr\r\n";
-        $headers .= "Reply-To: ".$expediteur."\r\n"; // Mail de reponse
-        $headers .= "From: webemyos\r\n"; // Expediteur
+        $headers .= "Reply-To: ".$reply."\r\n"; // Mail de reponse
+        $headers .= "From: $expediteur \r\n"; // Expediteur
 
-        $view->AddElement(new ElementView("{{Title}}", $this->Title));
-        $view->AddElement(new ElementView("{{Body}}", $this->Body));
+        $view->AddElement(new ElementView("Title", $this->Title));
+        $view->AddElement(new ElementView("Body", $this->Body));
         
         //Envoi
-        mail($To, $this->Title, $view->Render(),$headers);
+    mail($To, $this->Title, $view->Render() /*,$headers*/);
     }
 
     //Envoi au administrateur

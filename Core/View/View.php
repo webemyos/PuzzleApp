@@ -31,7 +31,9 @@ class View
     private $Model;
     private $Ajax;
     private $App;
+    private $Class;
     private $Action;
+    private $CallBack;
 
     /*
      * Constructeur
@@ -79,6 +81,14 @@ class View
     {
         $this->App = $app;
     }
+
+    /**
+     * Define the Class
+     */
+    public function SetClass($class)
+    {
+        $this->Class = $class;
+    }
     
     /*
      * Défine the Action
@@ -88,6 +98,14 @@ class View
         $this->Action = $action;
     }
     
+    /**
+     * Défine the callBack
+     */
+    public function SetCallBack($callBack)
+    {
+        $this->CallBack = $callBack;
+    }
+
     /*
     * Utiliser dans les tab strip
     */
@@ -113,7 +131,7 @@ class View
                 $html = $this->LoadCollections($html, $element);
             }
             //Control
-            else if( (get_parent_class($element) == "Core\Control\Control" || get_parent_class($element) == "Core\Block\Block" ))
+            else if( (get_parent_class($element) == "Core\Control\Control" || get_parent_class($element) == "Core\Block\Block" || get_parent_class($element) == "Core\Control\Icone\Icone" ))
             {
                $html = str_replace("{{".$element->Id."}}", $element->Show(), $html);
             }
@@ -145,7 +163,7 @@ class View
         //Replace the element model
         if($this->Model != null)
         {   
-            $html = ViewModelManager::ReplaceModel($html, $this->Model, $this->Ajax, $this->App, $this->Action);
+            $html = ViewModelManager::ReplaceModel($html, $this->Model, $this->Ajax, $this->App, $this->Action, $this->Class, $this->CallBack);
         }
                
         return $html;

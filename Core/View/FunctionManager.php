@@ -33,6 +33,7 @@ class FunctionManager
           $html = FunctionManager::GetPath($core, $html);
           $html = FunctionManager::GetForm($core, $html);
           $html = FunctionManager::GetControl($core, $html);
+          $html = FunctionManager::GetWidget($core, $html);
         }
 
         return $html;
@@ -87,13 +88,27 @@ class FunctionManager
      */
     public static function GetForm($core, $html)
     {
+          //Control with name
+          $pattern = "`{{GetForm\((.+),(.+)\)}}`";
+          preg_match_all($pattern, $html, $macthes);
+          $i = 0;
+  
+          foreach($macthes[0] as $match)
+          {
+            $url =  $macthes[1][$i];
+            $name = $macthes[2][$i];
+
+            $html = str_replace($match, '<form method="post" id="'. $name.'" action="'.$url.'" >', $html);
+            $i++;
+          }
+
         $pattern = "`{{GetForm\((.+)\)}}`";
         preg_match_all($pattern, $html, $macthes);
         $i = 0;
 
         foreach($macthes[0] as $match)
         {
-            $html = str_replace($match, '<form method="post" action="'.$core->GetPath($macthes[1][$i]).'" >', $html);
+            $html = str_replace($match, '<form method="post" action="'.$macthes[1][$i].'" >', $html);
             $i++;
         }
 
@@ -231,5 +246,29 @@ class FunctionManager
               $html = str_replace($match, $control->Show(), $html);
               $i++;
           }
+    }
+
+    /*
+    * Replace GetWidget Function
+    */
+    public static function GetWidget($core, $html)
+    {
+        //Control with name and property
+        $pattern = "`{{GetWidget\((.+)\)}}`";
+        preg_match_all($pattern, $html, $macthes);
+        $i = 0;
+
+        foreach($macthes[0] as $match)
+        {
+          $apps =  $macthes[1][$i];
+        
+          $path =  "\Apps\\" .$apps . "\\" .$apps;
+          $app = new $path($core);
+         
+          $html = str_replace($match, $app->GetWidget() , $html);
+          $i++;
+        }
+
+        return $html;
     }
 }

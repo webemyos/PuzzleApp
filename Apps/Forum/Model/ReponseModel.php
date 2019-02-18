@@ -51,7 +51,7 @@ class ReponseModel extends Model
         $this->Entity->MessageId->Value = $this->sujetId;
         $this->Entity->UserId->Value = $this->Core->User->IdEntite;
         $this->Entity->DateCreated->Value = Date::Now();
-       
+
         parent::updated();
     }
 }

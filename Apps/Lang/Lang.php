@@ -39,8 +39,7 @@ class Lang extends Application
       */
      function Run()
      {
-        $textControl = parent::Run($this->Core, "Lang", "Lang");
-        echo $textControl;
+        echo parent::RunApp($this->Core, "Lang", "Lang");
      }
 
     /**

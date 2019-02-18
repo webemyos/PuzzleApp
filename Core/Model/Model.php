@@ -34,6 +34,12 @@ class Model
      */
     protected $State = "Init";
     
+    /***
+     * Element Type hidden
+     */
+    protected $Elements = Array();
+
+
     /*
      * Constructeur
      */
@@ -66,6 +72,22 @@ class Model
         return $this->Excludes;
     }
     
+    /**
+     * Add Element
+     */
+    public function AddElement($key, $value)
+    {
+        $this->Elements[$key] = $value;
+    }
+
+    /**
+     * Return the element
+     */
+    public function GetElements()
+    {
+        return $this->Elements;
+    }
+
     /*
      * Return the state
      */

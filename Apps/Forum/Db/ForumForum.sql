@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `ForumForum` (
 `Name` VARCHAR(200) NULL ,
 `Description` TEXT NULL ,
 `UserId` INT  NULL ,
+`Default` INT  NULL ,
 `AppName` VARCHAR(200)  NULL ,
 `AppId` INT  NULL ,
 `EntityName` VARCHAR(200)  NULL ,

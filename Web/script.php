@@ -20,7 +20,7 @@ if(Request::Get("s"))
 //Get a application script
 if(Request::Get("a"))
 {
-    echo ScriptManager::GetApp(Request::Get("a"), "js");   
+    echo ScriptManager::GetApp(Request::Get("a"), Request::Get("m"), "js");   
 }
 //Get all Script of the framework
 else

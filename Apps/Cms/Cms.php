@@ -43,7 +43,7 @@ class Cms extends Base
 	  */
 	 function Run()
 	 {
-            echo parent::RunApp($this->Core, "Cms", "Cms");
+        echo parent::RunApp($this->Core, "Cms", "Cms");
 	 }
 
         /**

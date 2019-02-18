@@ -53,7 +53,7 @@ class Authentication
     /*
      * Create User
      */
-    public function CreateUser($core, $email, $pass, $verify)
+    public static function CreateUser($core, $email, $pass, $verify)
     {
         if($pass != $verify)
         {
@@ -63,7 +63,7 @@ class Authentication
         $User = new User($core);
         $User->Email->Value = $email;
         
-        if($User->Exist())
+        if($User->Exist($email))
         {
             return $core->GetCode("Base.UserExist");
         }

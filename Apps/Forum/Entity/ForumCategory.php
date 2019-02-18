@@ -58,7 +58,7 @@ class ForumCategory extends Entity
     {
         $message = MessageHelper::GetLastMessage($this->Core, $this->IdEntite);
         
-        $lk = new Link($message->Title->Value, Core::GetPath("/Forum/Sujet/".$message->IdEntite . "/".$message->Title->Value));
+        $lk = new Link($message->Title->Value, $this->Core->GetPath("/Forum/Sujet/".$message->Code->Value));
         
         return $lk->Show();
     }
@@ -68,7 +68,7 @@ class ForumCategory extends Entity
      */
     function GetUrl()
     {
-        return Core::GetPath("/Forum/Category/".$this->Code->Value);
+        return $this->Core->GetPath("/Forum/Category/".$this->Code->Value);
     }
 }
 ?>

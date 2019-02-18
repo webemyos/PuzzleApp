@@ -24,7 +24,7 @@ class Router
         //Get The Complete Uri
         $url = explode("/", $_SERVER["REQUEST_URI"]);
         
-        if($_SERVER["HTTP_HOST"] == "localhost:85")
+        if($_SERVER["HTTP_HOST"] == "localhost")
         {
             $route = new Route($url[3], isset($url[4])?$url[4]:"", isset($url[5])?$url[5]:"");
         }

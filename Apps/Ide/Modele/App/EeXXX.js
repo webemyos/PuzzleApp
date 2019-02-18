@@ -9,12 +9,12 @@ var EeXXX = function() {};
 	};
 
 	/*
-	* Chargement des évenements
+	* Chargement des ï¿½venements
 	*/
 	EeXXX.LoadEvent = function()
 	{
-		Eemmys.AddEventAppMenu(EeXXX.Execute, "", "EeXXX");
-		Eemmys.AddEventWindowsTool("EeXXX");
+		Dashboard.AddEventAppMenu(EeXXX.Execute, "", "EeXXX");
+		Dashboard.AddEventWindowsTool("EeXXX");
 	};
 
    /*
@@ -23,7 +23,7 @@ var EeXXX = function() {};
 	EeXXX.Execute = function(e)
 	{
 		//Appel de la fonction
-		Eemmys.Execute(this, e, "EeXXX");
+		Dashboard.Execute(this, e, "EeXXX");
 		return false;
 	};
 
@@ -32,7 +32,7 @@ var EeXXX = function() {};
 	*/
 	EeXXX.Comment = function()
 	{
-		Eemmys.Comment("EeXXX", "1");
+		Dashboard.Comment("EeXXX", "1");
 	};
 
 	/*
@@ -40,7 +40,7 @@ var EeXXX = function() {};
 	*/
 	EeXXX.About = function()
 	{
-		Eemmys.About("EeXXX");
+		Dashboard.About("EeXXX");
 	};
 
 	/*
@@ -48,7 +48,7 @@ var EeXXX = function() {};
 	*/
 	EeXXX.Help = function()
 	{
-		Eemmys.OpenBrowser("EeXXX","{$BaseUrl}/Help-App-EeXXX.html");
+		Dashboard.OpenBrowser("EeXXX","{$BaseUrl}/Help-App-EeXXX.html");
 	};
 
    /*
@@ -56,7 +56,7 @@ var EeXXX = function() {};
 	*/
 	EeXXX.ReportBug = function()
 	{
-		Eemmys.ReportBug("EeXXX");
+		Dashboard.ReportBug("EeXXX");
 	};
 
 	/*
@@ -64,5 +64,5 @@ var EeXXX = function() {};
 	*/
 	EeXXX.Quit = function()
 	{
-		Eemmys.CloseApp("","EeXXX");
+		Dashboard.CloseApp("","EeXXX");
 	};

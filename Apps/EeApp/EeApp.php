@@ -240,5 +240,13 @@ class EeApp extends Application
     {
         AppHelper::RemoveApp($this->Core, Request::GetPost("appId"));
     }
+
+    /**
+     * Obtient les App installé
+     */
+    function GetAll()
+    {
+        return AppHelper::GetAll($this->Core);
+    }
 }
 ?>

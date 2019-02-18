@@ -73,7 +73,7 @@ class Request
     }
 
     //Connecte un utilisateur
-    public static function Connect($user,$group, $core="" , $userId = "")
+    public static function Connect($user,$group="", $core="" , $userId = "")
     {
         //Nom du site
         $siteName = Core::getInstance()->GetSiteName();

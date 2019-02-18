@@ -1,4 +1,4 @@
-function PopUp(propriete, argument, action, sourceControl)
+function PopUp(propriete, argument, action, sourceControl, )
 {
     //Deserialisation
 	property=new Array();
@@ -41,7 +41,7 @@ function PopUp(propriete, argument, action, sourceControl)
 
 	this.Open=function()
 	{
-            if(property["ShowBack"] == true || property["ShowBack"] == "1")
+        if(property["ShowBack"] == true || property["ShowBack"] == "1")
 		{
 			// Ajout d'un div Grise
 			this.backGround = document.createElement('div');
@@ -131,7 +131,13 @@ function PopUp(propriete, argument, action, sourceControl)
 	 this.frame.style.width=property["Width"];
 	 this.frame.style.height=property["Height"];
 
-	 if(typeof(arg["Url"]) == 'undefined' || arg["Url"] == "")
+	if(property["ControllerType"] != undefined && property["ControllerType"] == "Front")
+	{
+		this.core.innerHTML += "<popupcontent></popupcontent>";
+		Dashboard.LoadModule(property["App"], property["Module"], "popupcontent");
+	}
+
+	else if(typeof(arg["Url"]) == 'undefined' || arg["Url"] == "")
    	 {
    	   	 this.core.innerHTML +="<span id='Fermer' onclick='document.body.removeChild(this.parentNode);' ></span>"+this.Send();
 	 }

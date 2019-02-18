@@ -6,6 +6,8 @@
 
         {{if Model->State = Init}}
             {{RenderModel()}}
+
+         
         {{/if Model->State = Init}}
 
         {{if Model->State = Updated}}
@@ -34,3 +36,8 @@
 
     
 </section>
+
+
+<script>
+    setTimeout(function(){Dashboard.SetBasicAdvancedText("Message")},200) ;
+</script>

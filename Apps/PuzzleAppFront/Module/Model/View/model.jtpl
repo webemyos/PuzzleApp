@@ -1,0 +1,20 @@
+<h1>Gestion avec des model</h1>
+
+<button id="btnAdd">Ajouter</button>
+
+<table id="gdUser">
+
+    <tr>
+        <th style="width:200px" >Nom</th>
+        <th>Prénom</th>
+    </tr>
+  <table>
+
+    {{foreach products}}
+    <tr>
+        <td>{{entity.Nom}}</td>
+        <td>{{entity.Prenom}}</td>
+         <td>  <i class="fa fa-delete">Edit</i>
+        </td>
+    </tr>
+    {{/foreach products}}

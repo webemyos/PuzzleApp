@@ -12,12 +12,16 @@
     <link rel="icon" href="Images/favicon-tnp.ico">
     <link href="{{GetPath(/asset/bootstrap.css)}}" rel="stylesheet">
     <link href="{{GetPath(/asset/global.css)}}" rel="stylesheet">
-
+    <script src='{{GetPath(/js/ckeditor/ckeditor.js)}}' ></script>  
+ 
     <script src='{{GetPath(/script.php)}}' ></script>
+    <script src='{{GetPath(/script.php?s=Dashboard)}}' ></script>  
+    
     <script src='{{GetPath(/script.php?a=Downloader)}}' ></script>
     <script src='{{GetPath(/script.php?a=Blog)}}' ></script>  
-    <script src='{{GetPath(/script.php?a=Forum)}}' ></script>  
+    <script src='{{GetPath(/script.php?a=Forum)}}' ></script>
 
+  <meta name="google-site-verification" content="oU75X41FBUK3dpOH2Uv17V0IqxzaR0vdCzhDBnNLwjE" />
 
     <!-- Script
     ================================================== -->
@@ -45,7 +49,7 @@
                 <li> <div id='tdApp' class='span8'>
                         </div>  </li>
                 <li><a  class="last-item-menu" href="{{GetPath(/index)}}">Accueil</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/Tutoriel)}}">Tutoriel</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Mooc)}}">Mooc</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/store)}}">Le store</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Forum)}}">Le forum</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Blog)}}">Le blog</a></li>
@@ -116,13 +120,11 @@
         </div>  <!-- ./row -->
         <hr class="footer-divider">
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p><a href="#" alt="Copyright">© 2017 PuzzleApp</a></p>
       </div>
     </footer>
 
   <!-- Script
   ================================================== -->
  
-
 </body>
 </html>

@@ -20,7 +20,7 @@ if(Request::Get("s"))
 //Get a application css
 if(Request::Get("a"))
 {
-    echo ScriptManager::GetApp(Request::Get("a"), "css");   
+    echo ScriptManager::GetApp(Request::Get("a"), "", "css");   
 }
 //Get all css of the framework
 else

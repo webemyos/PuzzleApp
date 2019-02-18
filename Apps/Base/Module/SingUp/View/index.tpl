@@ -21,6 +21,7 @@
     <label>{{GetCode(Verif)}}</label>
     {{GetControl(PassWord,verif,{Required=true, PlaceHolder=Verification})}} <br/>
     
+    {{GetWidget(Captcha)}}
     
     {{GetControl(Submit, btnLogin)}}<br/>
 

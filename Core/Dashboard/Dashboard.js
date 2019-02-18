@@ -201,7 +201,7 @@ Dashboard.Deconnect = function()
 /*
 * Inclu le fichier javascript
 */
-Dashboard.IncludeJs = function(application, widget, url, source)
+Dashboard.IncludeJs = function(application, widget, url, source, module)
 {
     var script = document.createElement('script');
     script.setAttribute('type','text/javascript');
@@ -214,10 +214,15 @@ Dashboard.IncludeJs = function(application, widget, url, source)
   {
      script.setAttribute('src', url + "/" + application +".js");
   }
+  else if(typeof(module) != 'undefined')
+  {
+	script.setAttribute('src', '../script.php?a=' + application + "&m="+module) ;
+  }
   else if(widget)
   {
     script.setAttribute('src', '../Widgets/' + application + "/" + application +".js");
   }
+  
   else
   {
      script.setAttribute('src', '../script.php?a=' + application);
@@ -301,8 +306,8 @@ Dashboard.AddEventById= function(element, event, methode, app, balise)
 
  if(typeof(app) == "undefined")
  {
+	// console.log(element, event, methode);
     var control = document.getElementById(element);
-     
     this.AddEvent(control, event, methode);
   }
   else
@@ -774,48 +779,61 @@ Dashboard.CloseSearch = function()
 */
 Dashboard.OpenPopUp = function(classe, methode, url, width, height, RefreshFunction, param, title)
 {
-	var parameters = Array();
-		parameters["Argument"] = 'Array';
-		parameters["Action"] = 'Array';
-		parameters["SourceControl"] = 'Array';
-		//parameters["Name"] = 'popup';
-		parameters["SourceControl"] = 'popup';
+	
+	
+		var parameters = Array();
+			parameters["Argument"] = 'Array';
+			parameters["Action"] = 'Array';
+			parameters["SourceControl"] = 'Array';
+			//parameters["Name"] = 'popup';
+			parameters["SourceControl"] = 'popup';
 
-                if(title)
-                {
-                    parameters["Title"] = title;
-                }
+			if(title)
+			{
+				parameters["Title"] = title;
+			}
 
-		parameters["Width"] = width;
-		parameters["Height"] = height;
-		parameters["Opacity"] = '50';
-		parameters["BackGroundColor"] = 'White';
-		parameters["ShowBack"] = '1';
-		parameters["Top"] = '';
-		parameters["Left"] = '';
-		parameters["Type"] = 'true';
+			parameters["Width"] = width;
+			parameters["Height"] = height;
+			parameters["Opacity"] = '50';
+			parameters["BackGroundColor"] = 'White';
+			parameters["ShowBack"] = '1';
+			parameters["Top"] = '';
+			parameters["Left"] = '';
+			parameters["Type"] = 'true';
 
-	var actions = Array();
-		actions["OnClose"] = RefreshFunction;
+		var actions = Array();
+			actions["OnClose"] = RefreshFunction;
 
-  if(url != "")
-  {
-		parameters["Url"] = url;
+	if(url != "" && url != undefined)
+	{
+			parameters["Url"] = url;
+			var popup = new PopUp(serialization.Encode(parameters) + param, serialization.Encode(parameters) + param, serialization.Encode(actions),'');
+
+			popup.Open(serialization.Encode(parameters) + param);
+	}
+	else if(typeof(classe) == "object")
+	{
+		console.log("Nouvelle gestion des popup");
+		for(prop in classe)
+		{
+			parameters[prop] = classe[prop];
+		}
+		var popup = new PopUp(serialization.Encode(parameters), serialization.Encode(parameters), serialization.Encode(actions), ''  );
+
+		popup.Open();		
+	}
+	else
+	{
+		parameters["Class"] = classe;
+		parameters["Methode"] = methode;
+		parameters["App"] = classe;
+
 		var popup = new PopUp(serialization.Encode(parameters) + param, serialization.Encode(parameters) + param, serialization.Encode(actions),'');
 
-	  	popup.Open();
-  }
-  else
-  {
-  	parameters["Class"] = classe;
-	parameters["Methode"] = methode;
-	parameters["App"] = classe;
-
-	var popup = new PopUp(serialization.Encode(parameters) + param, serialization.Encode(parameters) + param, serialization.Encode(actions),'');
-
-  	popup.Open();
-  }
-  //TODO gestion des popup avec class et methode
+		popup.Open();
+	}
+  	//TODO gestion des popup avec class et methode
 };
 
 /*
@@ -1215,14 +1233,14 @@ Dashboard.SetBasicAdvancedText = function(controlId)
  */
 Dashboard.SetAdvancedText = function(controlId)
 {
-         var editor = CKEDITOR.replace( controlId);
+     var editor = CKEDITOR.replace( controlId);
 
     //Mise a jour automatique
        for (var i in CKEDITOR.instances)
        {
            CKEDITOR.instances[i].on('change', function() { CKEDITOR.instances[i].updateElement() });
        }
-}
+};
 
 /**
 * Permet de contacter le porteur de projet
@@ -1297,14 +1315,29 @@ Dashboard.UpdateModele = function()
 {
     var ajaxModel = document.getElementById("ajaxModel");
     var error = document.getElementById("error");
-    var app = document.getElementById("app");
-    var action = document.getElementById("action");
-    var errorMsg = "";
-    
+	var app = document.getElementById("app");
+	var classe = document.getElementById("class");
+	var action = document.getElementById("action");
+    var callBack = document.getElementById("callBack");
+	var errorMsg = "";
+	
+	if(callBack != undefined && callBack.value != "")
+	{
+		Dashboard.callBack = callBack.value;
+	}
+	else
+	{
+		Dashboard.callBack = "";
+	}
+
     //Send Data
     var JAjax = new ajax();
     	JAjax.data = 'App=' + app.value + '&Methode=' + action.value;
-        
+		
+		if(classe != '')
+		{
+			JAjax.data += '&Class=' + classe.value + '&Methode=' + action.value;
+		}
     //Verify Required element
     var inputs = ajaxModel.getElementsByTagName("input");
     
@@ -1358,6 +1391,18 @@ Dashboard.UpdateModele = function()
     {
         error.innerHTML = "";
         
-        ajaxModel.innerHTML = JAjax.GetRequest("Ajax.php");
+        Request.Post("/Ajax.php", JAjax.data).then(data=>{
+		
+			ajaxModel.innerHTML = data; 
+				
+			if(data.indexOf("errorModel") == -1)
+			{
+				if(Dashboard.callBack != "")
+				{
+					eval(Dashboard.callBack + "()");
+				}
+			}
+		});
+
     }
 };

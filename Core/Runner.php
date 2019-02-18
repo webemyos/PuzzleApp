@@ -18,6 +18,8 @@ use Core\Core\Trace;
 use Core\Security\Autorisation;
 use Core\View\ElementView;
 use Core\View\View;
+use Core\Entity\Section\Section;
+
 /**
  * Description of Runner
  *
@@ -33,7 +35,7 @@ class Runner
         try 
         {
             $core = Core::getInstance($config, $debug);
-
+            $core->Init();
             //Extract the route Url
             $route = \Core\Router\Router::ExtractRoute();
 
@@ -53,8 +55,6 @@ class Runner
                 return;
             }
  
-            $core->Init();
-
             //Show Uploader
             if(Runner::IsUpload($app))
             {
@@ -75,7 +75,7 @@ class Runner
             }
 
             //Run the section
-            if (Runner::IsSection($app))
+            if (Runner::IsSection($app, $core))
             {
                 if (Autorisation::IsAutorized(Core::getInstance()->User, $app))
                 {
@@ -108,18 +108,10 @@ class Runner
         } 
         catch (Exception $ex) 
         {
-            print_r($ex);
-            
             $View = new View("../View/Core/Exception/exception.tpl", $core);
             
-            if(!$debug)
-            {
-                $View->AddElement(new ElementView("message", "Ca bug grave"));
-            }
-            else
-            {
-                 $View->AddElement(new ElementView("message", $ex->getMessage()));
-            }
+            
+            $View->AddElement(new ElementView("message", $ex->getMessage()));
             
             echo $View->Render();
            
@@ -130,19 +122,20 @@ class Runner
      * Défine if the systeme use a section
      */
 
-    public static function IsSection($section)
+    public static function IsSection($section, $core)
     {
-        $sections = array("Admin", "Membre");
+        $request = "SELECT GROUP_CONCAT(Name) as names FROM ee_section";
+        $result = $core->Db->GetLine($request);
 
-        return (in_array($section, $sections));
+        return (in_array($section, explode(",", $result["names"])));
     }
 
     /*
     * Définie si c'est l'upload
     */
-    public static function IsUpload($section)
+    public static function IsUpload($app)
     {
-      return $section == "upload";
+      return $app == "upload";
     }
     
     /*

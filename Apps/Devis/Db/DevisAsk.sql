@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS `DevisAsk` ( 
+`Id` int(11) NOT NULL AUTO_INCREMENT, 
+`PrestationId` INT  NULL ,
+`Name` VARCHAR(200)  NULL ,
+`Email` VARCHAR(200)  NULL ,
+`Phone` VARCHAR(200)  NULL ,
+`Description` TEXT  NULL ,
+`DateCreated` DATE  NULL ,
+PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARACTER SET `utf8`; 

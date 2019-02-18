@@ -18,7 +18,8 @@ use Core\App\Application;
 use Core\Core\Core;
 use Core\Core\Request;
 use Core\Entity\User\User;
-
+use Apps\Captcha\Captcha;
+use Core\Utility\Email\Email;
 
 /**
  * Base of the App
@@ -89,7 +90,6 @@ class Base extends Application
      */
     public function Membre()
     {
-        
     }
     
     /*
@@ -97,9 +97,23 @@ class Base extends Application
      */
     public function Contact()
     {
+        $this->Core->MasterView->Set("Title", $this->Core->GetCode("ContactUs"));
+        $valid = false;
+
         if(Request::IsPost())
         {
-            //YOUR CODE
+            if(!Captcha::IsValid())
+            {
+                $frontController = new FrontController($this->Core);
+                return $frontController->contact(false);
+            }
+            else
+            {
+                return  $this->ContactAction(Request::GetPost("tbMail"),
+                                      Request::GetPost("tbName"),
+                                      Request::GetPost("tbMessage")
+                                     );
+            }
         }
         else
         {
@@ -108,17 +122,58 @@ class Base extends Application
         }
     }
     
+    /**
+     * Send Message to Admin
+     */
+    public function ContactAction($email, $name, $message)
+    {
+        $mail = new Email($this->Core);
+        $mail->Title = $this->Core->GetCode("Base.NewContactMessageTitle");
+        $mail->Body = $this->Core->GetCode("Base.NewContactMessageBody");
+        $mail->Body .= $email . "," .$name . ",".$message;
+
+        $admins = $this->Core->GetAdminUser();
+
+        foreach($admins as $admin)
+        {
+            $mail->Send($admin->Email->Value);
+        }
+
+        return $this->Core->GetCode("Base.ContactMessageRecevied");
+    }
+
     /*
      * Inscription to the site
      */
-    public function singup()
+    public function Singup()
     {
-       $this->Core->MasterView->Set("Title", $this->Core->GetCode("Login"));
+       $this->Core->MasterView->Set("Title", $this->Core->GetCode("Register"));
        
        $singUpController = new SingUpController($this->Core);
        return $singUpController->Index();
     }
-    
+
+    /**
+     * Password gorger
+     */
+    public function ForgetPassword()
+    {
+        $this->Core->MasterView->Set("Title", $this->Core->GetCode("ForgetPassword"));
+       
+        $singUpController = new SingUpController($this->Core);
+        return $singUpController->ForgetPassword();
+    }
+
+    /**
+     * Password gorger
+     */
+    public function NewPassword($params)
+    {
+        $this->Core->MasterView->Set("Title", $this->Core->GetCode("NewPassword"));
+       
+        $singUpController = new SingUpController($this->Core);
+        return $singUpController->NewPassword($params);
+    }
     /*
      * Module d'installation
      */

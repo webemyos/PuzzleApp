@@ -10,6 +10,7 @@
 namespace Core\App;
 
 use Apps\Api\Api;
+use Apps\Sitemap\Sitemap;
 use Apps\Cms\Cms;
 use Core\Core\Core;
 use Core\View\ContentView;
@@ -53,15 +54,17 @@ class App
 
         $core->MasterView = $this->appBase->GetMasterView();
 
-        if($app == "Api")
+        //App qui n'ont pas besoin du layout standard
+        if($app == "Api" || $app =='Sitemap')
         {
-            $api = new Api($core);
+            $appPath = "\\Apps\\".$app."\\".$app;
+            $api = new $appPath($core);
             echo $api->Execute();
             return;
         }
         
         //Execute action on app
-        if(!AppManager::IsApp($app))
+        if(!AppManager::IsApp($this->Core, $app))
         {
           if($app == "" || $app == "index" || $app == "Index")
           {
@@ -71,7 +74,7 @@ class App
           {
               if(method_exists($this->appBase, $app))
               {
-                $core->MasterView->AddElement(new ContentView("content", $this->appBase->$app()));
+                $core->MasterView->AddElement(new ContentView("content", $this->appBase->$app($action)));
               }
               else
               {
