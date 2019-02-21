@@ -91,8 +91,8 @@ namespace Core\Utility\File;
      }
      else
      {
-        $file = fopen($fileName,"a");
-        fputs($file,$content);
+        $file = @fopen($fileName,"a");
+        @fputs($file,$content);
 
        return false;
      }
@@ -236,7 +236,7 @@ namespace Core\Utility\File;
   {
      if(!file_exists($file))
      {
-         mkdir ($file, 0777);
+         @mkdir ($file, 0777);
          return true;
      }
      else

@@ -11,6 +11,7 @@ namespace Core\App;
 
 use Core\Core\Core;
 use Apps\EeApp\EeApp;
+use Apps\Ide\Ide;
 
 class AppManager
 {
@@ -33,6 +34,15 @@ class AppManager
        {
             $appsName[] = $app->Name->Value;
        }
+
+       $eide = new Ide();
+       $apps = $eide->GetAll();
+
+	   foreach($apps as $app)
+	   {
+		   $appsName[] = $app->Name->Value;
+	   }
+
        return (in_array($appName, $appsName));
    }
    

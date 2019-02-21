@@ -1347,6 +1347,17 @@ Dashboard.UpdateModele = function()
         {
             errorMsg += "<li>" + inputs[i].name + "</li>" ;
         }
+        else if(inputs[i].type == "checkbox" )
+        {
+        	if(inputs[i].checked)
+	        {
+		        JAjax.data += "&" +  inputs[i].name  + "=1";
+	        }
+	        else
+	        {
+		        JAjax.data += "&" +  inputs[i].name  + "=0";
+		    }
+        }
         else
         {
             JAjax.data += "&" +  inputs[i].name  + "=" + inputs[i].value;

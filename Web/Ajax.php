@@ -48,5 +48,5 @@ if($Methode == "GetCode")
 }
 else
 {
-  $class->$Methode();
+  echo $class->$Methode();
 }

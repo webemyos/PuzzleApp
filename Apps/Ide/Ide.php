@@ -7,6 +7,8 @@
  * */
 namespace Apps\Ide;
 
+use Core\Core\Core;
+
 use Apps\Ide\Helper\DeployHelper;
 use Apps\Ide\Helper\DepotHelper;
 use Apps\Ide\Helper\EntityHelper;
@@ -42,11 +44,12 @@ class Ide extends Application
 	/**
 	 * Constructeur
 	 * */
-	 function __construct($core)
+	 function __construct($core ="")
 	 {
+		 $this->Core = Core::getInstance();
+
 	 	parent::__construct($core, "Ide");
-	 	$this->Core = $core;
-         }
+     }
 
 	 /**
 	  * Execution de l'application
@@ -583,6 +586,14 @@ class Ide extends Application
         function CommitDepot()
         {
             DepotHelper::Commit(Request::GetPost("depot"));
+        }
+
+		/**
+		 * Obtient les projets de l'utilisateur
+		 */
+        function GetAll()
+        {
+			return ProjetHelper::GetAll($this->Core);
         }
         
 }

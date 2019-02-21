@@ -62,7 +62,7 @@ class Property
 		if($this->Type)
 		{
 			//Chargement avec les valeur postï¿½ ou les valeur de l'entitï¿½
-	 		if(Request::GetPost($this->TableName) != false)
+	 		if(Request::GetPost($this->TableName) !== false)
 	 		{
         		$this->Control->Value=Request::GetPost($this->TableName);
 	 			$this->Value=Request::GetPost($this->TableName);

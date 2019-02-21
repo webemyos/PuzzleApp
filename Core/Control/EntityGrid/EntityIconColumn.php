@@ -43,21 +43,21 @@ class EntityIconColumn extends Control implements IColumn
         $title = $icone[1];
         $action = $icone[2];
         $params = $icone[3];
-        
-        
+
         $icone = new $type();
         $icone->CssClass .= " actionIcon";
         $icone->Title = $title;
         $icone->Action = $action;
         $icone->IdEntite = $Entite->IdEntite;
-        
-        foreach($params as $param)
+
+        if($params != null)
         {
-           if($icone->Params != "")
-           {
-               $icone->Params .= ";";
-           }
-           $icone->Params .= $Entite->$param->Value;
+	        foreach ($params as $param) {
+		        if ($icone->Params != "") {
+			        $icone->Params .= ";";
+		        }
+		        $icone->Params .= $Entite->$param->Value;
+	        }
         }
         
         $html .= $icone->Show();

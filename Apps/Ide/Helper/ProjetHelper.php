@@ -185,6 +185,16 @@ class ProjetHelper
         return $ideProjet->GetByArg();
         
     }
+
+	/***
+	 * Retourne tous le projets
+	 */
+    public static function GetAll($core)
+    {
+        $projets = new IdeProjet($core);
+
+        return $projets->GetAll();
+    }
 }
 
 ?>
