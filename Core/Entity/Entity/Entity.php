@@ -261,7 +261,7 @@ class Entity
        $this->AppName = new Property("AppName", "AppName", TEXTBOX,  false, $this->Alias); 
        $this->AppId = new Property("AppId", "AppId", NUMERICBOX,  false, $this->Alias); 
        $this->EntityName = new Property("EntityName", "EntityName", TEXTBOX,  false, $this->Alias); 
-       $this->EntityId = new Property("EntityId", "EntityId", NUMERICBOX,  false, $this->Alias); 
+       $this->EntityId = new Property("EntityId", "EntityId", TEXTBOX,  false, $this->Alias);
     }
         
     /*

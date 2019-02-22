@@ -61,7 +61,7 @@ class CmsController extends Controller
    /**
     * Popin de création de cms
     */
-   function ShowAddCms($appName, $entityName, $entityId)
+   function ShowAddCms($appName="", $entityName="", $entityId="")
    {
        $jbCms = new AjaxFormBlock($this->Core, "jbCms");
        $jbCms->App = "Cms";
