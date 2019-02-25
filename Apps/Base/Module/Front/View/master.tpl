@@ -13,9 +13,7 @@
     <link href="{{GetPath(/asset/global.css)}}" rel="stylesheet">
 
     <script src='{{GetPath(/script.php)}}' ></script>
-    <script src='{{GetPath(/script.php?a=Downloader)}}' ></script>
-    <script src='{{GetPath(/script.php?a=Blog)}}' ></script>  
-
+    
 
     <!-- Script
     ================================================== -->
@@ -26,14 +24,13 @@
     <![endif]-->
   </head>
   
-    <script  src="script.js" ></script>
     <body>
         <h1>Puzzle App</h1>
             <ul>
                 <li><a href='Index'>{{GetCode(Home)}}</a></li>
                 <li><a href='Contact'>{{GetCode(Contact)}}</a></li>
                 {{if connected == false}}
-                     <li><a href='Login'>{{GetCode(Login)}}</a></li>
+                     <li><a href='Login'>{{GetCode(Connect)}}</a></li>
                 {{/if connected == false}}
                    
                 {{if connected == true}}

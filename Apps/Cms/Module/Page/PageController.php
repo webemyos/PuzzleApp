@@ -91,7 +91,7 @@ class PageController extends Controller
                                     array("Type"=>"TextBox", "Name"=> "tbPageTitle", "Libelle" => $this->Core->GetCode("Title"), "Value"=> ($pageId != "") ? $page->Title->Value : ""),
                                     array("Type"=>"TextArea", "Name"=> "tbPageDescription", "Libelle" => $this->Core->GetCode("Description"), "Value"=> ($pageId != "") ? $page->Description->Value : ""),
                                      array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
-                                     array("Type"=>"Link", "Libelle"=> $this->Core->GetCode("Show"), "Value"=> Core::GetPath("/".Format::ReplaceForUrl($page->Name->Value)).".html" ),
+                                     array("Type"=>"Link", "Libelle"=> $this->Core->GetCode("Show"), "Value"=> $this->Core->GetPath("/".$page->Code->Value)),
 
                ));
        }
@@ -200,22 +200,18 @@ class PageController extends Controller
   {
       //Recuperation du cms
       $cms = new CmsCms($this->Core);
-      $cms = $cms->GetByName("Webemyos");
+      $cms = $cms->GetFirst();
 
       if($cms != null)
       {
       //Recuperation de la page
 
           $page = new CmsPage($this->Core);
-         // $page->AddArgument(new Argument("Apps\Cms\Entity\CmsPage", "CmsId",EQUAL, $cms->IdEntite));
-          $page->AddArgument(new Argument("Apps\Cms\Entity\CmsPage", "Name",EQUAL, Format::GetReplaceForUrl($pageName, false)));
+        
+          $page = $page->GetByCode($pageName);
 
-          $pages = $page->GetByArg();
-
-          if(count($pages) > 0 )
+          if($page->IdEntite != "" )
           {
-              $page = $pages[0];
-
               //Ajout des proriété title et description
               $this->Core->MasterView->Set("Title", $page->Title->Value);
               $this->Core->MasterView->Set("Title", $page->Description->Value);

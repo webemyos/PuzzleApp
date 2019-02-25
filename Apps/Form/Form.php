@@ -39,25 +39,37 @@ class Form extends Application
      $this->Core = $core;
    }
 
-   /*
-    * Détail d'un formulaire 
-    */
-   function detail($params)
-   {
-        $this->Core->MasterView->Set("Title", "Form");
-
-        $frontConroller = new FrontController($this->Core);
-        return $frontConroller->Index($params);
-   }
-   
    /**
     * Execution de l'application
     */
-   function Run()
-   {
-     echo parent::RunApp($this->Core, "Form", "Form");
-   }
+    function Run()
+    {
+      echo parent::RunApp($this->Core, "Form", "Form");
+    }
 
+    
+
+     /**
+     * Set the Public Routes
+     */
+    public function GetRoute()
+    {
+       $this->Route->SetPublic(array("Form"));
+      
+       return $this->Route;
+    }
+   /*
+    * Détail d'un formulaire 
+    */
+   function Form($params)
+   {
+      $this->Core->MasterView->Set("Title", "Form");
+
+      $frontController = new FrontController($this->Core);
+      return $frontController->Index($params);
+   }
+   
+   
     /**
    * Récupère les formulaires de l'utilisateur
    */
@@ -170,7 +182,7 @@ class Form extends Application
 
       foreach($emails as $email)
       {
-        $Email  = new Email();
+        $Email  = new Email($this->Core);
         $Email->Template = "MessageTemplate";
         $Email->Sender = WEBEMYOSMAIL;
 
@@ -185,7 +197,7 @@ class Form extends Application
         $text = str_replace("{DescriptionEnquete}",  $form->Commentaire->Value, $text);
         
         $Email->Body .= $text;
-        $Email->Body .= "<br/><br/> Vous pouvez y répondre en cliquant sur ce lien <a href='http://webemyos.com/app-Form-".$formId.".html'>Voir le questionnaire</a>";
+        $Email->Body .= "<br/><br/> Vous pouvez y répondre en cliquant sur ce lien <a href='".$this->Core->GetPath("/")."/Form/".$formId.".html'>Voir le questionnaire</a>";
 
         $Email->Send($email);
         $Email->SendToAdmin();

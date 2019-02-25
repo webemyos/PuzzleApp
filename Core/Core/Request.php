@@ -118,7 +118,7 @@ class Request
     public static function IsConnected($core)
     {
         //Nom du site
-        $siteName = $core->GetSiteName();
+     echo  $siteName = $core->GetSiteName();
 
         if((Request::GetSession(md5($siteName."_Log"))) && Request::GetSession(md5($siteName."_Log"))=="Ok")
                 return true;

@@ -106,7 +106,7 @@ class ArticleHelper
     /**
      * Retourne les trois dernier articles de la mème categorie
      */
-    function GetSimilare($core, $article)
+    public static function GetSimilare($core, $article)
     {
         $articles = new BlogArticle($core);
         $articles->AddArgument(new Argument("Apps\Blog\Entity\BlogArticle", "Actif", EQUAL, 1));

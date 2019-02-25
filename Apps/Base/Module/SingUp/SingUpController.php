@@ -90,7 +90,7 @@ class SingUpController extends Controller
                 $email->Title = $this->Core->GetCode("Base.emailForgetMessageTitle");
                 $email->Body = $this->Core->GetCode("Base.emailForgetMessageMessage");
                 
-                $link = new Link($this->Core->GetCode("Base.emailLink"), $this->Core->GetPath("/NewPassword/".$token));
+                $link = new Link($this->Core->GetCode("Base.emailLink"), $this->Core->GetPath() . "/NewPassword/".$token);
                 $email->Body .= $link->Show();
                 $email->Send($user->Email->Value);
 

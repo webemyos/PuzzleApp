@@ -117,4 +117,16 @@ use Core\View\View;
         return $upload->Show();
     }
 
+    /*
+    * Pop IN d'upload d'app
+    */
+    function ShowUploadLanguage()
+    {
+        $upload = new Upload("EeApp", 0, "EeAppAction.CallBack", "DoUploadLanguage");
+
+        return $upload->Show();
+    }
+
+    
+
  }?>

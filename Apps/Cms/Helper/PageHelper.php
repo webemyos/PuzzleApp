@@ -11,6 +11,7 @@ namespace Apps\Cms\Helper;
 
 use Apps\Cms\Entity\CmsPage;
 use Core\Entity\Entity\Argument;
+use Core\Utility\Format\Format;
 
 class PageHelper
 {
@@ -34,8 +35,8 @@ class PageHelper
             $page->CmsId->Value = $cmsId;
         }
         
-        $page->UserId->Value = $core->User->IdEntite;
         $page->Name->Value = $name;
+        $page->Code->Value = Format::ReplaceForUrl($name);
         $page->Title->Value = $title;
         $page->Description->Value = $description;
                 

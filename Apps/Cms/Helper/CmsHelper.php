@@ -27,9 +27,7 @@ class CmsHelper
             $cms->UserId->Value = $core->User->IdEntite;
             $cms->Name->Value = $name;
             $cms->Description->Value = $description;
-            $cms->Actif->Value = "0";
-            $cms->Style->Value = 1;
-
+           
             $cms->AppName->Value = $appName;
             $cms->EntityName->Value = $entityName;
             $cms->EntityId->Value = $entityId;
@@ -47,7 +45,7 @@ class CmsHelper
     /**
      * Met a jour le cms
      */
-    public function Update($core, $cmsId, $name, $description)
+    public static function Update($core, $cmsId, $name, $description)
     {
          if(!self::Exist($core, $name))
         {

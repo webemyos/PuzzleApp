@@ -1,0 +1,16 @@
+{"lang":"Fr", 
+"data":[
+{"Code":"EeApp.ShowUploadLanguage","Libelle":"Ajouter une fichier de traduction"},
+{"Code":"EeApp.MyApp","Libelle":"Mes applications"},
+{"Code":"EeApp.Apps","Libelle":"Applications"},
+{"Code":"EeApp.Admin","Libelle":"Administration"},
+{"Code":"EeApp.TitleHome","Libelle":"Gestionnaire d'application"},
+{"Code":"EeApp.MessageHome","Libelle":"Bienvenue dans le gestionnaires d'application"},
+{"Code":"EeApp.Remove","Libelle":"Supprimer"},
+{"Code":"EeApp.Add","Libelle":"Ajouter une application"},
+{"Code":"EeApp.AddApp","Libelle":"Ajouter une application"},
+{"Code":"EeApp.UploadApp","Libelle":"Ajouter une application téléchargée"},
+{"Code":"EeApp.UploadLanguage","Libelle":"Ajouter un package de langue"}
+]}
+
+

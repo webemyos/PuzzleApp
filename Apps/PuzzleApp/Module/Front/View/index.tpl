@@ -122,7 +122,7 @@
           <h3 class='fa fa-download fa-2x'>&nbsp;1.Téléchargez la solution</h3>
           <p>Télechargez la solution et déposez la sur votre serveur.</p>
           <p>C'est simple.</p>
-          <a href='{{GetPath(/Downloader/download/puzzleApp)}}' class='btn btn-info'>Je télécharge</a>
+          <a href='{{GetPath(/Downloader/Download/puzzleApp)}}' class='btn btn-info'>Je télécharge</a>
       </div>
       <div class='col-md-4'>
           <h3 class='fa fa-desktop fa-2x'>&nbsp;2.Installez les applications.</h3>
@@ -133,7 +133,7 @@
                
                Pendant que les développeurs développent les fonctionnalités.
           </p>
-           <a href='{{GetPath(/store)}}' class='btn btn-warning'>Je découvre le store</a>
+           <a href='{{GetPath(/Store)}}' class='btn btn-warning'>Je découvre le store</a>
          </div>
       <div class='col-md-4'>
           <h3 class='fa fa-group fa-2x'>&nbsp;3.Développez vos fonctionnalités.</h3>
@@ -159,7 +159,7 @@
         <div class='col-md-4'>
             <h3 class='fa fa-flash fa-2x' >We need You</h3>
             <p>Rejoins la communauté et viens donner un peu de temps, ton génie, ton savoir faire, tes idées...</p>
-            <a class='btn btn-primary' href='{{GetPath(/singup)}}' >Rejoins nous</a><br/>
+            <a class='btn btn-primary' href='{{GetPath(/Singup)}}' >Rejoins nous</a><br/>
         </div>
         <div class='col-md-4'>
             <h3 class='fa fa-share fa-2x'>Suis nous</h3>

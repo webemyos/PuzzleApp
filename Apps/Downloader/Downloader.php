@@ -38,6 +38,27 @@ class Downloader extends Application
         parent::__construct($core, "Downloader");
     }
 
+    
+    
+     /**
+      * Execution de l'application
+      */
+    function Run()
+    {
+       echo parent::RunApp($this->Core, "Downloader", "Downloader");
+    }
+    
+    
+    /**
+     * Set the Public Routes
+     */
+    public function GetRoute()
+    {
+        $this->Route->SetPublic(array("Download"));
+       
+        return $this->Route;
+    }
+
     /*
      * Download a Document
      */
@@ -48,15 +69,7 @@ class Downloader extends Application
         $frontController = new FrontController($this->Core);
         return $frontController->DownLoad($params);
     }
-    
-     /**
-      * Execution de l'application
-      */
-    function Run()
-    {
-       echo parent::RunApp($this->Core, "Downloader", "Downloader");
-    }
-     
+
     /*
      * Pop in d'ajout de ressource
      */

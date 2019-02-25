@@ -16,6 +16,7 @@ use Core\Core\Config;
 use Core\Core\JHomDOMDocument;
 use Core\Control\MenuV\MenuV;
 use Core\Control\Icone\CloseIcone;
+use Core\Router\Route;
 
 class Application
 {
@@ -25,24 +26,35 @@ class Application
     protected $AddWindowsTool;
     public $IdEntity;
     public $Connected = true;
+    protected $Route;
 
     /**
      * Constucteur
      * */
     public function __construct($core, $name ="", $front = false)
     {
-    //Recuperation du coeur
-    $this->Core = Core::getInstance();
+        //Recuperation du coeur
+        $this->Core = Core::getInstance();
 
-    //Configuration
-    if($this->Core->User)
-    {
-        //$this->Config = new Config($this->Core, $name, "Apps", $front);
-        $this->AddWindowsTool = true;
+        //Configuration
+        if($this->Core->User)
+        {
+                //$this->Config = new Config($this->Core, $name, "Apps", $front);
+                $this->AddWindowsTool = true;
 
-        //PlugIN
-       // $this->PlugIn = new PlugIn($this->Core, $name,"Apps");
+                //PlugIN
+        // $this->PlugIn = new PlugIn($this->Core, $name,"Apps");
+        }
+
+        $this->Route = new Route($name);
     }
+
+    /**
+     * Return Définitions off the Routes
+     */
+    public function GetRoute()
+    {
+        return $this->Route;
     }
 
     /**

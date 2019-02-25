@@ -9,6 +9,7 @@
 
 namespace Core\Control;
 
+use Core\Core\Core;
 use Core\Core\Request;
 
 class Control
@@ -17,13 +18,14 @@ class Control
 	protected $Id;
 	protected $Name;
 	protected $Enabled=true;
-        protected $Required = false;
+    protected $Required = false;
 	protected $Type;
 	protected $CssClass;
 	protected $Style;
 	protected $Attribute;
 	protected $Libelle;
 	protected $Value;
+	protected $LangValue;
 	protected $OnClick;
 	protected $OnMouseMove;
 	protected $OnMouseOver;
@@ -38,10 +40,10 @@ class Control
 	protected $IsValid=true;
 	protected $Obligatory=true;
 	protected $PlaceHolder;
-        protected $AutoCapitalize = "None";
-        protected $AutoCorrect = "None";
-        protected $AutoComplete = "None";
-        protected $Info;
+    protected $AutoCapitalize = "None";
+    protected $AutoCorrect = "None";
+    protected $AutoComplete = "None";
+    protected $Info;
 
 	//Constructeur
 	function __construct($name)
@@ -116,12 +118,20 @@ class Control
 	
 		if($addValue)
 		{
-                    //Reload the value if In post
-                    if(Request::GetPost($this->Id) !== false && get_class($this) != "Core\Control\Submit\Submit"  && get_class($this) != "Core\Control\Button\Button" )
-                    {
-                        $this->Value = !is_array(Request::GetPost($this->Id))?Request::GetPost($this->Id):"" ;
-                    }
-                    $html .=($this->Value !="")? "  value='".htmlspecialchars($this->Value, ENT_QUOTES ). "'" : "";
+			//Reload the value if In post
+			if(Request::GetPost($this->Id) !== false && get_class($this) != "Core\Control\Submit\Submit"  && get_class($this) != "Core\Control\Button\Button" )
+			{
+				$this->Value = !is_array(Request::GetPost($this->Id))?Request::GetPost($this->Id):"" ;
+			}
+			if($this->LangValue != "")
+			{
+				$core = Core::getInstance();
+				$html .= "value='".$core->GetCode($this->LangValue)."'";
+			}
+			else
+			{
+				$html .=($this->Value !="")? "  value='".$this->Value."'" : "";
+			}
 		}
                 
 		

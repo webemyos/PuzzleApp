@@ -1,6 +1,7 @@
 <div class="content-panel">
-      {{GetControl(Button,AddApp,{Value=AddApp,CssClass=btn btn-success,OnClick=EeAppAction.ShowAddApp()})}}
-      {{GetControl(Button,UploadApp,{Value=UploadApp,CssClass=btn btn-info,OnClick=EeAppAction.ShowUploadApp()})}}
+      {{GetControl(Button,AddApp,{LangValue=EeApp.AddApp,CssClass=btn btn-success,OnClick=EeAppAction.ShowAddApp()})}}
+      {{GetControl(Button,UploadApp,{LangValue=EeApp.UploadApp,CssClass=btn btn-info,OnClick=EeAppAction.ShowUploadApp()})}}
+      {{GetControl(Button,UploadLanguage,{LangValue=EeApp.UploadLanguage,CssClass=btn btn-info,OnClick=EeAppAction.ShowUploadLanguage()})}}
 
 
         <table class="table">

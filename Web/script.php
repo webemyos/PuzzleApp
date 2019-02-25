@@ -6,11 +6,14 @@
  * Jérôme Oliva
  * GNU Licence
  */
-
+include("../environment.php");
 include("../autoload.php");
 
+use Core\Core\Core;
 use Core\Script\ScriptManager;
 use Core\Core\Request;
+
+$Core= Core::getInstance(GetEnvironnement(), false);
 
 //Get a specific script
 if(Request::Get("s"))

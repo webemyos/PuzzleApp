@@ -64,7 +64,7 @@
                     <li><div id='tdApp' class='top-menu'>
                         </div>
                     </li>    
-                    <li><a href="disconnect" class='logout'><i class="fa fa-power-off"></i>&nbsp;{{GetCode(membre.Logout)}}</a></a></li>
+                    <li><a href="Disconnect" class='logout'><i class="fa fa-power-off"></i>&nbsp;{{GetCode(membre.Logout)}}</a></a></li>
             	</ul>
             </div>
         </header>
@@ -123,7 +123,7 @@
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2017 - PuzzleApp - PuzzeApp.com
+              PuzzleApp - PuzzeApp.com
               <a href="blank.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>

@@ -11,14 +11,14 @@ namespace Apps\Admin;
 
 use Apps\Admin\Module\DashBoard\DashBoardController;
 use Core\Core\Core;
-
+use Core\App\Application;
 
 /**
  * Description of Admin
  *
  * @author OLIVA
  */
-class Admin 
+class Admin extends Application
 {
      /*
      * Créate de app Base
@@ -26,8 +26,18 @@ class Admin
     public function __construct()
     {
         $this->Core = Core::getInstance();
+        parent::__construct($this->Core, "Admin");
     }
     
+    /**
+     * Set Admin Public
+     */
+    public function GetRoute()
+    {
+        $this->Route->SetPublic(array("Admin"));
+        return $this->Route;
+    }
+
     /*
      * Get the master View
      */

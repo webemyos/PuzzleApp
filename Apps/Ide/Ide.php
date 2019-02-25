@@ -7,8 +7,6 @@
  * */
 namespace Apps\Ide;
 
-use Core\Core\Core;
-
 use Apps\Ide\Helper\DeployHelper;
 use Apps\Ide\Helper\DepotHelper;
 use Apps\Ide\Helper\EntityHelper;
@@ -29,6 +27,8 @@ use Core\Block\AjaxFormBlock\AjaxFormBlock;
 use Core\Core\Request;
 use Core\Control\Image\Image;
 use Core\Control\Link\Link;
+use Core\Core\Core;
+
 
 class Ide extends Application
 {
@@ -38,17 +38,17 @@ class Ide extends Application
 	 * */
 	public $Author = 'Eemmys';
 	public $Version = '1.0.0';
-        public static $Directory = "../Apps/Ide";
-        public static $Destination = "../Apps";
+    public static $Directory = "../Apps/Ide";
+    public static $Destination = "../Apps";
 
 	/**
 	 * Constructeur
 	 * */
-	 function __construct($core ="")
+	 function __construct($core="")
 	 {
-		 $this->Core = Core::getInstance();
-
+        $this->Core = Core::getInstance();
 	 	parent::__construct($core, "Ide");
+	 	
      }
 
 	 /**
@@ -588,14 +588,13 @@ class Ide extends Application
             DepotHelper::Commit(Request::GetPost("depot"));
         }
 
-		/**
-		 * Obtient les projets de l'utilisateur
-		 */
-        function GetAll()
-        {
-			return ProjetHelper::GetAll($this->Core);
-        }
-        
+    /**
+     * Obtient les projets de l'utilisateur
+     */
+    function GetAll()
+    {
+        return ProjetHelper::GetAll($this->Core);
+    }    
 }
 
 ?>

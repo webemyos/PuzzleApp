@@ -51,7 +51,7 @@ class CommentHelper
     /*
      * Obtient les commentaire d'un article
      */
-    function GetByArticle($core, $articleId, $actif = null)
+    public static function GetByArticle($core, $articleId, $actif = null)
     {
         $comments = new BlogComment($core);
         $comments->AddArgument(new Argument("Apps\Blog\Entity\BlogComment", "ArticleId", EQUAL, $articleId));

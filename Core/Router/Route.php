@@ -19,8 +19,9 @@ class Route
     private $app;
     private $action;
     private $params;
+    private $publicRoute = array();
     
-    public function __construct($app, $action, $params)
+    public function __construct($app="", $action="", $params="")
     {
         $this->app = $app;
         $this->action=$action;
@@ -66,4 +67,28 @@ class Route
     {
         return $this->params;
     }
+
+    /***
+     * 
+     */
+    public function SetPublic($routes)
+    {
+        $this->publicRoutes = $routes;
+    }
+
+    public function GetPublic()
+    {
+        return $this->publicRoutes;
+    }   
+
+    public function IsPublic($route)
+    {
+        if($this->publicRoutes == null)
+        {
+            return false;
+        }
+        return in_array($route, $this->publicRoutes);
+    }
+
+
 }

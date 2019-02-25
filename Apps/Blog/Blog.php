@@ -47,6 +47,24 @@ class Blog extends Application
         $this->Core = Core::getInstance();
      }
 
+     /**
+     * Execution de l'application
+     */
+     function Run()
+     {
+        echo parent::RunApp($this->Core, "Blog", "Blog");
+     }
+
+     /**
+     * Set the Public Routes
+     */
+     public function GetRoute()
+     {
+        $this->Route->SetPublic(array("Category", "Article", "Subscribe"));
+       
+        return $this->Route;
+     }
+
      /*
       * Home Page Blog
       */
@@ -83,13 +101,7 @@ class Blog extends Application
          return $frontController->Subscribe();
      }
 
-     /**
-      * Execution de l'application
-      */
-     function Run()
-     {
-        echo parent::RunApp($this->Core, "Blog", "Blog");
-     }
+   
 
     /**
      * Pop in d'ajout de blog
@@ -382,7 +394,7 @@ class Blog extends Application
      * Affiche le blog en front office
      * @param type $name
      */
-    function Display($name)
+    function Display($name="")
     {
         $this->ShowBlog($name);
     }

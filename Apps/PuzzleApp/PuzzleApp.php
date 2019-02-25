@@ -28,6 +28,15 @@ class PuzzleApp extends Base
    function __construct($core="")
    {
        $this->Core = Core::getInstance();
+       parent::__construct($this->Core, "PuzzleApp");
+   }
+
+   /**
+    * Add The Route
+    */
+   function GetRoute($route ="")
+   {
+      return parent::GetRoute(array("Store"));
    }
 
    /*
@@ -72,7 +81,7 @@ class PuzzleApp extends Base
    /*
     * Store du framework et des applications
     */
-   function store()
+   function Store()
    {
       $this->Core->MasterView->Set("Title", $this->Core->GetCode("LeStore"));
       $this->Core->MasterView->Set("Description", "Besion d'un forum, d'un blog, d'un système d'envoi d'email ? Trouvez votre application dans notre store. Faite les évoluers selon votre besoin ou métier. ");

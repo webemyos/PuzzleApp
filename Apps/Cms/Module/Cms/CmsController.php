@@ -61,7 +61,7 @@ class CmsController extends Controller
    /**
     * Popin de création de cms
     */
-   function ShowAddCms($appName, $entityName, $entityId)
+   function ShowAddCms($appName="", $entityName="", $entityId="")
    {
        $jbCms = new AjaxFormBlock($this->Core, "jbCms");
        $jbCms->App = "Cms";
@@ -159,7 +159,7 @@ class CmsController extends Controller
        $jbCms->AddControls(array(
                                      array("Type"=>"TextBox", "Name"=> "tbName", "Libelle" => $this->Core->GetCode("Name"), "Value" => $cms->Name->Value),
                                      array("Type"=>"TextArea", "Name"=> "tbDescription", "Libelle" => $this->Core->GetCode("Description"), "Value" => $cms->Description->Value),
-                                     array("Type"=>"Button", "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
+                                     array("Type"=>"Button", "CssClass"=> "btn btn-success" , "Name"=> "BtnSave" , "Value" => $this->Core->GetCode("Save")),
                          )
                );
 
@@ -177,6 +177,7 @@ class CmsController extends Controller
        //Ajout d'page
        $btnNew = new Button(BUTTON);
        $btnNew->Value = $this->Core->GetCode("Cms.NewPage");
+       $btnNew->CssClass = 'btn btn-info';
        $btnNew->OnClick = "CmsAction.ShowAddPage(".$cms->IdEntite.");";
 
         $html .= $btnNew->Show();

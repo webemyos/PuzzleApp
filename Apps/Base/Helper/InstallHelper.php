@@ -44,9 +44,12 @@ class InstallHelper
       
         //Get the request File
         $request = File::GetFileContent(__DIR__. "/../Db/install.sql");
-        
         $core->Db->ExecuteMulti($request);
   
+        //Set the Base languague
+        $request = File::GetFileContent(__DIR__. "/../Db/lang.sql");
+        $core->Db->ExecuteMulti($request);
+
         //Set Admin
         $user = new User($core);
         $user->Email->Value = $admin;
@@ -66,7 +69,15 @@ class InstallHelper
         $appAdmin->AppId->Value = 1;
         $appAdmin->UserId->Value = $user->IdEntite;
         $appAdmin->Save();
-        
+ 
+        //Set The Cms Script
+        $request = File::GetFileContent(__DIR__. "/../../Cms/Db/install.sql");
+        $core->Db->ExecuteMulti($request);
+    
+        //Set The Ide Script
+        $request = File::GetFileContent(__DIR__. "/../../Ide/Db/install.sql");
+        $core->Db->ExecuteMulti($request);
+
         //set the Install Key
         $core->Config->SetKey("INSTALLED", "1");
     }

@@ -183,6 +183,17 @@ class Entity
        //Get The Entity by this Id
        return EntityManager::GetByCode($this, $code);
     }
+
+    /**
+     * Get The first Element
+     */
+    function GetFirst()
+    {
+        $this->setLimit(0,1);
+        $elements = $this->GetAll();
+        return $elements[0];
+    }
+
     /*
      * Get All Entity
      */

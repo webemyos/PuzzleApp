@@ -36,8 +36,26 @@ class Base extends Application
     public function __construct()
     {
         $this->Core = Core::getInstance();
+        parent::__construct($this->Core, "Base");
     }
     
+     /**
+      * Get The Public route
+      */
+      function GetRoute($routes = "")
+      {
+         if($routes == "")
+         {
+            $this->Route->SetPublic(array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword"));
+         }
+         else
+         {
+            $this->Route->SetPublic(array_merge($routes, array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword")));
+         }
+
+         return $this->Route;
+      }
+
     /*
      * Get the master View
      */

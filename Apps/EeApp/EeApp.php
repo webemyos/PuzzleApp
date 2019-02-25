@@ -27,6 +27,7 @@ class EeApp extends Application
     public $Author = 'Eemmys';
     public $Version = '1.0.0';
     public static $Directory = "../Apps/EeApp";
+    public $Context ;
 
     /**
      * Constructeur
@@ -35,6 +36,16 @@ class EeApp extends Application
      {
         $this->Core = Core::getInstance();
         parent::__construct($this->Core, "EeApp");
+     }
+
+     /**
+      * Get The Public route
+      */
+     function GetRoute()
+     {
+       // $route = new Route();
+        $this->Route->SetPublic(array("Show"));
+        return $this->Route;
      }
 
      /**
@@ -65,8 +76,8 @@ class EeApp extends Application
      */
     public function LoadApps()
     {
-        $appBlock = new AppController($this->Core);
-        echo $appBlock->LoadApps();
+       $appBlock = new AppController($this->Core);
+       echo $appBlock->LoadApps();
     }
 
     /**
@@ -217,7 +228,7 @@ class EeApp extends Application
     }
 
     /*
-    * Pop in for add AppHelper
+    * Pop in for add APp
     */
     public function ShowUploadApp()
     {
@@ -225,12 +236,30 @@ class EeApp extends Application
         echo $adminBlock->ShowUploadApp();
     }
 
+    /*
+    * Pop in for add Language
+    */
+    public function ShowUploadLanguage()
+    {
+        $adminBlock = new AdminController($this->Core);
+        echo $adminBlock->ShowUploadLanguage();
+    }
+
+
     /**
      * Ajout une app depuis un zip
      */
     function DoUploadFile($idElement, $tmpFileName, $fileName, $action)
     {
-        UploadHelper::DoUpload($fileName, $tmpFileName);
+        switch($action)
+        {
+            case "DoUploadApp" : 
+                UploadHelper::DoUploadApp($fileName, $tmpFileName);
+            break;
+            case "DoUploadLanguage" : 
+                UploadHelper::DoUploadLanguage($fileName, $tmpFileName);
+            break;
+        }
     }
     
     /*
@@ -244,9 +273,16 @@ class EeApp extends Application
     /**
      * Obtient les App installé
      */
-    function GetAll()
+    public function GetAll()
     {
         return AppHelper::GetAll($this->Core);
     }
+
+    public function Show()
+    {
+        return "Public Root";
+    }
+
+    
 }
 ?>

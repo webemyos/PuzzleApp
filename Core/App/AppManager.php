@@ -53,15 +53,18 @@ class AppManager
     */
    public static function GetApp($appName)
    {
-       foreach(AppManager::$Apps as $key => $value)
+       if(count(AppManager::$Apps) > 0)
        {
-           if($key == $appName)
-           {
-               return $value;
-           }
-       }
+            foreach(AppManager::$Apps as $key => $value)
+            {
+                if($key == $appName)
+                {
+                    return $value;
+                }
+            }
+        }
        
-       //App not found
+        //App not found
        $path = "\\Apps\\".$appName . "\\".$appName;
        $app = new $path(Core::GetInstance());
        

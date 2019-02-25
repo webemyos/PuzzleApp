@@ -21,8 +21,15 @@
     <script src='{{GetPath(/script.php?a=Blog)}}' ></script>  
     <script src='{{GetPath(/script.php?a=Forum)}}' ></script>
 
-  <meta name="google-site-verification" content="oU75X41FBUK3dpOH2Uv17V0IqxzaR0vdCzhDBnNLwjE" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-16975053-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-16975053-5');
+</script>
     <!-- Script
     ================================================== -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -49,8 +56,8 @@
                 <li> <div id='tdApp' class='span8'>
                         </div>  </li>
                 <li><a  class="last-item-menu" href="{{GetPath(/index)}}">Accueil</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/Mooc)}}">Mooc</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/store)}}">Le store</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Mooc)}}">Tutoriel</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Store)}}">Le store</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Forum)}}">Le forum</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Blog)}}">Le blog</a></li>
                 <li>
@@ -112,8 +119,8 @@
           <div class="col-xs-6 col-sm-3 hide-768"> <!-- Colonne 1 -->
             <ul>
                 <li><a  class="last-item-menu" href="{{GetPath(/index)}}">Accueil</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/tutoriel)}}">Tutoriel</a></li>
-                <li><a  class="last-item-menu" href="{{GetPath(/download)}}">Téléchargement</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Mooc)}}">Tutoriel</a></li>
+                <li><a  class="last-item-menu" href="{{GetPath(/Store)}}">Téléchargement</a></li>
                 <li><a  class="last-item-menu" href="{{GetPath(/Blog)}}">Le blog</a></li>
             </ul>
           </div>

@@ -15,13 +15,14 @@ use Apps\EeApp\Entity\EeAppUser;
 use Apps\EeApp\Entity\EeAppApp;
 use Apps\EeApp\Entity\EeAppAdmin;
 use Core\Utility\File\File;
+use Core\Utility\Format\Format;
 
 class UploadHelper
 {
   /*
   Add the App to the systéme
   */
-  public static function DoUpload($fileName, $tmpFileName)
+  public static function DoUploadApp($fileName, $tmpFileName)
   {
       $core = Core::getInstance();
 
@@ -52,6 +53,54 @@ class UploadHelper
       $app->Actif->Value = 1;
       
       $app->Save();
+  }
+
+   /*
+  Add the App to the systéme
+  */
+  public static function DoUploadLanguage($fileName, $tmpFileName)
+  {
+      $core = Core::getInstance(); 
+  
+      if(move_uploaded_file($tmpFileName, __DIR__."/../../".$fileName))
+      {
+        echo "<br/> Can't move de file";
+      }
+
+      $data = json_decode(File::GetFileContent( __DIR__."/../../".$fileName));
+      $codeLang = $data->lang;
+
+      $request  =  "SELECT Id FROM ee_lang where Code='". $codeLang ."'" ;
+      $result = $core->Db->GetLine($request);
+      $langId = $result["Id"];
+
+      foreach($data->data as $element)
+      {
+
+          $request = "SELECT Id FROM ee_lang_code where Code='".$element->Code."'";
+          $result =  $core->Db->GetLine($request);
+
+          if($result == null)
+          {
+            $request = "INSERT INTO ee_lang_code(Code) VALUES ('".$element->Code."' )";
+            $core->Db->Execute($request);
+          }
+
+          $request = "SELECT Id FROM ee_lang_element where CodeId=(select Id from ee_lang_code where code = '".$element->Code."' limit 0,1) AND LangId=" .$langId ;
+          $result =  $core->Db->GetLine($request);
+          
+          if($result == null)
+          {
+            $request = "INSERT INTO ee_lang_element (CodeId, LangId, Libelle) values ";
+            $request .= "(( select Id from ee_lang_code where code = '".$element->Code."' limit 0,1), ".$langId ." , '".Format::EscapeString($element->Libelle)."');";
+            $core->Db->Execute($request);
+          }
+      }
+      
+
+      echo "<br/>Suppression de l'archive : ".$fileName;
+      File::Delete($fileName,  __DIR__."/../../");
+
   }
 
 }

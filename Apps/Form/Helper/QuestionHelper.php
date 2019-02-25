@@ -202,7 +202,7 @@ ORDER By reponseUser.Id";
    /*
     * Get the reponee of form
     */
-   function GetByForm($core, $form)
+   public static function GetByForm($core, $form)
    {
        $questions = new FormQuestion($core);
        $questions->AddArgument(new Argument("Apps\Form\Entity\FormQuestion", "FormId", EQUAL, $form->IdEntite));

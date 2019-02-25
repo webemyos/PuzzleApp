@@ -24,7 +24,7 @@ class DeleteIcone extends Icone
 
     if($core != null)
     {
-        $this->Title = $core->GetCode("Comment");
+        $this->Title = $core->GetCode("Delete");
     }
 	}
 }

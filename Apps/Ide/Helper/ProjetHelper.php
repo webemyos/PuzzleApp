@@ -183,10 +183,9 @@ class ProjetHelper
         $ideProjet->AddArgument(new Argument("Apps\Ide\Entity\IdeProjet", "EntityId" ,EQUAL, $entityId));
         
         return $ideProjet->GetByArg();
-        
     }
 
-	/***
+    /***
 	 * Retourne tous le projets
 	 */
     public static function GetAll($core)

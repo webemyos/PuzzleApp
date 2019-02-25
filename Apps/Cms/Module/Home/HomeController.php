@@ -41,13 +41,13 @@ use Core\View\View;
 
         //Bouton pour créer un blog
         $btnNewCms = new Button(BUTTON, "btnNewCms");
-        $btnNewCms->Value = $this->Core->GetCode("EeCms.NewCms");
+        $btnNewCms->Value = $this->Core->GetCode("Cms.NewCms");
         $btnNewCms->CssClass = "btn btn-info";
         $btnNewCms->OnClick = "CmsAction.ShowAddCms();";
         $view->AddElement($btnNewCms);
 
         $btnMyCms = new Button(BUTTON, "btnMyCms");
-        $btnMyCms->Value = $this->Core->GetCode("EeCms.MyCms");
+        $btnMyCms->Value = $this->Core->GetCode("Cms.MyCms");
         $btnMyCms->CssClass = "btn btn-success";
         $btnMyCms->OnClick = "CmsAction.LoadMyCms();";
         $view->AddElement($btnMyCms);

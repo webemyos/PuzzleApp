@@ -37,6 +37,23 @@ class Forum extends Application {
         parent::__construct($this->Core, "Forum");
     }
 
+    /**
+     * Execution de l'application
+     */
+    function Run() {
+        echo parent::RunApp($this->Core, "Forum", "Forum");
+    }
+ 
+    /**
+     * Set the Public Routes
+     */
+    public function GetRoute()
+    {
+        $this->Route->SetPublic(array("Category","Lesson", "NewDiscussion","Sujet"));
+       
+        return $this->Route;
+    }
+
     /*
      * Front Home Page
      */
@@ -93,13 +110,7 @@ class Forum extends Application {
         }
     }
     
-    /**
-     * Execution de l'application
-     */
-    function Run() {
-        echo parent::RunApp($this->Core, "Forum", "Forum");
-    }
-
+    
     /**
      * Pop in d'ajout de forum
      */

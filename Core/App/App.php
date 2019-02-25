@@ -64,7 +64,7 @@ class App
         }
         
         //Execute action on app
-        if(!AppManager::IsApp($this->Core, $app))
+        if($app == "Install" || !AppManager::IsApp($this->Core, $app))
         {
           if($app == "" || $app == "index" || $app == "Index")
           {
@@ -74,7 +74,16 @@ class App
           {
               if(method_exists($this->appBase, $app))
               {
-                $core->MasterView->AddElement(new ContentView("content", $this->appBase->$app($action)));
+                $route = $this->appBase->GetRoute();
+
+                if($route->IsPublic($app))
+                {
+                    $core->MasterView->AddElement(new ContentView("content", $this->appBase->$app($action)));
+                }
+                else
+                {
+                    throw new \Exception("Not Public route");
+                }
               }
               else
               {
@@ -95,7 +104,16 @@ class App
             }
             else
             {
-                $core->MasterView->AddElement(new ContentView("content", $apps->$action($param)));
+                $route = $apps->GetRoute();
+
+                if($route->IsPublic($action))
+                {
+                    $core->MasterView->AddElement(new ContentView("content", $apps->$action($param)));
+                }
+                else
+                {
+                    throw new \Exception("Not Public route");
+                }
             }
         }
         echo $core->MasterView->Render();

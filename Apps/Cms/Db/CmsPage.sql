@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `CmsPage` (
 `Id` int(11) NOT NULL AUTO_INCREMENT, 
 `CmsId` INT  NULL ,
 `Name` VARCHAR(200)  NULL ,
+`Code` VARCHAR(200)  NULL ,
 `Title` VARCHAR(200)  NULL ,
 `Description` TEXT  NULL ,
 `Content` TEXT  NULL ,

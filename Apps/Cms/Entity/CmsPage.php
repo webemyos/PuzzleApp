@@ -23,6 +23,7 @@ class CmsPage extends Entity
 
         $this->CmsId = new Property("CmsId", "CmsId", NUMERICBOX,  true, $this->Alias);
         $this->Name = new Property("Name", "Name", TEXTBOX,  true, $this->Alias);
+        $this->Code = new Property("Code", "Code", TEXTBOX,  true, $this->Alias);
         $this->Title = new Property("Title", "Title", TEXTBOX,  true, $this->Alias);
         $this->Description = new Property("Description", "Description", TEXTAREA,  true, $this->Alias);
         $this->Content = new Property("Content", "Content", TEXTAREA,  false, $this->Alias);

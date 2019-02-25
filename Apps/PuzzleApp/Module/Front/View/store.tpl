@@ -15,7 +15,7 @@
                    {{element->Description->Value}}
                 </div>
                 <div class='col-md-2'>
-                    <a class='btn btn-success' href='{{GetPath(/Downloader/download/{{element->Code->Value}})}}'>Télécharger</a>
+                    <a class='btn btn-success' href='{{GetPath(/Downloader/Download/{{element->Code->Value}})}}'>Télécharger</a>
                 </div>
             </div>
         {{/foreach}}

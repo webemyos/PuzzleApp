@@ -52,6 +52,16 @@ class Mooc extends Application
         echo parent::RunApp($this->Core, "Mooc", "Mooc");
     }
 
+    /**
+     * Set the Public Routes
+     */
+    public function GetRoute()
+    {
+        $this->Route->SetPublic(array("Mooc","Lesson"));
+       
+        return $this->Route;
+    }
+
      /*
       * Show Home Page
       */

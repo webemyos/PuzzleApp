@@ -7,8 +7,10 @@
  * GNU Licence
  */
 
+include("../environment.php");
 include("../autoload.php");
 include("../Core/Runner.php");
-Runner::Run("PuzzleApp", "dev", false);
+
+Runner::Run("PuzzleApp", GetEnvironnement(), false);
 
 ?>

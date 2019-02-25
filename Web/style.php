@@ -6,11 +6,14 @@
  * Jérôme Oliva
  * GNU Licence
  */
-
+include("../environment.php");
 include("../autoload.php");
 
 use Core\Script\ScriptManager;
 use Core\Core\Request;
+use Core\Core\Core;
+
+$Core= Core::getInstance(GetEnvironnement(), true);
 
 //Get a specific css
 if(Request::Get("s"))

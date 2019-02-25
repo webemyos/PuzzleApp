@@ -1,0 +1,31 @@
+{"lang":"Fr", 
+    "data":[
+    {"Code":"login","Libelle":"Login"},
+    {"Code":"ConnetToYourEspace","Libelle":"Connection à votre espace"},
+    {"Code":"Connect","Libelle":"Connection"},
+    {"Code":"Connexion","Libelle":"Connection"},
+    {"Code":"Password","Libelle":"Mot de passe"},
+    {"Code":"membre.Logout","Libelle":"Deconnection"},
+    {"Code":"membre.myDashboard","Libelle":"Mon tableau de bord"},
+    {"Code":"membre.myApplications","Libelle":"Mes applications"},
+    {"Code":"File","Libelle":"Fichier"},
+    {"Code":"Quit","Libelle":"Quitter"},
+    {"Code":"Name","Libelle":"Nom"},
+    {"Code":"Description","Libelle":"Description"},
+    {"Code":"Category","Libelle":"Catégorie"},
+    {"Code":"Home","Libelle":"Accueil"},
+    {"Code":"Contact","Libelle":"Contact"},
+    {"Code":"DashBoard","Libelle":"Tableau de bord"},
+    {"Code":"Edit","Libelle":"Editer"},
+    {"Code":"Group","Libelle":"Groupe"},
+    {"Code":"Save","Libelle":"Enregistrer"},
+    {"Code":"SaveOk","Libelle":"Enregistrement réussi"}, 
+    {"Code":"Property","Libelle":"Propriété"},
+    {"Code":"Pages","Libelle":"Pages"},
+    {"Code":"Title","Libelle":"Titre"},
+    {"Code":"Parameter","Libelle":"Paramètres"}, 
+    {"Code":"Show","Libelle":"Afficher"},
+    {"Code":"AddApp","Libelle":"Ajouter une application"}
+
+    ]}
+

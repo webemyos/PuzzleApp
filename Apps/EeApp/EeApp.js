@@ -105,7 +105,7 @@ var EeApp = function() {};
           var JAjax = new ajax();
               JAjax.data = "Class=EeApp&Methode=Add&App=EeApp&appId="+ appId ;
 
-            alert(JAjax.GetRequest("Ajax.php"));
+            JAjax.GetRequest("Ajax.php");
 
             control.parentNode.removeChild(control);
 
@@ -259,3 +259,15 @@ var EeApp = function() {};
                 control.parentNode.parentNode.parentNode.removeChild(control.parentNode.parentNode);
             }
         };
+
+    /*
+    * Pop in pour Ajouter des langues
+    */
+    EeAppAction.ShowUploadLanguage = function()
+    {
+        var param = Array();
+            param['App'] = 'EeApp';
+            param['Title'] = 'EeApp.ShowUploadLanguage';
+
+            Dashboard.OpenPopUp('EeApp','ShowUploadLanguage', '','','', 'EeAppAction.LoadAdmin()', serialization.Encode(param));
+    };    

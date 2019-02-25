@@ -28,7 +28,7 @@
        {{GetCode(Forum.MustBeConnected)}}
        
        <br/>
-       <a class='btn btn-primary' href='{{GetPath(/singup)}}' >
+       <a class='btn btn-primary' href='{{GetPath(/Singup)}}' >
             {{GetCode(Singup)}}
         </a>
 

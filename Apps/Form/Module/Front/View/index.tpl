@@ -12,7 +12,7 @@
             <h2>{{Form->Libelle->Value}}</h2>
             <p>{{Form->Commentaire->Value}}</p>
 
-            {{GetForm(/Form/detail/{{Form->Code->Value}})}}
+            {{GetForm(/Form/Form/{{Form->Code->Value}})}}
             
             
             <ul>

@@ -53,7 +53,7 @@ class DashBoardManager
          {
              foreach($apps as $app)
              {
-                 $icRemove = new Libelle("<b class='icon-remove' onclick='Dashboard.RemoveAppUser(\"".$app->IdEntite."\", this)'>&nbsp;</b>");
+                 $icRemove = new Libelle("<b style='margin-left:5px' class='fa fa-remove' onclick='Dashboard.RemoveAppUser(\"".$app->IdEntite."\", this)'>&nbsp;</b>");
                  $html .= "<div><span onclick=\"Dashboard.StartApp('', '".$app->App->Value->Name->Value."', '')\">".$core->GetCode("Menu_".$app->App->Value->Name->Value).$icRemove->Show()."</span></div>";
              }
          }

@@ -41,3 +41,8 @@ CONSTRAINT `ee_user_EeAppAdmin` FOREIGN KEY (`UserId`) REFERENCES `ee_user`(`Id`
 INSERT INTO EeAppCategory (`Name`) VALUE ('Administration');
 INSERT INTO EeAppApp(`CategoryId`, `Name`, `Description`) VALUE( 1, "EeApp", "Gestionnaires des applications");
 INSERT INTO EeAppAdmin(`UserId`, `AppId`) VALUE( 1, 1);
+
+INSERT INTO EeAppApp(`CategoryId`, `Name`, `Description`) VALUE( 1, "Ide", "Application de développement");
+INSERT INTO EeAppApp(`CategoryId`, `Name`, `Description`) VALUE( 1, "Lang", "Gestionnaire des traductions");
+
+

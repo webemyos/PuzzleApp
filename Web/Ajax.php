@@ -11,8 +11,9 @@ header('Content-Type: text/html; charset=UTF-8');
 session_start();
 /**
  * Page et Classe Ajax
- * Page appel� par les appele Ajax
+ * Page appel par les appele Ajax
  ***/
+include("../environment.php");
 include("../autoload.php");
 
 
@@ -20,8 +21,14 @@ use Core\Core\Core;
 use Core\Core\Request;
 use Core\Dashboard\DashBoardManager;
 
-$Core= Core::getInstance("dev", true);
+
+$Core= Core::getInstance(GetEnvironnement(), true);
 $Core->Init();
+
+if(!Request::IsConnected($Core))
+{
+    die("Need Authentification");
+}
 
 //Get the Methode
 $Methode = Request::GetPost("Methode");
