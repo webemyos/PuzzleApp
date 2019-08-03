@@ -367,7 +367,7 @@ class Mooc extends Application
         echo $searchController->LoadMyLesson();
     }
 
-    function Display()
+    function Display($name="")
     {
         $html = "<div id='appRunMooc'>";
         $html .= "<div id='dvLesson'>";

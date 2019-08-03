@@ -66,6 +66,8 @@ class Runner
                                  $_FILES["fileUpload"]["name"],
                                  Request::GetPost("hdAction")
                         );
+                //On rajoute pour en nouvel envoi        
+                echo Upload::ShowUploader();        
               }
               else
               {

@@ -27,6 +27,10 @@ namespace Core\Utility\Date;
         {
                 return date("Y-d-m h:i:s");
         }
+        else if($format != "")
+        {
+            return date($format);
+        }
         else
         {
             if($heure)
@@ -48,18 +52,21 @@ namespace Core\Utility\Date;
 
     static function FormatFrench($date)
     {
+       // echo "DATE ENTRR=>" .$date;
+
         $date = str_replace('-_',' ', $date);
         $date = explode(' ', $date);
 
-        $day = explode('/', $date[0]);
+        $day = explode('-', $date[0]);
         $hou = explode(':', $date[1]);
 
-        return date("d/m/Y H:i", mktime($hou[0],
+        //var_dump($day);
+        return date("d/m/Y H:i:s", mktime($hou[0],
                                                                           $hou[1],
                                                                           $hou[2],
                                                                           $day[1],
-                                                                          $day[0],
-                                                                          $day[2]
+                                                                          $day[2],
+                                                                          $day[0]
                                                                 ));
     }
     /**
@@ -161,11 +168,59 @@ namespace Core\Utility\Date;
         //$date = str_replace('-',' ', $date);
         $date = explode('-', $date);
         
-        $dates = explode("/", $date[0]);
         if($hour)
-            return date('d/m/Y h:i:s',mktime(0,0,0,$dates[0], $dates[2]+$num, $dates[1]));
+        {
+            return date('Y-m-d h:i:s',mktime(0,0,0,$date[1], $date[2]+$num, $date[0]));
+        }
         else
-            return date('d/m/Y',mktime(0,0,0,$dates[2], $dates[1]+$num, $dates[0]));
+        {
+            return date('Y-m-d',mktime(0,0,0, $date[1], $date[2] + $num, $date[0]));
+        }
+    }
+
+    /**
+     * Convertie une date format string au format mysql
+     */
+    static function StringToDateTime($dateString)
+    {
+        $dates = explode(" ",$dateString);
+
+        $day = $dates[0];
+        $month = $dates[1];
+        $year = $dates[2];
+        $time = $dates[3];
+
+        switch($month)
+        {
+            case "Janvier": $month = 1; break;
+            case "Fevrier": $month = 2; break;
+            case "Mars": $month = 3; break;
+            case "Avril": $month = 4; break;
+            case "Mai": $month = 5; break;
+            case "Juin": $month = 6; break;
+            case "Juillet": $month = 7; break;
+            case "Aout": $month = 8; break;
+            case "Septembre": $month = 9; break;
+            case "Octobre": $month = 10; break;
+            case "Novembre": $month = 11; break;
+            case "Decembre": $month = 12; break;
+        }
+
+        $dateSql = $year . "-".$month."-".$day." " .  $time; 
+        return $dateSql; 
+    }
+
+    /**
+     * Ajoute une heure
+     */
+    public static function AddHour($date, $nbHours)
+    {
+        $dates = explode(" ", $date);
+        $times = explode(":", $dates[1]);
+
+        $dateSql = $dates[0] . " " .  ($times[0] +  $nbHours) . ":" . $times[1]; 
+
+        return $dateSql;
     }
  }
 

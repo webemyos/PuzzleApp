@@ -182,7 +182,7 @@ class BlogHelper
         $article->AddArgument(new Argument("Apps\Blog\Entity\BlogArticle", "BlogId", EQUAL, $blog->IdEntite));
         $article->AddArgument(new Argument("Apps\Blog\Entity\BlogArticle", "Actif", EQUAL, 1));
 
-        $article->AddOrder("Id");
+        $article->AddOrder("Id desc");
         $article->SetLimit(1, $limit);
 
         $articles = $article->GetByArg();

@@ -17,6 +17,10 @@ use Core\Controller\Controller;
 use Core\Core\Core;
 use Core\Entity\Entity\Argument;
 use Core\Utility\Format\Format;
+use Core\View\View;
+use Core\View\ElementView;
+
+
 
 class PageController extends Controller
 {
@@ -198,20 +202,22 @@ class PageController extends Controller
    */
   function ShowPage($pageName)
   {
-      //Recuperation du cms
+  	  //Recuperation du cms
       $cms = new CmsCms($this->Core);
       $cms = $cms->GetFirst();
 
       if($cms != null)
       {
       //Recuperation de la page
-
-          $page = new CmsPage($this->Core);
+	      $page = new CmsPage($this->Core);
         
           $page = $page->GetByCode($pageName);
 
           if($page->IdEntite != "" )
           {
+$view = new View(__DIR__."/View/showPage.tpl", $this->Core);
+	          $page = $pages[0];
+
               //Ajout des proriété title et description
               $this->Core->MasterView->Set("Title", $page->Title->Value);
               $this->Core->MasterView->Set("Title", $page->Description->Value);
@@ -220,7 +226,14 @@ class PageController extends Controller
               $content = str_replace("../Data/", "Data/", $page->Content->Value);
               $content = str_replace("!et!", "&", $content);
 
-              return $content;
+	          $view->AddElement(new ElementView("content", $content));
+	          $view->AddElement(new ElementView("page", $page));
+
+
+	          return $view->Render();
+          }
+          else{
+
           }
       }
   }

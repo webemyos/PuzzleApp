@@ -41,7 +41,7 @@ class Blog extends Application
     /**
      * Constructeur
      * */
-     function __construct($core)
+     function __construct($core="")
      {
         parent::__construct($core, "Blog");
         $this->Core = Core::getInstance();

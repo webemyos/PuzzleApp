@@ -330,6 +330,33 @@ Dashboard.AddEventById= function(element, event, methode, app, balise)
 };
 
 /**
+ * AddEvent by className
+ */
+Dashboard.AddEventByClass = function(className, event, callBack)
+{
+ var elements = document.getElementsByClassName(className);
+
+	for(var i= 0; i < elements.length; i++)
+	{
+		if(elements[i].addEventListener)
+        {
+			elements[i].addEventListener(event, callBack, false);
+        }
+        else
+        {
+        	elements[i].attachEvent("on"+event,callBack);
+        }
+	}
+
+};
+
+Dashboard.RemoveEventByClass = function(className, event)
+{
+
+};
+
+
+/**
 Ajoute un evenement
 */
 Dashboard.AddEvent = function(control, event, methode)
@@ -587,8 +614,47 @@ Dashboard.GetElement= function(element, type, appName, widget)
 			}
 		}
 	}
+	else
+	{
+		var dvControl = document.getElementById(element);	
+	}
 
 	return dvControl;
+};
+
+/**
+ * Récupere les élements 
+ * Correspondant à la regex
+ * @param {}  
+ */
+Dashboard.GetElements=function($regexs)
+{
+	var expressions = $regexs.split(" ");
+
+	var elements = document.getElementsByClassName(expressions[0]);
+	var elms = new Array();
+
+	for(var i =0; i < elements.length; i++)
+	{
+		if(expressions.length > 1)
+		{
+			for(var j = 1; j < expressions.length; j++ )
+			{
+				if(expressions[j] == "checked" &&  elements[i].checked)
+				{
+					elms.push(elements[i]);
+				}
+			}
+		}
+		else
+		{
+			elms.push(elements[i]);
+		}
+	}
+
+
+return elms;
+
 };
 
 /**
@@ -1415,5 +1481,44 @@ Dashboard.UpdateModele = function()
 			}
 		});
 
+    }
+};
+
+/**
+ * Charege le html d'un controle
+ */
+Dashboard.Html = function(controlId, html)
+{
+	var control = document.getElementById(controlId);
+	    control.innerHTML = html;
+};
+
+/**
+ * Vérify and execute Call Back when the document is Ready
+ */
+Dashboard.DomIsReady = function(callback)
+{
+	if(callback && typeof callback === 'function')
+	{
+		if(document.attachEvent == undefined) 
+		{
+			document.addEventListener("DOMContentLoaded", function()
+			 {
+				return callback();
+			});
+		}
+		else
+		{
+			document.attachEvent("onreadystatechange", function() 
+			{
+				if(document.readyState === "complete") {
+				return callback();
+				}
+			});
+		}
+	} 
+	else
+	{
+     console.error('The callback is not a function!');
     }
 };

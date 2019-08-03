@@ -80,5 +80,14 @@ class Avis extends Application
 		 $adminController = new AdminController($this->Core);
 		 return $adminController->EditAvis(Request::GetPost("entityId"));
 	 }
+
+	/***
+	 * Retourne une widget listant les avis sur une entité et permattant d'en rajouter
+	 */
+	 function GetWidget($appName, $entityId)
+	 {
+		$frontController = new FrontController($this->Core);
+		return $frontController->GetWidget($appName, $entityId);
+	 }
 }
 ?>

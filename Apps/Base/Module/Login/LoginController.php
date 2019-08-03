@@ -17,6 +17,8 @@ use Core\Controller\Controller;
 use Core\Core\Request;
 use Core\Security\Authentication;
 use Core\View\View;
+use Core\View\ElementView;
+
 
 
 class LoginController extends Controller 
@@ -37,7 +39,7 @@ class LoginController extends Controller
         $view = new View(__DIR__."/View/index.tpl", $this->Core);
 
         //Error
-        $view->AddElement(new Text("error", false, $error));
+        $view->AddElement(new ElementView("error", $error));
                 
         //Login
         $login = new EmailBox("login");

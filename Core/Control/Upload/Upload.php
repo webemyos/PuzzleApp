@@ -41,11 +41,9 @@ class Upload extends Control implements IControl
     {
         $core = Core::getInstance();
 
-        $html = "<div>";
+        $html = "<div id='dvUpload'>";
 
         $html .="<input type='file' id='fileUpload' name='fileUpload' />";
-        $html .= "<input type='button' class='btn btn-success' value='".$core->GetCode("Submit")."' onclick='upload.doUpload(this)' /> ";
-
         $html .= "<input type='hidden' id='hdApp' name = 'hdApp'  value='".$this->app."'  /> ";
         $html .= "<input type='hidden' id='hdIdElement' name='hdIdElement' value='".$this->idElement."'  /> ";
         $html .= "<input type='hidden' id='hdCallBack' name='hdCallBack' value='".$this->callBack."' /> ";
@@ -55,7 +53,7 @@ class Upload extends Control implements IControl
         //Frame From Upload
         if($core->Debug)
         {
-           $html .= "<iframe id='frUpload' src='upload' style='display:block' >";
+           $html .= "<iframe id='frUpload' src='upload' style='display:none' >";
         }
         else
         {
@@ -63,6 +61,14 @@ class Upload extends Control implements IControl
         }
 
         $html .= "</iframe>";
+
+        $html .= "</div>";
+        $html .= "<img id='uploadLoading' style='display:none' src='../images/loading/load.gif' alt='Loading' />";
+
+        $html .= "<input type='button' class='btn btn-info' value='".$core->GetCode("Submit")."' onclick='upload.doUpload(this)' /> ";
+
+
+        $html .= "<div id='uploadImages'>";
         $html .= "</div>";
 
         return $html;

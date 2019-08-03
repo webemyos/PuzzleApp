@@ -65,9 +65,13 @@ use Apps\Avis\Model\AvisModel;
 	   $gdAvis->Action = "GetAvis";
 
 	   $gdAvis->AddColumn(new EntityColumn("Name", "Name"));
+	   $gdAvis->AddColumn(new EntityColumn("AppName", "AppName"));
+	   $gdAvis->AddColumn(new EntityColumn("EntityId", "EntityId"));
+
 	   $gdAvis->AddColumn(new EntityColumn("Email", "Email"));
 	   $gdAvis->AddColumn(new EntityColumn("DateCreated", "DateCreated"));
 	   $gdAvis->AddColumn(new EntityColumn("Actif", "Actif"));
+
 	   $gdAvis->AddColumn(new EntityIconColumn("",
 		   array(array("EditIcone", "Avis.EditTheAvis", "AvisAction.EditAvis"),
 		   )

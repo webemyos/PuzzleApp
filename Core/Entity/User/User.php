@@ -350,7 +350,7 @@ class User extends Entity
 	  * */
    	 public function SearchUser($name ='', $firstName ='', $email ='')
    	 {
-   	 	if($name != '')
+	 	if($name != '')
    	 	{
 			$request = "  SELECT Id FROM `ee_user` WHERE (Name like '".$name."%'";
 			$request .= " OR FirstName like '".$firstName."%' ";

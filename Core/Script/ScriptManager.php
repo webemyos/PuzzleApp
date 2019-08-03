@@ -64,8 +64,10 @@ class ScriptManager
         $core = Core::GetInstance();
         if($m != "")
         {
-            $directory = dirname(dirname(__DIR__)). "/Apps/".$a. "/Module/".$m."/";
-            $script  = File::GetFileContent( $directory.$m."Controller.".$type);
+           $directory = dirname(dirname(__DIR__)). "/Apps/".$a. "/Module/".$m."/";
+
+           $directory.$m."Controller.".$type;
+           $script  = File::GetFileContent( $directory.$m."Controller.".$type);
 
             //Ajout des vue dans un tableau js
             $ViewsArray = $a . $m . "View";

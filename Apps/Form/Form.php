@@ -289,7 +289,7 @@ class Form extends Application
   /*
   * Lance l'application en dehors du site
   */  
-  function Display()
+  function Display($name="")
   {
         $TextControl = "";
         

@@ -375,7 +375,7 @@ class Application
     /*
     * Affiche l'appli en mode deconnecté
     */
-    function Display()
+    function Display($name)
     {
             $this->IncludeEemmys();
             $this->Connected = false;

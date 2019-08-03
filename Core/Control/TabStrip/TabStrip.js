@@ -23,11 +23,11 @@ function TabStrip()
 			{
 				if(appName != "")
 				{
-					tabs = Dashboard.GetElement('tab_'+ numero, 'div', appName);
+					tabs = Dashboard.GetElement('tab_'+ numero+appName, 'div', appName);
 				}
 				else
 				{
-			 		tabs=document.getElementById('tab_'+ numero);
+			 		tabs=document.getElementById('tab_'+ numero+appName);
 				}
 
 				if(tabs != null)
@@ -38,11 +38,11 @@ function TabStrip()
 					 if(appName != "")
 					 {
 					 	//Recuperation du bon index
-					 	index= Dashboard.GetElement('index_'+ numero, 'th', appName);
+					 	index= Dashboard.GetElement('index_'+ numero+appName, 'th', appName);
 					 }
 					 else
 					 {
-					 	index=document.getElementById('index_'+numero);
+					 	index=document.getElementById('index_'+numero+appName);
 					 }
 
 					 //index.className = "TabStripDisabled";

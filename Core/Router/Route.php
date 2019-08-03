@@ -78,6 +78,7 @@ class Route
 
     public function GetPublic()
     {
+      
         return $this->publicRoutes;
     }   
 

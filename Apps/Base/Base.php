@@ -77,13 +77,13 @@ class Base extends Application
     /*
      * Connection Module
      */
-    public function Login()
+    public function Login($error ="")
     {
        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Login"));
        $this->Core->MasterView->Set("Description", $this->Core->GetCode("ConnetToYourEspace"));
  
         $loginController = new LoginController($this->Core);
-        return $loginController->Index();
+        return $loginController->Index($error);
     }
     
     /*

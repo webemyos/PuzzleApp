@@ -202,7 +202,7 @@ class DataBase implements IDataBase
 	 */
 	function GetInsertedId()
 	{
-            return mysqli_insert_id($this->connection);
+        return mysqli_insert_id($this->connection);
 	}
 }
 

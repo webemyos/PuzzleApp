@@ -17,12 +17,14 @@ class AvisModel extends Model
 	/*
 	 * Constructeur
 	 */
-	public function __construct($core, $avisId = "")
+	public function __construct($core, $avisId = "", $appName ="", $entityId="" )
 	{
 		$this->Core = $core;
 
 		$entityName = "Apps\Avis\Entity\AvisAvis";
 		$this->Entity = new $entityName($core);
+		$this->Entity->AppName->Value = $appName;
+		$this->Entity->EntityId->Value = $entityId;
 
 		if($avisId != "")
 		{

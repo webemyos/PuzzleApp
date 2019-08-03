@@ -111,9 +111,9 @@ class TabStrip  extends Control implements IControl
 
 
          if($iTab == $Selected)
-                 $html.="<th id=\"index_".$iTab."\" class='TabStripEnabled $class' onclick=\"TabStrip.ShowTab(this,'tab_".$iTab."',".sizeof($this->TitleIndex).", '".$name."',  '".$this->Widget."');\" name='".$title."' title='".$title."'><span>".$Icone.$title."</span></th>";
+                 $html.="<th id=\"index_".$iTab.$name."\" class='TabStripEnabled $class' onclick=\"TabStrip.ShowTab(this,'tab_".$iTab.$name."',".sizeof($this->TitleIndex).", '".$name."',  '".$this->Widget."');\" name='".$title."' title='".$title."'><span>".$Icone."&nbsp;".$title."</span></th>";
          else
-                 $html.="<th id=\"index_".$iTab."\" class ='TabStripDisabled $class' onclick=\"TabStrip.ShowTab(this,'tab_".$iTab."',".sizeof($this->TitleIndex).", '".$name."', '".$this->Widget."');\" name='".$title."' title='".$title."'><span>".$Icone.$title."</span></th>";
+                 $html.="<th id=\"index_".$iTab.$name."\" class ='TabStripDisabled $class' onclick=\"TabStrip.ShowTab(this,'tab_".$iTab.$name."',".sizeof($this->TitleIndex).", '".$name."', '".$this->Widget."');\" name='".$title."' title='".$title."'><span>".$Icone."&nbsp;".$title."</span></th>";
          $iTab++;
         }
         $html.="</tr></table>";
@@ -124,9 +124,9 @@ class TabStrip  extends Control implements IControl
         foreach($this->Body as $tab)
         {
                 if($iTab == $Selected)
-                        $html .="<div id='tab_".$iTab."' class='TabContent' >".$tab->Show()."</div>";
+                        $html .="<div id='tab_".$iTab.$name."' class='TabContent' >".$tab->Show()."</div>";
                 else
-                        $html .="<div id='tab_".$iTab."' class='TabContent'  style='height:0px;overflow:hidden;display: none;'>".$tab->Show()."</div>";
+                        $html .="<div id='tab_".$iTab.$name."' class='TabContent'  style='height:0px;display: none;'>".$tab->Show()."</div>";
                 $iTab++;
         }
         $html .="</div>";

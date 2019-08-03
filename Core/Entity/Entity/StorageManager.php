@@ -139,9 +139,15 @@ class StorageManager
         //When the precedent request is getByArg
         $stores = StorageManager::Find($entity);
 
-        foreach($stores as $store)
+        if(count($store) > 0 )
         {
-              unset($store::$entities[$entity->Alias][$entity->IdEntite]);
+            foreach($stores as $store)
+            {
+                if(isset($store::$entities))
+                {
+                unset($store::$entities[$entity->Alias][$entity->IdEntite]);
+                }
+            }
         }
     }
     

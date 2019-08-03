@@ -212,16 +212,7 @@ class SearchIcone extends Icone
 
 
 
-/*
-* Icone de partage
-*/
-class ShareIcone extends Icone
-{
-	function ShareIcone()
-	{
-		$this->CssClass = "icon-share";
-	}
-}
+
 
 /*
 * Icone de de panier

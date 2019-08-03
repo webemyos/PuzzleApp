@@ -34,6 +34,7 @@ class FunctionManager
           $html = FunctionManager::GetForm($core, $html);
           $html = FunctionManager::GetControl($core, $html);
           $html = FunctionManager::GetWidget($core, $html);
+          $html = FunctionManager::GetModule($core, $html);
         }
 
         return $html;
@@ -253,22 +254,57 @@ class FunctionManager
     */
     public static function GetWidget($core, $html)
     {
-        //Control with name and property
+	    //Control with name and property
+	    $pattern = "`{{GetWidget\((.+),(.+),(.+)\)}}`";
+	    preg_match_all($pattern, $html, $macthes);
+	    $i = 0;
+	    foreach($macthes[0] as $match)
+	    {
+		    $apps =  $macthes[1][$i];
+		    $appName =  $macthes[2][$i];
+		    $entityId =  $macthes[3][$i];
+		    $path =  "\Apps\\" .$apps . "\\" .$apps;
+		    $app = new $path($core);
+		    $html = str_replace($match, $app->GetWidget($appName, $entityId) , $html);
+		    $i++;
+	    }
+	    //Control with name and property
         $pattern = "`{{GetWidget\((.+)\)}}`";
         preg_match_all($pattern, $html, $macthes);
         $i = 0;
-
         foreach($macthes[0] as $match)
         {
           $apps =  $macthes[1][$i];
-        
           $path =  "\Apps\\" .$apps . "\\" .$apps;
           $app = new $path($core);
-         
           $html = str_replace($match, $app->GetWidget() , $html);
           $i++;
         }
-
+        return $html;
+    }
+    
+     /*
+    * Replace GetWidget Function
+    */
+    public static function GetModule($core, $html)
+    {
+	    //Control with name and property
+	    $pattern = "`{{GetModule\((.+),(.+),(.+),(.+)\)}}`";
+	    preg_match_all($pattern, $html, $macthes);
+	    $i = 0;
+	    foreach($macthes[0] as $match)
+	    {
+		    $apps =  $macthes[1][$i];
+		    $module =  $macthes[2][$i];
+		    $methode =  $macthes[3][$i];
+            $args =  $macthes[4][$i];
+            
+		    $path =  "\Apps\\" .$apps . "\\Module\\" .$module . "\\" . $module . "Controller";
+		    $app = new $path($core);
+		    $html = str_replace($match, $app->$methode( $args) , $html);
+		    $i++;
+	    }
+	    
         return $html;
     }
 }

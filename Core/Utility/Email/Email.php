@@ -57,11 +57,19 @@ class Email
         $headers .= "Reply-To: ".$reply."\r\n"; // Mail de reponse
         $headers .= "From: $expediteur \r\n"; // Expediteur
 
+          //Entete du mail
+        $headers = array(
+                  'From' => $this->From ,
+                  'Reply-To' =>$this->From,
+                  'X-Sender' => $this->Sender,
+                  'Content-type'  => 'text/html; charset="UTF-8'
+              );
+
         $view->AddElement(new ElementView("Title", $this->Title));
         $view->AddElement(new ElementView("Body", $this->Body));
         
         //Envoi
-    mail($To, $this->Title, $view->Render() /*,$headers*/);
+            mail($To, $this->Title, $view->Render() /*,$headers*/);
     }
 
     //Envoi au administrateur

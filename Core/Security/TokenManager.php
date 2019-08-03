@@ -26,7 +26,7 @@ class TokenManager
      */
     public static function Generate($core, $userId, $delay ="1d")
     {
-        $token = bin2hex(random_bytes(64));
+        $token = bin2hex(random_bytes(32));
 
         $userToken = new UserToken($core);
         $userToken->AddArgument(new Argument("Core\Entity\User\UserToken", "UserId", EQUAL, $userId));

@@ -1,8 +1,9 @@
+var Dom = function(){};
 
 /**
  * Vérify and execute Call Back when the document is Ready
  */
-domIsReady = function(callback) {
+Dom.IsReady = function(callback) {
     if(callback && typeof callback === 'function'){
        if(document.attachEvent == undefined) {
           document.addEventListener("DOMContentLoaded", function() {
@@ -25,12 +26,12 @@ domIsReady = function(callback) {
   */
  (function(document, window, domIsReady, undefined)
   {
-    domIsReady(function() {
+    Dom.IsReady(function() {
 
         //Script Nedeed Init
       Dialog.Init();
 
     }
 );
- })(document, window, domIsReady);
+ })(document, window, Dom.IsReady);
 

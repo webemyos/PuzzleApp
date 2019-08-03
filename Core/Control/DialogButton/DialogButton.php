@@ -16,6 +16,7 @@ class DialogButton
     public $Method;
     public $Label;
     public $Icon;
+    public $Title;
 
     //Constructeur
     function __construct($class, $methode="", $url="")
@@ -33,10 +34,10 @@ class DialogButton
     */
     public function Show()
     {
-        $html =  "<div class='dialogButton' data-app='".$this->App."' data-title= '".$this->Label."' data-class='". $this->Class."' data-method='".$this->Method."'>";
-        $html .= "<button >".$this->Label."</button>";
+        $html =  "<div class='dialogButton' data-app='".$this->App."' data-title= '".$this->Title ? $this->Title : $this->Label."' data-class='". $this->Class."' data-method='".$this->Method."'>";
+        $html .= "<i>".$this->Label."</i>";
         $html .= "</div>";
 
-        return $html;
+        //return $html;
     }
 }

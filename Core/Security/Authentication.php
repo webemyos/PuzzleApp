@@ -71,7 +71,23 @@ class Authentication
         $User->PassWord->Value = $pass;
         $User->GroupeId->Value = 2;
         $User->Save();
-        
     }
-    
+
+    /**
+     * Met à jour le password User
+     */
+    public static function UpdatePassword($core, $user, $password, $verify)
+    {
+        if($password == $verify)
+        {
+            $request = "Update ee_user set PassWord = '" .md5($password)."' where Id=" . $user->IdEntite ;
+            $core->Db->Execute($request);
+
+            return "Ok";
+        }
+        else
+        {
+            return $core->GetCode("PassNotEqual");
+        }   
+    }
 }

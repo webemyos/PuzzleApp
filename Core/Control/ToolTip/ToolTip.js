@@ -20,7 +20,7 @@ function ToolTip(control)
 
         	this.core.style.top= document.body.scrollTop +  100+"px";
    		this.core.style.backgroundColor="white";
-   		this.core.innerHTML="<table  style='width:100%;' class='titre'><tr><td  style='text-align:left;' ></td><td style='text-align:right;'><img src='Images/delete.png' alt='' title='Fermer' onclick='CloseTool(this)'></td><td style='width:15px'></td></tr></table>";
+   		this.core.innerHTML="<table  style='width:100%;' class='titre'><tr><td  style='text-align:left;' ></td><td style='text-align:right;'><i class='fa fa-remove' alt='' title='Fermer' onclick='CloseTool(this)'></td><td style='width:15px'>&nbsp;</i></td></tr></table>";
 
 		document.body.appendChild(this.core);
 

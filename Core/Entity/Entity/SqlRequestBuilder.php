@@ -307,7 +307,7 @@ class SqlRequestBuilder
                     }
                     else if(get_class($propertie->Control) == DATEBOX)
                     {
-                        if($fields=="")
+                       /* if($fields=="")
                             {
                                 $fields .= $entity->Alias.".".$propertie->TableName."='".$propertie->Value."' ";
                             }
@@ -315,7 +315,18 @@ class SqlRequestBuilder
                             {
                                 $fields .= ",".$entity->Alias.".".$propertie->TableName."='".$propertie->Value."' ";
                                 
-                            }
+                            }*/
+                            //Separation heure et jour
+                        $date  =  explode("/", $propertie->Value);
+
+                        if($fields=="")
+                        {
+                            $fields .= $entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                        }
+                        else
+                        {
+                            $fields .= ",".$entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                        }
                     }
                     else if(get_class($propertie->Control) == DATETIMEBOX)
                     {

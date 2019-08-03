@@ -18,11 +18,18 @@ Dialog.Init = function()
  * And load Content From the App/Module
  * @param {*} e 
  */
-Dialog.open = function(e)
+Dialog.open = function(e, data)
 {
-    e.preventDefault;
 
-    Dialog.data = e.srcElement.parentNode.dataset;
+    if(e != '')
+    {
+        e.preventDefault;
+        Dialog.data = e.srcElement.parentNode.dataset;
+    }
+    else
+    {
+        Dialog.data = data;
+    }
 
 
     // Ajout d'un div Grise
@@ -47,24 +54,43 @@ Dialog.open = function(e)
 
         document.body.appendChild(dialog);
 
-      Animation.FadeIn("dialog", 50);
+        Animation.FadeIn("dialog", 50);
 
+    //On determine si on est sur un réseau 
+    var urls = document.location.href.split("/");
+    
+    //Pour atteindre Ajax.php de la racine
+    var ajaxFile = urls[0] + "/"+  urls[1] +  "/" + urls[2] + "/Ajax.php" ;
+
+/*
+    if(urls.length > 3)
+    {
+    
+    }
+    if(urls.length > 2)
+    {
+        var ajaxFile = "../Ajax.php";
+    }
+    else
+    {
+        var ajaxFile = "Ajax.php";
+    }
+*/
     //Chargement
-    Request.Post("Ajax.php", "App="+Dialog.data.app+"&Class="+Dialog.data.class + "&Methode=" + Dialog.data.method).then(data=>{
+    Request.Post(ajaxFile, "App="+Dialog.data.app+"&Class="+Dialog.data.class + "&Methode=" + Dialog.data.method + "&Params=" + Dialog.data.params).then(data=>{
 
         Dashboard.AddEventById("DialogClose", "click", Dialog.close);
 
         var DialogContent = document.getElementById("DialogContent");
         DialogContent.innerHTML = data;
 
-        var controller = Dialog.data.class.split(".");
-        var methode= controller[controller.length -1 ] + "." + Dialog.data.method + "()";
+        var controller = Dialog.data.class + "Controller";
+        var methode= controller + "." + Dialog.data.method + "()";
 
         //Appel de la méthode Js 
         // Ne pas oublier d'inclure le scrip Js du module
         eval(methode);
     });
-
 };
 
 /**

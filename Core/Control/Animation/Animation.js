@@ -58,3 +58,12 @@ Animation.FadeIn = function(controlId, speed)
     fadeIn.control = control;
     fadeIn.Run(speed);
 };
+
+/**
+ * Affiche une notification
+ */
+Animation.Notify = function(message)
+{
+    var notification = new Notification();
+        notification.Notify(message);
+};

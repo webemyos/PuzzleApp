@@ -220,14 +220,14 @@ class Agenda extends Application
 
 		if(Request::GetPost('idEvent') != 'null')
 	 	{
-                    $event->GetById(Request::GetPost('idEvent'));
+            $event->GetById(Request::GetPost('idEvent'));
 	 	}
 
 		$event->Title->Value = Request::GetPost("Titre");
 		$event->Commentaire->Value = Request::GetPost("Commentaire");
 		$event->UserId->Value = $this->Core->User->IdEntite;
                 
-                $event->AddName->Value = Request::GetPost("AppName");
+        $event->AddName->Value = Request::GetPost("AppName");
 		$event->EntityName->Value = Request::GetPost("EntityName");
 		$event->EntityId->Value = Request::GetPost("EntityId");
 		

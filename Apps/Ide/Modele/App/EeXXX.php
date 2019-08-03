@@ -7,11 +7,13 @@
  * GNU Licence
  */
 
- namespace Apps\EeXXX;
+namespace Apps\EeXXX;
 
-use Core\App\Application;
  
-class EeXXX extends Application
+ use Core\Core\Core;
+ use Apps\Base\Base;
+ 
+class EeXXX extends Base
 {
 	/**
 	 * Auteur et version
@@ -24,8 +26,8 @@ class EeXXX extends Application
 	 * */
 	function __construct($core)
 	{
-		parent::__construct($core, "EeXXX");
-		$this->Core = $core;
+        $this->Core = Core::getInstance();  
+		parent::__construct($this->Core, "EeXXX");
 	}
 
 	 /**
@@ -35,5 +37,14 @@ class EeXXX extends Application
 	 {
 		echo parent::RunApp($this->Core, "EeXXX", "EeXXX");
 	 }
+     
+     /**
+	 * Définie les routes publiques
+	 */
+	function GetRoute($routes ="")
+	{
+		parent::GetRoute(array());
+		return $this->Route;
+  	}
 }
 ?>

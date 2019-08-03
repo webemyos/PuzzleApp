@@ -26,6 +26,7 @@ class Control
 	protected $Libelle;
 	protected $Value;
 	protected $LangValue;
+	protected $DataSet;
 	protected $OnClick;
 	protected $OnMouseMove;
 	protected $OnMouseOver;
@@ -74,6 +75,13 @@ class Control
 		$this->Attribute.=$event."='".$action."' ";
 	}
 
+	/**
+	 * Ajout d"element type data-type
+	 */
+	function AddDataSet($key, $value)
+	{
+		$this->DataSet .= "data-" .$key ." ='".$value."' ";
+	}
         
 	//Fonction d'affichage du control
 	function Show()
@@ -113,8 +121,10 @@ class Control
 		$html .=($this->CssClass !="")?" class='".$this->CssClass."' " :  "";
 		$html .=($this->Style !="")?"    style='".$this->Style."'    "  :  "";
 		$html .=($this->Attribute !="")? $this->Attribute : "";
-	      //  $html .= $this->Required;
-                $html .=($this->Required === true || $this->Required === "1"  )?" required "  :  "";
+		$html .=($this->DataSet !="")? $this->DataSet : "";
+
+		//  $html .= $this->Required;
+        $html .=($this->Required === true || $this->Required === "1"  )?" required "  :  "";
 	
 		if($addValue)
 		{
