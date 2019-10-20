@@ -46,15 +46,24 @@ class Base extends Application
       {
          if($routes == "")
          {
-            $this->Route->SetPublic(array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword"));
+            $this->Route->SetPublic(array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword" , "SetLang"));
          }
          else
          {
-            $this->Route->SetPublic(array_merge($routes, array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword")));
+            $this->Route->SetPublic(array_merge($routes, array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword", "SetLang")));
          }
 
          return $this->Route;
       }
+
+      /**
+       * Change la langue
+       */
+     function SetLang($lang)
+     {
+        $this->Core->SetLang($lang);
+        $this->Core->Redirect($this->Core->GetPath("/"));
+     }
 
     /*
      * Get the master View
