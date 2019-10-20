@@ -45,7 +45,11 @@ class FunctionManager
      */
     public static function GetDate($core, $html)
     {
-         return str_replace("{{GetDate()}}", Date::Now(),$html);
+         $html = str_replace("{{GetDate()}}", Date::Now(),$html);
+         $dateTime = new \DateTime();
+         $html = str_replace("{{GetDate(y)}}", $dateTime->format("Y"),$html);
+
+         return $html;
     }
 
     /*

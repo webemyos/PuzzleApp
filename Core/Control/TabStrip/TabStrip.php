@@ -126,7 +126,7 @@ class TabStrip  extends Control implements IControl
                 if($iTab == $Selected)
                         $html .="<div id='tab_".$iTab.$name."' class='TabContent' >".$tab->Show()."</div>";
                 else
-                        $html .="<div id='tab_".$iTab.$name."' class='TabContent'  style='height:0px;display: none;'>".$tab->Show()."</div>";
+                        $html .="<div id='tab_".$iTab.$name."' class='TabContent'  style='display: none;'>".$tab->Show()."</div>";
                 $iTab++;
         }
         $html .="</div>";

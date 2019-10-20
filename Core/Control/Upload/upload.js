@@ -15,7 +15,10 @@ upload.doUpload = function()
         var hdIdUpload = document.getElementById("hdIdUpload");
         var uploadLoading = document.getElementById("uploadLoading");
 
-        uploadLoading.style.display='block';
+        if(uploadLoading != undefined)
+        {
+            uploadLoading.style.display='block';
+        }
 
         var conteneur = fileUpload.parentNode;
         var token = hdIdElement.value + Math.round(Math.random() *100);
@@ -47,8 +50,10 @@ upload.doUpload = function()
 
 
         setTimeout(function(){
-        
-            uploadLoading.style.display='none';
+            if(uploadLoading != undefined)
+            {
+                uploadLoading.style.display='none';
+            }
             //On affiche l'image télécharger
         var uploadImages = document.getElementById("uploadImages");
             uploadImages.innerHTML += "<img style='width:100px'  src='../Data/Tmp/"+hdIdElement.value+".jpg' /> ";

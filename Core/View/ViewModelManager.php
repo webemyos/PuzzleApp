@@ -66,20 +66,30 @@ class ViewModelManager
         
         $properties = $model->GetEntity()->GetProperty();
         
+        //var_dump($properties);
+
         foreach($properties as $propertie)
         {
             if(!in_array($propertie->Name, $model->GetExcludes()))
             {
-                $control = new $propertie->Type($propertie->Name);
-                $control->Value = $propertie->Value;
-  
+             
+                if($propertie->Type == UPLOAD)
+                {
+                    $control = new $propertie->Type($propertie->App);
+                    $content .= $core->GetCode("AddImage");
+                } 
+                else
+                {
+                    $control = new $propertie->Type($propertie->TableName);
+                    $control->Value = $propertie->Value;
+                    $content .= $core->GetCode($propertie->Name);
+                }
+
                 if($propertie->Obligatory )
                 {
                     $control->Required = true;
                 }
 
-                $content .= $propertie->Libelle;
-                  
                 $content .= $control->Show();
             }
         }

@@ -32,7 +32,7 @@ function TabStrip()
 
 				if(tabs != null)
 				{
-					 tabs.style.height='0px';
+					// tabs.style.height='0px';
 					 tabs.style.display = 'none';
 
 					 if(appName != "")

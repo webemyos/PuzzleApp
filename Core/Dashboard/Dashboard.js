@@ -1396,10 +1396,27 @@ Dashboard.UpdateModele = function()
 		Dashboard.callBack = "";
 	}
 
-    //Send Data
-    var JAjax = new ajax();
-    	JAjax.data = 'App=' + app.value + '&Methode=' + action.value;
-		
+	  //Send Data
+	  var JAjax = new ajax();
+	  JAjax.data = 'App=' + app.value + '&Methode=' + action.value;
+
+
+	var uploadImages = document.getElementById("uploadImages");
+
+	dataImg = Array();
+
+	if(uploadImages != null)
+	{
+  		var img = uploadImages.getElementsByTagName("img");
+		for(i = 0; i < img.length; i++)
+		{
+			dataImg.push(img[i].src);
+		}
+
+		JAjax.data += "&imgs=" + dataImg ;
+	}
+
+  		
 		if(classe != '')
 		{
 			JAjax.data += '&Class=' + classe.value + '&Methode=' + action.value;
@@ -1409,7 +1426,7 @@ Dashboard.UpdateModele = function()
     
     for(i = 0; i < inputs.length; i++)
     {
-        if( inputs[i].value == "" && inputs[i].type != "hidden"   )
+		if( inputs[i].value == "" && inputs[i].type != "hidden"  && inputs[i].require  )
         {
             errorMsg += "<li>" + inputs[i].name + "</li>" ;
         }
@@ -1458,7 +1475,7 @@ Dashboard.UpdateModele = function()
             JAjax.data += "&" +  select[i].name  + "=" + select[i].value;
         }
     }
-    
+	
     if(errorMsg != "")
     {
       error.innerHTML = Dashboard.GetCode("PleaseCompleteField");

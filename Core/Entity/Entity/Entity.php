@@ -63,9 +63,10 @@ class Entity
                 //Recuperation du nom de la propriï¿½te
                 $Name=$Propertie->getName();
 
-                if( is_object($this->$Name)   && (get_class($this->$Name)=="Core\Entity\Entity\Property"
+                if( is_object($this->$Name)  && (get_class($this->$Name)=="Core\Entity\Entity\Property"
                         || get_class($this->$Name)=="LangProperty"
-                        || get_class($this->$Name)=="SqlProperty") )
+                        || get_class($this->$Name)=="SqlProperty"
+                        || get_class($this->$Name) == "Core\Entity\Entity\UploadProperty"  ))
                 {
                     
                         //Suffixe de la propriete par le nom de l'entite
@@ -272,7 +273,7 @@ class Entity
        $this->AppName = new Property("AppName", "AppName", TEXTBOX,  false, $this->Alias); 
        $this->AppId = new Property("AppId", "AppId", NUMERICBOX,  false, $this->Alias); 
        $this->EntityName = new Property("EntityName", "EntityName", TEXTBOX,  false, $this->Alias); 
-       $this->EntityId = new Property("EntityId", "EntityId", NUMERICBOX,  false, $this->Alias); 
+       $this->EntityId = new Property("EntityId", "EntityId", TEXTBOX,  false, $this->Alias);
     }
         
     /*

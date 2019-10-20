@@ -39,6 +39,7 @@ define("CHECKBOX","Core\Control\CheckBox\CheckBox");
 define("DATEBOX","Core\Control\DateBox\DateBox");
 define("DATETIMEBOX","Core\Control\DateTimeBox\DateTimeBox");
 define("IMAGE","Core\Control\Image\Image");
+define("UPLOAD","Core\Control\Upload\Upload");
 
 //type d'operateur de requete
 define("EQUAL","Equal");

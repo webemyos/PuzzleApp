@@ -242,7 +242,7 @@ class SqlRequestBuilder
                                 $values .= ",'".$propertie->Value. "'";
                         }
                 }
-                else
+                else if(get_class($propertie->Control) != UPLOAD)
                 {
                     if($fields=="")
                     {
@@ -305,8 +305,9 @@ class SqlRequestBuilder
 
                             */
                     }
-                    else if(get_class($propertie->Control) == DATEBOX)
+                    else if(get_class($propertie->Control) == DATEBOX )
                     {
+
                        /* if($fields=="")
                             {
                                 $fields .= $entity->Alias.".".$propertie->TableName."='".$propertie->Value."' ";
@@ -318,14 +319,29 @@ class SqlRequestBuilder
                             }*/
                             //Separation heure et jour
                         $date  =  explode("/", $propertie->Value);
-
+                     
                         if($fields=="")
                         {
-                            $fields .= $entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                            //Deja dans le bon format de bdd   
+                            if(strlen($date[0]) ==  4)
+                            {
+                                $fields .= $entity->Alias.".".$propertie->TableName."='".$date[0]."-".$date[1]."-".$date[2] ."'";
+                            }
+                            else
+                            {
+                                $fields .= $entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                            }        
                         }
                         else
                         {
-                            $fields .= ",".$entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                            if(strlen($date[0]) ==  4)
+                            {
+                                $fields .= ",".$entity->Alias.".".$propertie->TableName."='".$date[0]."-".$date[1]."-".$date[2] ."'";
+                            }
+                            else
+                            {
+                                $fields .= ",".$entity->Alias.".".$propertie->TableName."='".$date[2]."-".$date[1]."-".$date[0] ."'";
+                            }
                         }
                     }
                     else if(get_class($propertie->Control) == DATETIMEBOX)

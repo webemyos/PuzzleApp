@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<app name='Feedback'>
+    <menu>
+            <item name='File' text='File'>
+                    <subitem name='Quit' text='Quit'  action='Quit' icone="Core\Control\Icone\CloseIcone" />
+            </item>
+
+    </menu>
+    <center>
+            <module type='Apps\Feedback\Module\Home\HomeController'></module>
+    </center>
+</app>

@@ -23,7 +23,7 @@ class Upload extends Control implements IControl
 
 
     //Constructeur
-    function __construct($app, $id, $callBack, $action = false, $idUpload ="fileToUpload")
+    function __construct($app, $id ="", $callBack ="", $action = false, $idUpload ="fileToUpload")
     {
         //Version
         $this->Version ="2.0.0.0";
