@@ -10,6 +10,7 @@
 namespace Core\Model;
 
 use Core\Core\Request;
+use Core\Entity\Entity\Argument;
 
 
 class Model
@@ -112,6 +113,48 @@ class Model
         {
            $this->Entity->Save();
            $this->State = "Updated";
+
+           //Sauvegarde des ListProperty
+           //Entité liées par une table intérmédiaire
+           foreach($_POST as $key => $value)
+           {
+               if(strpos($key, "linked_") !== false)
+               {
+                    $data = json_decode($value);
+                    $key = explode(",",$data->key);
+                    $primary = $key[0];
+                    $second = $key[1];
+
+                    //On recherche si il existe
+                    $entityClass = new $data->entity( $this->Entity->Core);
+                    $entityClass->AddArgument(new Argument($data->entity,  $primary, EQUAL, $this->Entity->IdEntite));
+                    $entityClass->AddArgument(new Argument($data->entity,  $second, EQUAL, $data->id));
+                    $entites = $entityClass->GetByArg();
+                    
+                    if(count($entites) > 0)
+                    {
+                        $entity = $entites[0];
+                    }else
+                    {
+                        $entity = null;
+                    }
+
+                    //On sauvegarde 
+                    if($data->checked == 1 && $entity == null)
+                    {
+                        $entityClass = $data->entity;
+                        $linked = new $entityClass( $this->Entity->Core);
+                        $linked->$primary->Value = $this->Entity->IdEntite;
+                        $linked->$second->Value = $data->id;
+                        $linked->Save();
+                    }
+                    //On supprime
+                    else if($data->checked == 0 && $entity != null)
+                    {
+                        $entity->Delete();
+                    }
+               }
+           }
         }
     }
 }

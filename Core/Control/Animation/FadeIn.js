@@ -4,8 +4,8 @@ function FadeIn()
 
     this.Run = function(speed)
     {
-        this.control.style.opacity = 0;
-        this.interval = setInterval(data=>{this.Tick()}, speed);
+        this.control.style.opacity = 1;
+        //this.interval = setInterval(data=>{this.Tick()}, speed);
     };
 
     this.Tick = function()

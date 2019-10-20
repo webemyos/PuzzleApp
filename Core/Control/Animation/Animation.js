@@ -67,3 +67,32 @@ Animation.Notify = function(message)
     var notification = new Notification();
         notification.Notify(message);
 };
+
+
+/**
+ * SlideLeft à control
+ * @param {*} controlId 
+ * @param {*} speed 
+ */
+Animation.SlideLeft = function(controlId, speed)
+{
+    var control = document.getElementById(controlId);
+    
+    var sladeLeft = new SlideLeft();
+    sladeLeft.control = control;
+    sladeLeft.Run(speed);
+};
+
+/**
+ * Open Top
+ * @param {*} controlId 
+ * @param {*} speed 
+ */
+Animation.OpenTop = function(controlId, height)
+{
+    var control = document.getElementById(controlId);
+    
+    var openTop = new OpenTop();
+    openTop.control = control;
+    openTop.Run(height);
+};

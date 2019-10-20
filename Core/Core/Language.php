@@ -34,11 +34,11 @@ use Core\Utility\Format\Format;
          */
         function LoadCode($langue)
         {
-           $request = "SELECT code.Code as Code, element.Libelle as Libelle,
+            $request = "SELECT code.Code as Code, element.Libelle as Libelle,
                (Select count(id) from ee_lang_element where element.codeId = code.id ) as nb 
                 FROM ee_lang_code as code
-                left join ee_lang_element as element on code.id = element.codeId
-                left join ee_lang as lang on lang.id = element.langId 
+                join ee_lang_element as element on code.id = element.codeId
+                 join ee_lang as lang on lang.id = element.langId 
                 AND lang.Code = '".$langue."'";
            
            $this->ElementsBase  = $this->Core->Db->GetArray($request);
@@ -60,36 +60,42 @@ use Core\Utility\Format\Format;
 	//Retourne un code dans une langue
 	function GetCode($code,$langue)
 	{
-            //Load All Code
-            if($this->ElementsBase == null)
-            {
-                $this->LoadCode($langue);
-            }
-            
-            //Code exist but no libelle
-            if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] === false )
-            {
-                return $code;
-            }
-            
-            //Code and libelle exist return libelle
-            if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] != false )
-            {
-                return $this->ElementsCode[$code];
-            }
-            
-            //Code not exist
-            if(!isset($this->ElementsCode[$code]) || $this->ElementsCode[$code] === null )
-            {
-              $requete ="INSERT INTO ee_lang_code (Code) VALUES ('$code')";
-              $this->Core->Db->execute($requete);
-
-              //Add To the Tab
-              $this->ElementsCode[$code] = false;
-              
-              return $code;
-            }
+        //Load All Code
+        if($this->ElementsBase == null)
+        {
+            $this->LoadCode($langue, true);
         }
+        
+        //Code exist but no libelle
+        if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] === false )
+        {
+            return $code;
+        }
+        
+        //Code and libelle exist return libelle
+        if(isset($this->ElementsCode[$code]) && $this->ElementsCode[$code] != false )
+        {
+            return $this->ElementsCode[$code];
+        }
+        
+        //Code not exist
+        if(!isset($this->ElementsCode[$code]) || $this->ElementsCode[$code] === null )
+        {
+            $requete = "select * from ee_lang_code where code = '".$code."'";
+            $result = $this->Core->Db->GetArray($requete);
+
+            if(count($result) == 0)
+            {
+                $requete ="INSERT INTO ee_lang_code (Code) VALUES ('$code')";
+                $this->Core->Db->execute($requete);
+            }
+
+            //Add To the Tab
+            $this->ElementsCode[$code] = false;
+            
+            return $code;
+        }
+    }
 
 	/**
 	 * Retourne tous les élements multiluange traduit
