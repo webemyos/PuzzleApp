@@ -17,6 +17,8 @@ use Apps\Communique\Entity\CommuniqueListMember;
 use Apps\Downloader\Entity\DownloaderRessourceContact;
 use Core\Dashboard\DashBoardManager;
 use Core\Entity\Entity\Argument;
+use Core\Entity\User\User;
+
 use Core\Entity\Entity\UserGroupUser;
 
 class ListHelper
@@ -83,7 +85,7 @@ class ListHelper
          if(count($members) > 0)
          {
              $member = $members[0];
-             $member->Actif->Value = false;
+             $member->Actif->Value = "0";
              $member->Save();
          }
     }
@@ -123,15 +125,15 @@ class ListHelper
          $blogger = UserNewsLetterHelper::GetByBlog($core, $blog->IdEntite);
          $emailAdded .=  "\n\rBloggers :" .ListHelper::AddUser($core, $listId, $blogger, $members);
        
-         //Livre Blanc
-          $eDownloader = DashBoardManager::GetApp("Downloader", $core);
+        /* //Livre Blanc
+         $eDownloader = DashBoardManager::GetApp("Downloader", $core);
                  
          $booker = new DownloaderRessourceContact($core);
          $booker->AddArgument(new Argument("DownloaderRessourceContact", "RessourceId", EQUAL, 2));
          $bookers = $booker->GetByArg();
          
          $emailAdded .=  "\n\rLivre blanc :" .ListHelper::AddUser($core, $listId, $bookers, $members);
-       
+       */
          
          echo $core->GetCode("New Email").":". $emailAdded;
     }

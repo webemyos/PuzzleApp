@@ -98,7 +98,9 @@ class DataBase implements IDataBase
 	 * */
 	function GetArray($requete="")
 	{
-            //Execution de la requete
+		Trace::Sql($requete);
+		
+    	//Execution de la requete
 		if($requete !="")
                     $res=mysqli_query($this->connection, $requete);
 		else
@@ -162,7 +164,7 @@ class DataBase implements IDataBase
 	 */
 	function Execute($requete)
 	{
-              Trace::Sql($requete);
+        Trace::Sql($requete);
               
 		Log::Write(DB," Execute : ".$requete , INFO);
          if(mysqli_query($this->connection, $requete))

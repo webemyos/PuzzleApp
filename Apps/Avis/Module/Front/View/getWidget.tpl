@@ -1,9 +1,9 @@
 <section>
 
-        <h2>Les avis</h2>
+        <h2>{{GetCode(Avis.TheAvis)}}</h2>
 
         {{foreach Avis}}
-
+    
           <i>{{element->DateCreated->Value}}</i>
             {{element->Name->Value}}
 
@@ -13,7 +13,7 @@
         {{/foreach Avis}}
 
 
-    <h2>Dépose ton avis</h2>
+    <h2>{{GetCode(Avis.LetYourAvis)}}</h2>
         {{if Model->State = Init}}
             {{RenderModel()}}
         {{/if Model->State = Init}}

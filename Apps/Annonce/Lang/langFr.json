@@ -1,0 +1,13 @@
+{"lang":"Fr", 
+"data":[{"Code":"Menu_Annonce","Libelle":"Annonce"},
+        {"Code":"Annonce.TitleHome","Libelle":"Annonce"},
+        {"Code":"Annonce.MessageHome","Libelle":"Gérer et partager vos annonces"},
+        {"Code":"Annonce.NoAnnonce","Libelle":"Aucune annonce disponible"},
+        {"Code":"Annonce.Reponses","Libelle":"Réponses"},
+        {"Code":"Annonce.Emetteur","Libelle":"Auteur de l'annonce"},
+        {"Code":"Annonce.NewAnnonce","Libelle":" Nouvelle annonce"},
+        {"Code":"Annonce.MyAnnonce","Libelle":"Mes annonces"},
+        {"Code":"Annonce.Annonce","Libelle":"Annonce"},
+        {"Code":"Annonce.ShowAddAnnonce","Libelle":"Ajouter une annonce"},
+        {"Code":"Annonce.AnnonceSaved","Libelle":"Annonce sauvegardé"}]}
+

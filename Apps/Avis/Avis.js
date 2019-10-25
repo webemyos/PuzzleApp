@@ -86,7 +86,7 @@ var Avis = function() {};
 		param['Title'] = 'Avis.EditAvis';
 		param['entityId'] = avisId;
 
-		Dashboard.OpenPopUp('Blog','EditAvis', '','','', 'AvisAction.RefreshAvis()', serialization.Encode(param));
+		Dashboard.OpenPopUp('Avis','EditAvis', '','','', 'AvisAction.RefreshAvis()', serialization.Encode(param));
 	};
 
    /***

@@ -16,12 +16,17 @@ class Trace
     /*
      * Trace the sql Request
      */
-    PUBLIC static function Sql($request)
+    public static function Sql($request)
     {
         Trace::$Requests[] = $request;
+
+        //var_dump(Trace::$Requests);
+
+        if(!isset($_SESSION["Trace"]) /* || !is_array($_SESSION["Trace"])*/){
+            $_SESSION["Trace"] = array();
+        }
+        $_SESSION["Trace"][] =  $request;
+       
     }
-    
-    
-    
 }
 

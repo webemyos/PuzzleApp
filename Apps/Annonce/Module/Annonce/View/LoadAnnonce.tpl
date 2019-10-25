@@ -2,8 +2,8 @@
     <table class="table">
         <thead>
             <tr>
-            <th>{{GetCode(EeAnnoncer.Emeteur)}}</th>
-            <th>{{GetCode(EeAnnoncer.Reponse)}}</th>
+            <th>{{GetCode(Annonce.Emetteur)}}</th>
+            <th>{{GetCode(Annonce.Reponses)}}</th>
             </tr>
         </thead>
         <tbody>

@@ -46,7 +46,7 @@ class Base extends Application
       {
          if($routes == "")
          {
-            $this->Route->SetPublic(array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword" , "SetLang"));
+            $this->Route->SetPublic(array("Install", "Login", "Contact", "Connect", "Disconnect", "Singup", "ForgetPassword" ,"NewPassword" , "SetLang" ,"GetDebugInfo"));
          }
          else
          {
@@ -228,6 +228,24 @@ class Base extends Application
             $installController = new InstallController($this->Core);
             return $installController->Index();
         }
+    }
+
+    public function GetDebugInfo()
+    {
+       // var_dump($_SESSION["Trace"]);
+
+        foreach($_SESSION["Trace"] as $trace => $value)
+        {
+            echo "<br/><br/>" . $trace . "=>" .  $value ;
+           /* foreach($value as $val){
+           echo "<br/><br/>" . $trace . "=>" .  $val ;
+            }*/
+        }
+    }
+
+    public function ClearDebuger()
+    {
+        unset($_SESSION["Trace"]);
     }
 }
 

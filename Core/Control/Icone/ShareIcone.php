@@ -11,6 +11,6 @@ class ShareIcone extends Icone
 {
 	function __construct()
 	{
-		$this->CssClass = "fa-share";
+		$this->CssClass = "fa fa-share";
 	}
 }

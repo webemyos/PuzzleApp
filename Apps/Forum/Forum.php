@@ -335,7 +335,6 @@ class Forum extends Application {
     {
         return SitemapHelper::GetSiteMap($this->Core);
     }
-
 }
 
 ?>

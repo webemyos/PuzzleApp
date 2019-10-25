@@ -92,16 +92,12 @@ use Core\Entity\Entity\Argument;
 
               //Syncronisation de tous les utilisateurs
               // pour la newletters
-              if($list->Name->Value == "New letter Webemyos")
-              {
                   //Lien pour afficher le détail
-                  $lkSync = new ShareIcone($this->Core);
-                  $lkSync->Tiltle = $this->Core->GetCode("Syncrhonise");
-                  $lkSync->OnClick ="CommuniqueAction.Synchronise(".$list->IdEntite.", this)";
-                  $html .= "<div> ".$lkSync->Show() ."</div>";
-
-              }
-              $html .= "</div>";
+            $lkSync = new ShareIcone($this->Core);
+            $lkSync->Tiltle = $this->Core->GetCode("Syncrhonise");
+            $lkSync->OnClick ="CommuniqueAction.Synchronise(".$list->IdEntite.", this)";
+            $html .= "<div> ".$lkSync->Show() ."</div>";
+          $html .= "</div>";
             }
         }
         else

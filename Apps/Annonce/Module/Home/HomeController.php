@@ -7,7 +7,7 @@
  * GNU Licence
  */
 
-namespace Apps\Annonce\Module\Annonce;
+namespace Apps\Annonce\Module\Home;
 
 use Core\Control\Button\Button;
 use Core\Controller\Controller;

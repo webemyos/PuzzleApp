@@ -11,6 +11,7 @@
 
 use Core\App\Application;
 use Core\Core\Request;
+use Core\Core\Core;
 
 use Apps\Avis\Module\Front\FrontController;
 use Apps\Avis\Module\Admin\AdminController;
@@ -27,8 +28,9 @@ class Avis extends Application
 	/**
 	 * Constructeur
 	 * */
-	function __construct($core)
+	function __construct()
 	{
+		$core = Core::getInstance();
 		parent::__construct($core, "Avis");
 		$this->Core = $core;
 	}
@@ -84,10 +86,28 @@ class Avis extends Application
 	/***
 	 * Retourne une widget listant les avis sur une entité et permattant d'en rajouter
 	 */
-	 function GetWidget($appName, $entityId)
+	 function GetWidget($appName ="", $entityId ="")
 	 {
 		$frontController = new FrontController($this->Core);
-		return $frontController->GetWidget($appName, $entityId);
+		$html = $frontController->GetWidget($appName, $entityId);
+
+		if(Request::IsPost())
+		{
+			return $this->Core->GetCode("Avis.AvisSaved");
+		}
+		else
+		{
+			return $html;
+		}
+	 }
+
+	 function DoUploadFile($idElement, $tmpFileName, $fileName, $action)
+	 {
+		$directory = "Data/Tmp";
+
+		//Sauvegarde
+		move_uploaded_file($tmpFileName, $directory."/".$idElement.".jpg");
+
 	 }
 }
 ?>

@@ -139,7 +139,7 @@ class CommuniqueHelper
                 //TODO VERSION EN LIGN
                 //Version en ligne
                  $lkVersionOnLine = new Link($core->GetCode('Communique.VersionOnLine'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Detail/".$communique->IdEntite);
-                 $message .= $lkVersionOnLine->Show();
+                 $message = $lkVersionOnLine->Show();
 
                 
                 //Message
@@ -152,13 +152,13 @@ class CommuniqueHelper
                 //Lien vers l'image de tracking
                 // La boite au lettre doit venir chercher l'image sur le serveur pour l'afficher
                 // Cela nous permet de tracker l'email de campagne
-                $message .= "<img src='http://".$_SERVER["SERVER_NAME"]."/image.php?Page=app&app=Communique&CampagneId=".$campagneId."&email=".$member->Email->Value."'></img>";
+                $message .= "<img src='http://".$_SERVER["SERVER_NAME"]."/Communique/Image/".base64_encode($campagneId.":".$member->Email->Value)."'></img>";
                
                 if($email == "")
                 {
                     //Lien de desabonnement
                     //$lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/index.php?Page=app&app=Communique&ListId=".$listId."&email=".$member->Email->Value);
-                    $lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Desabonnement/ListId=".$listId."&email=".$member->Email->Value);
+                    $lkDesabonnement = new Link($core->GetCode('Communique.Desabonnement'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Desabonnement/".base64_encode($listId.":".$member->Email->Value));
                    
                     $message .= $lkDesabonnement->Show();
                 }

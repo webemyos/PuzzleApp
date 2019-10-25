@@ -183,7 +183,7 @@ class Profil extends Application
     /*
      * Détail of a profil
      */
-    function Display()
+    function Display($name ="")
     {
         $html = "<h1>".$this->Core->GetCode("Profil.DetailProfil")."</h1>";
 

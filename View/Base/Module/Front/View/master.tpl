@@ -47,7 +47,9 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="index.php" alt="PuzzleApp" title="Plus qu'un framework, une solution compléte pour tous les types de site.">
-               <h2 style="font-family: fantasy">PuzzleApp</h2>
+              
+                <img src='{{GetPath(/images/logo.png)}}' width= "140px"/>
+               <h2 style="font-family: fantasy; display:none">PuzzleApp</h2>
             </a>
              
           </div>
@@ -79,9 +81,10 @@
 
     <!-- Header Home
     ================================================== -->
-
+    
     <div class="content">
       <div id="dvCente">
+     
         <div id="appRunLePupitreDigital" class="App row-fluid">
           <div id='appCenter'>
              <section class="full-bg-fixed home-bg" >
@@ -92,7 +95,7 @@
                         <div class='global-sub-block'>
                             <div class="row-fluid">
                                 <div id="content-wrapper" class=""></div>
-
+ <div class='breadCrumb'>{{GetWidget(breadCrumb,dd,dd)}}</div>
                                 {{content}}
 
                                   <div class="col-md-7">

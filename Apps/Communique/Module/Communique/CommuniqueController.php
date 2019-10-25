@@ -240,17 +240,17 @@ class CommuniqueController extends Controller
 
       //Nom de l'expediteur
       $tbNameExpediteur = new TextBox("tbNameExpediteur");
-      $tbNameExpediteur->PlaceHolder = "'" .$this->Core->GetCode("Communique.NameExpediteur")."'";
+      $tbNameExpediteur->Libelle = $this->Core->GetCode("Communique.NameExpediteur");
       $jbDiffusion->AddNew($tbNameExpediteur);
 
       //Expediteur
       $tbEmailExpediteur = new EmailBox("tbEmailExpediteur");
-      $tbEmailExpediteur->PlaceHolder = "'".$this->Core->GetCode("Communique.EmailExpediteur")."'";
+      $tbEmailExpediteur->Libelle = $this->Core->GetCode("Communique.EmailExpediteur");
       $jbDiffusion->AddNew($tbEmailExpediteur);
 
       //Reply to
       $tbEmailReply = new EmailBox("tbEmailReply");
-      $tbEmailReply->PlaceHolder =  "'".$this->Core->GetCode("Communique.EmailReplyTo")."'";
+      $tbEmailReply->Libelle =  $this->Core->GetCode("Communique.EmailReplyTo");
       $jbDiffusion->AddNew($tbEmailReply);
 
       //Action
@@ -420,5 +420,20 @@ class CommuniqueController extends Controller
       {
           return $this->Core->GetCode("Communique.NoEmail");
       }
+  }
+
+  /**
+   * Page miroir d'un email 
+   */
+  function Detail($communiqueId)
+  {
+    //Recuperatin du communique
+    $communique = new CommuniqueCommunique($this->Core);
+    $communique->GetById($communiqueId);
+
+    //Message
+    $message .= str_replace("!et!", "&", $communique->Text->Value);
+
+    return $message;
   }
 }

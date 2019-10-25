@@ -11,6 +11,8 @@ include("../environment.php");
 include("../autoload.php");
 include("../Core/Runner.php");
 
-Runner::Run("PuzzleApp", GetEnvironnement(), false);
+$env = GetEnvironnement();
+
+Runner::Run("PuzzleApp", $env, $env == "dev");
 
 ?>

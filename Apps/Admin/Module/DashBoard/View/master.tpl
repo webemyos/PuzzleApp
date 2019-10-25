@@ -18,7 +18,6 @@
     <link href="{{GetPath(/asset/style.css)}}" rel="stylesheet">
     <link href="{{GetPath(/asset/style-responsive.css)}}" rel="stylesheet">
     <link href="{{GetPath(/asset/desktop.css)}}" rel="stylesheet">
-    <link href="{{GetPath(/asset/jquery-ui.css)}}" rel="stylesheet">
     
     <script src='{{GetPath(/script.php)}}' ></script>
     <script src='{{GetPath(/script.php?s=Dashboard)}}' ></script>  

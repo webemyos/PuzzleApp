@@ -7,7 +7,7 @@
  * GNU Licence
  */
 
-namespace Apps\Agenda;
+namespace Apps\Annonce;
 
 use Apps\Annonce\Entity\AnnonceAnnonce;
 use Apps\Annonce\Entity\AnnonceReponse;
@@ -40,8 +40,7 @@ class Annonce extends Application
 	  */
 	 function Run()
 	 {
-	 	$textControl = parent::Run($this->Core, "Annonce", "Annonce");
-	 	echo $textControl;
+	 	echo parent::RunApp($this->Core, "Annonce", "Annonce");
 	 }
          
         /**
@@ -194,7 +193,7 @@ class Annonce extends Application
         /**
          * Affiche le détail d'une annnonce
          */
-        function Display()
+        function Display($name="")
         {
             $TextControl = "<span class='span2'></span>";
              

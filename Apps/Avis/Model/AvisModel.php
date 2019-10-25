@@ -11,6 +11,8 @@ namespace Apps\Avis\Model;
 use Core\Core\Request;
 use Core\Model\Model;
 use Core\Utility\Date\Date;
+use Core\Utility\ImageHelper\ImageHelper;
+use Core\Utility\File\File;
 
 class AvisModel extends Model
 {
@@ -37,7 +39,7 @@ class AvisModel extends Model
 	 */
 	public function Prepare()
 	{
-		$excludes = array("AppName", "AppId","EntityName","EntityId", "DateCreated");
+		$excludes = array("AppName", "AppId", "Email", "EntityName","EntityId", "DateCreated");
 
 		if($this->Entity->IdEntite == null)
 		{
@@ -59,6 +61,25 @@ class AvisModel extends Model
 			$this->Entity->Actif->Value = false;
 
 			parent::Updated();
+
+			if(isset($_POST['imgs']) && $_POST['imgs'] != "" )
+			{
+				$avisId = $this->Core->Db->GetInsertedId();
+				$path = explode("/", $_POST['imgs']);
+				$fileName = $path[count($path) -1];
+
+				File::CreateDirectory("Data/Apps/Avis/");
+				
+				rename("Data/Tmp/" .$fileName, "Data/Apps/Avis/". $avisId  .".png" );
+				
+				//Miniaturisation de l'image
+				//Crée un miniature
+				$image = new ImageHelper();
+				$image->load("Data/Apps/Avis/". $avisId  .".png");
+				$image->fctredimimage(200, 0,"Data/Apps/Avis/". $avisId  ."-96.png");
+
+			}
+			
 		}
 	}
 }

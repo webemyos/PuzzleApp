@@ -60,7 +60,7 @@ class Core
         if( true === is_null( self::$_instance ) )
         {
             self::$_instance = new self(true, "","","", $config);
-            self::$_instance->Debug =$debug ;
+            self::$_instance->Debug = $debug ;
             self::$_instance->ConfigFile =$config ;
         }
 

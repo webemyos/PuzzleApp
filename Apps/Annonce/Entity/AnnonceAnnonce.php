@@ -31,7 +31,7 @@ class AnnonceAnnonce extends Entity
         $this->Alias = "AnnonceAnnonce"; 
 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias); 
-        $this->User = new EntityProperty("Core\Entity\Entity\User", "UserId");
+        $this->User = new EntityProperty("Core\Entity\User\User", "UserId");
         $this->Title = new Property("Title", "Title", TEXTAREA,  true, $this->Alias); 
         $this->Description = new Property("Description", "Description", TEXTAREA,  true, $this->Alias); 
         $this->DateCreated = new Property("DateCreated", "DateCreated", DATEBOX,  true, $this->Alias); 

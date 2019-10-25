@@ -9,6 +9,13 @@
 
 namespace Apps\Annonce\Helper;
 
+use Core\Entity\Entity\Argument;
+use Core\Utility\Date\Date;
+
+use Apps\Annonce\Entity\AnnonceAnnonce;
+use Apps\Annonce\Entity\AnnonceReponse;
+
+
 class AnnonceHelper
 {
     /**

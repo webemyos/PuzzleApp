@@ -36,7 +36,7 @@ class PuzzleApp extends Base
     */
    function GetRoute($route ="")
    {
-      return parent::GetRoute(array("Store"));
+      return parent::GetRoute(array("Store", "Temoignages"));
    }
 
    /*
@@ -89,4 +89,16 @@ class PuzzleApp extends Base
       $frontController = new FrontController($this->Core);
       return $frontController->Store();
    }
+
+    /**
+     * Les des avis su rle site
+     */
+    function Temoignages()
+    {
+      $this->Core->MasterView->Set("Title", "Temoignages");
+      $this->Core->MasterView->Set("Description", "PuzzleApp, ce sont les utilisateurs qui en parlent le mieux.Retrouvez tout leur temoignagnes et ce que puzzleApp leur a apporté.");
+    
+      $frontController = new FrontController($this->Core);
+      return $frontController->Temoignages($token);
+    }
 }

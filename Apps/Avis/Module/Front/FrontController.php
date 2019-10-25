@@ -96,7 +96,7 @@ use Apps\Avis\Entity\AvisAvis;
 	  * @param $appName
 	  * @param $entityId
 	  */
-   function GetWidget($appName, $entityId)
+   function GetWidget($appName ="", $entityId ="")
    {
 	   $view = new View(__DIR__."/View/getWidget.tpl", $this->Core);
 
@@ -108,7 +108,9 @@ use Apps\Avis\Entity\AvisAvis;
 	   $view->AddElement(new ElementView("Avis", $avis->GetByArg()));
 
 	   $avisModel = new AvisModel($this->Core, "", $appName, $entityId );
-	   $view->SetModel($avisModel);
+       $view->SetModel($avisModel, true);
+       $view->SetApp("Avis");
+       $view->SetAction("GetWidget");
 
 	   return $view->Render();
    }

@@ -2,7 +2,7 @@
     <h1>{{GetCode(Forum.Admin)}}</h1>
     
     <div>
-        {{GetControl(Button,btnAddForum,{Value=AddForum,CssClass=btn btn-success,OnClick=ForumAction.ShowAddForum()})}}
+        {{GetControl(Button,btnAddForum,{Value=Forum.AddForum,CssClass=btn btn-success,OnClick=ForumAction.ShowAddForum()})}}
     </div>
     
     {{foreach}}

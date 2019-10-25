@@ -58,8 +58,7 @@ class Agenda extends Application
 	  */
 	 function Run()
 	 {
-	 	$textControl = parent::Run($this->Core, "Agenda", "Agenda");
-	 	echo $textControl;
+	 	return parent::RunApp($this->Core, "Agenda", "Agenda");
 	 }
         
 	 /**

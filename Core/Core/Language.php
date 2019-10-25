@@ -37,8 +37,8 @@ use Core\Utility\Format\Format;
             $request = "SELECT code.Code as Code, element.Libelle as Libelle,
                (Select count(id) from ee_lang_element where element.codeId = code.id ) as nb 
                 FROM ee_lang_code as code
-                join ee_lang_element as element on code.id = element.codeId
-                 join ee_lang as lang on lang.id = element.langId 
+                LEFT join ee_lang_element as element on code.id = element.codeId
+                LEFT join ee_lang as lang on lang.id = element.langId 
                 AND lang.Code = '".$langue."'";
            
            $this->ElementsBase  = $this->Core->Db->GetArray($request);
@@ -78,6 +78,8 @@ use Core\Utility\Format\Format;
             return $this->ElementsCode[$code];
         }
         
+      //  var_dump($this->ElementsCode);
+
         //Code not exist
         if(!isset($this->ElementsCode[$code]) || $this->ElementsCode[$code] === null )
         {
@@ -103,8 +105,8 @@ use Core\Utility\Format\Format;
 	function GetAllCode($langue)
 	{
 		$requete ="	SELECT code.Code,Libelle FROM ee_lang_code AS code
-					JOIN ee_lang_element as element ON code.Id = element.CodeId
-					JOIN ee_lang AS lang ON element.LangId = lang.Id
+					LEFT JOIN ee_lang_element as element ON code.Id = element.CodeId
+					LEFT JOIN ee_lang AS lang ON element.LangId = lang.Id
 					AND lang.Code = '".$langue."' ";
 		$elements = $this->Core->Db->GetArray($requete);
 

@@ -112,11 +112,9 @@ class Runner
         {
             $View = new View("../View/Core/Exception/exception.tpl", $core);
             
-            
             $View->AddElement(new ElementView("message", $ex->getMessage()));
             
             echo $View->Render();
-           
         }
     }
 
@@ -148,12 +146,12 @@ class Runner
         $core = Core::getInstance();
     
         $html = "<script type='text/javascript' src='".$core->GetPath("/script.php?s=Dashboard")."' ></script> ";
-        $html .= "<div style='width:600px; height:50px; overflow:auto;position:fixed;bottom:0px;right:0px;border:1px solid red;background:grey' >";
+        $html .= "<div style='width:600px; height:200px;color:white; overflow:auto;position:fixed;bottom:0px;right:0px;border:1px solid red;background:grey' >";
         $html .= "<h4>Debugger</h4>";
         
         $tabStrip = new TabStrip("tbDebugger");
+        $tabStrip->AddTab("SQL",  new Libelle(Runner::GetSql()));
         $tabStrip->AddTab("POST",  new Libelle(Runner::GetPost()));
-        $tabStrip->AddTab("REQUEST",  new Libelle(Runner::GetSql()));
         
         $html .= $tabStrip->Show();
         $html .= "</div>";
@@ -183,14 +181,17 @@ class Runner
      */
     public static function GetSql()
     {
-        $html = "";
+        $html = "<i class='fa fa-refresh' onclick='Dashboard.refreshDebuger()' >&nbsp</i>";
+        $html .= "<i class='fa fa-share' onclick='Dashboard.clearDebuger()' >&nbsp</i>";
         
         if(isset(Trace::$Requests) )
         {
+            $html .= "<div id='slqTrace'>";
             foreach(Trace::$Requests as $key=>$value)
             {
-                $html .= "<br/>".$key .":".$value;
+                $html .= "<br/><br/>".$key .":".$value;
             }
+            $html .= "</div>";
         }
         return $html;
     }

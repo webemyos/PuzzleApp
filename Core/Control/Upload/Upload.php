@@ -53,7 +53,7 @@ class Upload extends Control implements IControl
         //Frame From Upload
         if($core->Debug)
         {
-           $html .= "<iframe id='frUpload' src='upload' style='display:none' >";
+           $html .= "<iframe id='frUpload' src='upload' style='display:block' >";
         }
         else
         {

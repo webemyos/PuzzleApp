@@ -1539,3 +1539,31 @@ Dashboard.DomIsReady = function(callback)
      console.error('The callback is not a function!');
     }
 };
+
+/**
+ * Rafraichit les debugger
+ */
+Dashboard.refreshDebuger =function()
+{
+	var data = "Class=Base&Methode=GetDebugInfo&App=Base";
+
+	Request.Post("/Ajax.php", data).then(data=>{
+
+		var slqTrace = document.getElementById("slqTrace");
+		slqTrace.innerHTML = data;
+	});
+};
+
+/**
+ * Efface le debuuger
+ */
+Dashboard.clearDebuger = function()
+{
+	var data = "Class=Base&Methode=ClearDebuger&App=Base";
+
+	Request.Post("/Ajax.php", data).then(data=>{
+
+		var slqTrace = document.getElementById("slqTrace");
+		slqTrace.innerHTML = ""; 
+	});
+};

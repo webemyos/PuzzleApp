@@ -35,11 +35,9 @@ var Annonce = function() {};
 	*/
 	Annonce.LoadEvent = function()
 	{
-		DashBoard.AddEventAppMenu(Annonce.Execute, "", "Annonce");
-		DashBoard.AddEventWindowsTool("Annonce");
-                
-               
-	};
+		Dashboard.AddEventAppMenu(Annonce.Execute, "", "Annonce");
+		Dashboard.AddEventWindowsTool("Annonce");
+    };
 
    /*
 	* Execute une fonction
@@ -47,7 +45,7 @@ var Annonce = function() {};
 	Annonce.Execute = function(e)
 	{
 		//Appel de la fonction
-		DashBoard.Execute(this, e, "Annonce");
+		Dashboard.Execute(this, e, "Annonce");
 		return false;
 	};
 
@@ -56,7 +54,7 @@ var Annonce = function() {};
 	*/
 	Annonce.Comment = function()
 	{
-		DashBoard.Comment("Annonce", "1");
+		Dashboard.Comment("Annonce", "1");
 	};
 
 	/*
@@ -64,7 +62,7 @@ var Annonce = function() {};
 	*/
 	Annonce.About = function()
 	{
-		DashBoard.About("Annonce");
+		Dashboard.About("Annonce");
 	};
 
 	/*
@@ -72,7 +70,7 @@ var Annonce = function() {};
 	*/
 	Annonce.Help = function()
 	{
-		DashBoard.OpenBrowser("Annonce","{$BaseUrl}/Help-App-Annonce.html");
+		Dashboard.OpenBrowser("Annonce","{$BaseUrl}/Help-App-Annonce.html");
 	};
 
    /*
@@ -80,7 +78,7 @@ var Annonce = function() {};
 	*/
 	Annonce.ReportBug = function()
 	{
-		DashBoard.ReportBug("Annonce");
+		Dashboard.ReportBug("Annonce");
 	};
 
 	/*
@@ -88,7 +86,7 @@ var Annonce = function() {};
 	*/
 	Annonce.Quit = function()
 	{
-		DashBoard.CloseApp("","Annonce");
+		Dashboard.CloseApp("","Annonce");
 	};
         
         /*
@@ -105,9 +103,9 @@ var Annonce = function() {};
                 param['App'] = 'Annonce';
                 param['Title'] = 'Annonce.ShowAddAnnonce';
               
-                DashBoard.OpenPopUp('Annonce','ShowAddAnnonce', '','','', 'AnnonceAction.ShowMyAnnonce()', serialization.Encode(param));
+                Dashboard.OpenPopUp('Annonce','ShowAddAnnonce', '','','', 'AnnonceAction.ShowMyAnnonce()', serialization.Encode(param));
                 
-                DashBoard.SetBasicAdvancedText("tbDescription");  
+                Dashboard.SetBasicAdvancedText("tbDescription");  
         };
         
         /**
@@ -116,7 +114,7 @@ var Annonce = function() {};
         AnnonceAction.ShowMyAnnonce = function()
         {
            var data = "Class=Annonce&Methode=ShowMyAnnonce&App=Annonce";
-               DashBoard.LoadControl("dvDesktop", data, "" , "div", "Annonce");
+               Dashboard.LoadControl("dvDesktop", data, "" , "div", "Annonce");
         };
         
         /**
@@ -132,9 +130,9 @@ var Annonce = function() {};
                param['Title'] = 'Annonce.ShowAddAnnonce';
                param['AnnonceId'] = annonceId;
               
-                DashBoard.OpenPopUp('Annonce','ShowAddAnnonce', '','','', 'AnnonceAction.RefreshAnnonce()', serialization.Encode(param));
+                Dashboard.OpenPopUp('Annonce','ShowAddAnnonce', '','','', 'AnnonceAction.RefreshAnnonce()', serialization.Encode(param));
                 
-                DashBoard.SetBasicAdvancedText("tbDescription");
+                Dashboard.SetBasicAdvancedText("tbDescription");
         };
         
         /**
@@ -145,7 +143,7 @@ var Annonce = function() {};
              var data = "Class=Annonce&Methode=GetAnnonce&App=Annonce";
                  data += "&AnnonceId=" +AnnonceAction.annonceId;
                    
-               DashBoard.LoadControl("dvAnnonce_" + AnnonceAction.annonceId, data, "" , "div", "Annonce"); 
+               Dashboard.LoadControl("dvAnnonce_" + AnnonceAction.annonceId, data, "" , "div", "Annonce"); 
         };
         
         /**
@@ -160,7 +158,7 @@ var Annonce = function() {};
                 data += "&annonceId="+annonceId;
             }
             
-               DashBoard.LoadControl("dvDesktop", data, "" , "div", "Annonce");
+               Dashboard.LoadControl("dvDesktop", data, "" , "div", "Annonce");
         };
         
         /**
@@ -177,7 +175,7 @@ var Annonce = function() {};
                param['AnnonceId'] = annonceId;
               
              
-               DashBoard.OpenPopUp('Annonce','ShowAddReponse', '','','', 'AnnonceAction.RefreshMessage()', serialization.Encode(param));
+               Dashboard.OpenPopUp('Annonce','ShowAddReponse', '','','', 'AnnonceAction.RefreshMessage()', serialization.Encode(param));
         };
         
         /**
@@ -188,7 +186,7 @@ var Annonce = function() {};
                var data = "Class=Annonce&Methode=GetReponse&App=Annonce";
                    data += "&AnnonceId=" +AnnonceAction.annonceId;
                    
-               DashBoard.LoadControl("spMessage_" + AnnonceAction.annonceId, data, "" , "td", "Annonce");
+               Dashboard.LoadControl("spMessage_" + AnnonceAction.annonceId, data, "" , "td", "Annonce");
         };
         
         
@@ -202,7 +200,7 @@ var Annonce = function() {};
                param['Title'] = 'Annonce.ShowDetail';
                param['AnnonceId'] = annonceId;
               
-               DashBoard.OpenPopUp('Annonce','ShowDetail', '','','', '', serialization.Encode(param));
+               Dashboard.OpenPopUp('Annonce','ShowDetail', '','','', '', serialization.Encode(param));
         };
         
         /**
@@ -217,5 +215,5 @@ var Annonce = function() {};
                param['Title'] = 'Annonce.EditReponse';
                param['ReponseId'] = reponseId;
               
-               DashBoard.OpenPopUp('Annonce','EditReponse', '','','', '', serialization.Encode(param));
+               Dashboard.OpenPopUp('Annonce','EditReponse', '','','', '', serialization.Encode(param));
         };

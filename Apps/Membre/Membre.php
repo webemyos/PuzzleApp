@@ -12,8 +12,9 @@ namespace Apps\Membre;
 use Apps\Base\Module\Front\FrontController;
 use Apps\Membre\Module\DashBoard\DashBoardController;
 use Core\Core\Core;
+use Core\App\Application;
 
-class Membre 
+class Membre extends Application
 {
      /*
      * Créate de app Base
@@ -21,8 +22,18 @@ class Membre
     public function __construct()
     {
         $this->Core = Core::getInstance();
+        parent::__construct($this->Core, "Membre");
     }
     
+     /**
+     * Set Admin Public
+     */
+    public function GetRoute()
+    {
+        $this->Route->SetPublic(array("Membre"));
+        return $this->Route;
+    }
+
     /*
      * Get the master View
      */

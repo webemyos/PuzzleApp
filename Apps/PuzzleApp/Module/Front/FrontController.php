@@ -113,4 +113,13 @@ class FrontController extends Controller
         
        return $view->Render();
    }
+
+    /**
+    * Liste les avis des utilisateurs
+    */
+    function Temoignages()
+    {
+         $view = new View(__DIR__."/View/temoignages.tpl", $this->Core);
+         return $view->Render();
+     }
 }

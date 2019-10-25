@@ -42,10 +42,19 @@ class Communique extends Application
 	  */
 	 function Run($core = "", $title = "", $name = "")
 	 {
-            $html = parent::Run($this->Core, "Communique", "Communique");
-            echo $html;
+        echo parent::RunApp($this->Core, "Communique", "Communique");
 	 }
         
+     /**
+     * Set the Public Routes
+     */
+     public function GetRoute()
+     {
+       $this->Route->SetPublic(array("Detail", "Image", "Desabonnement"));
+      
+       return $this->Route;
+     }
+
        /**
          * Pop in d'ajout de communique
          */
@@ -239,18 +248,20 @@ class Communique extends Application
         /*
          * Affichage de l'image et tracking
          */
-        function Display()
+        function Image($token ="")
         {
-            $campagneId = Request::Get("CampagneId");
-            $email = Request::Get("email");
+           header("Content-type: image/png");
+           header("Pragma: no-cache");
+           header("Expires: 0");
+           $im     = imagecreatefrompng("../Web/images/logo.png");
+           imagepng($im);
+           imagedestroy($im);   
+           $token = explode(":", base64_decode($token));
+
+            $campagneId = $token [0];
+           $email = $token [1];
             
             CommuniqueHelper::AddEmailOpen($this->Core, $campagneId, $email);
-
-            //Redirection pour avoid le logo
-            header("Location : http://webemyos.com/image.php");
-            
-            echo "head deja envoyé";
-            ///include("image.php");
       }
       
       /**
@@ -316,11 +327,26 @@ class Communique extends Application
          * Desabonne un utilisateur 
          * D'une liste de diffusion
          */
-        function Desabonnement()
+        function Desabonnement($token)
         {
-            ListHelper::DesabonneMember($this->Core, Request::Get("ListId"), Request::Get("email"));
+            $this->Core->MasterView->Set("Title", "Desabonnement");
+     
+            $token = explode(":", base64_decode($token));
+
+            $listId = $token [0];
+            $email = $token [1];
+            
+            ListHelper::DesabonneMember($this->Core, $listId, $email);
+
+            return $this->Core->GetCode("Communique.DesabonnementOk");
         }
         
+
+        function Detail($communiqueId)
+        {
+            $communiqueController = new CommuniqueController($this->Core);
+            return $communiqueController->Detail($communiqueId);
+        }
         /*
          * Syncrhonise
          */

@@ -32,7 +32,7 @@ class AnnonceReponse extends Entity
         $this->Alias = "EeAnnoncerReponse"; 
 
         $this->UserId = new Property("UserId", "UserId", NUMERICBOX,  true, $this->Alias);
-        $this->User = new EntityProperty("Core\Entity\Entity\User", "UserId");
+        $this->User = new EntityProperty("Core\Entity\User\User", "UserId");
         $this->AnnonceId = new Property("AnnonceId", "AnnonceId", NUMERICBOX,  true, $this->Alias); 
         $this->Annonce = new EntityProperty("Apps\Annonce\Entity\AnnonceAnnonce", "AnnonceId");
         $this->Reponse = new Property("Reponse", "Reponse", TEXTAREA,  true, $this->Alias); 

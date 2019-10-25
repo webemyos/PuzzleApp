@@ -21,11 +21,12 @@ use Core\Core\Core;
 use Core\Core\Request;
 use Core\Dashboard\DashBoardManager;
 
+$env = GetEnvironnement();
 
-$Core= Core::getInstance(GetEnvironnement(), true);
+$Core= Core::getInstance($env, $env == "dev");
 $Core->Init();
 
-if(!Request::IsConnected($Core))
+if(!Request::IsConnected($Core)) 
 {
     die("Need Authentification");
 }

@@ -325,3 +325,9 @@ and open the template in the editor.
 
 .grid .entityPager{display: inline-grid; text-decoration: underline; cursor:pointer; margin-left:5px; color:white}
 .grid .order {text-decoration: underline; cursor:pointer; color:white}
+
+.btn{
+    border :none;
+    padding:10px;
+    border-radius: 15px;
+}

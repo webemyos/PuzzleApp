@@ -153,7 +153,8 @@ class FunctionManager
                 $props = explode("=", $prop);
                 $key =  $props[0];
            
-                if(get_class($control) == "Core\Control\Submit\Submit" && $key == "Value")
+                if((get_class($control) == "Core\Control\Submit\Submit" || 
+                    get_class($control) == "Core\Control\Button\Button" )&& $key == "Value")
                 {
                     $value = $core->GetCode($props[1]);
                 }

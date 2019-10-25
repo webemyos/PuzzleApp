@@ -27,7 +27,7 @@ class MessageHelper
     {
         $messages = new ForumMessage($core);
         $messages->AddArgument(new Argument("Apps\Forum\Entity\ForumMessage", "CategoryId",EQUAL, $categoryId ));
-        $messages->AddOrder("Id");
+        $messages->AddOrder("Id desc");
         
         return $messages->GetByArg();
     }
@@ -99,7 +99,7 @@ class MessageHelper
     {
         $message = new ForumMessage($core);
         $message->AddArgument(new Argument("Apps\Forum\Entity\ForumMessage", "CategoryId", EQUAL, $categoryId));
-        $message->AddOrder("Id");
+        $message->AddOrder("Id desc");
         
         $messages = $message->GetByArg();
         
@@ -123,7 +123,7 @@ class MessageHelper
         $reponse = new ForumReponse($core);
         $reponse->AddArgument(new Argument("Apps\Forum\Entity\ForumReponse", "MessageId", EQUAL, $messageId));
     
-        $reponse->AddOrder("Id");
+        $reponse->AddOrder("Id desc");
         
         $reponses = $reponse->GetByArg();
         
