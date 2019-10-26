@@ -1,13 +1,12 @@
 <html>
    <head>
-    <title>Puzzle App</title>
+    <title>{{Title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="PuzzleApp, The Puzzle Framework">
+    <meta name="description" content="{{Description}}">
     <meta name="author" content="Webemyos.com">
-    <meta name="google-site-verification" content="L01HplD_twKHENKQXEA0i44yTMXtgVOr6Iu_TIZ69aI" />
     <link rel="icon" href="Images/favicon-tnp.ico">
     <link href="{{GetPath(/asset/bootstrap.css)}}" rel="stylesheet">
     <link href="{{GetPath(/asset/global.css)}}" rel="stylesheet">

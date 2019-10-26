@@ -151,7 +151,7 @@ var Cms = function() {};
         {
             var data = "Class=Cms&Methode=LoadPage&App=Cms";
               data += "&cmsId=" + cmsId ;
-              Dashboard.LoadControl("tab_1", data, "" , "div", "Cms");
+              Dashboard.LoadControl("tab_1Cms", data, "" , "div", "Cms");
         };
 
         /**
@@ -191,28 +191,30 @@ var Cms = function() {};
                var lastTab = th[th.length-1];
 
                var idTab = lastTab.id.split("_");
-               var id = idTab[1];
+               var id = idTab[1].replace("Cms","");
+             
                id++;
 
+               console.log(id);
+               
                var newTab = document.createElement("th");
 
                newTab.innerHTML = name  ;
                newTab.name = name ;
-               newTab.id = "index_" + id;
+               newTab.id = "index_" + id+"Cms";
                newTab.className = "TabStripDisabled";
                newTab.title = name ;
-               var click = function(){ TabStrip.ShowTab(this,'tab_'+id+'',id);};
-
-               Dashboard.AddEvent(newTab, "click", click);
-
                //Ajout de l'onglet
                (th[0]).parentNode.appendChild(newTab);
 
+               var click = function(){ TabStrip.ShowTab(newTab,'tab_'+id+'Cms',10, "Cms");};
+               Dashboard.AddEvent(newTab, "click", click);
+
+              
                //Ajout de la div correspondante
                var div = document.createElement("div");
-               div.id = "tab_"+id+"";
-               div.style.overflow = 'hidden';
-               div.style.display = 'none';
+               div.id = "tab_"+id+"Cms";
+               div.className= "TabContent";
 
                div.innerHTML = "Loading ...";
                var JAjax = new ajax();
@@ -224,7 +226,7 @@ var Cms = function() {};
 
                tsFile.appendChild(div);
 
-               TabStrip.ShowTab(newTab, 'tab_'+id+'', 10, "Cms");
+               TabStrip.ShowTab(newTab, 'tab_'+id+'Cms', 10, "Cms");
 
                 CmsAction.Tab.push(name);
             }
@@ -309,6 +311,7 @@ var Cms = function() {};
             $html += "<input type='button' value='Envoyer' onclick='upload.doUpload(this)' /> ";
 
             $html += "<input type='hidden' id='hdApp' name = 'hdApp'  value='Cms'  /> ";
+            $html += "<input type='hidden' id='hdIdBaseElement' name='hdIdElement' value='"+CmsAction.CmsId+"' /> ";
             $html += "<input type='hidden' id='hdIdElement' name='hdIdElement' value='"+CmsAction.CmsId+"' /> ";
             $html += "<input type='hidden' id='hdCallBack' name='hdCallBack' value='CmsAction.ReloadImage();' /> ";
             $html += "<input type='hidden' id='hdAction' name='hdAction' value='UploadImageBlog' /> ";

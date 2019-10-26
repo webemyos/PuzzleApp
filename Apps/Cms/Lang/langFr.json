@@ -1,17 +1,16 @@
 {"lang":"Fr", 
 "data":[
 {"Code":"Cms.titleHome","Libelle":"Application de gestion de contenu."},
-{"Code":"Cms.messageHome","Libelle":"Ajoutér et gérer tout le contenu de votre site internet"},
+{"Code":"Cms.messageHome","Libelle":"Ajout&eactue;r et g&eactue;rer tout le contenu de votre site internet"},
 {"Code":"Cms.Name","Libelle":"Nom"},
 {"Code":"Cms.ShowAddCms","Libelle":"Ajouter un Cms"},
 {"Code":"Cms.NewPage","Libelle":"Nouvelle page"},
 {"Code":"Cms.EditPage","Libelle":"Editer la page"},
 {"Code":"Cms.ShowComment","Libelle":"Afficher les commetaires"},
 {"Code":"Cms.ShowAddPage","Libelle":"Ajouter une page"},
-{"Code":"Cms.ErrorCreate","Libelle":"Impossible de créer la page"},
+{"Code":"Cms.ErrorCreate","Libelle":"Impossible de cr&eactue;er la page"},
 {"Code":"Cms.NewCms","Libelle":"Nouveau Cms"},
 {"Code":"Cms.MyCms","Libelle":"Mes Cms"},
-{"Code":"Cms.PageSaved","Libelle":"Enregistrement réussi"},
-{"Code":"Cms.EditPropertyPage","Libelle":"Editer les propriétés de la page"},
-{"Code":"Cms.NoCms","Libelle":"Aucun cms, créer votre premier cms pour publier du contenu"},
-{"Code":"Menu_Cms","Libelle":"Mon contenu"}]}
+{"Code":"Menu_Cms","Libelle":"Mon contenu"}
+
+]}

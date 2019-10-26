@@ -202,7 +202,7 @@ class PageController extends Controller
    */
   function ShowPage($pageName)
   {
-  	  //Recuperation du cms
+      //Recuperation du cms
       $cms = new CmsCms($this->Core);
       $cms = $cms->GetFirst();
 
@@ -215,12 +215,11 @@ class PageController extends Controller
 
           if($page->IdEntite != "" )
           {
-$view = new View(__DIR__."/View/showPage.tpl", $this->Core);
-	          $page = $pages[0];
-
+              $view = new View(__DIR__."/View/showPage.tpl", $this->Core);
+	        
               //Ajout des proriété title et description
               $this->Core->MasterView->Set("Title", $page->Title->Value);
-              $this->Core->MasterView->Set("Title", $page->Description->Value);
+              $this->Core->MasterView->Set("Description", $page->Description->Value);
 
               //Remplacement des cactere et formatage des url
               $content = str_replace("../Data/", "Data/", $page->Content->Value);

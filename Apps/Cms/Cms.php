@@ -122,19 +122,19 @@ class Cms extends Base
          */
         function LoadCms($cmsName = "")
         {
-           $cmsController = new CmsController($this->Core);
+          $cmsController = new CmsController($this->Core);
 
-	   if($cmsName != "")
-	   {
-	      $cms = new CmsCms($this->Core);
-	      $cms = $cms->GetByName($cmsName);
+            if($cmsName != "")
+            {
+                $cms = new CmsCms($this->Core);
+                $cms = $cms->GetByName($cmsName);
 
-	      return $cmsController->LoadCms($cms->IdEntite);
-	   }
-	   else
-	   {
-              echo $cmsController->LoadCms(Request::GetPost("cmsId"));
-	   }
+                return $cmsController->LoadCms($cms->IdEntite);
+            }
+            else
+            {
+                echo $cmsController->LoadCms(Request::GetPost("cmsId"));
+            }
         }
 
         /**
@@ -200,7 +200,9 @@ class Cms extends Base
            //Ajout de l'image dans le repertoire correspondant
            $directory = "Data/Apps/Cms/";
 
-            File::CreateDirectory($directory. $idElement);
+           echo $idElement;
+           
+           File::CreateDirectory($directory. $idElement);
 
            switch($action)
            {
