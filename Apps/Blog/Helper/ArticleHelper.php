@@ -59,7 +59,7 @@ class ArticleHelper
     {
          $article = new BlogArticle($core);
          $article->GetById($articleId);
-         $article->Content->Value = str_replace( "Data/", $core->GetPath()."/Data/",  $content);
+         $article->Content->Value = str_replace( "Data/", $core->GetPath("/Data/"),  $content);
 
          $article->Save();
     }

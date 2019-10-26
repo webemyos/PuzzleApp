@@ -38,7 +38,6 @@ class UploadHelper
       echo "<br/>Decompression du fichier : ".$fileName;
       File::UnCompresse( __DIR__."/../../", $fileName);
 
-
       echo "<br/>Suppression de l'archive : ".$fileName;
       File::Delete($fileName,  __DIR__."/../../");
 
@@ -51,6 +50,10 @@ class UploadHelper
       $app->Name->Value = $appName;
       $app->CategoryId->Value = 1;
       $app->Actif->Value = 1;
+
+
+      echo "<br/>Ajout de la langue francaise";
+      self::DoUploadLanguage("","", __DIR__."/../../".$appName."/Lang/langFr.json");
       
       $app->Save();
   }
@@ -58,16 +61,24 @@ class UploadHelper
    /*
   Add the App to the systéme
   */
-  public static function DoUploadLanguage($fileName, $tmpFileName)
+  public static function DoUploadLanguage($fileName, $tmpFileName, $packageFile ="")
   {
       $core = Core::getInstance(); 
   
-      if(move_uploaded_file($tmpFileName, __DIR__."/../../".$fileName))
+      if($fileName != "")
       {
-        echo "<br/> Can't move de file";
+        if(move_uploaded_file($tmpFileName, __DIR__."/../../".$fileName))
+        {
+          echo "<br/> Can't move de file";
+        }
+
+        $data = json_decode(File::GetFileContent( __DIR__."/../../".$fileName));
+      }
+      else
+      {
+        $data = json_decode(File::GetFileContent($packageFile));
       }
 
-      $data = json_decode(File::GetFileContent( __DIR__."/../../".$fileName));
       $codeLang = $data->lang;
 
       $request  =  "SELECT Id FROM ee_lang where Code='". $codeLang ."'" ;

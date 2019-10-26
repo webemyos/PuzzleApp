@@ -25,7 +25,7 @@
     {"Code":"Title","Libelle":"Titre"},
     {"Code":"Parameter","Libelle":"Paramètres"}, 
     {"Code":"Show","Libelle":"Afficher"},
-    {"Code":"AddApp","Libelle":"Ajouter une application"}
-
-    ]}
+    {"Code":"AddApp","Libelle":"Ajouter une application"},
+    {"Code":"Menu_Lang","Libelle":"Traduction"},
+    {"Code":"Menu_Ide","Libelle":"Ide"}]}
 

@@ -207,7 +207,7 @@ class CmsController extends Controller
 
                 //Property
                 $icParametre = new ParameterIcone();
-                $icParametre->Title = $this->Core->GetCode("Cms.EditPage");
+                $icParametre->Title = $this->Core->GetCode("Cms.EditPropertyPage");
                 $icParametre->OnClick = "CmsAction.EditPropertyPage(".$cms->IdEntite.", ".$page->IdEntite.");";
                 $html .= "<div >".$icParametre->Show()."</div>";
 

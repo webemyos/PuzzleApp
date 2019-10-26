@@ -194,9 +194,9 @@ class BlogController extends Controller
        $gdArticle->AddColumn(new EntityColumn("Name", "Name"));
        $gdArticle->AddColumn(new EntityColumn("DateCreated", "DateCreated"));
        $gdArticle->AddColumn(new EntityIconColumn("",array(
-                                                           array("ParameterIcone", "Blog.EditParametreArticle", "BlogAction.EditPropertyArticle", array("BlogId")),
-                                                           array("EditIcone", "Blog.EditArticle", "BlogAction.EditArticle", array("Code")),
-                                                           array("CommentIcone", "Blog.EditArticle", "BlogAction.ShowComment")
+                                                           array("ParameterIcone", $this->Core->GetCode("Blog.EditParametreArticle"), "BlogAction.EditPropertyArticle", array("BlogId")),
+                                                           array("EditIcone", $this->Core->GetCode("Blog.EditArticle"), "BlogAction.EditArticle", array("Code")),
+                                                           array("CommentIcone", $this->Core->GetCode("Blog.ShowComment"), "BlogAction.ShowComment")
            )));
    
        $view->AddElement($gdArticle);

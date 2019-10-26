@@ -140,19 +140,19 @@ class CommuniqueHelper
                 //Version en ligne
                  $lkVersionOnLine = new Link($core->GetCode('Communique.VersionOnLine'), "http://".$_SERVER["SERVER_NAME"]."/Communique/Detail/".$communique->IdEntite);
                  $message = $lkVersionOnLine->Show();
-
+                 $message ="";
                 
                 //Message
                 $message .= str_replace("!et!", "&", $communique->Text->Value);
                 
                 //Lien vers les images ver webemyos
-                $message .= str_replace("Data/", "http://".$_SERVER["SERVER_NAME"]."/Data/", $message);
+                $message = str_replace("Data/", "http://".$_SERVER["SERVER_NAME"]."/Data/", $message);
                 
                 
                 //Lien vers l'image de tracking
                 // La boite au lettre doit venir chercher l'image sur le serveur pour l'afficher
                 // Cela nous permet de tracker l'email de campagne
-                $message .= "<img src='http://".$_SERVER["SERVER_NAME"]."/Communique/Image/".base64_encode($campagneId.":".$member->Email->Value)."'></img>";
+                $message .= "<img style='width:50px' src='http://".$_SERVER["SERVER_NAME"]."/Communique/Image/".base64_encode($campagneId.":".$member->Email->Value)."'></img>";
                
                 if($email == "")
                 {

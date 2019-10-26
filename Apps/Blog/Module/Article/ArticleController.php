@@ -151,4 +151,51 @@ class ArticleController extends Controller
           return "";
       }
   }
+
+  /**
+          * Affiche les commentaires sur un article
+          * @param type $articleId
+          */
+          function ShowComment($articleId)
+          {
+              $comment = new BlogComment($this->Core);
+              $comment->AddArgument(new Argument("Apps\Blog\Entity\BlogComment", "ArticleId", EQUAL, $articleId));
+              $comments = $comment->GetByArg();
+              
+              $html = "";
+              
+              if(count($comments) > 0)
+              {
+                  foreach($comments as $comment)
+                  {
+                     $html .= "<div class='comment'>";
+                     $html .= $comment->Message->Value;
+                     
+                     if($comment->Actif->Value == false)
+                     {
+                         $btnPublish = new Button(BUTTON);
+                         $btnPublish->CssClass = "btn btn-primary";
+                         $btnPublish->Value = $this->Core->GetCode("Blog.Publish");
+                         $btnPublish->OnClick = "BlogAction.Publish(this, ".$comment->IdEntite.", 1)";
+                         $html .= $btnPublish->Show();
+                     }   
+                     else
+                     {
+                         $btnDePublish = new Button(BUTTON);
+                         $btnDePublish->CssClass = "btn btn-primary";
+                         $btnDePublish->Value = $this->Core->GetCode("Blog.UnPublish");
+                         $btnDePublish->OnClick = "BlogAction.Publish(this, ".$comment->IdEntite.", 0)";
+                         $html .= $btnDePublish->Show();
+                         
+                     }
+                     $html .= "</div>";
+                  }
+                  
+                  return $html;
+              }
+              else
+              {
+                  return $this->Core->GetCode("EeBlog.NoComment");
+              }
+          }
 }
