@@ -171,7 +171,7 @@ var Blog = function() {};
            data += "&blogId=" + blogId;
            data += "&showAll=true";
 
-           Dashboard.LoadControl("tab_1", data, "" , "div", "Blog");
+           Dashboard.LoadControl("tab_1Blog", data, "" , "div", "Blog");
            
            EntityGrid.Initialise('gdBlogCategory');
     };
@@ -229,8 +229,6 @@ var Blog = function() {};
      */
     BlogAction.EditArticle = function(articleId, name)
     {
-        console.log(articleId + ":" + name);
-        
         //ouvre l'article dans une pop up
         if(typeof(BlogAction.Tab) == "undefined")
         {
@@ -593,3 +591,5 @@ var Blog = function() {};
              alert(Dashboard.GetCode("Blog.MustAddEmailNews"))
          }
     };
+
+

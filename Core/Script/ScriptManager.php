@@ -61,6 +61,16 @@ class ScriptManager
      */
     public static function GetApp($a, $m, $type)
     {
+        //Pour les thémes dont l'asset et dans la base
+        if($a== "base" && $type='css')
+        {
+            header("Content-type: text/css");
+            $script  = File::GetFileContent(dirname(dirname(__DIR__)). "/View/Base/asset/bootstrap.css");
+            $script  .= File::GetFileContent(dirname(dirname(__DIR__)). "/View/Base/asset/style.css");
+            
+            return $script;
+        }
+
         $core = Core::GetInstance();
         if($m != "")
         {

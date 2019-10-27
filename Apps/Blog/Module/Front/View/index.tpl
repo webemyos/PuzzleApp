@@ -1,4 +1,4 @@
-<h1>{{GetCode(LastArticle)}}</h1>
+<h1>{{GetCode(Blog.LastArticle)}}</h1>
      {{foreach Article}}
         <div>
            <h2>{{element->Name->Value}}</h2>

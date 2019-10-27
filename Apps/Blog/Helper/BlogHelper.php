@@ -24,7 +24,7 @@ class BlogHelper
     public static function GetDefault($core)
     {
         $blog = new BlogBlog($core);
-        return $blog->GetByName($core->Config->GetKey("BLOG"));
+        return $blog->GetFirst();
     }
     
     /**

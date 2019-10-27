@@ -64,7 +64,7 @@ class FrontController extends Controller
         $view->AddElement(new ElementView("Article", $this->Model->GetLastArticle($this->Core, $this->Blog)));
         
         //Inscription NewsLetter
-        $view->AddElement(new ElementView("inscriptionNewletters", $this->Subscribe()));
+        $view->AddElement(new ElementView("inscriptionNewletters", $this->Subscribe(false)));
         
         CacheManager::Store($template, $view->Render());
       }
@@ -166,10 +166,13 @@ class FrontController extends Controller
     /*
      * Inscription to the newletters
      */
-    public function Subscribe()
+    public function Subscribe($setTitle = true)
     {
-        $this->Core->MasterView->Set("Title", $this->Core->GetCode("Blog.Subscribe") );
-        
+        if($setTitle == true)
+        {
+            $this->Core->MasterView->Set("Title", $this->Core->GetCode("Blog.Subscribe") );
+        }
+
         $view = new View(__DIR__."/View/subscribe.tpl", $this->Core);
 
         //Add Message Modele

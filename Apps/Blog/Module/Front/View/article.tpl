@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<h3>{{GetCode(Comments)}}</h3>
+<h3>{{GetCode(Blog.Comments)}}</h3>
  {{foreach Comments}}
      <div class='col-md-12' style='border-top:1px solid grey; width:100%'>
          <h4>{{element->UserName->Value}}</h4>
@@ -17,7 +17,7 @@
  {{/foreach Comments}}
        
        
-<h3>{{GetCode(EeBlog.YouCanLike)}}</h3>
+<h3>{{GetCode(Blog.YouCanLike)}}</h3>
 
 {{foreach Articles}}
    <div class='col-md-4'>

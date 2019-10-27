@@ -23,6 +23,8 @@ use Core\Control\Button\Button;
 use Core\Control\EntityGrid\EntityColumn;
 use Core\Control\EntityGrid\EntityGrid;
 use Core\Control\EntityGrid\EntityIconColumn;
+use Core\Control\EntityGrid\EntityLinkColumn;
+
 use Core\Control\Icone\CommentIcone;
 use Core\Control\Icone\EditIcone;
 use Core\Control\Icone\ParameterIcone;
@@ -78,7 +80,7 @@ class BlogController extends Controller
        $gdBlog->AddColumn(new EntityColumn("Name", "Name"));
        $gdBlog->AddColumn(new EntityColumn("Description", "Description"));
        $gdBlog->AddColumn(new EntityIconColumn("", 
-                                                array(array("EditIcone", "Blog.EditTheBlog", "BlogAction.LoadBlog"),
+                                                array(array("EditIcone", $this->Core->GetCode("Blog.EditTheBlog"), "BlogAction.LoadBlog"),
                                                 )    
                             ));
        
@@ -191,13 +193,16 @@ class BlogController extends Controller
        $gdArticle->AddArgument(new Argument("Apps\Blog\Entity\BlogArticle", "BlogId", EQUAL, $blog->IdEntite));
        $gdArticle->AddOrder("Id");
        
-       $gdArticle->AddColumn(new EntityColumn("Name", "Name"));
-       $gdArticle->AddColumn(new EntityColumn("DateCreated", "DateCreated"));
+       $gdArticle->AddColumn(new EntityColumn($this->Core->GetCode("Blog.ArticleName"), "Name"));
+       $gdArticle->AddColumn(new EntityColumn($this->Core->GetCode("Blog.DateCreated"), "DateCreated"));
+       $gdArticle->AddColumn(new EntityLinkColumn($this->Core->GetCode("Blog.Render"), "Blog/Article"));
+      
        $gdArticle->AddColumn(new EntityIconColumn("",array(
                                                            array("ParameterIcone", $this->Core->GetCode("Blog.EditParametreArticle"), "BlogAction.EditPropertyArticle", array("BlogId")),
                                                            array("EditIcone", $this->Core->GetCode("Blog.EditArticle"), "BlogAction.EditArticle", array("Code")),
-                                                           array("CommentIcone", $this->Core->GetCode("Blog.ShowComment"), "BlogAction.ShowComment")
-           )));
+                                                           array("CommentIcone", $this->Core->GetCode("Blog.ShowComment"), "BlogAction.ShowComment"))
+
+          ));
    
        $view->AddElement($gdArticle);
        

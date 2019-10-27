@@ -18,4 +18,14 @@
     {"Code":"Blog.EditArticle","Libelle":"Editer un article"},
     {"Code":"Blog.ShowComment","Libelle":"Editer le commentaire"},
     {"Code":"Blog.Publish","Libelle":"Publier le commentaire"},
-    {"Code":"Blog.UnPublish","Libelle":"Dépublier le commentaire"}]}
+    {"Code":"Blog.UnPublish","Libelle":"Dépublier le commentaire"},
+    {"Code":"Blog.Comment","Libelle":"Ajouter votre commentaire"},
+    {"Code":"Blog.Subscribe","Libelle":"Inscrivez vous à la newletters"},
+    {"Code":"Blog.TheBlog","Libelle":"Le blog"},
+    {"Code":"Blog.Categorys","Libelle":"Les catégories"},
+    {"Code":"Blog.LastArticle","Libelle":"Derniers artcicles"},
+    {"Code":"Blog.Comments","Libelle":"Les commentaires"},
+    {"Code":"Blog.YouCanLike","Libelle":"Les articles que vous pourrez aimer"},
+    {"Code":"Blog.ArticleName","Libelle":"Nom de l'article"},
+    {"Code":"Blog.DateCreated","Libelle":"Date de création"},
+    {"Code":"Blog.Render","Libelle":"Rendu"}]}

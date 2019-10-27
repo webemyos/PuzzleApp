@@ -4,13 +4,13 @@
     </div>
 
     <div class='col-md-4'>
-          <h2>{{GetCode(TheBlog)}}</h2>
+          <h2>{{GetCode(Blog.TheBlog)}}</h2>
           {{Blog->Name->Value}}
 
           {{Blog->Description->Value}}
 
 
-          <h2>{{GetCode(Categorys)}}</h2>
+          <h2>{{GetCode(Blog.Categorys)}}</h2>
 
           <ul>
           {{foreach Category}}
@@ -22,7 +22,7 @@
           {{/foreach Category}}
           </ul>
 
-          <h2>{{GetCode(LastArticle)}}</h2>
+          <h2>{{GetCode(Blog.LastArticle)}}</h2>
           <ul>
            {{foreach Article}}
               <li>
